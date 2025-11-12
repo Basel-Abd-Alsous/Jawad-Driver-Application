@@ -1,0 +1,41 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'travel_track_model.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$TravelTrackModelImpl _$$TravelTrackModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$TravelTrackModelImpl(
+      status: json['status'] as String?,
+      code: (json['code'] as num?)?.toInt(),
+      message: json['message'] as String?,
+      payload: (json['payload'] as List<dynamic>?)
+          ?.map((e) => Payload.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      isSuccess: json['isSuccess'] as bool?,
+    );
+
+Map<String, dynamic> _$$TravelTrackModelImplToJson(
+        _$TravelTrackModelImpl instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'code': instance.code,
+      'message': instance.message,
+      'payload': instance.payload,
+      'isSuccess': instance.isSuccess,
+    };
+
+_$PayloadImpl _$$PayloadImplFromJson(Map<String, dynamic> json) =>
+    _$PayloadImpl(
+      latitude: (json['latitude'] as num?)?.toDouble(),
+      longitude: (json['longitude'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$$PayloadImplToJson(_$PayloadImpl instance) =>
+    <String, dynamic>{
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
+    };

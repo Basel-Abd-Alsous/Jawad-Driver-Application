@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Image Picker -->
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>I need your access to take photos to create and share custom content.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>I need your access to take photos to create and share custom content.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Your microphone is required to share audio during the video.</string>
+	<!-- End Image Picker -->
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>jawad Driver</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>jawad Driver</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Jawad Driver needs your location at all times to assign and navigate to delivery orders in real-time, even when the app is running in the background.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Jawad Driver uses your location to update order status, track delivery routes, and help dispatchers monitor ongoing trips even if the app is not active.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Jawad Driver requires location access to find nearby orders, provide optimized navigation, and update the trip status for customers and dispatchers.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Jawad Driver uses your location while the app is in use to assign nearby orders and guide you to pickup and drop-off locations efficiently.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Jawad Driver uses motion data to detect whether the driver is moving or stationary. This helps improve route tracking accuracy, especially during deliveries or trips. For example, the app adjusts location updates based on motion to save battery and provide real-time location tracking.</string>
+
+	<key>OneSignalAppID</key>
+	<string>adb5232c-3da7-47cc-a498-a74fc9531137</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+		<string>fetch</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
+</dict>
+</plist>
