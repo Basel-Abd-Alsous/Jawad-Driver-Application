@@ -66,7 +66,7 @@ class ContainerVisitDetails extends StatelessWidget {
                       leadingIconAssetName: Icon(Icons.star, color: AppColor.white),
                       text: local.addRating,
                       onPressed: () {
-                        context.read<VisitDetailsCubit>().showAddRatingBottomSheet(context, date!.payload!.id!);
+                        // context.read<VisitDetailsCubit>().showAddRatingBottomSheet(context, date!.payload!.id!);
                       },
                     ),
                   ),

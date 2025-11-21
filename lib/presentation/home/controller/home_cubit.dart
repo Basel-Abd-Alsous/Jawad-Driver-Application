@@ -802,18 +802,6 @@ class HomeCubit extends Cubit<HomeState> {
         return;
       }
 
-      // 🆕 فلترة صارمة من البداية
-      if (accuracy != null && accuracy > 5.0) {
-        log('📡 تجاهل نقطة - دقة منخفضة: ${accuracy.toStringAsFixed(1)}m');
-        return;
-      }
-
-      // تجاهل الحركة أثناء التوقف
-      if (speed != null && speed * 3.6 < 5.0) {
-        log('⏸️  تجاهل تحديث أثناء التوقف أو الحركة البطيئة جداً');
-        return;
-      }
-
       final point = {
         "latitude": lat,
         "longitude": long,
