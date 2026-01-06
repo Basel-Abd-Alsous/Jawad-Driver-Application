@@ -1,45 +1,31 @@
-  
-
 // ignore_for_file: invalid_use_of_visible_for_testing_member
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
- 
+
 import '../../../core/constant/app_image.dart';
 import '../../../core/context/global.dart';
 import '../../../core/services/hive/box_key.dart';
 import '../../../injection_container.dart';
 import '../../../l10n/app_localizations.dart';
 
-part 'introductions_event.dart' ;
-part 'introductions_state.dart' ;
-part 'introductions_bloc.freezed.dart' ;
+part 'introductions_event.dart';
+part 'introductions_state.dart';
+part 'introductions_bloc.freezed.dart';
 
 class IntroductionsBloc extends Bloc<IntroductionsEvent, IntroductionsState> {
   final PageController pageController = PageController();
   double opacity = 1.0;
 
- List<Map<String, dynamic>> getIntroductionList(BuildContext context) {
-  return [
-    {
-      'title': AppLocalizations.of(context)!.onboarding_title_1,
-      'description': AppLocalizations.of(context)!.onboarding_desc_1,
-      'image': Assets.imagesOnboardingOne,
-    },
-    {
-      'title': AppLocalizations.of(context)!.onboarding_title_2,
-      'description': AppLocalizations.of(context)!.onboarding_desc_2,
-      'image': Assets.imagesOnboardingThree,
-    },
-    {
-      'title': AppLocalizations.of(context)!.onboarding_title_3,
-      'description': AppLocalizations.of(context)!.onboarding_desc_3,
-      'image': Assets.imagesOnboardingTwo,
-    },
-  ];
-}
+  List<Map<String, dynamic>> getIntroductionList(BuildContext context) {
+    return [
+      {'title': AppLocalizations.of(context)!.onboarding_title_1, 'description': AppLocalizations.of(context)!.onboarding_desc_1, 'image': Assets.imagesOnboardingOne},
+      {'title': AppLocalizations.of(context)!.onboarding_title_2, 'description': AppLocalizations.of(context)!.onboarding_desc_2, 'image': Assets.imagesOnboardingThree},
+      {'title': AppLocalizations.of(context)!.onboarding_title_3, 'description': AppLocalizations.of(context)!.onboarding_desc_3, 'image': Assets.imagesOnboardingTwo},
+    ];
+  }
 
   IntroductionsBloc() : super(const IntroductionsState.initial(index: 0)) {
     _setupPageListener();
@@ -59,11 +45,7 @@ class IntroductionsBloc extends Bloc<IntroductionsEvent, IntroductionsState> {
 
   void _nextPage(_NextPageEvent event, Emitter<IntroductionsState> emit) async {
     if (state.maybeMap(initial: (value) => value.index < getIntroductionList(GlobalContext.context).length - 1, orElse: () => false)) {
-      pageController.animateToPage(
-        state.maybeMap(initial: (value) => value.index + 1, orElse: () => 0),
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.ease,
-      );
+      pageController.animateToPage(state.maybeMap(initial: (value) => value.index + 1, orElse: () => 0), duration: const Duration(milliseconds: 400), curve: Curves.ease);
     } else {
       add(_SkipEvent());
     }

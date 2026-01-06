@@ -21,6 +21,8 @@ abstract class AppRoutes {
   static const profile = "/profile";
   static const webView = "/webView";
   static const content = "/content";
+  static const complaint = "/complaint";
+  static const contactUs = "/contactUs";
  
  
 }

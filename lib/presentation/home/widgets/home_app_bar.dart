@@ -63,12 +63,7 @@ class HomeAppBar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               spacing: 2,
-              children: [
-                InkWell(
-                  onTap: () => context.push(AppRoutes.notification),
-                  child: SizedBox(width: 0.05.sh, height: 0.05.sh, child: SvgPicture.asset(Assets.svgNotifictaion)),
-                ),
-              ],
+              children: [InkWell(onTap: () => context.push(AppRoutes.notification), child: SizedBox(width: 0.05.sh, height: 0.05.sh, child: SvgPicture.asset(Assets.svgNotifictaion)))],
             ),
           ],
         ),

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -28,11 +27,11 @@ class WidgetHeaderCardRequist extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: 40,
-          height: 40,
+          width: 50,
+          height: 50,
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(1000)),
-          child: isLoading == true ? WidgetLoading(width: 40, height: 40) : WidgetCachNetworkImage(image: travilRequist.rider?.profileImage ?? ''),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(1000), border: Border.all(color: AppColor.secondColor, width: 1)),
+          child: isLoading == true ? WidgetLoading(width: 40, height: 40) : WidgetCachNetworkImage(radius: 1000, image: travilRequist.rider?.profileImage ?? ''),
         ),
         10.gap,
         Expanded(
@@ -41,12 +40,8 @@ class WidgetHeaderCardRequist extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             spacing: isLoading == true ? 5 : 0,
             children: [
-              isLoading == true
-                  ? WidgetLoading(width: 80)
-                  : Text(travilRequist.rider?.name ?? '', style: AppTextStyle.style16B.copyWith(color: AppColor.black)),
-              isLoading == true
-                  ? WidgetLoading(width: 40)
-                  : Text('${local.tripNumber} - ${travilRequist.travelNo}', style: AppTextStyle.style12B.copyWith(color: AppColor.grey)),
+              isLoading == true ? WidgetLoading(width: 80) : Text(travilRequist.rider?.name ?? '', style: AppTextStyle.style16B.copyWith(color: AppColor.black)),
+              isLoading == true ? WidgetLoading(width: 40) : Text('${local.tripNumber} - ${travilRequist.travelNo}', style: AppTextStyle.style12B.copyWith(color: AppColor.grey)),
             ],
           ),
         ),

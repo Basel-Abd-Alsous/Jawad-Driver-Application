@@ -32,11 +32,7 @@ class ContainerVisitDetails extends StatelessWidget {
             20.gap,
             WidgetHeaderCardRequist(
               isDetails: true,
-              travilRequist: TravelRequest(
-                rider: date?.payload?.rider,
-                travelNo: date?.payload?.travelNo,
-                yourRate: '${double.tryParse(date?.payload?.yourRate ?? '0.0')}',
-              ),
+              travilRequist: TravelRequest(rider: date?.payload?.rider, travelNo: date?.payload?.travelNo, yourRate: '${double.tryParse(date?.payload?.yourRate ?? '0.0')}'),
               isLoading: isLoading,
             ),
             10.gap,
@@ -48,16 +44,12 @@ class ContainerVisitDetails extends StatelessWidget {
               spacing: 10,
               children: [
                 Expanded(
-                  child: WidgetTextForCardRequiest(
-                    title: local.distance,
-                    value: '${double.tryParse('${date?.payload?.distance ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'} Km',
-                    isLoading: isLoading,
-                  ),
+                  child: WidgetTextForCardRequiest(title: local.distance, value: '${double.tryParse('${date?.payload?.distance ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'} Km', isLoading: isLoading),
                 ),
                 Expanded(child: WidgetTextForCardRequiest(title: local.amount, value: '${date?.payload?.amount}', isAmount: true, isLoading: isLoading)),
               ],
             ),
-            20.gap,
+            40.gap,
             if (date?.payload?.yourRate == null || date?.payload?.yourRate == "")
               Row(
                 children: [
@@ -65,8 +57,9 @@ class ContainerVisitDetails extends StatelessWidget {
                     child: AppButton.icon(
                       leadingIconAssetName: Icon(Icons.star, color: AppColor.white),
                       text: local.addRating,
+                      color: AppColor.secondColor,
                       onPressed: () {
-                        // context.read<VisitDetailsCubit>().showAddRatingBottomSheet(context, date!.payload!.id!);
+                        context.read<VisitDetailsCubit>().showAddRatingBottomSheet(context, date!.payload!.id!);
                       },
                     ),
                   ),

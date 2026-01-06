@@ -26,13 +26,14 @@ class WidgetDrawerHeader extends StatelessWidget {
             spacing: 10,
             children: [
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: Container(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
-                  width: 60,
-                  height: 60,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10000)),
+                  width: 70,
+                  height: 70,
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10000), border: Border.all(color: AppColor.secondColor, width: 2)),
                   child: WidgetCachNetworkImage(
+                    radius: 10000,
                     image:
                         driver?.profileImage?.contains('logo') ?? true
                             ? 'https://images.squarespace-cdn.com/content/v1/5936fbebcd0f68f67d5916ff/a711669d-0d96-4748-9bdb-5a86d5e5ecdd/person-placeholder-300x300.jpeg'
@@ -41,19 +42,14 @@ class WidgetDrawerHeader extends StatelessWidget {
                 ),
               ),
               Expanded(
-                flex: 6,
+                flex: 7,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(driver?.firstName ?? '', style: AppTextStyle.style16B.copyWith(color: Colors.black), overflow: TextOverflow.ellipsis),
-                    Text(driver?.phone ?? '', style: AppTextStyle.style16B.copyWith(color: AppColor.black)),
-                    Row(
-                      children: [
-                        Icon(Icons.star, color: Colors.amber, size: 25),
-                        Text('${driver?.rating ?? 0.0}', style: AppTextStyle.style16B.copyWith(color: AppColor.black)),
-                      ],
-                    ),
+                    Text(driver?.phone ?? '', style: AppTextStyle.style16B.copyWith(color: AppColor.secondColor)),
+                    Row(children: [Icon(Icons.star, color: Colors.amber, size: 25), Text('${driver?.rating ?? 0.0}', style: AppTextStyle.style16B.copyWith(color: AppColor.black))]),
                   ],
                 ),
               ),

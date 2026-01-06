@@ -31,9 +31,9 @@ class WidgetDriverImage extends StatelessWidget {
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      border: Border.all(color: AppColor.primaryColor, width: 2),
+                      border: Border.all(color: AppColor.secondColor, width: 2),
                       shape: BoxShape.circle,
-                      boxShadow: [BoxShadow(blurRadius: 1, blurStyle: BlurStyle.outer, offset: const Offset(0.3, 0), color: AppColor.primaryColor)],
+                      boxShadow: [BoxShadow(blurRadius: 1, blurStyle: BlurStyle.outer, offset: const Offset(0.3, 0), color: AppColor.secondColor)],
                     ),
                     child:
                         file.path != ''
@@ -56,18 +56,8 @@ class WidgetDriverImage extends StatelessWidget {
         Container(
           width: 30,
           height: 30,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            boxShadow: const [BoxShadow(blurRadius: 0, blurStyle: BlurStyle.outer, offset: Offset(0.1, 0))],
-            color: Colors.white,
-          ),
-          child: Center(
-            child: IconButton(
-              splashRadius: 20,
-              onPressed: () => context.read<ProfileCubit>().selectImageBuyer(),
-              icon: Icon(Icons.edit, color: AppColor.black, size: 20),
-            ),
-          ),
+          decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: const [BoxShadow(blurRadius: 0, blurStyle: BlurStyle.outer, offset: Offset(0.1, 0))], color: Colors.white),
+          child: Center(child: IconButton(splashRadius: 20, onPressed: () => context.read<ProfileCubit>().selectImageBuyer(), icon: Icon(Icons.edit, color: AppColor.secondColor, size: 15))),
         ),
       ],
     );

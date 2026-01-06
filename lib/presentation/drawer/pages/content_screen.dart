@@ -25,14 +25,7 @@ class ContentScreen extends StatelessWidget {
           builder: (context, state) {
             return SingleChildScrollView(
               padding: EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  ValueListenableBuilder(
-                    valueListenable: context.read<DrawerCubit>().content,
-                    builder: (context, data, _) => Text(data, style: AppTextStyle.style14),
-                  ),
-                ],
-              ),
+              child: Column(children: [ValueListenableBuilder(valueListenable: context.read<DrawerCubit>().content, builder: (context, data, _) => Text(data, style: AppTextStyle.style14))]),
             );
           },
         ),

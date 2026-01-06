@@ -31,16 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
-          return Scaffold(
-            body: SafeArea(child: Stack(alignment: Alignment.topCenter, children: [WidgetMap(), ContainerTravelRequiest(), HomeAppBar()])),
-            // floatingActionButton: FloatingActionButton(
-            //   onPressed: () {
-            //     context.read<HomeCubit>().checkServiceStatus();
-            //     context.read<HomeCubit>().sendTestLocation();
-            //   },
-            //   child: Icon(Icons.bug_report),
-            // ),
-          );
+          return Scaffold(body: SafeArea(child: Stack(alignment: Alignment.topCenter, children: [WidgetMap(), ContainerTravelRequiest(), HomeAppBar()])));
         },
       ),
     );

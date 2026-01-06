@@ -41,13 +41,7 @@ class WalletContainer extends StatelessWidget {
                   return state.maybeWhen(
                     loadingTransactionWallet: () => WidgetLoading(width: 50),
                     loadedTransactionWallet:
-                        (data, _) => Row(
-                          spacing: 4,
-                          children: [
-                            SvgPicture.asset(Assets.svgSar, width: 30, height: 30),
-                            Text(data.payload?.walletAmount ?? '0.0', style: AppTextStyle.style30B),
-                          ],
-                        ),
+                        (data, _) => Row(spacing: 4, children: [SvgPicture.asset(Assets.svgSar, width: 30, height: 30), Text(data.payload?.walletAmount ?? '0.0', style: AppTextStyle.style30B)]),
                     orElse: () => SizedBox.shrink(),
                   );
                 },
@@ -60,17 +54,13 @@ class WalletContainer extends StatelessWidget {
                   children: [
                     BlocBuilder<WalletCubit, WalletState>(
                       builder: (context, state) {
-                        return AppButton.text(
-                          text: local.withdrawCash,
-                          height: 20,
-                          borderRadius: 10,
-                          onPressed: () => _chargerWallet(context, isRequest: true),
-                        );
+                        return AppButton.text(text: local.withdrawCash, color: AppColor.black, height: 20, borderRadius: 10, onPressed: () => _chargerWallet(context, isRequest: true));
                       },
                     ),
                     AppButton.icon(
                       text: local.chargeWallet,
                       height: 20,
+                      color: AppColor.secondColor,
                       leadingIconAssetName: SvgPicture.asset(Assets.svgSendWallet, color: AppColor.white),
                       borderRadius: 10,
                       onPressed: () => _selectPaymentMethods(context),
@@ -153,10 +143,7 @@ class WalletContainer extends StatelessWidget {
                 return SafeArea(
                   child: Container(
                     padding: EdgeInsets.only(top: 15, left: 15, right: 15, bottom: MediaQuery.of(context).viewInsets.bottom + 10),
-                    decoration: const BoxDecoration(
-                      color: AppColor.white,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-                    ),
+                    decoration: const BoxDecoration(color: AppColor.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
                     child: Form(
                       key: context.read<WalletCubit>().formKey,
                       autovalidateMode: AutovalidateMode.onUserInteraction,

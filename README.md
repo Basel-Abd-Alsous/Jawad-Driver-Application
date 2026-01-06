@@ -1,44 +1,16 @@
-# 🚗 Jawad Cuptin Driver App
+# jawad_captain
 
-Jawad Cuptin is a professional driver application built for seamless and efficient transportation management. The app is designed to help drivers handle trip requests, track routes, manage deliveries, and communicate effectively with dispatchers or clients in real-time.
+A new Flutter project.
 
----
+## Getting Started
 
-## 📱 Features
+This project is a starting point for a Flutter application.
 
-- ✅ Driver registration and login system
-- ✅ View upcoming and active trip requests
-- ✅ Real-time GPS tracking and trip updates
-- ✅ Accept or reject rides and deliveries
-- ✅ Integrated Google Maps navigation
-- ✅ Trip summary and history
-- ✅ Earnings overview
-- ✅ Push notifications for trip updates
-- ✅ Multi-language support
-- ✅ Clean and modern user interface
+A few resources to get you started if this is your first Flutter project:
 
----
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-## 🚀 Tech Stack
-
-- **Flutter** – Mobile cross-platform framework
-- **Dart** – Programming language
-- **Google Maps API** – Live location tracking and navigation
-- **REST API** – Backend integration
-- **State Management** –  Bloc (customizable)
-
-
----
-
-## 🛠️ Getting Started
-
-### Prerequisites
-
-- Flutter SDK (version 3.x or higher)
-- Android Studio or Xcode
-- Firebase Project (Authentication, Firestore, Cloud Messaging)
-- Google Maps API Key
-
-
- 
-
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.

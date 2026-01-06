@@ -51,7 +51,7 @@ class LoginCubit extends Cubit<LoginState> {
       try {
         emit(_LoadingLogin());
         final oneSignalId = OneSignal.User.pushSubscription.id;
-        final loginData = {'phone': formatPhone(mobile.text), 'password': password.text, 'user_type': 'driver', 'fcm_token': oneSignalId};
+        final loginData = {'phone': mobile.text, 'password': password.text, 'user_type': 'driver', 'fcm_token': oneSignalId};
         final loginResponse = await loginUseCase.login(LoginRequiestModel.fromJson(loginData));
         loginResponse.fold((left) => emit(_ErrorLogin(left.message)), (right) => emit(_LoadedLogin(right.data!)));
       } catch (e) {
@@ -60,6 +60,7 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
+  // formatPhone(mobile.text)
   String formatPhone(String phone) {
     // remove all spaces just in case
     phone = phone.replaceAll(' ', '');

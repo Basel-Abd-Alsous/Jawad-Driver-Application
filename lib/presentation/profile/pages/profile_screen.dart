@@ -5,6 +5,7 @@ import '../../../core/extension/space_extension.dart';
 import '../../../core/mixin/validate.mixin.dart';
 import '../../../core/utils/text_style.dart';
 import '../../../core/widget/button/app_button.dart';
+import '../../../core/widget/widget_appbar.dart';
 import '../../../core/widget/widget_text_field.dart';
 import '../../../injection_container.dart';
 import '../../../l10n/app_localizations.dart';
@@ -20,12 +21,12 @@ class ProfileScreen extends StatelessWidget with FormValidationMixin {
     return BlocProvider(
       create: (context) => sl<ProfileCubit>(),
       child: Scaffold(
-        appBar: AppBar(title: Text(local.editProfile, style: AppTextStyle.style16B)),
+        appBar: WidgetAppbar.widgetAppBarWithTitle(context, local.editProfile),
         body: BlocBuilder<ProfileCubit, ProfileState>(
           builder: (context, state) {
             return SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              
+
               child: Form(
                 key: context.read<ProfileCubit>().key,
                 child: Column(

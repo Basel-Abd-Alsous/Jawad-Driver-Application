@@ -34,16 +34,16 @@ class WidgetDrawer extends StatelessWidget {
             WidgetDrawerHeader(),
             Divider(),
             WidgetDrawerList(
-              title: local.editProfile, // localized string
-              icon: Icon(Icons.person_2_outlined, color: AppColor.grey),
+              title: local.editProfile,
+              icon: Icon(Icons.person_2_outlined, size: 24, color: AppColor.secondColor),
               onTap: () {
                 context.pop();
                 context.push(AppRoutes.profile);
               },
             ),
             WidgetDrawerList(
-              title: local.previous_trips, // localized string
-              icon: SvgPicture.asset(Assets.svgVisitMenu),
+              title: local.previous_trips,
+              icon: SvgPicture.asset(Assets.svgVisitMenu, width: 24, color: AppColor.secondColor),
               onTap: () {
                 context.pop();
                 context.read<LayoutCubit>().changeScreen(1);
@@ -51,7 +51,7 @@ class WidgetDrawer extends StatelessWidget {
             ),
             WidgetDrawerList(
               title: local.earnings,
-              icon: SvgPicture.asset(Assets.svgPayment),
+              icon: SvgPicture.asset(Assets.svgPayment, width: 24, color: AppColor.secondColor),
               onTap: () {
                 context.pop();
                 context.read<LayoutCubit>().changeScreen(2);
@@ -59,28 +59,28 @@ class WidgetDrawer extends StatelessWidget {
             ),
             WidgetDrawerList(
               title: local.notifications,
-              icon: SvgPicture.asset(Assets.svgNotifictaionMenu),
+              icon: SvgPicture.asset(Assets.svgNotifictaionMenu, width: 24, color: AppColor.secondColor),
               onTap: () {
                 context.pop();
                 context.push(AppRoutes.notification);
               },
             ),
-            WidgetDrawerList(title: local.support, icon: SvgPicture.asset(Assets.svgContactUs), onTap: () {}),
+            WidgetDrawerList(title: local.support, icon: SvgPicture.asset(Assets.svgContactUs, width: 24, color: AppColor.secondColor), onTap: () => context.push(AppRoutes.complaint)),
+            WidgetDrawerList(title: local.contactUs, icon: SvgPicture.asset(Assets.svgContact, width: 24, color: AppColor.secondColor), onTap: () => context.push(AppRoutes.contactUs)),
             WidgetDrawerList(
               title: local.privacyPolicy,
-              icon: SvgPicture.asset(Assets.svgPrivacy, color: AppColor.grey),
+              icon: SvgPicture.asset(Assets.svgPrivacy, width: 24, color: AppColor.secondColor),
               onTap: () => context.push('${AppRoutes.content}?isTerms=false'),
             ),
             WidgetDrawerList(
               title: local.termsConditions,
-              icon: SvgPicture.asset(Assets.svgPrivacy, color: AppColor.grey),
+              icon: SvgPicture.asset(Assets.svgTerms, width: 24, color: AppColor.secondColor),
               onTap: () => context.push('${AppRoutes.content}?isTerms=true'),
             ),
-
             Spacer(),
             WidgetDrawerList(
               title: local.language,
-              icon: SvgPicture.asset(Assets.svgLanguageMenu),
+              icon: SvgPicture.asset(Assets.svgLanguageMenu, width: 24, color: AppColor.secondColor),
               onTap: () {
                 final lang = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language);
                 if (lang == 'ar') {
@@ -92,7 +92,7 @@ class WidgetDrawer extends StatelessWidget {
             ),
             WidgetDrawerList(
               title: local.logout,
-              icon: SvgPicture.asset(Assets.svgLogout),
+              icon: SvgPicture.asset(Assets.svgLogout, width: 24, color: AppColor.secondColor),
               fontColor: AppColor.red,
               onTap: () {
                 sl<Box>(instanceName: BoxKey.appBox).clear();
@@ -123,7 +123,7 @@ class WidgetDrawer extends StatelessWidget {
                 );
               },
             ),
-            WidgetDrawerList(title: local.primetag_copyright, icon: SvgPicture.asset(Assets.svgCoprRight)),
+            WidgetDrawerList(title: local.primetag_copyright, icon: SvgPicture.asset(Assets.svgCoprRight, width: 24, color: AppColor.secondColor)),
           ],
         ),
       ),

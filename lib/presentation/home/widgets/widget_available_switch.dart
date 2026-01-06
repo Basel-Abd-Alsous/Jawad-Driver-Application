@@ -11,7 +11,7 @@ import '../../../l10n/app_localizations.dart';
 import '../../layout/domain/model/user_model.dart';
 import '../controller/home_cubit.dart';
 import '../domain/status_travel_enum.dart';
- 
+
 class WidgetAvailableSwitch extends StatelessWidget {
   const WidgetAvailableSwitch({super.key});
 
@@ -36,10 +36,7 @@ class WidgetAvailableSwitch extends StatelessWidget {
                           Container(
                             margin: const EdgeInsets.symmetric(horizontal: 10),
                             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                            decoration: BoxDecoration(
-                              color: driver.workStatus == true ? Colors.green : Colors.blueAccent.shade100,
-                              borderRadius: BorderRadius.circular(1000),
-                            ),
+                            decoration: BoxDecoration(color: driver.workStatus == true ? Colors.green : AppColor.secondColor, borderRadius: BorderRadius.circular(1000)),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,15 +48,13 @@ class WidgetAvailableSwitch extends StatelessWidget {
                                     padding: EdgeInsets.zero,
                                     value: driver.workStatus ?? false,
                                     activeColor: Colors.greenAccent,
+
                                     inactiveThumbColor: AppColor.white,
                                     onChanged: (value) => context.read<HomeCubit>().switchWorkStatus(context),
                                   ),
                                 ),
                                 10.gap,
-                                Text(
-                                  driver.workStatus == true ? local.available : local.not_available,
-                                  style: AppTextStyle.style10B.copyWith(color: AppColor.white),
-                                ),
+                                Text(driver.workStatus == true ? local.available : local.not_available, style: AppTextStyle.style10B.copyWith(color: AppColor.white)),
                               ],
                             ),
                           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../context/global.dart';
+import '../function/hex_color.dart';
 
 abstract class AppColor {
   AppColor._();
@@ -13,14 +14,11 @@ abstract class AppColor {
   static const Color grey = Colors.grey;
   static const Color black = Colors.black;
 
-  static Color primaryColor =
-      Theme.of(GlobalContext.context).colorScheme.primary;
-  static Color onPrimaryColor =
-      Theme.of(GlobalContext.context).colorScheme.onPrimary;
+  static Color primaryColor = Theme.of(GlobalContext.context).colorScheme.primary;
+  static Color onPrimaryColor = Theme.of(GlobalContext.context).colorScheme.onPrimary;
   static const Color primaryColor200 = Color(0xff6a80b9);
   static const Color primaryColor600 = Color(0xff8495be);
 
-  static Color secondColor = AppColor.white;
-  static Color onSecondColor =
-      Theme.of(GlobalContext.context).colorScheme.secondary;
+  static Color secondColor = HexColor.fromHex('#B784A7');
+  static Color onSecondColor = Theme.of(GlobalContext.context).colorScheme.secondary;
 }

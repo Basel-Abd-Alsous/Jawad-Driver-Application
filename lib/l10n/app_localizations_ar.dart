@@ -75,8 +75,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get created_account => 'تم إنشاء الحساب';
 
   @override
-  String get account_created_success =>
-      'تم إنشاء الحساب بنجاح وهو قيد الموافقة الآن.';
+  String get account_created_success => 'تم إنشاء الحساب بنجاح وهو قيد الموافقة الآن.';
 
   @override
   String get home => 'الرئيسية';
@@ -109,8 +108,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get editProfile => 'تعديل الملف الشخصي';
 
   @override
-  String get areyousureyouwanttodeleteyouraccount =>
-      'هل أنت متأكد أنك تريد حذف حسابك؟';
+  String get areyousureyouwanttodeleteyouraccount => 'هل أنت متأكد أنك تريد حذف حسابك؟';
 
   @override
   String get plate_number => 'رقم اللوحة';
@@ -197,8 +195,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get send => 'إرسال';
 
   @override
-  String get check_phone =>
-      'تحقق من هاتفك للحصول على رمز التحقق الذي أرسلناه للتو.';
+  String get check_phone => 'تحقق من هاتفك للحصول على رمز التحقق الذي أرسلناه للتو.';
 
   @override
   String get verify => 'تحقق';
@@ -222,8 +219,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get confirm_password_hint => 'أدخل تأكيد كلمة المرور';
 
   @override
-  String get create_account_terms =>
-      'بالنقر على إنشاء حساب، فإنك توافق على شروط الاستخدام وسياسة الخصوصية';
+  String get create_account_terms => 'بالنقر على إنشاء حساب، فإنك توافق على شروط الاستخدام وسياسة الخصوصية';
 
   @override
   String get already_have_account => 'هل لديك حساب؟';
@@ -265,8 +261,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get add_new_password_title => 'أضف كلمة مرور جديدة';
 
   @override
-  String get add_new_password_description =>
-      'قم بإنشاء كلمة مرور جديدة لتأمين حسابك. تأكد من أنها شيء يمكنك تذكره!';
+  String get add_new_password_description => 'قم بإنشاء كلمة مرور جديدة لتأمين حسابك. تأكد من أنها شيء يمكنك تذكره!';
 
   @override
   String get upload_documents_title => 'رفع جميع المستندات';
@@ -278,29 +273,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get forget_password_title => 'هل نسيت كلمة المرور؟';
 
   @override
-  String get forget_password_description =>
-      'لا تستطيع تذكر كلمة المرور؟ جواد هنا لمساعدتك — دعنا نعيدك إلى المسار.';
+  String get forget_password_description => 'لا تستطيع تذكر كلمة المرور؟ جواد هنا لمساعدتك — دعنا نعيدك إلى المسار.';
 
   @override
   String get verify_title => 'تحقق من حسابك';
 
   @override
-  String get verify_description =>
-      'أرسلنا رمزًا إلى رقم هاتفك المحمول. الرجاء إدخاله أدناه للتحقق من هويتك.';
+  String get verify_description => 'أرسلنا رمزًا إلى رقم هاتفك المحمول. الرجاء إدخاله أدناه للتحقق من هويتك.';
 
   @override
   String get auth_register_title => 'سجل وانطلق معنا!';
 
   @override
-  String get auth_register_subtitle =>
-      'سواء كنت راكبًا أو سائقًا، يضمن لك \'جواد\' تجربة فريدة وسهلة الاستخدام';
+  String get auth_register_subtitle => 'سواء كنت راكبًا أو سائقًا، يضمن لك \'جواد\' تجربة فريدة وسهلة الاستخدام';
 
   @override
   String get auth_login_title => 'سجّل دخولك واستمتع برحلتك!';
 
   @override
-  String get auth_login_subtitle =>
-      'سواء كنت راكبًا أو سائقًا، يضمن لك جواد تجربة فريدة وسهلة الاستخدام';
+  String get auth_login_subtitle => 'سواء كنت راكبًا أو سائقًا، يضمن لك جواد تجربة فريدة وسهلة الاستخدام';
 
   @override
   String get forget_password => 'نسيت كلمة المرور';
@@ -318,16 +309,55 @@ class AppLocalizationsAr extends AppLocalizations {
   String get skip => 'تخطي';
 
   @override
+  String get contact_description => 'تواصل معنا عبر أي من الطرق التالية:';
+
+  @override
+  String get call_us => 'اتصل بنا';
+
+  @override
+  String get email_us => 'راسلنا عبر البريد الإلكتروني';
+
+  @override
+  String get whatsapp_us => 'راسلنا عبر واتساب';
+
+  @override
   String get loading => 'جارٍ التحميل ...';
 
   @override
   String get notifications => 'الإشعارات';
 
   @override
-  String get support => 'الدعم';
+  String get support => 'الشكاوي';
+
+  @override
+  String get contactUs => 'اتصل بنا';
 
   @override
   String get language => 'اللغة';
+
+  @override
+  String get createComplaint => 'إنشاء شكوى';
+
+  @override
+  String get phoneNumber => 'رقم الهاتف';
+
+  @override
+  String get complaint_screen_message => 'هل تواجه مشكلة أو لديك ملاحظات؟ شارك شكواك هنا، وسنقوم بالرد عليك في أقرب وقت ممكن.';
+
+  @override
+  String get message => 'الرسالة';
+
+  @override
+  String get attachmentsOptional => 'المرفقات (اختياري)';
+
+  @override
+  String get addAttachments => 'إضافة مرفقات';
+
+  @override
+  String get submitComplaint => 'إرسال الشكوى';
+
+  @override
+  String get files => 'ملفات';
 
   @override
   String get logout => 'تسجيل الخروج';
@@ -348,8 +378,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get not_available => 'غير متاح';
 
   @override
-  String get activate_status_message =>
-      'قم بتفعيل الحالة الخاصة بك الى متاح للبدأ بستفبال الطلبات';
+  String get activate_status_message => 'قم بتفعيل الحالة الخاصة بك الى متاح للبدأ بستفبال الطلبات';
 
   @override
   String get activate_status_button => 'تفعيل الحالة';
@@ -391,22 +420,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get onboarding_title_1 => 'مرحبًا بك في جواد';
 
   @override
-  String get onboarding_desc_1 =>
-      'احجز رحلتك بسهولة في أي وقت ومن أي مكان! اختر وجهتك، واستمتع برحلتك، واترك الباقي علينا.';
+  String get onboarding_desc_1 => 'احجز رحلتك بسهولة في أي وقت ومن أي مكان! اختر وجهتك، واستمتع برحلتك، واترك الباقي علينا.';
 
   @override
   String get onboarding_title_2 => 'رحلات آمنة وموثوقة';
 
   @override
-  String get onboarding_desc_2 =>
-      'مع سائقي جواد المحترفين، نقدم لك تجربة مريحة وآمنة، مع تتبع مباشر للرحلة وخيارات دفع متعددة تناسبك.';
+  String get onboarding_desc_2 => 'مع سائقي جواد المحترفين، نقدم لك تجربة مريحة وآمنة، مع تتبع مباشر للرحلة وخيارات دفع متعددة تناسبك.';
 
   @override
   String get onboarding_title_3 => 'اكسب أو اركب بسهولة!';
 
   @override
-  String get onboarding_desc_3 =>
-      'سواء كنت راكبًا أو سائقًا، يضمن لك جواد تجربة فريدة وسهلة الاستخدام. ابدأ الآن واستمتع بالتنقل الذكي!';
+  String get onboarding_desc_3 => 'سواء كنت راكبًا أو سائقًا، يضمن لك جواد تجربة فريدة وسهلة الاستخدام. ابدأ الآن واستمتع بالتنقل الذكي!';
 
   @override
   String get my_documents => 'ملفاتي';
@@ -508,8 +534,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get emptyPasswordHint => 'يرجى إدخال كلمة المرور';
 
   @override
-  String get passwordValidateLengthHint =>
-      'يجب أن تكون كلمة المرور على الأقل 5 خانات';
+  String get passwordValidateLengthHint => 'يجب أن تكون كلمة المرور على الأقل 5 خانات';
 
   @override
   String get confirmPasswordEmpty => 'يرجى إدخال تأكيد كلمة المرور';

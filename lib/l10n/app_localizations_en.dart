@@ -75,8 +75,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get created_account => 'Created Account';
 
   @override
-  String get account_created_success =>
-      'Your account has been successfully created and is now pending approval.';
+  String get account_created_success => 'Your account has been successfully created and is now pending approval.';
 
   @override
   String get home => 'Home';
@@ -109,8 +108,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get editProfile => 'Edit Profile';
 
   @override
-  String get areyousureyouwanttodeleteyouraccount =>
-      'Are you sure you want to delete your account?';
+  String get areyousureyouwanttodeleteyouraccount => 'Are you sure you want to delete your account?';
 
   @override
   String get plate_number => 'Plate Number';
@@ -158,8 +156,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get successfully => 'Successfully';
 
   @override
-  String get proceed_next_step =>
-      'Proceed to the next step to upload your documents.';
+  String get proceed_next_step => 'Proceed to the next step to upload your documents.';
 
   @override
   String get back_button => 'Back';
@@ -183,8 +180,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get password_changed => 'Password Changed';
 
   @override
-  String get password_updated_success =>
-      'Your password has been successfully updated.';
+  String get password_updated_success => 'Your password has been successfully updated.';
 
   @override
   String get selec => 'Select ';
@@ -199,8 +195,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get send => 'Send';
 
   @override
-  String get check_phone =>
-      'Check your phone for the verification code we just sent.';
+  String get check_phone => 'Check your phone for the verification code we just sent.';
 
   @override
   String get verify => 'Verify';
@@ -224,8 +219,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get confirm_password_hint => 'Enter Confirm Password';
 
   @override
-  String get create_account_terms =>
-      'By clicking on Create an account, you agree to the terms of use and privacy policy';
+  String get create_account_terms => 'By clicking on Create an account, you agree to the terms of use and privacy policy';
 
   @override
   String get already_have_account => 'Already have an account?';
@@ -255,57 +249,49 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enter_banking_info_title => 'Enter your banking information';
 
   @override
-  String get enter_banking_info_description =>
-      'As a driver, enter your banking information.';
+  String get enter_banking_info_description => 'As a driver, enter your banking information.';
 
   @override
   String get enter_car_info_title => 'Enter your car information';
 
   @override
-  String get enter_car_info_description =>
-      'As a driver, enter your car details below.';
+  String get enter_car_info_description => 'As a driver, enter your car details below.';
 
   @override
   String get add_new_password_title => 'Add New Password';
 
   @override
-  String get add_new_password_description =>
-      'Create a new password to secure your account. Make sure it’s something you’ll remember!';
+  String get add_new_password_description => 'Create a new password to secure your account. Make sure it’s something you’ll remember!';
 
   @override
   String get upload_documents_title => 'Upload All Documents';
 
   @override
-  String get upload_documents_description =>
-      'Upload all the required documents.';
+  String get upload_documents_description => 'Upload all the required documents.';
 
   @override
   String get forget_password_title => 'Forgot your password';
 
   @override
-  String get forget_password_description =>
-      'Can’t remember your password? Jawad’s got your back—let’s get you going again.';
+  String get forget_password_description => 'Can’t remember your password? Jawad’s got your back—let’s get you going again.';
 
   @override
   String get verify_title => 'Verify your account';
 
   @override
-  String get verify_description =>
-      'We’ve sent a code to your mobile number. Please enter it below to verify your identity.';
+  String get verify_description => 'We’ve sent a code to your mobile number. Please enter it below to verify your identity.';
 
   @override
   String get auth_register_title => 'Register and go with us!';
 
   @override
-  String get auth_register_subtitle =>
-      'Whether you are a passenger or a driver, \'Jawad\' guarantees you a unique and easy-to-use experience';
+  String get auth_register_subtitle => 'Whether you are a passenger or a driver, \'Jawad\' guarantees you a unique and easy-to-use experience';
 
   @override
   String get auth_login_title => 'Log in and enjoy your journey!';
 
   @override
-  String get auth_login_subtitle =>
-      'Whether you\'re a rider or a driver, Jawad ensures you a unique and user-friendly experience';
+  String get auth_login_subtitle => 'Whether you\'re a rider or a driver, Jawad ensures you a unique and user-friendly experience';
 
   @override
   String get forget_password => 'Forget Password';
@@ -323,16 +309,55 @@ class AppLocalizationsEn extends AppLocalizations {
   String get skip => 'Skip';
 
   @override
+  String get contact_description => 'Get in touch with us via any of the following methods:';
+
+  @override
+  String get call_us => 'Call Us';
+
+  @override
+  String get email_us => 'Email Us';
+
+  @override
+  String get whatsapp_us => 'WhatsApp Us';
+
+  @override
   String get loading => 'Loading ...';
 
   @override
   String get notifications => 'Notifications';
 
   @override
-  String get support => 'Support';
+  String get support => 'Complaints';
+
+  @override
+  String get contactUs => 'Contact Us';
 
   @override
   String get language => 'Language';
+
+  @override
+  String get createComplaint => 'Create Complaint';
+
+  @override
+  String get phoneNumber => 'Phone Number';
+
+  @override
+  String get complaint_screen_message => 'Have a problem or feedback? Share your complaint here, and we’ll get back to you as soon as possible.';
+
+  @override
+  String get message => 'Message';
+
+  @override
+  String get attachmentsOptional => 'Attachments (Optional)';
+
+  @override
+  String get addAttachments => 'Add Attachments';
+
+  @override
+  String get submitComplaint => 'Submit Complaint';
+
+  @override
+  String get files => 'files';
 
   @override
   String get logout => 'Logout';
@@ -353,8 +378,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get not_available => 'Not Available';
 
   @override
-  String get activate_status_message =>
-      'Activate your status to available to start receiving requests';
+  String get activate_status_message => 'Activate your status to available to start receiving requests';
 
   @override
   String get activate_status_button => 'Activate Status';
@@ -396,22 +420,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboarding_title_1 => 'Welcome to Jawad';
 
   @override
-  String get onboarding_desc_1 =>
-      'Easily book your trip anytime, anywhere! Choose your destination, enjoy your journey, and leave the rest to us.';
+  String get onboarding_desc_1 => 'Easily book your trip anytime, anywhere! Choose your destination, enjoy your journey, and leave the rest to us.';
 
   @override
   String get onboarding_title_2 => 'Safe and Reliable Trips';
 
   @override
-  String get onboarding_desc_2 =>
-      'With Jawad\'s professional drivers, we provide you with a comfortable and secure experience, live trip tracking, and multiple payment options to suit you.';
+  String get onboarding_desc_2 => 'With Jawad\'s professional drivers, we provide you with a comfortable and secure experience, live trip tracking, and multiple payment options to suit you.';
 
   @override
   String get onboarding_title_3 => 'Earn or Ride with Ease!';
 
   @override
-  String get onboarding_desc_3 =>
-      'Whether you\'re a rider or a driver, Jawad ensures you a unique and user-friendly experience. Start now and enjoy smart mobility!';
+  String get onboarding_desc_3 => 'Whether you\'re a rider or a driver, Jawad ensures you a unique and user-friendly experience. Start now and enjoy smart mobility!';
 
   @override
   String get my_documents => 'My Documents';
@@ -492,8 +513,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get plateRequired => 'This field is required';
 
   @override
-  String get plateLength =>
-      'Plate number must be 4 characters (letters or digits)';
+  String get plateLength => 'Plate number must be 4 characters (letters or digits)';
 
   @override
   String get plateInvalid => 'Plate must contain only letters or numbers';
@@ -514,8 +534,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emptyPasswordHint => 'Please enter your password';
 
   @override
-  String get passwordValidateLengthHint =>
-      'Password must be at least 5 characters';
+  String get passwordValidateLengthHint => 'Password must be at least 5 characters';
 
   @override
   String get confirmPasswordEmpty => 'Please enter confirm password';

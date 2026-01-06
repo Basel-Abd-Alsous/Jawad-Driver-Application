@@ -9,6 +9,8 @@ import '../../presentation/auth/pages/pages/forget_password_screen.dart';
 import '../../presentation/auth/pages/pages/register_screen.dart';
 import '../../presentation/auth/pages/pages/verify_screen.dart';
 import '../../presentation/chat/pages/chat_screen.dart';
+import '../../presentation/drawer/pages/complaints_screen.dart';
+import '../../presentation/drawer/pages/contact_us_screen.dart';
 import '../../presentation/drawer/pages/content_screen.dart';
 import '../../presentation/introduction/presentation/pages/onboarding.screen.dart';
 import '../../presentation/introduction/presentation/pages/onboarding_languages.dart';
@@ -19,7 +21,7 @@ import '../../presentation/myvisit/pages/visit_details_screen.dart';
 import '../../presentation/notifications/pages/notification_screen.dart';
 import '../../presentation/profile/pages/profile_screen.dart';
 import '../../presentation/splash/pages/splash.dart';
- import '../context/global.dart';
+import '../context/global.dart';
 import '../widget/web_view_screen.dart';
 import 'router_key.dart';
 
@@ -38,7 +40,9 @@ final goRouter = GoRouter(
     _pageRouter(path: AppRoutes.forget, screen: ForgetPasswordScreen()),
     _pageRouter(path: AppRoutes.notification, screen: NotificationScreen()),
     _pageRouter(path: AppRoutes.profile, screen: ProfileScreen()),
- 
+    _pageRouter(path: AppRoutes.complaint, screen: ComplaintsScreen()),
+    _pageRouter(path: AppRoutes.contactUs, screen: ContactUsScreen()),
+
     GoRoute(
       path: AppRoutes.content,
       pageBuilder: (context, state) {
