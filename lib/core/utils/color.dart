@@ -19,6 +19,6 @@ abstract class AppColor {
   static const Color primaryColor200 = Color(0xff6a80b9);
   static const Color primaryColor600 = Color(0xff8495be);
 
-  static Color secondColor = HexColor.fromHex('#B784A7');
+  static Color secondColor = HexColor.fromHex('#85469b');
   static Color onSecondColor = Theme.of(GlobalContext.context).colorScheme.secondary;
 }
