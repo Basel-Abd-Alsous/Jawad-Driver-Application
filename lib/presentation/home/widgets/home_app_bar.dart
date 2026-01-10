@@ -35,7 +35,7 @@ class HomeAppBar extends StatelessWidget {
                   onTap: () {
                     context.read<LayoutCubit>().scaffoldKey.currentState!.openDrawer();
                   },
-                  child: ValueListenableBuilder(
+                  child: ValueListenableBuilder<Box<Driver>>(
                     valueListenable: sl<Box<Driver>>().listenable(),
                     builder: (context, box, _) {
                       Driver? driver = box.get(BoxKey.user);

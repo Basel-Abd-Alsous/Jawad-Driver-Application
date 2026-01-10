@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:geocoding/geocoding.dart';
 
 import '../extension/space_extension.dart';
 import '../utils/text_style.dart';
@@ -22,7 +25,11 @@ ScaffoldMessengerState showBar({
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [Text(title, style: AppTextStyle.style28B), 10.gap, AutoSizeText(message, style: AppTextStyle.style14)],
+      children: [
+        Text(title, style: AppTextStyle.style28B),
+        10.gap,
+        AutoSizeText(message, style: AppTextStyle.style14),
+      ],
     ),
   );
   if (barType == BarType.materialBanner) {
@@ -86,4 +93,19 @@ String formatDate(String date) {
   final formatted = DateFormat("d'$suffix' MMM, h:mm a").format(dateTime);
 
   return formatted;
+}
+
+Future<String> getLocationName(double lat, double lng) async {
+  try {
+    final placemarks = await placemarkFromCoordinates(lat, lng);
+
+    if (placemarks.isEmpty) return '';
+
+    final place = placemarks.first;
+
+    return [place.street, place.subLocality, place.locality, place.administrativeArea, place.country].where((e) => e != null && e.isNotEmpty).join(', ');
+  } catch (e) {
+    log('❌ Reverse geocoding error: $e');
+    return '';
+  }
 }

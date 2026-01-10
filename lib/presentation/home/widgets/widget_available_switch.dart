@@ -25,7 +25,7 @@ class WidgetAvailableSwitch extends StatelessWidget {
           (context, value, child) =>
               value != TravelStatus.pending
                   ? SizedBox.shrink()
-                  : ValueListenableBuilder(
+                  : ValueListenableBuilder<Box<Driver>>(
                     valueListenable: sl<Box<Driver>>().listenable(),
                     builder: (context, value, child) {
                       Driver driver = value.get(BoxKey.user) ?? Driver();

@@ -21,7 +21,7 @@ class ChatScreen extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(centerTitle: true, title: Text('Chat', style: AppTextStyle.style16B)),
-            body: ValueListenableBuilder(
+            body: ValueListenableBuilder<List<Message>>(
               valueListenable: context.read<ChatCubit>().allMessage,
               builder:
                   (context, value, child) => ListView.separated(

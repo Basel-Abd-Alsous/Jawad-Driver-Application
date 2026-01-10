@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
 
 import '../../../../../core/router/router_key.dart';
 import '../../../../../core/extension/space_extension.dart';
@@ -62,11 +62,7 @@ class CarInfoContainer extends StatelessWidget with FormValidationMixin {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('Sequence Number', style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
-                          WidgetAuthTextField(
-                            hintText: 'Sequence Number',
-                            controller: context.read<RegisterCubit>().sequenceNumber,
-                            validator: (value) => validateNull(context, value),
-                          ),
+                          WidgetAuthTextField(hintText: 'Sequence Number', controller: context.read<RegisterCubit>().sequenceNumber, validator: (value) => validateNull(context, value)),
                         ],
                       ),
                     ),
@@ -92,90 +88,119 @@ class CarInfoContainer extends StatelessWidget with FormValidationMixin {
                 5.gap,
                 Text(local.type, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
                 isLoadingCarModelAndColor
-                    ? Padding(padding: const EdgeInsets.symmetric(vertical: 10), child: WidgetLoading(width: double.infinity, radius: 2))
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: WidgetLoading(width: double.infinity, radius: 2),
+                      )
                     : WidgetAuthDropdownField<ColorModel>(
-                      hintText: local.select_type,
-                      validator: (value) {
-                        if (value == null) {
-                          return local.please_select_type;
-                        }
-                        return null;
-                      },
-                      value: context.read<RegisterCubit>().selectedType,
-                      onChanged: context.read<RegisterCubit>().selectType,
-                      items:
-                          context
-                              .read<RegisterCubit>()
-                              .types
-                              .where((item) => item.models?.isNotEmpty ?? false)
-                              .toList()
-                              .map((type) => DropdownMenuItem<ColorModel>(value: type, child: Text(type.name ?? '', style: AppTextStyle.style14B)))
-                              .toList(),
-                    ),
+                        hintText: local.select_type,
+                        validator: (value) {
+                          if (value == null) {
+                            return local.please_select_type;
+                          }
+                          return null;
+                        },
+                        value: context.read<RegisterCubit>().selectedType,
+                        onChanged: context.read<RegisterCubit>().selectType,
+                        items: context
+                            .read<RegisterCubit>()
+                            .types
+                            .where((item) => item.models?.isNotEmpty ?? false)
+                            .toList()
+                            .map(
+                              (type) => DropdownMenuItem<ColorModel>(
+                                value: type,
+                                child: Text(type.name ?? '', style: AppTextStyle.style14B),
+                              ),
+                            )
+                            .toList(),
+                      ),
                 5.gap,
                 Text(local.model, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
                 isLoadingCarModelAndColor
-                    ? Padding(padding: const EdgeInsets.symmetric(vertical: 10), child: WidgetLoading(width: double.infinity, radius: 2))
-                    : ValueListenableBuilder(
-                      valueListenable: context.read<RegisterCubit>().models,
-                      builder:
-                          (context, value, child) => WidgetAuthDropdownField<ColorModel>(
-                            hintText: local.select_model,
-                            value: context.read<RegisterCubit>().selectedModel,
-                            validator: (value) {
-                              if (value == null) {
-                                return local.please_select_model;
-                              }
-                              return null;
-                            },
-                            onChanged: context.read<RegisterCubit>().selectModel,
-                            items:
-                                value
-                                    .map((type) => DropdownMenuItem<ColorModel>(value: type, child: Text(type.name ?? '', style: AppTextStyle.style14B)))
-                                    .toList(),
-                          ),
-                    ),
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: WidgetLoading(width: double.infinity, radius: 2),
+                      )
+                    : ValueListenableBuilder<List<ColorModel>>(
+                        valueListenable: context.read<RegisterCubit>().models,
+                        builder: (context, value, child) => WidgetAuthDropdownField<ColorModel>(
+                          hintText: local.select_model,
+                          value: context.read<RegisterCubit>().selectedModel,
+                          validator: (value) {
+                            if (value == null) {
+                              return local.please_select_model;
+                            }
+                            return null;
+                          },
+                          onChanged: context.read<RegisterCubit>().selectModel,
+                          items: value
+                              .map(
+                                (type) => DropdownMenuItem<ColorModel>(
+                                  value: type,
+                                  child: Text(type.name ?? '', style: AppTextStyle.style14B),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ),
                 5.gap,
                 Text('Year', style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
                 isLoadingCarModelAndColor
-                    ? Padding(padding: const EdgeInsets.symmetric(vertical: 10), child: WidgetLoading(width: double.infinity, radius: 2))
-                    : ValueListenableBuilder(
-                      valueListenable: context.read<RegisterCubit>().yearsList,
-                      builder:
-                          (context, years, child) => WidgetAuthDropdownField<String>(
-                            hintText: local.select_model,
-                            value: years.first,
-                            validator: (value) {
-                              if (value == null) {
-                                return 'Must Be Select Year';
-                              }
-                              return null;
-                            },
-                            onChanged: context.read<RegisterCubit>().selectYear,
-                            items: years.map((type) => DropdownMenuItem<String>(value: type, child: Text(type, style: AppTextStyle.style14B))).toList(),
-                          ),
-                    ),
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: WidgetLoading(width: double.infinity, radius: 2),
+                      )
+                    : ValueListenableBuilder<List<String>>(
+                        valueListenable: context.read<RegisterCubit>().yearsList,
+                        builder: (context, years, child) => WidgetAuthDropdownField<String>(
+                          hintText: local.select_model,
+                          value: years.first,
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Must Be Select Year';
+                            }
+                            return null;
+                          },
+                          onChanged: context.read<RegisterCubit>().selectYear,
+                          items: years
+                              .map(
+                                (type) => DropdownMenuItem<String>(
+                                  value: type,
+                                  child: Text(type, style: AppTextStyle.style14B),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ),
                 5.gap,
                 Text(local.color, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
                 isLoadingCarModelAndColor
-                    ? Padding(padding: const EdgeInsets.symmetric(vertical: 10), child: WidgetLoading(width: double.infinity, radius: 2))
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: WidgetLoading(width: double.infinity, radius: 2),
+                      )
                     : WidgetAuthDropdownField<ColorModel>(
-                      hintText: local.select_color,
-                      value: context.read<RegisterCubit>().selectedColor,
-                      onChanged: context.read<RegisterCubit>().selectColor,
-                      validator: (value) {
-                        if (value == null) {
-                          return local.please_select_color;
-                        }
-                        return null;
-                      },
-                      items:
-                          context
-                              .read<RegisterCubit>()
-                              .colors
-                              .map((type) => DropdownMenuItem<ColorModel>(value: type, child: Text(type.name ?? '', style: AppTextStyle.style14B)))
-                              .toList(),
-                    ),
+                        hintText: local.select_color,
+                        value: context.read<RegisterCubit>().selectedColor,
+                        onChanged: context.read<RegisterCubit>().selectColor,
+                        validator: (value) {
+                          if (value == null) {
+                            return local.please_select_color;
+                          }
+                          return null;
+                        },
+                        items: context
+                            .read<RegisterCubit>()
+                            .colors
+                            .map(
+                              (type) => DropdownMenuItem<ColorModel>(
+                                value: type,
+                                child: Text(type.name ?? '', style: AppTextStyle.style14B),
+                              ),
+                            )
+                            .toList(),
+                      ),
 
                 20.gap,
                 Row(
@@ -214,49 +239,21 @@ class CarInfoContainer extends StatelessWidget with FormValidationMixin {
       loadedSignUp: (token) async {
         await sl<Box>(instanceName: BoxKey.appBox).put(BoxKey.token, token);
         return SmartDialog.show(
-          builder:
-              (_) => WidgetDilog(
-                title: local.registration_completed,
-                message: local.proceed_next_step,
-                cancelText: local.continues,
-                onCancel: () {
-                  SmartDialog.dismiss();
-                  context.push(AppRoutes.uploadDocument);
-                },
-              ),
+          builder: (_) => WidgetDilog(
+            title: local.registration_completed,
+            message: local.proceed_next_step,
+            cancelText: local.continues,
+            onCancel: () {
+              SmartDialog.dismiss();
+              context.push(AppRoutes.uploadDocument);
+            },
+          ),
         );
       },
-      errorSignUp:
-          (message) => SmartDialog.show(
-            builder: (_) => WidgetDilog(isError: true, title: local.warning, message: message, cancelText: local.back, onCancel: () => SmartDialog.dismiss()),
-          ),
+      errorSignUp: (message) => SmartDialog.show(
+        builder: (_) => WidgetDilog(isError: true, title: local.warning, message: message, cancelText: local.back, onCancel: () => SmartDialog.dismiss()),
+      ),
       orElse: () => null,
     );
   }
-  // void _listener(BuildContext context, RegisterState state) {
-  //   final local = AppLocalizations.of(context)!;
-
-  //   state.maybeWhen(
-  //     loadedSignUp: (token) {
-  //       SmartDialog.show(
-  //         builder:
-  //             (_) => WidgetDilog(
-  //               title: local.successfully,
-  //               message: local.proceed_next_step,
-  //               cancelText: local.continues,
-  //               onCancel: () {
-  //                 SmartDialog.dismiss();
-  //                 context.push(AppRoutes.bankInfo);
-  //               },
-  //             ),
-  //       );
-  //     },
-  //     errorCarInfo:
-  //         (message) => SmartDialog.show(
-  //           builder:
-  //               (_) => WidgetDilog(isError: true, title: local.warning, message: message, cancelText: local.back_button, onCancel: () => SmartDialog.dismiss()),
-  //         ),
-  //     orElse: () => null,
-  //   );
-  // }
 }

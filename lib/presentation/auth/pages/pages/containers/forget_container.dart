@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:go_router/go_router.dart';
- 
+
 import '../../../../../core/router/router_key.dart';
 import '../../../../../core/extension/space_extension.dart';
 import '../../../../../core/mixin/validate.mixin.dart';
@@ -28,10 +28,7 @@ class ForgetContainer extends StatelessWidget with FormValidationMixin {
         return Container(
           margin: const EdgeInsets.all(10),
           padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: AppColor.onSecondColor.withValues(alpha: 0.23),
-            borderRadius: BorderRadius.circular(AppBorderRadius.lg16),
-          ),
+          decoration: BoxDecoration(color: AppColor.onSecondColor.withValues(alpha: 0.23), borderRadius: BorderRadius.circular(AppBorderRadius.lg16)),
           child: Form(
             key: context.read<ForgetCubit>().formKey,
             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -40,13 +37,7 @@ class ForgetContainer extends StatelessWidget with FormValidationMixin {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(local.mobile, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
-                WidgetAuthTextField(
-                  hintText: local.mobile_hint,
-                  controller: context.read<ForgetCubit>().phone,
-                  keyboardType: TextInputType.phone,
-                  prefixIcon: const Icon(Icons.phone),
-                  // validator: (value) => validateMobile(value),
-                ),
+                WidgetAuthTextField(hintText: local.mobile_hint, controller: context.read<ForgetCubit>().phone, keyboardType: TextInputType.phone, prefixIcon: const Icon(Icons.phone)),
                 20.gap,
                 Row(
                   children: [
@@ -71,26 +62,20 @@ class ForgetContainer extends StatelessWidget with FormValidationMixin {
     final local = AppLocalizations.of(context)!;
 
     state.maybeWhen(
-      loadedForget: () => SmartDialog.show(
-        builder: (_) => WidgetDilog(
-          title: local.successfully,
-          message: local.check_phone,
-          cancelText: local.verify,
-          onCancel: () {
-            SmartDialog.dismiss();
-            context.push('${AppRoutes.verify}?phoneNumber=${context.read<ForgetCubit>().phone.text}');
-          },
-        ),
-      ),
-      errorForget: (message) => SmartDialog.show(
-        builder: (_) => WidgetDilog(
-          isError: true,
-          title: local.warning,
-          message: message,
-          cancelText: local.back,
-          onCancel: () => SmartDialog.dismiss(),
-        ),
-      ),
+      loadedForget:
+          () => SmartDialog.show(
+            builder:
+                (_) => WidgetDilog(
+                  title: local.successfully,
+                  message: local.check_phone,
+                  cancelText: local.verify,
+                  onCancel: () {
+                    SmartDialog.dismiss();
+                    context.push('${AppRoutes.verify}?phoneNumber=${context.read<ForgetCubit>().phone.text}');
+                  },
+                ),
+          ),
+      errorForget: (message) => SmartDialog.show(builder: (_) => WidgetDilog(isError: true, title: local.warning, message: message, cancelText: local.back, onCancel: () => SmartDialog.dismiss())),
       orElse: () => null,
     );
   }

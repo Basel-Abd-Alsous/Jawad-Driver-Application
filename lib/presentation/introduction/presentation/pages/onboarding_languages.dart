@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
- 
+
 import '../../../../../core/extension/space_extension.dart';
 import '../../../../../core/utils/color.dart';
 import '../../../../../core/utils/text_style.dart';
@@ -46,7 +46,7 @@ class OnboardingLanguages extends StatelessWidget {
                           child: AppButton.icon(
                             text: local.arabic,
                             fontColor: AppColor.black,
-                            color: AppColor.secondColor,
+                            color: AppColor.white,
                             borderRadius: 10000,
                             leadingIconAssetName: SvgPicture.asset(Assets.svgLanguage),
                             onPressed: () {
@@ -60,7 +60,7 @@ class OnboardingLanguages extends StatelessWidget {
                           child: AppButton.icon(
                             text: local.english,
                             fontColor: AppColor.black,
-                            color: AppColor.secondColor,
+                            color: AppColor.white,
                             borderRadius: 10000,
                             leadingIconAssetName: SvgPicture.asset(Assets.svgLanguage),
                             onPressed: () {

@@ -55,7 +55,7 @@ Future<void> initGetIt() async {
   sl.registerFactory(() => SplashBloc());
   sl.registerFactory(() => LoginCubit(loginUseCase: sl(), registerUsecase: sl()));
   sl.registerFactory(() => ForgetCubit(forgetUsecase: sl()));
-  sl.registerFactory(() => RegisterCubit(registerUsecase: sl()));
+  sl.registerFactory(() => RegisterCubit(registerUsecase: sl(), forgetUsecase: sl()));
   sl.registerFactory(() => LayoutCubit());
   sl.registerFactory(() => HomeCubit(homeUsecase: sl(), workStatusUsecase: sl()));
   sl.registerFactory(() => WalletCubit(walletUsecase: sl(), homeUsecase: sl()));

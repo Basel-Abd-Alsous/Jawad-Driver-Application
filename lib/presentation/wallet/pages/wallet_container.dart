@@ -40,8 +40,8 @@ class WalletContainer extends StatelessWidget {
                 builder: (context, state) {
                   return state.maybeWhen(
                     loadingTransactionWallet: () => WidgetLoading(width: 50),
-                    loadedTransactionWallet:
-                        (data, _) => Row(spacing: 4, children: [SvgPicture.asset(Assets.svgSar, width: 30, height: 30), Text(data.payload?.walletAmount ?? '0.0', style: AppTextStyle.style30B)]),
+                    loadedTransactionWallet: (data, _) =>
+                        Row(spacing: 4, children: [SvgPicture.asset(Assets.svgSar, width: 30, height: 30), Text(data.payload?.walletAmount ?? '0.0', style: AppTextStyle.style30B)]),
                     orElse: () => SizedBox.shrink(),
                   );
                 },
@@ -135,95 +135,93 @@ class WalletContainer extends StatelessWidget {
       isScrollControlled: true,
       useSafeArea: true,
       context: context,
-      builder:
-          (context) => BlocProvider(
-            create: (context) => sl<WalletCubit>(),
-            child: BlocBuilder<WalletCubit, WalletState>(
-              builder: (context, state) {
-                return SafeArea(
-                  child: Container(
-                    padding: EdgeInsets.only(top: 15, left: 15, right: 15, bottom: MediaQuery.of(context).viewInsets.bottom + 10),
-                    decoration: const BoxDecoration(color: AppColor.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
-                    child: Form(
-                      key: context.read<WalletCubit>().formKey,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Center(child: Text(isRequest == true ? local.withdrawCash : local.chargeWallet, style: AppTextStyle.style16B)),
-                          20.gap,
-                          if (mobile == true) ...[
-                            ValueListenableBuilder(
-                              valueListenable: context.read<WalletCubit>().mobile,
-                              builder:
-                                  (context, value, child) => WidgetAuthTextField(
-                                    hintText: local.mobile_hint,
-                                    controller: value,
-                                    textStyle: AppTextStyle.style14.copyWith(color: AppColor.black),
-                                    keyboardType: TextInputType.phone,
-                                    prefixIcon: Icon(Icons.phone, color: AppColor.grey),
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return AppLocalizations.of(context)!.emptyMobileHint;
-                                      }
-                                      if (!mobileRegEx.hasMatch(value)) {
-                                        return AppLocalizations.of(context)!.notValidMobileHint;
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                            ),
-                            10.gap,
-                          ],
-                          WidgetAuthTextField(
-                            controller: context.read<WalletCubit>().ammopuntController,
-                            hintText: local.enterAmountHint,
-                            hentTextStyle: AppTextStyle.style14.copyWith(color: AppColor.grey),
-                            textStyle: AppTextStyle.style16.copyWith(color: AppColor.black),
-                            suffixIcon: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [SizedBox(width: 25, height: 25, child: SvgPicture.asset(Assets.svgSar))],
-                            ),
-                            validator: (p0) {
-                              if (p0?.isEmpty ?? true) {
-                                return local.requiredField;
+      builder: (context) => BlocProvider(
+        create: (context) => sl<WalletCubit>(),
+        child: BlocBuilder<WalletCubit, WalletState>(
+          builder: (context, state) {
+            return SafeArea(
+              child: Container(
+                padding: EdgeInsets.only(top: 15, left: 15, right: 15, bottom: MediaQuery.of(context).viewInsets.bottom + 10),
+                decoration: const BoxDecoration(color: AppColor.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+                child: Form(
+                  key: context.read<WalletCubit>().formKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Center(child: Text(isRequest == true ? local.withdrawCash : local.chargeWallet, style: AppTextStyle.style16B)),
+                      20.gap,
+                      if (mobile == true) ...[
+                        ValueListenableBuilder<TextEditingController>(
+                          valueListenable: context.read<WalletCubit>().mobile,
+                          builder: (context, value, child) => WidgetAuthTextField(
+                            hintText: local.mobile_hint,
+                            controller: value,
+                            textStyle: AppTextStyle.style14.copyWith(color: AppColor.black),
+                            keyboardType: TextInputType.phone,
+                            prefixIcon: Icon(Icons.phone, color: AppColor.grey),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return AppLocalizations.of(context)!.emptyMobileHint;
+                              }
+                              if (!mobileRegEx.hasMatch(value)) {
+                                return AppLocalizations.of(context)!.notValidMobileHint;
                               }
                               return null;
                             },
                           ),
-                          20.gap,
-                          Row(
-                            children: [
-                              Expanded(
-                                child: AppButton.text(
-                                  text: isRequest == true ? local.send : local.charge,
-                                  onPressed: () {
-                                    if (isRequest == true) {
-                                      context.read<WalletCubit>().cashRequest();
-                                    } else {
-                                      if (mobile == false) {
-                                        context.read<WalletCubit>().chargerWalletBank();
-                                      } else {
-                                        context.read<WalletCubit>().chargerWalletMobile();
-                                      }
-                                    }
-                                  },
-                                ),
-                              ),
-                            ],
+                        ),
+                        10.gap,
+                      ],
+                      WidgetAuthTextField(
+                        controller: context.read<WalletCubit>().ammopuntController,
+                        hintText: local.enterAmountHint,
+                        hentTextStyle: AppTextStyle.style14.copyWith(color: AppColor.grey),
+                        textStyle: AppTextStyle.style16.copyWith(color: AppColor.black),
+                        suffixIcon: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [SizedBox(width: 25, height: 25, child: SvgPicture.asset(Assets.svgSar))],
+                        ),
+                        validator: (p0) {
+                          if (p0?.isEmpty ?? true) {
+                            return local.requiredField;
+                          }
+                          return null;
+                        },
+                      ),
+                      20.gap,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: AppButton.text(
+                              text: isRequest == true ? local.send : local.charge,
+                              onPressed: () {
+                                if (isRequest == true) {
+                                  context.read<WalletCubit>().cashRequest();
+                                } else {
+                                  if (mobile == false) {
+                                    context.read<WalletCubit>().chargerWalletBank();
+                                  } else {
+                                    context.read<WalletCubit>().chargerWalletMobile();
+                                  }
+                                }
+                              },
+                            ),
                           ),
                         ],
                       ),
-                    ),
+                    ],
                   ),
-                );
-              },
-            ),
-          ),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }

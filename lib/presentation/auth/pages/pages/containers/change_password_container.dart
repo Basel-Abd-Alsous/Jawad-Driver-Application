@@ -41,7 +41,7 @@ class ChangePasswordContainer extends StatelessWidget with FormValidationMixin {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(local.new_password, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
-                ValueListenableBuilder(
+                ValueListenableBuilder<bool>(
                   valueListenable: context.read<ForgetCubit>().obscureText,
                   builder: (context, value, child) => WidgetAuthTextField(
                     hintText: local.enter_new_password,
@@ -58,7 +58,7 @@ class ChangePasswordContainer extends StatelessWidget with FormValidationMixin {
                 ),
                 10.gap,
                 Text(local.confirm_password, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
-                ValueListenableBuilder(
+                ValueListenableBuilder<bool>(
                   valueListenable: context.read<ForgetCubit>().obscureTextConfirm,
                   builder: (context, value, child) => WidgetAuthTextField(
                     hintText: local.enter_confirm_password,

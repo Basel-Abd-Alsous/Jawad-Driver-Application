@@ -60,7 +60,7 @@ class ContainerMapVisitDetails extends StatelessWidget {
                             : Stack(
                               alignment: Alignment.topLeft,
                               children: [
-                                ValueListenableBuilder(
+                                ValueListenableBuilder<Set<Polyline>>(
                                   valueListenable: context.read<VisitDetailsCubit>().polylines,
                                   builder:
                                       (context, value, child) => GoogleMap(

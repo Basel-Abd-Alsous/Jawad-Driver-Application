@@ -134,14 +134,13 @@ class WidgetCardRequiest extends StatelessWidget {
                 children: [
                   Expanded(
                     flex: 2,
-                    child: ValueListenableBuilder(
+                    child: ValueListenableBuilder<String>(
                       valueListenable: context.read<HomeCubit>().remainingAmount,
-                      builder:
-                          (context, value, child) => AppButton.text(
-                            text: status == TravelStatus.completed ? '${local.remainingamount} $value' : _titleButtom(status, local),
-                            color: status == TravelStatus.completed ? AppColor.black : Colors.green,
-                            onPressed: () => _switchFunctionByStatus(context, status, value),
-                          ),
+                      builder: (context, value, child) => AppButton.text(
+                        text: status == TravelStatus.completed ? '${local.remainingamount} $value' : _titleButtom(status, local),
+                        color: status == TravelStatus.completed ? AppColor.black : Colors.green,
+                        onPressed: () => _switchFunctionByStatus(context, status, value),
+                      ),
                     ),
                   ),
                   if (status == TravelStatus.arrived)
@@ -177,7 +176,7 @@ class WidgetCardRequiest extends StatelessWidget {
   }
 
   String _titleButtomTow(TravelStatus travelStatus, AppLocalizations local) {
-    if (travelStatus case TravelStatus.pending) {
+    if (travelStatus == TravelStatus.pending) {
       return local.reject_request;
     } else {
       return local.cancel_request;
@@ -208,7 +207,7 @@ class WidgetCardRequiest extends StatelessWidget {
   }
 
   _switchFunctionByStatusButtonTow(BuildContext context, TravelStatus travelStatus) {
-    if (travelStatus case TravelStatus.pending) {
+    if (travelStatus == TravelStatus.pending) {
       return context.read<HomeCubit>().rejectTravel(travilRequist.id ?? 0);
     } else {
       return context.read<HomeCubit>().cancelTravel(travilRequist.id ?? 0);
@@ -222,53 +221,52 @@ class WidgetCardRequiest extends StatelessWidget {
       isScrollControlled: true,
       useSafeArea: true,
       context: context,
-      builder:
-          (context) => SafeArea(
-            child: Container(
-              padding: EdgeInsets.only(top: 15, left: 15, right: 15, bottom: MediaQuery.of(context).viewInsets.bottom + 10),
-              decoration: const BoxDecoration(
-                color: AppColor.white,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-              ),
-              child: Form(
-                key: key,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Center(child: Text(local.remainingamount, style: AppTextStyle.style16B)),
-                    20.gap,
-                    WidgetAuthTextField(
-                      controller: amount,
-                      hintText: remainingAmountPrice ?? local.enterAmountHint,
-                      hentTextStyle: AppTextStyle.style14.copyWith(color: AppColor.grey),
-                      textStyle: AppTextStyle.style16.copyWith(color: AppColor.black),
-                      suffixIcon: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [SizedBox(width: 25, height: 25, child: SvgPicture.asset(Assets.svgSar))],
-                      ),
-                      validator: (p0) {
-                        if (remainingAmountPrice != null && remainingAmountPrice != '') {
-                          return null;
-                        } else {
-                          if (p0?.isEmpty ?? true) {
-                            return local.requiredField;
-                          }
-                          return null;
-                        }
-                      },
-                    ),
-                    20.gap,
-                    Row(children: [Expanded(child: AppButton.text(text: local.charge, onPressed: ontap))]),
-                  ],
+      builder: (context) => SafeArea(
+        child: Container(
+          padding: EdgeInsets.only(top: 15, left: 15, right: 15, bottom: MediaQuery.of(context).viewInsets.bottom + 10),
+          decoration: const BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+          ),
+          child: Form(
+            key: key,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Center(child: Text(local.remainingamount, style: AppTextStyle.style16B)),
+                20.gap,
+                WidgetAuthTextField(
+                  controller: amount,
+                  hintText: remainingAmountPrice ?? local.enterAmountHint,
+                  hentTextStyle: AppTextStyle.style14.copyWith(color: AppColor.grey),
+                  textStyle: AppTextStyle.style16.copyWith(color: AppColor.black),
+                  suffixIcon: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [SizedBox(width: 25, height: 25, child: SvgPicture.asset(Assets.svgSar))],
+                  ),
+                  validator: (p0) {
+                    if (remainingAmountPrice != null && remainingAmountPrice != '') {
+                      return null;
+                    } else {
+                      if (p0?.isEmpty ?? true) {
+                        return local.requiredField;
+                      }
+                      return null;
+                    }
+                  },
                 ),
-              ),
+                20.gap,
+                Row(children: [Expanded(child: AppButton.text(text: local.charge, onPressed: ontap))]),
+              ],
             ),
           ),
+        ),
+      ),
     );
   }
 }

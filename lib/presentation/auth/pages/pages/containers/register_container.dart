@@ -59,7 +59,7 @@ class RegisteContainer extends StatelessWidget with FormValidationMixin {
                 ),
                 5.gap,
                 Text(local.password, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
-                ValueListenableBuilder(
+                ValueListenableBuilder<bool>(
                   valueListenable: context.read<RegisterCubit>().obscureText,
                   builder:
                       (context, value, child) => WidgetAuthTextField(
@@ -77,7 +77,7 @@ class RegisteContainer extends StatelessWidget with FormValidationMixin {
                 ),
                 5.gap,
                 Text(local.confirm_password, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
-                ValueListenableBuilder(
+                ValueListenableBuilder<bool>(
                   valueListenable: context.read<RegisterCubit>().obscureTextConfirm,
                   builder:
                       (context, value, child) => WidgetAuthTextField(

@@ -22,6 +22,7 @@ import 'package:audioplayers/audioplayers.dart';
 import ' route_utils.dart';
 import '../../../core/constant/api_link.dart';
 import '../../../core/context/global.dart';
+import '../../../core/function/show_snackbar.dart';
 import '../../../core/services/api_services/api_client.dart';
 import '../../../core/services/api_services/dio_helper.dart';
 import '../../../core/services/background/foreground_services.dart';
@@ -100,14 +101,7 @@ class HomeCubit extends Cubit<HomeState> {
       LocationHelper().getCurrentLocation().then((locationData) async {
         initialPosition.value = LatLng(locationData?.latitude ?? 0.0, locationData?.longitude ?? 0.0);
         circles.addAll([
-          Circle(
-            circleId: CircleId('user_circle'),
-            center: initialPosition.value,
-            radius: 200,
-            fillColor: Colors.black87.withOpacity(0.3),
-            strokeColor: Colors.black87,
-            strokeWidth: 2,
-          ),
+          Circle(circleId: CircleId('user_circle'), center: initialPosition.value, radius: 200, fillColor: Colors.black87.withOpacity(0.3), strokeColor: Colors.black87, strokeWidth: 2),
         ]);
         mapController?.animateCamera(CameraUpdate.newLatLngZoom(initialPosition.value, 15));
       });
@@ -293,14 +287,13 @@ class HomeCubit extends Cubit<HomeState> {
         (failure) {
           SmartDialog.dismiss();
           SmartDialog.show(
-            builder:
-                (context) => WidgetDilog(
-                  isError: true,
-                  title: AppLocalizations.of(GlobalContext.context)!.warning,
-                  message: failure.message,
-                  cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-                  onCancel: () => SmartDialog.dismiss(),
-                ),
+            builder: (context) => WidgetDilog(
+              isError: true,
+              title: AppLocalizations.of(GlobalContext.context)!.warning,
+              message: failure.message,
+              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
+              onCancel: () => SmartDialog.dismiss(),
+            ),
           );
           emit(HomeState.errorWorkStatus(failure.message));
         },
@@ -332,11 +325,7 @@ class HomeCubit extends Cubit<HomeState> {
       final ApiClient client = ApiClient(DioHelper().dio);
       String? token = 'Bearer ${await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token)}';
 
-      final response = await client.postRequest(
-        endpoint: ApiLinks.updateDriverLocation,
-        body: {"latitude": lat, "longitude": long, "driving_status": 1},
-        authorization: token,
-      );
+      final response = await client.postRequest(endpoint: ApiLinks.updateDriverLocation, body: {"latitude": lat, "longitude": long, "driving_status": 1}, authorization: token);
 
       if (response.response.statusCode != 200) {
         logger.d('❌ فشل في إرسال الموقع: ${response.response.data['message']}');
@@ -362,14 +351,13 @@ class HomeCubit extends Cubit<HomeState> {
       (l) {
         SmartDialog.dismiss();
         SmartDialog.show(
-          builder:
-              (context) => WidgetDilog(
-                isError: true,
-                title: AppLocalizations.of(GlobalContext.context)!.warning,
-                message: l.message,
-                cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-                onCancel: () => SmartDialog.dismiss(),
-              ),
+          builder: (context) => WidgetDilog(
+            isError: true,
+            title: AppLocalizations.of(GlobalContext.context)!.warning,
+            message: l.message,
+            cancelText: AppLocalizations.of(GlobalContext.context)!.back,
+            onCancel: () => SmartDialog.dismiss(),
+          ),
         );
       },
       (r) {
@@ -418,14 +406,13 @@ class HomeCubit extends Cubit<HomeState> {
           emit(HomeState.loadedTravelRequest(newList));
         }
         SmartDialog.show(
-          builder:
-              (context) => WidgetDilog(
-                isError: true,
-                title: AppLocalizations.of(GlobalContext.context)!.warning,
-                message: l.message,
-                cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-                onCancel: () => SmartDialog.dismiss(),
-              ),
+          builder: (context) => WidgetDilog(
+            isError: true,
+            title: AppLocalizations.of(GlobalContext.context)!.warning,
+            message: l.message,
+            cancelText: AppLocalizations.of(GlobalContext.context)!.back,
+            onCancel: () => SmartDialog.dismiss(),
+          ),
         );
       },
       (r) async {
@@ -448,14 +435,13 @@ class HomeCubit extends Cubit<HomeState> {
           emit(HomeState.loadedTravelRequest(newList));
         }
         SmartDialog.show(
-          builder:
-              (context) => WidgetDilog(
-                isError: true,
-                title: AppLocalizations.of(GlobalContext.context)!.warning,
-                message: l.message,
-                cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-                onCancel: () => SmartDialog.dismiss(),
-              ),
+          builder: (context) => WidgetDilog(
+            isError: true,
+            title: AppLocalizations.of(GlobalContext.context)!.warning,
+            message: l.message,
+            cancelText: AppLocalizations.of(GlobalContext.context)!.back,
+            onCancel: () => SmartDialog.dismiss(),
+          ),
         );
       },
       (r) {
@@ -477,14 +463,13 @@ class HomeCubit extends Cubit<HomeState> {
       (l) {
         SmartDialog.dismiss();
         SmartDialog.show(
-          builder:
-              (context) => WidgetDilog(
-                isError: true,
-                title: AppLocalizations.of(GlobalContext.context)!.warning,
-                message: l.message,
-                cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-                onCancel: () => SmartDialog.dismiss(),
-              ),
+          builder: (context) => WidgetDilog(
+            isError: true,
+            title: AppLocalizations.of(GlobalContext.context)!.warning,
+            message: l.message,
+            cancelText: AppLocalizations.of(GlobalContext.context)!.back,
+            onCancel: () => SmartDialog.dismiss(),
+          ),
         );
       },
       (r) async {
@@ -511,14 +496,13 @@ class HomeCubit extends Cubit<HomeState> {
         (l) {
           SmartDialog.dismiss();
           SmartDialog.show(
-            builder:
-                (context) => WidgetDilog(
-                  isError: true,
-                  title: AppLocalizations.of(GlobalContext.context)!.warning,
-                  message: l.message,
-                  cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-                  onCancel: () => SmartDialog.dismiss(),
-                ),
+            builder: (context) => WidgetDilog(
+              isError: true,
+              title: AppLocalizations.of(GlobalContext.context)!.warning,
+              message: l.message,
+              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
+              onCancel: () => SmartDialog.dismiss(),
+            ),
           );
         },
         (r) async {
@@ -542,14 +526,13 @@ class HomeCubit extends Cubit<HomeState> {
       (l) {
         SmartDialog.dismiss();
         SmartDialog.show(
-          builder:
-              (context) => WidgetDilog(
-                isError: true,
-                title: AppLocalizations.of(GlobalContext.context)!.warning,
-                message: l.message,
-                cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-                onCancel: () => SmartDialog.dismiss(),
-              ),
+          builder: (context) => WidgetDilog(
+            isError: true,
+            title: AppLocalizations.of(GlobalContext.context)!.warning,
+            message: l.message,
+            cancelText: AppLocalizations.of(GlobalContext.context)!.back,
+            onCancel: () => SmartDialog.dismiss(),
+          ),
         );
       },
       (r) async {
@@ -597,14 +580,13 @@ class HomeCubit extends Cubit<HomeState> {
         (l) {
           SmartDialog.dismiss();
           SmartDialog.show(
-            builder:
-                (context) => WidgetDilog(
-                  isError: true,
-                  title: AppLocalizations.of(GlobalContext.context)!.warning,
-                  message: l.message,
-                  cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-                  onCancel: () => SmartDialog.dismiss(),
-                ),
+            builder: (context) => WidgetDilog(
+              isError: true,
+              title: AppLocalizations.of(GlobalContext.context)!.warning,
+              message: l.message,
+              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
+              onCancel: () => SmartDialog.dismiss(),
+            ),
           );
         },
         (r) async {
@@ -630,9 +612,7 @@ class HomeCubit extends Cubit<HomeState> {
       logger.e('Error When End Travel : $e');
       SmartDialog.dismiss();
       SmartDialog.show(
-        builder:
-            (context) =>
-                WidgetDilog(isError: true, title: 'Warning', message: 'Something went wrong : $e', onCancel: () => SmartDialog.dismiss(), cancelText: 'Back'),
+        builder: (context) => WidgetDilog(isError: true, title: 'Warning', message: 'Something went wrong : $e', onCancel: () => SmartDialog.dismiss(), cancelText: 'Back'),
       );
     }
   }
@@ -667,14 +647,13 @@ class HomeCubit extends Cubit<HomeState> {
       (l) {
         SmartDialog.dismiss();
         SmartDialog.show(
-          builder:
-              (context) => WidgetDilog(
-                isError: true,
-                title: AppLocalizations.of(GlobalContext.context)!.warning,
-                message: l.message,
-                cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-                onCancel: () => SmartDialog.dismiss(),
-              ),
+          builder: (context) => WidgetDilog(
+            isError: true,
+            title: AppLocalizations.of(GlobalContext.context)!.warning,
+            message: l.message,
+            cancelText: AppLocalizations.of(GlobalContext.context)!.back,
+            onCancel: () => SmartDialog.dismiss(),
+          ),
         );
       },
       (r) async {
@@ -690,9 +669,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void launchMap(String? latitude, String? longitude) async {
-    final url = Uri.parse(
-      'https://www.google.com/maps/search/?api=1&query=${latitude == '0' ? _currentLat : latitude},${longitude == '0' ? _currentLng : longitude}',
-    );
+    final url = Uri.parse('https://www.google.com/maps/search/?api=1&query=${latitude == '0' ? _currentLat : latitude},${longitude == '0' ? _currentLng : longitude}');
     await launchUrl(url, mode: LaunchMode.externalApplication);
   }
 
@@ -769,7 +746,6 @@ class HomeCubit extends Cubit<HomeState> {
       onDone: () async {
         log('❌ Connection closed');
         if (!_isManuallyClosed) {
-          // أعد المحاولة بعد ثانيتين
           await Future.delayed(const Duration(seconds: 2));
           log('🔁 Trying to reconnect...');
           connect(context);
@@ -801,15 +777,17 @@ class HomeCubit extends Cubit<HomeState> {
         log('⚠️ Waiting for background location...');
         return;
       }
+      final arriveCityName = await getLocationName(lat, long);
 
       final point = {
         "latitude": lat,
         "longitude": long,
-        "accuracy": accuracy, // 🆕 أضف الدقة
-        "speed": speed, // 🆕 أضف السرعة
+        "arrive_city_name": arriveCityName,
+        "accuracy": accuracy,
+        "speed": speed,
         "in_trip": inTrip,
         "updatedWhen": DateTime.now().toIso8601String(),
-        "timestamp": DateTime.now().millisecondsSinceEpoch, // 🆕 أفضل للتتبع
+        "timestamp": DateTime.now().millisecondsSinceEpoch,
       };
 
       log('📍 Sending trip update: ${point['latitude']}, ${point['longitude']} - دقة: ${accuracy?.toStringAsFixed(1)}m');
@@ -826,14 +804,10 @@ class HomeCubit extends Cubit<HomeState> {
           return;
         }
       }
-
       points.add(point);
-
       // 🆕 تجميع النقاط المتقاربة للحفظ
       final filteredPoints = RouteUtils.clusterClosePoints(points.cast<Map<String, dynamic>>());
-
       await box.put(key, filteredPoints);
-
       final subscribe = {
         'event': 'pusher:subscribe',
         'data': {'channel': 'trip.$travelId'},
@@ -850,17 +824,11 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> broadcasting(String socitId) async {
     final user = sl<Box<Driver>>().get(BoxKey.user);
-
     final result = await homeUsecase.broadcasting('${user?.id ?? 0}', socitId);
-    result.fold(
-      (failure) {
-        logger.e(failure.message);
-      },
-      (result) {
-        brodcast = result.data!;
-        _subscribeToPrivateChannel(result.data!);
-      },
-    );
+    result.fold((failure) => logger.e(failure.message), (result) {
+      brodcast = result.data!;
+      _subscribeToPrivateChannel(result.data!);
+    });
   }
 
   _disconnect() {

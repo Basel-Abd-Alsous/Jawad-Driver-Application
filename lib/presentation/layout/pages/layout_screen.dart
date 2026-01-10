@@ -29,7 +29,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
         create: (context) => sl<LayoutCubit>() ,
         child: BlocBuilder<LayoutCubit, LayoutState>(
           builder: (context, state) {
-            return ValueListenableBuilder(
+            return ValueListenableBuilder<int>(
               valueListenable: context.read<LayoutCubit>().currentIndex,
               builder:
                   (context, value, child) => Scaffold(

@@ -51,7 +51,7 @@ class LoginContainer extends StatelessWidget with FormValidationMixin {
                 ),
                 10.gap,
                 Text(local.password, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
-                ValueListenableBuilder(
+                ValueListenableBuilder<bool>(
                   valueListenable: context.read<LoginCubit>().obscureText,
                   builder:
                       (context, value, child) => WidgetAuthTextField(

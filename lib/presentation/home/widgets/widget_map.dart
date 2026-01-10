@@ -17,13 +17,13 @@ class WidgetMap extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        return ValueListenableBuilder(
+        return ValueListenableBuilder<Box<Driver>>(
           valueListenable: sl<Box<Driver>>().listenable(),
           builder: (context, value, child) {
             Driver driver = value.get(BoxKey.user) ?? Driver();
             switch (driver.workStatus) {
               case true:
-                return ValueListenableBuilder(
+                return ValueListenableBuilder<LatLng>(
                   valueListenable: context.read<HomeCubit>().initialPosition,
                   builder: (context, value, child) {
                     LatLng initialPosition = value;

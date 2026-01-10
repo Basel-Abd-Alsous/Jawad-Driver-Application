@@ -16,6 +16,7 @@ import '../../domain/model/requiest_models/bank_info_model.dart';
 import '../../domain/model/requiest_models/car_info_model.dart';
 import '../../domain/model/requiest_models/register_requiest_model.dart';
 import '../../domain/model/requiest_models/upload_document_model.dart';
+import '../../domain/usecases/forget_usecase.dart';
 import '../../domain/usecases/register_usecase.dart';
 
 part 'register_state.dart';
@@ -23,11 +24,13 @@ part 'register_cubit.freezed.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
   final RegisterUsecase registerUsecase;
+  final ForgetUsecase forgetUsecase;
 
   final formKeyStep1 = GlobalKey<FormState>();
   final formKeyStep2 = GlobalKey<FormState>();
   final formKeyStep3 = GlobalKey<FormState>();
   final formKeyStep4 = GlobalKey<FormState>();
+  final formKeyStep5 = GlobalKey<FormState>();
   TextEditingController sequenceNumber = TextEditingController();
   TextEditingController idNumber = TextEditingController();
   TextEditingController bartheDate = TextEditingController();
@@ -55,7 +58,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   int currentYear = DateTime.now().year;
   ValueNotifier<List<String>> yearsList = ValueNotifier([]);
 
-  RegisterCubit({required this.registerUsecase}) : super(RegisterState.initial());
+  RegisterCubit({required this.registerUsecase, required this.forgetUsecase}) : super(RegisterState.initial());
 
   Future<void> selectDate() async {
     FocusScope.of(GlobalContext.context).requestFocus(FocusNode());
@@ -66,9 +69,9 @@ class RegisterCubit extends Cubit<RegisterState> {
       lastDate: DateTime.now(),
       builder: (context, child) {
         return Theme(
-          data: Theme.of(
-            context,
-          ).copyWith(colorScheme: ColorScheme.light(primary: Theme.of(context).primaryColor, onPrimary: Colors.white, onSurface: Colors.black)),
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(primary: Theme.of(context).primaryColor, onPrimary: Colors.white, onSurface: Colors.black),
+          ),
           child: child!,
         );
       },
@@ -79,6 +82,20 @@ class RegisterCubit extends Cubit<RegisterState> {
       bartheDate.text = formattedDate;
     }
   }
+
+  // Forget Password => Send OTP
+  // Future<void> sendOtp({String? moble}) async {
+  //   if (moble != null || formKeyStep5.currentState!.validate()) {
+  //     try {
+  //       emit(_LoadingSendOTP());
+  //       Map<String, dynamic> sendOTPModel = {'phone': formatPhone(mobile.text), 'user_type': 'driver'};
+  //       final sendOtpResponse = await forgetUsecase.sendOtp(SendOTPModel.fromJson(sendOTPModel));
+  //       sendOtpResponse.fold((left) => emit(_ErrorSendOTP(left.message)), (right) => emit(_LoadedSendOTP()));
+  //     } catch (e) {
+  //       logger.e('Server Error Send OTP Section : $e');
+  //     }
+  //   }
+  // }
 
   // Register Function
   Future<void> register() async {
@@ -112,13 +129,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   String formatPhone(String phone) {
-    // remove all spaces just in case
     phone = phone.replaceAll(' ', '');
-
-    if (phone.startsWith('0')) {
-      phone = phone.substring(1); // remove first 0
-    }
-
+    if (phone.startsWith('0')) phone = phone.substring(1);
     return '+966$phone';
   }
 
@@ -129,15 +141,14 @@ class RegisterCubit extends Cubit<RegisterState> {
       final getAllDocumentsTypeResponse = await registerUsecase.documentsType();
       getAllDocumentsTypeResponse.fold((left) => emit(_ErrorDocumentType(left.message)), (right) {
         if (myDocumentModel != null) {
-          List<Datum> updatedList =
-              right.data!.data!.map((type) {
-                for (MyDocument document in myDocumentModel.payload!) {
-                  if (document.documentTypeId == type.id) {
-                    return type.copyWith(path: document.filePath);
-                  }
-                }
-                return type;
-              }).toList();
+          List<Datum> updatedList = right.data!.data!.map((type) {
+            for (MyDocument document in myDocumentModel.payload!) {
+              if (document.documentTypeId == type.id) {
+                return type.copyWith(path: document.filePath);
+              }
+            }
+            return type;
+          }).toList();
           final updatedData = right.data!.copyWith(data: updatedList);
           emit(_LoadedDocumentType(updatedData));
         } else {
@@ -165,10 +176,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         } else {
           updatedDocument = document?.copyWith(path: file.path);
         }
-        Map<String, dynamic> documentData = {
-          'document_type_id': myDocument != null ? (updatedDocument as MyDocument).documentTypeId : (updatedDocument as Datum).id,
-          'document': file,
-        };
+        Map<String, dynamic> documentData = {'document_type_id': myDocument != null ? (updatedDocument as MyDocument).documentTypeId : (updatedDocument as Datum).id, 'document': file};
         final uploadDocumentResponse = await registerUsecase.uploadDocument(UploadDocumentModel.fromJson(documentData));
         uploadDocumentResponse.fold(
           (left) {
@@ -177,29 +185,27 @@ class RegisterCubit extends Cubit<RegisterState> {
           (right) {
             final currentState = state;
             if (currentState is _LoadedDocumentType) {
-              final List<Datum> updatedDocuments =
-                  (currentState.documentTypeModel.data ?? [])
-                      .map((doc) {
-                        if (doc.id == (updatedDocument as Datum).id) {
-                          return updatedDocument;
-                        }
-                        return doc;
-                      })
-                      .toList()
-                      .cast<Datum>();
+              final List<Datum> updatedDocuments = (currentState.documentTypeModel.data ?? [])
+                  .map((doc) {
+                    if (doc.id == (updatedDocument as Datum).id) {
+                      return updatedDocument;
+                    }
+                    return doc;
+                  })
+                  .toList()
+                  .cast<Datum>();
               emit(_LoadedDocumentType(DocumentTypeModel(data: updatedDocuments)));
             } else if (currentState is _LoadedMyDocument) {
-              final List<MyDocument> updatedDocuments =
-                  (currentState.mMyDocumentModel.payload ?? [])
-                      .map((doc) {
-                        if (doc.documentType == (updatedDocument as MyDocument).documentType) {
-                          final updatedDocuments = updatedDocument.copyWith(statusEdit: 'pending');
-                          return updatedDocuments;
-                        }
-                        return doc;
-                      })
-                      .toList()
-                      .cast<MyDocument>();
+              final List<MyDocument> updatedDocuments = (currentState.mMyDocumentModel.payload ?? [])
+                  .map((doc) {
+                    if (doc.documentType == (updatedDocument as MyDocument).documentType) {
+                      final updatedDocuments = updatedDocument.copyWith(statusEdit: 'pending');
+                      return updatedDocuments;
+                    }
+                    return doc;
+                  })
+                  .toList()
+                  .cast<MyDocument>();
               emit(_LoadedMyDocument(MyDocumentModel(payload: updatedDocuments)));
             }
 
