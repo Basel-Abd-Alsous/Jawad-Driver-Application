@@ -567,7 +567,7 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> endTravel() async {
     try {
       SmartDialog.showLoading(msg: AppLocalizations.of(GlobalContext.context)!.loading);
-      List<Map<String, dynamic>> rawPoints = _getAllTripLocations(currentTravel.value?.id ?? 0);
+      List<Map<dynamic, dynamic>> rawPoints = _getAllTripLocations(currentTravel.value?.id ?? 0);
       Position pos = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
       final arrivedLocation = await _getAddressFromLatLng(pos.latitude, pos.longitude);
 
