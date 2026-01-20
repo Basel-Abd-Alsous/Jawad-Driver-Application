@@ -11,7 +11,7 @@ class LoadingDocuments extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,13 +23,13 @@ class LoadingDocuments extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 8,
-            separatorBuilder: (context, index) => Divider(height: 10),
+            separatorBuilder: (context, index) => const Divider(height: 10),
             itemBuilder: (context, index) {
               return ListTile(
                 contentPadding: EdgeInsets.zero,
                 dense: true,
                 leading: Icon(Icons.perm_contact_calendar_sharp, color: AppColor.grey.withOpacity(0.5), size: 30),
-                title: Row(children: [WidgetLoading(width: 100)]),
+                title: const Row(children: [WidgetLoading(width: 100)]),
                 trailing: Icon(Icons.timelapse_sharp, color: AppColor.grey.withOpacity(0.5), size: 30),
               );
             },

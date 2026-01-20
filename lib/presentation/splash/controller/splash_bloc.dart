@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:video_player/video_player.dart';
 
@@ -15,7 +15,7 @@ part 'splash_state.dart';
 part 'splash_bloc.freezed.dart';
 
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
-  SplashBloc() : super(_Initial()) {
+  SplashBloc() : super(const _Initial()) {
     on<_Started>((_initializeVideo));
   }
 
@@ -45,7 +45,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
 
   void _initializeVideo(_Started event, Emitter<SplashState> emit) async {
     try {
-      emit(_Loading());
+      emit(const _Loading());
       final controller = VideoPlayerController.asset(Assets.videoLogo);
       await controller.initialize();
       controller.play();
@@ -63,12 +63,11 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     try {
       final bool isFirstTime = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.isFirstTime, defaultValue: true);
       final String? userStatusRegister = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.userStatusRegister, defaultValue: '');
-      final String route =
-          userStatusRegister == 'completed'
-              ? AppRoutes.layout
-              : isFirstTime
-              ? AppRoutes.language
-              : AppRoutes.login;
+      final String route = userStatusRegister == 'completed'
+          ? AppRoutes.layout
+          : isFirstTime
+          ? AppRoutes.language
+          : AppRoutes.login;
       return route;
     } catch (e) {
       logger.e(e.toString());

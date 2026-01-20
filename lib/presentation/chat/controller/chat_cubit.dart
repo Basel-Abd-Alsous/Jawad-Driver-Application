@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../../../core/constant/api_link.dart';
@@ -28,7 +28,7 @@ class ChatCubit extends Cubit<ChatState> {
   final ChatUsecase chatUsecase;
   final HomeUsecase homeUsecase;
 
-  ChatCubit({required this.chatUsecase, required this.homeUsecase}) : super(ChatState.initial()) {
+  ChatCubit({required this.chatUsecase, required this.homeUsecase}) : super(const ChatState.initial()) {
     connect();
   }
   ValueNotifier<List<Message>> allMessage = ValueNotifier([]);

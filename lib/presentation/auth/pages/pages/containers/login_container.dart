@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 
 import '../../../../../core/services/hive/box_key.dart';
 import '../../../../../core/router/router_key.dart';
@@ -53,19 +53,15 @@ class LoginContainer extends StatelessWidget with FormValidationMixin {
                 Text(local.password, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
                 ValueListenableBuilder<bool>(
                   valueListenable: context.read<LoginCubit>().obscureText,
-                  builder:
-                      (context, value, child) => WidgetAuthTextField(
-                        hintText: local.password_hint,
-                        controller: context.read<LoginCubit>().password,
-                        obscureText: value,
-                        keyboardType: TextInputType.text,
-                        prefixIcon: const Icon(Icons.lock),
-                        suffixIcon: IconButton(
-                          onPressed: () => context.read<LoginCubit>().changeObscure(),
-                          icon: Icon(value == true ? Icons.visibility_off : Icons.visibility),
-                        ),
-                        validator: (value) => validatePassword(context, value),
-                      ),
+                  builder: (context, value, child) => WidgetAuthTextField(
+                    hintText: local.password_hint,
+                    controller: context.read<LoginCubit>().password,
+                    obscureText: value,
+                    keyboardType: TextInputType.text,
+                    prefixIcon: const Icon(Icons.lock),
+                    suffixIcon: IconButton(onPressed: () => context.read<LoginCubit>().changeObscure(), icon: Icon(value == true ? Icons.visibility_off : Icons.visibility)),
+                    validator: (value) => validatePassword(context, value),
+                  ),
                 ),
                 5.gap,
                 const WidgetForgetPassword(),
@@ -79,18 +75,18 @@ class LoginContainer extends StatelessWidget with FormValidationMixin {
                     Text(local.dont_have_account, style: AppTextStyle.style12.copyWith(color: AppColor.onSecondColor)),
                     const SizedBox(width: 5),
                     registerStatus
-                        ? SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: AppColor.white))
+                        ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: AppColor.white))
                         : InkWell(
-                          onTap: () async {
-                            final String? token = await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token);
-                            if (token != null) {
-                              context.read<LoginCubit>().registerStatus();
-                            } else {
-                              context.push(AppRoutes.register);
-                            }
-                          },
-                          child: Text(local.create_new_account, style: AppTextStyle.style12B.copyWith(color: Colors.white)),
-                        ),
+                            onTap: () async {
+                              final String? token = await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token);
+                              if (token != null) {
+                                context.read<LoginCubit>().registerStatus();
+                              } else {
+                                context.push(AppRoutes.register);
+                              }
+                            },
+                            child: Text(local.create_new_account, style: AppTextStyle.style12B.copyWith(color: Colors.white)),
+                          ),
                   ],
                 ),
               ],
@@ -130,10 +126,9 @@ class LoginContainer extends StatelessWidget with FormValidationMixin {
             break;
         }
       },
-      errorLogin:
-          (message) => SmartDialog.show(
-            builder: (_) => WidgetDilog(isError: true, title: local.warning, message: message, cancelText: local.back, onCancel: () => SmartDialog.dismiss()),
-          ),
+      errorLogin: (message) => SmartDialog.show(
+        builder: (_) => WidgetDilog(isError: true, title: local.warning, message: message, cancelText: local.back, onCancel: () => SmartDialog.dismiss()),
+      ),
       loadedRegisterStatus: (value) {
         final step = RegisterStepExtension.fromString(value.payload?.currentStep);
         switch (step) {

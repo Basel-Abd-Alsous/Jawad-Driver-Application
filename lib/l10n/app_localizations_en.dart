@@ -90,6 +90,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get withdrawCash => 'Withdraw Cash';
 
   @override
+  String get commission => 'Commission';
+
+  @override
+  String get driver_profit => 'Driver Profit';
+
+  @override
+  String get feedback => 'Feedback';
+
+  @override
+  String get feedbackType => 'Feedback Type';
+
+  @override
+  String get pleaseSelectFeedbackType => 'Please select a feedback type';
+
+  @override
   String get submit => 'Submit';
 
   @override
@@ -109,6 +124,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get areyousureyouwanttodeleteyouraccount => 'Are you sure you want to delete your account?';
+
+  @override
+  String get whatsapp => 'WhatsApp';
+
+  @override
+  String get instagram => 'Instagram';
+
+  @override
+  String get contact_via_whatsapp => 'Contact us via WhatsApp';
+
+  @override
+  String get follow_on_instagram => 'Follow us on Instagram';
+
+  @override
+  String get follow_on_twitter => 'Follow us on Twitter';
+
+  @override
+  String get twitter => 'Twitter';
 
   @override
   String get plate_number => 'Plate Number';

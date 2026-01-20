@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 
 import '../../../core/constant/app_image.dart';
 import '../../../core/services/hive/box_key.dart';
@@ -29,7 +29,7 @@ class ContainerTravelRequiest extends StatelessWidget {
       builder: (context, value, child) {
         return BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
-            Driver driver = value.get(BoxKey.user) ?? Driver();
+            Driver driver = value.get(BoxKey.user) ?? const Driver();
             switch (driver.workStatus) {
               case true:
                 return state.maybeWhen(
@@ -71,10 +71,10 @@ class ContainerTravelRequiest extends StatelessWidget {
                       ],
                     ),
                   ),
-                  orElse: () => SizedBox(),
+                  orElse: () => const SizedBox(),
                 );
               default:
-                return SizedBox();
+                return const SizedBox();
             }
           },
         );

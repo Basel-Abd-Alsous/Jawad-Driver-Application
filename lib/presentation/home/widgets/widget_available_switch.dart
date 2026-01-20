@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive_ce_flutter/adapters.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/services/hive/box_key.dart';
@@ -21,47 +21,45 @@ class WidgetAvailableSwitch extends StatelessWidget {
 
     return ValueListenableBuilder(
       valueListenable: context.read<HomeCubit>().travelStatus,
-      builder:
-          (context, value, child) =>
-              value != TravelStatus.pending
-                  ? SizedBox.shrink()
-                  : ValueListenableBuilder<Box<Driver>>(
-                    valueListenable: sl<Box<Driver>>().listenable(),
-                    builder: (context, value, child) {
-                      Driver driver = value.get(BoxKey.user) ?? Driver();
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+      builder: (context, value, child) => value != TravelStatus.pending
+          ? const SizedBox.shrink()
+          : ValueListenableBuilder<Box<Driver>>(
+              valueListenable: sl<Box<Driver>>().listenable(),
+              builder: (context, value, child) {
+                Driver driver = value.get(BoxKey.user) ?? const Driver();
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                      decoration: BoxDecoration(color: driver.workStatus == true ? Colors.green : AppColor.secondColor, borderRadius: BorderRadius.circular(1000)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 10),
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                            decoration: BoxDecoration(color: driver.workStatus == true ? Colors.green : AppColor.secondColor, borderRadius: BorderRadius.circular(1000)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  width: 50,
-                                  height: 25,
-                                  child: Switch.adaptive(
-                                    padding: EdgeInsets.zero,
-                                    value: driver.workStatus ?? false,
-                                    activeColor: Colors.greenAccent,
+                          SizedBox(
+                            width: 50,
+                            height: 25,
+                            child: Switch.adaptive(
+                              padding: EdgeInsets.zero,
+                              value: driver.workStatus ?? false,
+                              activeColor: Colors.greenAccent,
 
-                                    inactiveThumbColor: AppColor.white,
-                                    onChanged: (value) => context.read<HomeCubit>().switchWorkStatus(context),
-                                  ),
-                                ),
-                                10.gap,
-                                Text(driver.workStatus == true ? local.available : local.not_available, style: AppTextStyle.style10B.copyWith(color: AppColor.white)),
-                              ],
+                              inactiveThumbColor: AppColor.white,
+                              onChanged: (value) => context.read<HomeCubit>().switchWorkStatus(context),
                             ),
                           ),
+                          10.gap,
+                          Text(driver.workStatus == true ? local.available : local.not_available, style: AppTextStyle.style10B.copyWith(color: AppColor.white)),
                         ],
-                      );
-                    },
-                  ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
     );
   }
 }

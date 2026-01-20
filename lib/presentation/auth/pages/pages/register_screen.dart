@@ -20,8 +20,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            WidgetAuthBackground(),
-            MultiBlocProvider(providers: [BlocProvider<LoginCubit>(create: (context) => sl<LoginCubit>())], child: AuthHintText(isRegiste: true)),
+            const WidgetAuthBackground(),
+            MultiBlocProvider(providers: [BlocProvider<LoginCubit>(create: (context) => sl<LoginCubit>())], child: const AuthHintText(isRegiste: true)),
           ],
         ),
       ),

@@ -4,7 +4,7 @@ part 'my_document_model.freezed.dart';
 part 'my_document_model.g.dart';
 
 @freezed
-class MyDocumentModel with _$MyDocumentModel {
+abstract class MyDocumentModel with _$MyDocumentModel {
   const factory MyDocumentModel({
     @JsonKey(name: 'status') String? status,
     @JsonKey(name: 'code') int? code,
@@ -17,7 +17,7 @@ class MyDocumentModel with _$MyDocumentModel {
 }
 
 @freezed
-class MyDocument with _$MyDocument {
+abstract class MyDocument with _$MyDocument {
   const factory MyDocument({
     @JsonKey(name: 'id') int? id,
     @JsonKey(name: 'document_type_id') int? documentTypeId,

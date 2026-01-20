@@ -8,7 +8,7 @@ part of 'user_model.dart';
 
 class DriverAdapter extends TypeAdapter<Driver> {
   @override
-  final int typeId = 0;
+  final typeId = 0;
 
   @override
   Driver read(BinaryReader reader) {
@@ -17,7 +17,7 @@ class DriverAdapter extends TypeAdapter<Driver> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Driver(
-      id: fields[1] as int?,
+      id: (fields[1] as num?)?.toInt(),
       firstName: fields[2] as String?,
       lastName: fields[3] as dynamic,
       email: fields[4] as dynamic,
@@ -83,18 +83,17 @@ class DriverAdapter extends TypeAdapter<Driver> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
-    _$UserModelImpl(
-      status: json['status'] as String?,
-      code: (json['code'] as num?)?.toInt(),
-      message: json['message'] as String?,
-      payload: json['payload'] == null
-          ? null
-          : Payload.fromJson(json['payload'] as Map<String, dynamic>),
-      isSuccess: json['isSuccess'] as bool?,
-    );
+_UserModel _$UserModelFromJson(Map<String, dynamic> json) => _UserModel(
+  status: json['status'] as String?,
+  code: (json['code'] as num?)?.toInt(),
+  message: json['message'] as String?,
+  payload: json['payload'] == null
+      ? null
+      : Payload.fromJson(json['payload'] as Map<String, dynamic>),
+  isSuccess: json['isSuccess'] as bool?,
+);
 
-Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
+Map<String, dynamic> _$UserModelToJson(_UserModel instance) =>
     <String, dynamic>{
       'status': instance.status,
       'code': instance.code,
@@ -103,53 +102,50 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'isSuccess': instance.isSuccess,
     };
 
-_$PayloadImpl _$$PayloadImplFromJson(Map<String, dynamic> json) =>
-    _$PayloadImpl(
-      driver: json['driver'] == null
-          ? null
-          : Driver.fromJson(json['driver'] as Map<String, dynamic>),
-    );
+_Payload _$PayloadFromJson(Map<String, dynamic> json) => _Payload(
+  driver: json['driver'] == null
+      ? null
+      : Driver.fromJson(json['driver'] as Map<String, dynamic>),
+);
 
-Map<String, dynamic> _$$PayloadImplToJson(_$PayloadImpl instance) =>
-    <String, dynamic>{
-      'driver': instance.driver,
-    };
+Map<String, dynamic> _$PayloadToJson(_Payload instance) => <String, dynamic>{
+  'driver': instance.driver,
+};
 
-_$DriverImpl _$$DriverImplFromJson(Map<String, dynamic> json) => _$DriverImpl(
-      id: (json['id'] as num?)?.toInt(),
-      firstName: json['first_name'] as String?,
-      lastName: json['last_name'],
-      email: json['email'],
-      phone: json['phone'] as String?,
-      address: json['address'],
-      gender: json['gender'],
-      registrationStatus: json['registration_status'] as String?,
-      status: json['status'] as String?,
-      workStatus: json['work_status'] as bool?,
-      profileImage: json['profile_image'] as String?,
-      createdAt: json['created_at'] == null
-          ? null
-          : DateTime.parse(json['created_at'] as String),
-      updatedAt: json['updated_at'] == null
-          ? null
-          : DateTime.parse(json['updated_at'] as String),
-      rating: json['rating'],
-    );
+_Driver _$DriverFromJson(Map<String, dynamic> json) => _Driver(
+  id: (json['id'] as num?)?.toInt(),
+  firstName: json['first_name'] as String?,
+  lastName: json['last_name'],
+  email: json['email'],
+  phone: json['phone'] as String?,
+  address: json['address'],
+  gender: json['gender'],
+  registrationStatus: json['registration_status'] as String?,
+  status: json['status'] as String?,
+  workStatus: json['work_status'] as bool?,
+  profileImage: json['profile_image'] as String?,
+  createdAt: json['created_at'] == null
+      ? null
+      : DateTime.parse(json['created_at'] as String),
+  updatedAt: json['updated_at'] == null
+      ? null
+      : DateTime.parse(json['updated_at'] as String),
+  rating: json['rating'],
+);
 
-Map<String, dynamic> _$$DriverImplToJson(_$DriverImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'first_name': instance.firstName,
-      'last_name': instance.lastName,
-      'email': instance.email,
-      'phone': instance.phone,
-      'address': instance.address,
-      'gender': instance.gender,
-      'registration_status': instance.registrationStatus,
-      'status': instance.status,
-      'work_status': instance.workStatus,
-      'profile_image': instance.profileImage,
-      'created_at': instance.createdAt?.toIso8601String(),
-      'updated_at': instance.updatedAt?.toIso8601String(),
-      'rating': instance.rating,
-    };
+Map<String, dynamic> _$DriverToJson(_Driver instance) => <String, dynamic>{
+  'id': instance.id,
+  'first_name': instance.firstName,
+  'last_name': instance.lastName,
+  'email': instance.email,
+  'phone': instance.phone,
+  'address': instance.address,
+  'gender': instance.gender,
+  'registration_status': instance.registrationStatus,
+  'status': instance.status,
+  'work_status': instance.workStatus,
+  'profile_image': instance.profileImage,
+  'created_at': instance.createdAt?.toIso8601String(),
+  'updated_at': instance.updatedAt?.toIso8601String(),
+  'rating': instance.rating,
+};

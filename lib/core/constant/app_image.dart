@@ -130,6 +130,10 @@ class Assets {
   /// assets/svg/home.svg
   static const String svgHome = "assets/svg/home.svg";
 
+  /// Assets for svgInstgram
+  /// assets/svg/instgram.svg
+  static const String svgInstgram = "assets/svg/instgram.svg";
+
   /// Assets for svgInvoice
   /// assets/svg/invoice.svg
   static const String svgInvoice = "assets/svg/invoice.svg";
@@ -186,6 +190,10 @@ class Assets {
   /// assets/svg/star.svg
   static const String svgStar = "assets/svg/star.svg";
 
+  /// Assets for svgSupport
+  /// assets/svg/support.svg
+  static const String svgSupport = "assets/svg/support.svg";
+
   /// Assets for svgTerms
   /// assets/svg/terms.svg
   static const String svgTerms = "assets/svg/terms.svg";
@@ -193,6 +201,10 @@ class Assets {
   /// Assets for svgTimer
   /// assets/svg/timer.svg
   static const String svgTimer = "assets/svg/timer.svg";
+
+  /// Assets for svgTwitter
+  /// assets/svg/twitter.svg
+  static const String svgTwitter = "assets/svg/twitter.svg";
 
   /// Assets for svgVisa
   /// assets/svg/visa.svg
@@ -209,6 +221,10 @@ class Assets {
   /// Assets for svgWallet
   /// assets/svg/wallet.svg
   static const String svgWallet = "assets/svg/wallet.svg";
+
+  /// Assets for svgWhatsapp
+  /// assets/svg/whatsapp.svg
+  static const String svgWhatsapp = "assets/svg/whatsapp.svg";
 
   /// Assets for svgWorning
   /// assets/svg/worning.svg

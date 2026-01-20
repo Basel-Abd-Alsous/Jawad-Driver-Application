@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,751 +9,884 @@ part of 'notifications_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-NotificationsModel _$NotificationsModelFromJson(Map<String, dynamic> json) {
-  return _NotificationsModel.fromJson(json);
-}
 
 /// @nodoc
 mixin _$NotificationsModel {
-  @JsonKey(name: "status")
-  String? get status => throw _privateConstructorUsedError;
-  @JsonKey(name: "code")
-  int? get code => throw _privateConstructorUsedError;
-  @JsonKey(name: "message")
-  String? get message => throw _privateConstructorUsedError;
-  @JsonKey(name: "payload")
-  Payload? get payload => throw _privateConstructorUsedError;
-  @JsonKey(name: "isSuccess")
-  bool? get isSuccess => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $NotificationsModelCopyWith<NotificationsModel> get copyWith =>
-      throw _privateConstructorUsedError;
+@JsonKey(name: "status") String? get status;@JsonKey(name: "code") int? get code;@JsonKey(name: "message") String? get message;@JsonKey(name: "payload") Payload? get payload;@JsonKey(name: "isSuccess") bool? get isSuccess;
+/// Create a copy of NotificationsModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$NotificationsModelCopyWith<NotificationsModel> get copyWith => _$NotificationsModelCopyWithImpl<NotificationsModel>(this as NotificationsModel, _$identity);
+
+  /// Serializes this NotificationsModel to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NotificationsModel&&(identical(other.status, status) || other.status == status)&&(identical(other.code, code) || other.code == code)&&(identical(other.message, message) || other.message == message)&&(identical(other.payload, payload) || other.payload == payload)&&(identical(other.isSuccess, isSuccess) || other.isSuccess == isSuccess));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,status,code,message,payload,isSuccess);
+
+@override
+String toString() {
+  return 'NotificationsModel(status: $status, code: $code, message: $message, payload: $payload, isSuccess: $isSuccess)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $NotificationsModelCopyWith<$Res> {
-  factory $NotificationsModelCopyWith(
-          NotificationsModel value, $Res Function(NotificationsModel) then) =
-      _$NotificationsModelCopyWithImpl<$Res, NotificationsModel>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: "status") String? status,
-      @JsonKey(name: "code") int? code,
-      @JsonKey(name: "message") String? message,
-      @JsonKey(name: "payload") Payload? payload,
-      @JsonKey(name: "isSuccess") bool? isSuccess});
+abstract mixin class $NotificationsModelCopyWith<$Res>  {
+  factory $NotificationsModelCopyWith(NotificationsModel value, $Res Function(NotificationsModel) _then) = _$NotificationsModelCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: "status") String? status,@JsonKey(name: "code") int? code,@JsonKey(name: "message") String? message,@JsonKey(name: "payload") Payload? payload,@JsonKey(name: "isSuccess") bool? isSuccess
+});
 
-  $PayloadCopyWith<$Res>? get payload;
+
+$PayloadCopyWith<$Res>? get payload;
+
 }
-
 /// @nodoc
-class _$NotificationsModelCopyWithImpl<$Res, $Val extends NotificationsModel>
+class _$NotificationsModelCopyWithImpl<$Res>
     implements $NotificationsModelCopyWith<$Res> {
-  _$NotificationsModelCopyWithImpl(this._value, this._then);
+  _$NotificationsModelCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final NotificationsModel _self;
+  final $Res Function(NotificationsModel) _then;
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? status = freezed,
-    Object? code = freezed,
-    Object? message = freezed,
-    Object? payload = freezed,
-    Object? isSuccess = freezed,
-  }) {
-    return _then(_value.copyWith(
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String?,
-      code: freezed == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as int?,
-      message: freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
-      payload: freezed == payload
-          ? _value.payload
-          : payload // ignore: cast_nullable_to_non_nullable
-              as Payload?,
-      isSuccess: freezed == isSuccess
-          ? _value.isSuccess
-          : isSuccess // ignore: cast_nullable_to_non_nullable
-              as bool?,
-    ) as $Val);
+/// Create a copy of NotificationsModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? status = freezed,Object? code = freezed,Object? message = freezed,Object? payload = freezed,Object? isSuccess = freezed,}) {
+  return _then(_self.copyWith(
+status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String?,code: freezed == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
+as int?,message: freezed == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String?,payload: freezed == payload ? _self.payload : payload // ignore: cast_nullable_to_non_nullable
+as Payload?,isSuccess: freezed == isSuccess ? _self.isSuccess : isSuccess // ignore: cast_nullable_to_non_nullable
+as bool?,
+  ));
+}
+/// Create a copy of NotificationsModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PayloadCopyWith<$Res>? get payload {
+    if (_self.payload == null) {
+    return null;
   }
 
-  @override
-  @pragma('vm:prefer-inline')
-  $PayloadCopyWith<$Res>? get payload {
-    if (_value.payload == null) {
-      return null;
-    }
-
-    return $PayloadCopyWith<$Res>(_value.payload!, (value) {
-      return _then(_value.copyWith(payload: value) as $Val);
-    });
-  }
+  return $PayloadCopyWith<$Res>(_self.payload!, (value) {
+    return _then(_self.copyWith(payload: value));
+  });
+}
 }
 
-/// @nodoc
-abstract class _$$NotificationsModelImplCopyWith<$Res>
-    implements $NotificationsModelCopyWith<$Res> {
-  factory _$$NotificationsModelImplCopyWith(_$NotificationsModelImpl value,
-          $Res Function(_$NotificationsModelImpl) then) =
-      __$$NotificationsModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: "status") String? status,
-      @JsonKey(name: "code") int? code,
-      @JsonKey(name: "message") String? message,
-      @JsonKey(name: "payload") Payload? payload,
-      @JsonKey(name: "isSuccess") bool? isSuccess});
 
-  @override
-  $PayloadCopyWith<$Res>? get payload;
+/// Adds pattern-matching-related methods to [NotificationsModel].
+extension NotificationsModelPatterns on NotificationsModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _NotificationsModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _NotificationsModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _NotificationsModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _NotificationsModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _NotificationsModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _NotificationsModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: "status")  String? status, @JsonKey(name: "code")  int? code, @JsonKey(name: "message")  String? message, @JsonKey(name: "payload")  Payload? payload, @JsonKey(name: "isSuccess")  bool? isSuccess)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _NotificationsModel() when $default != null:
+return $default(_that.status,_that.code,_that.message,_that.payload,_that.isSuccess);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: "status")  String? status, @JsonKey(name: "code")  int? code, @JsonKey(name: "message")  String? message, @JsonKey(name: "payload")  Payload? payload, @JsonKey(name: "isSuccess")  bool? isSuccess)  $default,) {final _that = this;
+switch (_that) {
+case _NotificationsModel():
+return $default(_that.status,_that.code,_that.message,_that.payload,_that.isSuccess);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: "status")  String? status, @JsonKey(name: "code")  int? code, @JsonKey(name: "message")  String? message, @JsonKey(name: "payload")  Payload? payload, @JsonKey(name: "isSuccess")  bool? isSuccess)?  $default,) {final _that = this;
+switch (_that) {
+case _NotificationsModel() when $default != null:
+return $default(_that.status,_that.code,_that.message,_that.payload,_that.isSuccess);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-class __$$NotificationsModelImplCopyWithImpl<$Res>
-    extends _$NotificationsModelCopyWithImpl<$Res, _$NotificationsModelImpl>
-    implements _$$NotificationsModelImplCopyWith<$Res> {
-  __$$NotificationsModelImplCopyWithImpl(_$NotificationsModelImpl _value,
-      $Res Function(_$NotificationsModelImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? status = freezed,
-    Object? code = freezed,
-    Object? message = freezed,
-    Object? payload = freezed,
-    Object? isSuccess = freezed,
-  }) {
-    return _then(_$NotificationsModelImpl(
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String?,
-      code: freezed == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as int?,
-      message: freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
-      payload: freezed == payload
-          ? _value.payload
-          : payload // ignore: cast_nullable_to_non_nullable
-              as Payload?,
-      isSuccess: freezed == isSuccess
-          ? _value.isSuccess
-          : isSuccess // ignore: cast_nullable_to_non_nullable
-              as bool?,
-    ));
-  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$NotificationsModelImpl implements _NotificationsModel {
-  const _$NotificationsModelImpl(
-      {@JsonKey(name: "status") this.status,
-      @JsonKey(name: "code") this.code,
-      @JsonKey(name: "message") this.message,
-      @JsonKey(name: "payload") this.payload,
-      @JsonKey(name: "isSuccess") this.isSuccess});
 
-  factory _$NotificationsModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$NotificationsModelImplFromJson(json);
+class _NotificationsModel implements NotificationsModel {
+  const _NotificationsModel({@JsonKey(name: "status") this.status, @JsonKey(name: "code") this.code, @JsonKey(name: "message") this.message, @JsonKey(name: "payload") this.payload, @JsonKey(name: "isSuccess") this.isSuccess});
+  factory _NotificationsModel.fromJson(Map<String, dynamic> json) => _$NotificationsModelFromJson(json);
 
-  @override
-  @JsonKey(name: "status")
-  final String? status;
-  @override
-  @JsonKey(name: "code")
-  final int? code;
-  @override
-  @JsonKey(name: "message")
-  final String? message;
-  @override
-  @JsonKey(name: "payload")
-  final Payload? payload;
-  @override
-  @JsonKey(name: "isSuccess")
-  final bool? isSuccess;
+@override@JsonKey(name: "status") final  String? status;
+@override@JsonKey(name: "code") final  int? code;
+@override@JsonKey(name: "message") final  String? message;
+@override@JsonKey(name: "payload") final  Payload? payload;
+@override@JsonKey(name: "isSuccess") final  bool? isSuccess;
 
-  @override
-  String toString() {
-    return 'NotificationsModel(status: $status, code: $code, message: $message, payload: $payload, isSuccess: $isSuccess)';
-  }
+/// Create a copy of NotificationsModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$NotificationsModelCopyWith<_NotificationsModel> get copyWith => __$NotificationsModelCopyWithImpl<_NotificationsModel>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$NotificationsModelImpl &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.code, code) || other.code == code) &&
-            (identical(other.message, message) || other.message == message) &&
-            (identical(other.payload, payload) || other.payload == payload) &&
-            (identical(other.isSuccess, isSuccess) ||
-                other.isSuccess == isSuccess));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, status, code, message, payload, isSuccess);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$NotificationsModelImplCopyWith<_$NotificationsModelImpl> get copyWith =>
-      __$$NotificationsModelImplCopyWithImpl<_$NotificationsModelImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$NotificationsModelImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$NotificationsModelToJson(this, );
 }
 
-abstract class _NotificationsModel implements NotificationsModel {
-  const factory _NotificationsModel(
-          {@JsonKey(name: "status") final String? status,
-          @JsonKey(name: "code") final int? code,
-          @JsonKey(name: "message") final String? message,
-          @JsonKey(name: "payload") final Payload? payload,
-          @JsonKey(name: "isSuccess") final bool? isSuccess}) =
-      _$NotificationsModelImpl;
-
-  factory _NotificationsModel.fromJson(Map<String, dynamic> json) =
-      _$NotificationsModelImpl.fromJson;
-
-  @override
-  @JsonKey(name: "status")
-  String? get status;
-  @override
-  @JsonKey(name: "code")
-  int? get code;
-  @override
-  @JsonKey(name: "message")
-  String? get message;
-  @override
-  @JsonKey(name: "payload")
-  Payload? get payload;
-  @override
-  @JsonKey(name: "isSuccess")
-  bool? get isSuccess;
-  @override
-  @JsonKey(ignore: true)
-  _$$NotificationsModelImplCopyWith<_$NotificationsModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NotificationsModel&&(identical(other.status, status) || other.status == status)&&(identical(other.code, code) || other.code == code)&&(identical(other.message, message) || other.message == message)&&(identical(other.payload, payload) || other.payload == payload)&&(identical(other.isSuccess, isSuccess) || other.isSuccess == isSuccess));
 }
 
-Payload _$PayloadFromJson(Map<String, dynamic> json) {
-  return _Payload.fromJson(json);
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,status,code,message,payload,isSuccess);
+
+@override
+String toString() {
+  return 'NotificationsModel(status: $status, code: $code, message: $message, payload: $payload, isSuccess: $isSuccess)';
 }
+
+
+}
+
+/// @nodoc
+abstract mixin class _$NotificationsModelCopyWith<$Res> implements $NotificationsModelCopyWith<$Res> {
+  factory _$NotificationsModelCopyWith(_NotificationsModel value, $Res Function(_NotificationsModel) _then) = __$NotificationsModelCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: "status") String? status,@JsonKey(name: "code") int? code,@JsonKey(name: "message") String? message,@JsonKey(name: "payload") Payload? payload,@JsonKey(name: "isSuccess") bool? isSuccess
+});
+
+
+@override $PayloadCopyWith<$Res>? get payload;
+
+}
+/// @nodoc
+class __$NotificationsModelCopyWithImpl<$Res>
+    implements _$NotificationsModelCopyWith<$Res> {
+  __$NotificationsModelCopyWithImpl(this._self, this._then);
+
+  final _NotificationsModel _self;
+  final $Res Function(_NotificationsModel) _then;
+
+/// Create a copy of NotificationsModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? status = freezed,Object? code = freezed,Object? message = freezed,Object? payload = freezed,Object? isSuccess = freezed,}) {
+  return _then(_NotificationsModel(
+status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String?,code: freezed == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
+as int?,message: freezed == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String?,payload: freezed == payload ? _self.payload : payload // ignore: cast_nullable_to_non_nullable
+as Payload?,isSuccess: freezed == isSuccess ? _self.isSuccess : isSuccess // ignore: cast_nullable_to_non_nullable
+as bool?,
+  ));
+}
+
+/// Create a copy of NotificationsModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PayloadCopyWith<$Res>? get payload {
+    if (_self.payload == null) {
+    return null;
+  }
+
+  return $PayloadCopyWith<$Res>(_self.payload!, (value) {
+    return _then(_self.copyWith(payload: value));
+  });
+}
+}
+
 
 /// @nodoc
 mixin _$Payload {
-  @JsonKey(name: "notifications")
-  List<NotificationData>? get notifications =>
-      throw _privateConstructorUsedError;
-  @JsonKey(name: "unread_notifications_count")
-  int? get unreadNotificationsCount => throw _privateConstructorUsedError;
-  @JsonKey(name: "pagination")
-  Pagination? get pagination => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $PayloadCopyWith<Payload> get copyWith => throw _privateConstructorUsedError;
+@JsonKey(name: "notifications") List<NotificationData>? get notifications;@JsonKey(name: "unread_notifications_count") int? get unreadNotificationsCount;@JsonKey(name: "pagination") Pagination? get pagination;
+/// Create a copy of Payload
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PayloadCopyWith<Payload> get copyWith => _$PayloadCopyWithImpl<Payload>(this as Payload, _$identity);
+
+  /// Serializes this Payload to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Payload&&const DeepCollectionEquality().equals(other.notifications, notifications)&&(identical(other.unreadNotificationsCount, unreadNotificationsCount) || other.unreadNotificationsCount == unreadNotificationsCount)&&(identical(other.pagination, pagination) || other.pagination == pagination));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(notifications),unreadNotificationsCount,pagination);
+
+@override
+String toString() {
+  return 'Payload(notifications: $notifications, unreadNotificationsCount: $unreadNotificationsCount, pagination: $pagination)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $PayloadCopyWith<$Res> {
-  factory $PayloadCopyWith(Payload value, $Res Function(Payload) then) =
-      _$PayloadCopyWithImpl<$Res, Payload>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: "notifications") List<NotificationData>? notifications,
-      @JsonKey(name: "unread_notifications_count")
-      int? unreadNotificationsCount,
-      @JsonKey(name: "pagination") Pagination? pagination});
+abstract mixin class $PayloadCopyWith<$Res>  {
+  factory $PayloadCopyWith(Payload value, $Res Function(Payload) _then) = _$PayloadCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: "notifications") List<NotificationData>? notifications,@JsonKey(name: "unread_notifications_count") int? unreadNotificationsCount,@JsonKey(name: "pagination") Pagination? pagination
+});
 
-  $PaginationCopyWith<$Res>? get pagination;
+
+$PaginationCopyWith<$Res>? get pagination;
+
 }
-
 /// @nodoc
-class _$PayloadCopyWithImpl<$Res, $Val extends Payload>
+class _$PayloadCopyWithImpl<$Res>
     implements $PayloadCopyWith<$Res> {
-  _$PayloadCopyWithImpl(this._value, this._then);
+  _$PayloadCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Payload _self;
+  final $Res Function(Payload) _then;
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? notifications = freezed,
-    Object? unreadNotificationsCount = freezed,
-    Object? pagination = freezed,
-  }) {
-    return _then(_value.copyWith(
-      notifications: freezed == notifications
-          ? _value.notifications
-          : notifications // ignore: cast_nullable_to_non_nullable
-              as List<NotificationData>?,
-      unreadNotificationsCount: freezed == unreadNotificationsCount
-          ? _value.unreadNotificationsCount
-          : unreadNotificationsCount // ignore: cast_nullable_to_non_nullable
-              as int?,
-      pagination: freezed == pagination
-          ? _value.pagination
-          : pagination // ignore: cast_nullable_to_non_nullable
-              as Pagination?,
-    ) as $Val);
+/// Create a copy of Payload
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? notifications = freezed,Object? unreadNotificationsCount = freezed,Object? pagination = freezed,}) {
+  return _then(_self.copyWith(
+notifications: freezed == notifications ? _self.notifications : notifications // ignore: cast_nullable_to_non_nullable
+as List<NotificationData>?,unreadNotificationsCount: freezed == unreadNotificationsCount ? _self.unreadNotificationsCount : unreadNotificationsCount // ignore: cast_nullable_to_non_nullable
+as int?,pagination: freezed == pagination ? _self.pagination : pagination // ignore: cast_nullable_to_non_nullable
+as Pagination?,
+  ));
+}
+/// Create a copy of Payload
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PaginationCopyWith<$Res>? get pagination {
+    if (_self.pagination == null) {
+    return null;
   }
 
-  @override
-  @pragma('vm:prefer-inline')
-  $PaginationCopyWith<$Res>? get pagination {
-    if (_value.pagination == null) {
-      return null;
-    }
-
-    return $PaginationCopyWith<$Res>(_value.pagination!, (value) {
-      return _then(_value.copyWith(pagination: value) as $Val);
-    });
-  }
+  return $PaginationCopyWith<$Res>(_self.pagination!, (value) {
+    return _then(_self.copyWith(pagination: value));
+  });
+}
 }
 
-/// @nodoc
-abstract class _$$PayloadImplCopyWith<$Res> implements $PayloadCopyWith<$Res> {
-  factory _$$PayloadImplCopyWith(
-          _$PayloadImpl value, $Res Function(_$PayloadImpl) then) =
-      __$$PayloadImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: "notifications") List<NotificationData>? notifications,
-      @JsonKey(name: "unread_notifications_count")
-      int? unreadNotificationsCount,
-      @JsonKey(name: "pagination") Pagination? pagination});
 
-  @override
-  $PaginationCopyWith<$Res>? get pagination;
+/// Adds pattern-matching-related methods to [Payload].
+extension PayloadPatterns on Payload {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Payload value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _Payload() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Payload value)  $default,){
+final _that = this;
+switch (_that) {
+case _Payload():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Payload value)?  $default,){
+final _that = this;
+switch (_that) {
+case _Payload() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: "notifications")  List<NotificationData>? notifications, @JsonKey(name: "unread_notifications_count")  int? unreadNotificationsCount, @JsonKey(name: "pagination")  Pagination? pagination)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _Payload() when $default != null:
+return $default(_that.notifications,_that.unreadNotificationsCount,_that.pagination);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: "notifications")  List<NotificationData>? notifications, @JsonKey(name: "unread_notifications_count")  int? unreadNotificationsCount, @JsonKey(name: "pagination")  Pagination? pagination)  $default,) {final _that = this;
+switch (_that) {
+case _Payload():
+return $default(_that.notifications,_that.unreadNotificationsCount,_that.pagination);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: "notifications")  List<NotificationData>? notifications, @JsonKey(name: "unread_notifications_count")  int? unreadNotificationsCount, @JsonKey(name: "pagination")  Pagination? pagination)?  $default,) {final _that = this;
+switch (_that) {
+case _Payload() when $default != null:
+return $default(_that.notifications,_that.unreadNotificationsCount,_that.pagination);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-class __$$PayloadImplCopyWithImpl<$Res>
-    extends _$PayloadCopyWithImpl<$Res, _$PayloadImpl>
-    implements _$$PayloadImplCopyWith<$Res> {
-  __$$PayloadImplCopyWithImpl(
-      _$PayloadImpl _value, $Res Function(_$PayloadImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? notifications = freezed,
-    Object? unreadNotificationsCount = freezed,
-    Object? pagination = freezed,
-  }) {
-    return _then(_$PayloadImpl(
-      notifications: freezed == notifications
-          ? _value._notifications
-          : notifications // ignore: cast_nullable_to_non_nullable
-              as List<NotificationData>?,
-      unreadNotificationsCount: freezed == unreadNotificationsCount
-          ? _value.unreadNotificationsCount
-          : unreadNotificationsCount // ignore: cast_nullable_to_non_nullable
-              as int?,
-      pagination: freezed == pagination
-          ? _value.pagination
-          : pagination // ignore: cast_nullable_to_non_nullable
-              as Pagination?,
-    ));
-  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PayloadImpl implements _Payload {
-  const _$PayloadImpl(
-      {@JsonKey(name: "notifications")
-      final List<NotificationData>? notifications,
-      @JsonKey(name: "unread_notifications_count")
-      this.unreadNotificationsCount,
-      @JsonKey(name: "pagination") this.pagination})
-      : _notifications = notifications;
 
-  factory _$PayloadImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PayloadImplFromJson(json);
+class _Payload implements Payload {
+  const _Payload({@JsonKey(name: "notifications") final  List<NotificationData>? notifications, @JsonKey(name: "unread_notifications_count") this.unreadNotificationsCount, @JsonKey(name: "pagination") this.pagination}): _notifications = notifications;
+  factory _Payload.fromJson(Map<String, dynamic> json) => _$PayloadFromJson(json);
 
-  final List<NotificationData>? _notifications;
-  @override
-  @JsonKey(name: "notifications")
-  List<NotificationData>? get notifications {
-    final value = _notifications;
-    if (value == null) return null;
-    if (_notifications is EqualUnmodifiableListView) return _notifications;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
-  @JsonKey(name: "unread_notifications_count")
-  final int? unreadNotificationsCount;
-  @override
-  @JsonKey(name: "pagination")
-  final Pagination? pagination;
-
-  @override
-  String toString() {
-    return 'Payload(notifications: $notifications, unreadNotificationsCount: $unreadNotificationsCount, pagination: $pagination)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PayloadImpl &&
-            const DeepCollectionEquality()
-                .equals(other._notifications, _notifications) &&
-            (identical(
-                    other.unreadNotificationsCount, unreadNotificationsCount) ||
-                other.unreadNotificationsCount == unreadNotificationsCount) &&
-            (identical(other.pagination, pagination) ||
-                other.pagination == pagination));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_notifications),
-      unreadNotificationsCount,
-      pagination);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PayloadImplCopyWith<_$PayloadImpl> get copyWith =>
-      __$$PayloadImplCopyWithImpl<_$PayloadImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PayloadImplToJson(
-      this,
-    );
-  }
+ final  List<NotificationData>? _notifications;
+@override@JsonKey(name: "notifications") List<NotificationData>? get notifications {
+  final value = _notifications;
+  if (value == null) return null;
+  if (_notifications is EqualUnmodifiableListView) return _notifications;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
 }
 
-abstract class _Payload implements Payload {
-  const factory _Payload(
-          {@JsonKey(name: "notifications")
-          final List<NotificationData>? notifications,
-          @JsonKey(name: "unread_notifications_count")
-          final int? unreadNotificationsCount,
-          @JsonKey(name: "pagination") final Pagination? pagination}) =
-      _$PayloadImpl;
+@override@JsonKey(name: "unread_notifications_count") final  int? unreadNotificationsCount;
+@override@JsonKey(name: "pagination") final  Pagination? pagination;
 
-  factory _Payload.fromJson(Map<String, dynamic> json) = _$PayloadImpl.fromJson;
+/// Create a copy of Payload
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PayloadCopyWith<_Payload> get copyWith => __$PayloadCopyWithImpl<_Payload>(this, _$identity);
 
-  @override
-  @JsonKey(name: "notifications")
-  List<NotificationData>? get notifications;
-  @override
-  @JsonKey(name: "unread_notifications_count")
-  int? get unreadNotificationsCount;
-  @override
-  @JsonKey(name: "pagination")
-  Pagination? get pagination;
-  @override
-  @JsonKey(ignore: true)
-  _$$PayloadImplCopyWith<_$PayloadImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$PayloadToJson(this, );
 }
 
-NotificationData _$NotificationDataFromJson(Map<String, dynamic> json) {
-  return _NotificationData.fromJson(json);
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Payload&&const DeepCollectionEquality().equals(other._notifications, _notifications)&&(identical(other.unreadNotificationsCount, unreadNotificationsCount) || other.unreadNotificationsCount == unreadNotificationsCount)&&(identical(other.pagination, pagination) || other.pagination == pagination));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_notifications),unreadNotificationsCount,pagination);
+
+@override
+String toString() {
+  return 'Payload(notifications: $notifications, unreadNotificationsCount: $unreadNotificationsCount, pagination: $pagination)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PayloadCopyWith<$Res> implements $PayloadCopyWith<$Res> {
+  factory _$PayloadCopyWith(_Payload value, $Res Function(_Payload) _then) = __$PayloadCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: "notifications") List<NotificationData>? notifications,@JsonKey(name: "unread_notifications_count") int? unreadNotificationsCount,@JsonKey(name: "pagination") Pagination? pagination
+});
+
+
+@override $PaginationCopyWith<$Res>? get pagination;
+
+}
+/// @nodoc
+class __$PayloadCopyWithImpl<$Res>
+    implements _$PayloadCopyWith<$Res> {
+  __$PayloadCopyWithImpl(this._self, this._then);
+
+  final _Payload _self;
+  final $Res Function(_Payload) _then;
+
+/// Create a copy of Payload
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? notifications = freezed,Object? unreadNotificationsCount = freezed,Object? pagination = freezed,}) {
+  return _then(_Payload(
+notifications: freezed == notifications ? _self._notifications : notifications // ignore: cast_nullable_to_non_nullable
+as List<NotificationData>?,unreadNotificationsCount: freezed == unreadNotificationsCount ? _self.unreadNotificationsCount : unreadNotificationsCount // ignore: cast_nullable_to_non_nullable
+as int?,pagination: freezed == pagination ? _self.pagination : pagination // ignore: cast_nullable_to_non_nullable
+as Pagination?,
+  ));
+}
+
+/// Create a copy of Payload
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PaginationCopyWith<$Res>? get pagination {
+    if (_self.pagination == null) {
+    return null;
+  }
+
+  return $PaginationCopyWith<$Res>(_self.pagination!, (value) {
+    return _then(_self.copyWith(pagination: value));
+  });
+}
+}
+
 
 /// @nodoc
 mixin _$NotificationData {
-  @JsonKey(name: "id")
-  String? get id => throw _privateConstructorUsedError;
-  @JsonKey(name: "image")
-  String? get image => throw _privateConstructorUsedError;
-  @JsonKey(name: "title")
-  String? get title => throw _privateConstructorUsedError;
-  @JsonKey(name: "message")
-  String? get message => throw _privateConstructorUsedError;
-  @JsonKey(name: "created_at")
-  DateTime? get createdAt => throw _privateConstructorUsedError;
-  @JsonKey(name: "read_at")
-  dynamic get readAt => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $NotificationDataCopyWith<NotificationData> get copyWith =>
-      throw _privateConstructorUsedError;
+@JsonKey(name: "id") String? get id;@JsonKey(name: "image") String? get image;@JsonKey(name: "title") String? get title;@JsonKey(name: "message") String? get message;@JsonKey(name: "created_at") DateTime? get createdAt;@JsonKey(name: "read_at") dynamic get readAt;
+/// Create a copy of NotificationData
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$NotificationDataCopyWith<NotificationData> get copyWith => _$NotificationDataCopyWithImpl<NotificationData>(this as NotificationData, _$identity);
+
+  /// Serializes this NotificationData to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NotificationData&&(identical(other.id, id) || other.id == id)&&(identical(other.image, image) || other.image == image)&&(identical(other.title, title) || other.title == title)&&(identical(other.message, message) || other.message == message)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other.readAt, readAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,image,title,message,createdAt,const DeepCollectionEquality().hash(readAt));
+
+@override
+String toString() {
+  return 'NotificationData(id: $id, image: $image, title: $title, message: $message, createdAt: $createdAt, readAt: $readAt)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $NotificationDataCopyWith<$Res> {
-  factory $NotificationDataCopyWith(
-          NotificationData value, $Res Function(NotificationData) then) =
-      _$NotificationDataCopyWithImpl<$Res, NotificationData>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: "id") String? id,
-      @JsonKey(name: "image") String? image,
-      @JsonKey(name: "title") String? title,
-      @JsonKey(name: "message") String? message,
-      @JsonKey(name: "created_at") DateTime? createdAt,
-      @JsonKey(name: "read_at") dynamic readAt});
-}
+abstract mixin class $NotificationDataCopyWith<$Res>  {
+  factory $NotificationDataCopyWith(NotificationData value, $Res Function(NotificationData) _then) = _$NotificationDataCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: "id") String? id,@JsonKey(name: "image") String? image,@JsonKey(name: "title") String? title,@JsonKey(name: "message") String? message,@JsonKey(name: "created_at") DateTime? createdAt,@JsonKey(name: "read_at") dynamic readAt
+});
 
+
+
+
+}
 /// @nodoc
-class _$NotificationDataCopyWithImpl<$Res, $Val extends NotificationData>
+class _$NotificationDataCopyWithImpl<$Res>
     implements $NotificationDataCopyWith<$Res> {
-  _$NotificationDataCopyWithImpl(this._value, this._then);
+  _$NotificationDataCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final NotificationData _self;
+  final $Res Function(NotificationData) _then;
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? image = freezed,
-    Object? title = freezed,
-    Object? message = freezed,
-    Object? createdAt = freezed,
-    Object? readAt = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      image: freezed == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
-      title: freezed == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String?,
-      message: freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      readAt: freezed == readAt
-          ? _value.readAt
-          : readAt // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-    ) as $Val);
-  }
+/// Create a copy of NotificationData
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? image = freezed,Object? title = freezed,Object? message = freezed,Object? createdAt = freezed,Object? readAt = freezed,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,image: freezed == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
+as String?,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String?,message: freezed == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,readAt: freezed == readAt ? _self.readAt : readAt // ignore: cast_nullable_to_non_nullable
+as dynamic,
+  ));
 }
 
-/// @nodoc
-abstract class _$$NotificationDataImplCopyWith<$Res>
-    implements $NotificationDataCopyWith<$Res> {
-  factory _$$NotificationDataImplCopyWith(_$NotificationDataImpl value,
-          $Res Function(_$NotificationDataImpl) then) =
-      __$$NotificationDataImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: "id") String? id,
-      @JsonKey(name: "image") String? image,
-      @JsonKey(name: "title") String? title,
-      @JsonKey(name: "message") String? message,
-      @JsonKey(name: "created_at") DateTime? createdAt,
-      @JsonKey(name: "read_at") dynamic readAt});
 }
 
-/// @nodoc
-class __$$NotificationDataImplCopyWithImpl<$Res>
-    extends _$NotificationDataCopyWithImpl<$Res, _$NotificationDataImpl>
-    implements _$$NotificationDataImplCopyWith<$Res> {
-  __$$NotificationDataImplCopyWithImpl(_$NotificationDataImpl _value,
-      $Res Function(_$NotificationDataImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? image = freezed,
-    Object? title = freezed,
-    Object? message = freezed,
-    Object? createdAt = freezed,
-    Object? readAt = freezed,
-  }) {
-    return _then(_$NotificationDataImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      image: freezed == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
-      title: freezed == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String?,
-      message: freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      readAt: freezed == readAt
-          ? _value.readAt
-          : readAt // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-    ));
-  }
+/// Adds pattern-matching-related methods to [NotificationData].
+extension NotificationDataPatterns on NotificationData {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _NotificationData value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _NotificationData() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _NotificationData value)  $default,){
+final _that = this;
+switch (_that) {
+case _NotificationData():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _NotificationData value)?  $default,){
+final _that = this;
+switch (_that) {
+case _NotificationData() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: "id")  String? id, @JsonKey(name: "image")  String? image, @JsonKey(name: "title")  String? title, @JsonKey(name: "message")  String? message, @JsonKey(name: "created_at")  DateTime? createdAt, @JsonKey(name: "read_at")  dynamic readAt)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _NotificationData() when $default != null:
+return $default(_that.id,_that.image,_that.title,_that.message,_that.createdAt,_that.readAt);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: "id")  String? id, @JsonKey(name: "image")  String? image, @JsonKey(name: "title")  String? title, @JsonKey(name: "message")  String? message, @JsonKey(name: "created_at")  DateTime? createdAt, @JsonKey(name: "read_at")  dynamic readAt)  $default,) {final _that = this;
+switch (_that) {
+case _NotificationData():
+return $default(_that.id,_that.image,_that.title,_that.message,_that.createdAt,_that.readAt);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: "id")  String? id, @JsonKey(name: "image")  String? image, @JsonKey(name: "title")  String? title, @JsonKey(name: "message")  String? message, @JsonKey(name: "created_at")  DateTime? createdAt, @JsonKey(name: "read_at")  dynamic readAt)?  $default,) {final _that = this;
+switch (_that) {
+case _NotificationData() when $default != null:
+return $default(_that.id,_that.image,_that.title,_that.message,_that.createdAt,_that.readAt);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$NotificationDataImpl implements _NotificationData {
-  const _$NotificationDataImpl(
-      {@JsonKey(name: "id") this.id,
-      @JsonKey(name: "image") this.image,
-      @JsonKey(name: "title") this.title,
-      @JsonKey(name: "message") this.message,
-      @JsonKey(name: "created_at") this.createdAt,
-      @JsonKey(name: "read_at") this.readAt});
 
-  factory _$NotificationDataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$NotificationDataImplFromJson(json);
+class _NotificationData implements NotificationData {
+  const _NotificationData({@JsonKey(name: "id") this.id, @JsonKey(name: "image") this.image, @JsonKey(name: "title") this.title, @JsonKey(name: "message") this.message, @JsonKey(name: "created_at") this.createdAt, @JsonKey(name: "read_at") this.readAt});
+  factory _NotificationData.fromJson(Map<String, dynamic> json) => _$NotificationDataFromJson(json);
 
-  @override
-  @JsonKey(name: "id")
-  final String? id;
-  @override
-  @JsonKey(name: "image")
-  final String? image;
-  @override
-  @JsonKey(name: "title")
-  final String? title;
-  @override
-  @JsonKey(name: "message")
-  final String? message;
-  @override
-  @JsonKey(name: "created_at")
-  final DateTime? createdAt;
-  @override
-  @JsonKey(name: "read_at")
-  final dynamic readAt;
+@override@JsonKey(name: "id") final  String? id;
+@override@JsonKey(name: "image") final  String? image;
+@override@JsonKey(name: "title") final  String? title;
+@override@JsonKey(name: "message") final  String? message;
+@override@JsonKey(name: "created_at") final  DateTime? createdAt;
+@override@JsonKey(name: "read_at") final  dynamic readAt;
 
-  @override
-  String toString() {
-    return 'NotificationData(id: $id, image: $image, title: $title, message: $message, createdAt: $createdAt, readAt: $readAt)';
-  }
+/// Create a copy of NotificationData
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$NotificationDataCopyWith<_NotificationData> get copyWith => __$NotificationDataCopyWithImpl<_NotificationData>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$NotificationDataImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.image, image) || other.image == image) &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.message, message) || other.message == message) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            const DeepCollectionEquality().equals(other.readAt, readAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, image, title, message,
-      createdAt, const DeepCollectionEquality().hash(readAt));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$NotificationDataImplCopyWith<_$NotificationDataImpl> get copyWith =>
-      __$$NotificationDataImplCopyWithImpl<_$NotificationDataImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$NotificationDataImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$NotificationDataToJson(this, );
 }
 
-abstract class _NotificationData implements NotificationData {
-  const factory _NotificationData(
-      {@JsonKey(name: "id") final String? id,
-      @JsonKey(name: "image") final String? image,
-      @JsonKey(name: "title") final String? title,
-      @JsonKey(name: "message") final String? message,
-      @JsonKey(name: "created_at") final DateTime? createdAt,
-      @JsonKey(name: "read_at") final dynamic readAt}) = _$NotificationDataImpl;
-
-  factory _NotificationData.fromJson(Map<String, dynamic> json) =
-      _$NotificationDataImpl.fromJson;
-
-  @override
-  @JsonKey(name: "id")
-  String? get id;
-  @override
-  @JsonKey(name: "image")
-  String? get image;
-  @override
-  @JsonKey(name: "title")
-  String? get title;
-  @override
-  @JsonKey(name: "message")
-  String? get message;
-  @override
-  @JsonKey(name: "created_at")
-  DateTime? get createdAt;
-  @override
-  @JsonKey(name: "read_at")
-  dynamic get readAt;
-  @override
-  @JsonKey(ignore: true)
-  _$$NotificationDataImplCopyWith<_$NotificationDataImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NotificationData&&(identical(other.id, id) || other.id == id)&&(identical(other.image, image) || other.image == image)&&(identical(other.title, title) || other.title == title)&&(identical(other.message, message) || other.message == message)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other.readAt, readAt));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,image,title,message,createdAt,const DeepCollectionEquality().hash(readAt));
+
+@override
+String toString() {
+  return 'NotificationData(id: $id, image: $image, title: $title, message: $message, createdAt: $createdAt, readAt: $readAt)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$NotificationDataCopyWith<$Res> implements $NotificationDataCopyWith<$Res> {
+  factory _$NotificationDataCopyWith(_NotificationData value, $Res Function(_NotificationData) _then) = __$NotificationDataCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: "id") String? id,@JsonKey(name: "image") String? image,@JsonKey(name: "title") String? title,@JsonKey(name: "message") String? message,@JsonKey(name: "created_at") DateTime? createdAt,@JsonKey(name: "read_at") dynamic readAt
+});
+
+
+
+
+}
+/// @nodoc
+class __$NotificationDataCopyWithImpl<$Res>
+    implements _$NotificationDataCopyWith<$Res> {
+  __$NotificationDataCopyWithImpl(this._self, this._then);
+
+  final _NotificationData _self;
+  final $Res Function(_NotificationData) _then;
+
+/// Create a copy of NotificationData
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? image = freezed,Object? title = freezed,Object? message = freezed,Object? createdAt = freezed,Object? readAt = freezed,}) {
+  return _then(_NotificationData(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String?,image: freezed == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
+as String?,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String?,message: freezed == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,readAt: freezed == readAt ? _self.readAt : readAt // ignore: cast_nullable_to_non_nullable
+as dynamic,
+  ));
+}
+
+
+}
+
+// dart format on

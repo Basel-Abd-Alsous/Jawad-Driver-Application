@@ -22,7 +22,7 @@ class ContentScreen extends StatelessWidget {
         body: BlocBuilder<DrawerCubit, DrawerState>(
           builder: (context, state) {
             return SingleChildScrollView(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Column(children: [ValueListenableBuilder<String>(valueListenable: context.read<DrawerCubit>().content, builder: (context, data, _) => Text(data, style: AppTextStyle.style14))]),
             );
           },

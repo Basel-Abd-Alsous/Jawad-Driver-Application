@@ -12,7 +12,7 @@ class LoadingVisits extends StatelessWidget {
       padding: const EdgeInsets.all(9.0),
       itemCount: 5,
       separatorBuilder: (context, index) => 10.gap,
-      itemBuilder: (context, index) => LastVisitCard(loading: true),
+      itemBuilder: (context, index) => const LastVisitCard(loading: true),
     );
   }
 }

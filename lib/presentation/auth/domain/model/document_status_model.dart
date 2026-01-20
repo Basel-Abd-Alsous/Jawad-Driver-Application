@@ -4,14 +4,14 @@ part 'document_status_model.freezed.dart';
 part 'document_status_model.g.dart';
 
 @freezed
-class DocumentStatusModel with _$DocumentStatusModel {
+abstract class DocumentStatusModel with _$DocumentStatusModel {
   const factory DocumentStatusModel({@JsonKey(name: 'status') String? status, @JsonKey(name: 'data') Data? data}) = _DocumentStatusModel;
 
   factory DocumentStatusModel.fromJson(Map<String, dynamic> json) => _$DocumentStatusModelFromJson(json);
 }
 
 @freezed
-class Data with _$Data {
+abstract class Data with _$Data {
   const factory Data({
     @JsonKey(name: 'total_required') int? totalRequired,
     @JsonKey(name: 'uploaded') int? uploaded,

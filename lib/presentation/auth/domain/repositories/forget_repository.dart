@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 
 import '../../../../core/constant/api_link.dart';
 import '../../../../core/errors/dio_exception.dart';
@@ -28,7 +28,7 @@ class ForgetRepositoryImpl implements ForgetRepository {
       final savedLang = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language, defaultValue: 'ar') as String;
 
       await client.postRequest(endpoint: ApiLinks.sendOtp, language: savedLang, body: sendOTPModel.toJson());
-      return Right(unit);
+      return const Right(unit);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {
@@ -42,7 +42,7 @@ class ForgetRepositoryImpl implements ForgetRepository {
       final ApiClient client = ApiClient(DioHelper().dio);
       final savedLang = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language, defaultValue: 'ar') as String;
       await client.postRequest(endpoint: ApiLinks.verifyOtp, language: savedLang, body: verifyOTPModel.toJson());
-      return Right(unit);
+      return const Right(unit);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {

@@ -6,9 +6,8 @@ part of 'my_document_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$MyDocumentModelImpl _$$MyDocumentModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$MyDocumentModelImpl(
+_MyDocumentModel _$MyDocumentModelFromJson(Map<String, dynamic> json) =>
+    _MyDocumentModel(
       status: json['status'] as String?,
       code: (json['code'] as num?)?.toInt(),
       message: json['message'] as String?,
@@ -18,8 +17,7 @@ _$MyDocumentModelImpl _$$MyDocumentModelImplFromJson(
       isSuccess: json['isSuccess'] as bool?,
     );
 
-Map<String, dynamic> _$$MyDocumentModelImplToJson(
-        _$MyDocumentModelImpl instance) =>
+Map<String, dynamic> _$MyDocumentModelToJson(_MyDocumentModel instance) =>
     <String, dynamic>{
       'status': instance.status,
       'code': instance.code,
@@ -28,18 +26,17 @@ Map<String, dynamic> _$$MyDocumentModelImplToJson(
       'isSuccess': instance.isSuccess,
     };
 
-_$MyDocumentImpl _$$MyDocumentImplFromJson(Map<String, dynamic> json) =>
-    _$MyDocumentImpl(
-      id: (json['id'] as num?)?.toInt(),
-      documentTypeId: (json['document_type_id'] as num?)?.toInt(),
-      documentType: json['document_type'] as String?,
-      filePath: json['file_path'] as String?,
-      statusEdit: json['status_edit'] as String?,
-      status: (json['status'] as num?)?.toInt(),
-      isRequired: json['is_required'] as bool?,
-    );
+_MyDocument _$MyDocumentFromJson(Map<String, dynamic> json) => _MyDocument(
+  id: (json['id'] as num?)?.toInt(),
+  documentTypeId: (json['document_type_id'] as num?)?.toInt(),
+  documentType: json['document_type'] as String?,
+  filePath: json['file_path'] as String?,
+  statusEdit: json['status_edit'] as String?,
+  status: (json['status'] as num?)?.toInt(),
+  isRequired: json['is_required'] as bool?,
+);
 
-Map<String, dynamic> _$$MyDocumentImplToJson(_$MyDocumentImpl instance) =>
+Map<String, dynamic> _$MyDocumentToJson(_MyDocument instance) =>
     <String, dynamic>{
       'id': instance.id,
       'document_type_id': instance.documentTypeId,

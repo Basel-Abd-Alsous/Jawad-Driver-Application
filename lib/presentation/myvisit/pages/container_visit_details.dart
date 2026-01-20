@@ -37,20 +37,45 @@ class ContainerVisitDetails extends StatelessWidget {
           5.gap,
           WidgetTextForCardRequiest(title: local.departure, value: date?.payload?.pickupLocation ?? '', isLoading: isLoading),
           5.gap,
+          WidgetTextForCardRequiest(title: local.distance, value: '${double.tryParse('${date?.payload?.distance ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'} Km', isLoading: isLoading),
+          10.gap,
           Row(
             spacing: 10,
             children: [
-              Expanded(child: WidgetTextForCardRequiest(title: local.distance, value: '${double.tryParse('${date?.payload?.distance ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'} Km', isLoading: isLoading)),
-              Expanded(child: WidgetTextForCardRequiest(title: local.amount, value: '${date?.payload?.amount}', isAmount: true, isLoading: isLoading)),
+              Expanded(
+                child: WidgetTextForCardRequiest(
+                  title: local.amount,
+                  value: '${double.tryParse('${date?.payload?.amount ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}',
+                  isAmount: true,
+                  isLoading: isLoading,
+                ),
+              ),
+              Expanded(
+                child: WidgetTextForCardRequiest(
+                  title: local.driver_profit,
+                  isAmount: true,
+                  value: '${double.tryParse('${date?.payload?.driverProfit ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}',
+                  isLoading: isLoading,
+                ),
+              ),
+              Expanded(
+                child: WidgetTextForCardRequiest(
+                  title: local.commission,
+                  value: '${double.tryParse('${date?.payload?.comission ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}',
+                  isAmount: true,
+                  isLoading: isLoading,
+                ),
+              ),
             ],
           ),
+
           40.gap,
           if (date?.payload?.yourRate == null || date?.payload?.yourRate == "")
             Row(
               children: [
                 Expanded(
                   child: AppButton.icon(
-                    leadingIconAssetName: Icon(Icons.star, color: AppColor.white),
+                    leadingIconAssetName: const Icon(Icons.star, color: AppColor.white),
                     text: local.addRating,
                     color: AppColor.secondColor,
                     onPressed: () {

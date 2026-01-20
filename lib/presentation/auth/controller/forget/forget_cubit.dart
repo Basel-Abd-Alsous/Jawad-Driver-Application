@@ -24,16 +24,16 @@ class ForgetCubit extends Cubit<ForgetState> {
   ValueNotifier<bool> obscureText = ValueNotifier(true);
   ValueNotifier<bool> obscureTextConfirm = ValueNotifier(true);
 
-  ForgetCubit({required this.forgetUsecase}) : super(ForgetState.initial());
+  ForgetCubit({required this.forgetUsecase}) : super(const ForgetState.initial());
 
   // Forget Password => Send OTP
   Future<void> sendOtp({String? moble}) async {
     if (moble != null || formKey.currentState!.validate()) {
       try {
-        emit(_LoadingForget());
+        emit(const _LoadingForget());
         Map<String, dynamic> sendOTPModel = {'phone': moble ?? phone.text, 'user_type': 'driver'};
         final sendOtpResponse = await forgetUsecase.sendOtp(SendOTPModel.fromJson(sendOTPModel));
-        sendOtpResponse.fold((left) => emit(_ErrorForget(left.message)), (right) => emit(_LoadedForget()));
+        sendOtpResponse.fold((left) => emit(_ErrorForget(left.message)), (right) => emit(const _LoadedForget()));
       } catch (e) {
         logger.e('Server Error Send OTP Section : $e');
       }
@@ -44,10 +44,10 @@ class ForgetCubit extends Cubit<ForgetState> {
   Future<void> verifyOtp(String moble) async {
     if (formKeyOtp.currentState!.validate()) {
       try {
-        emit(_LoadingVerifyForget());
+        emit(const _LoadingVerifyForget());
         Map<String, dynamic> verifyOTPModel = {'phone': moble, 'user_type': 'driver', 'otp': otp.text};
         final verifyOtpResponse = await forgetUsecase.virefyOtp(VerifyOTPModel.fromJson(verifyOTPModel));
-        verifyOtpResponse.fold((left) => emit(_ErrorVerifyForget(left.message)), (right) => emit(_LoadedVerifyForget()));
+        verifyOtpResponse.fold((left) => emit(_ErrorVerifyForget(left.message)), (right) => emit(const _LoadedVerifyForget()));
       } catch (e) {
         logger.e('Server Error Verify OTP Section : $e');
       }
@@ -58,7 +58,7 @@ class ForgetCubit extends Cubit<ForgetState> {
   Future<void> newPassword(String moble) async {
     if (formKeyNewPassword.currentState!.validate()) {
       try {
-        emit(_LoadingNewPassword());
+        emit(const _LoadingNewPassword());
         Map<String, dynamic> newPasswordModel = {
           'phone': moble,
           'user_type': 'driver',
@@ -66,7 +66,7 @@ class ForgetCubit extends Cubit<ForgetState> {
           'password': newPass.text,
         };
         final verifyOtpResponse = await forgetUsecase.newPassword(NewPasswordModel.fromJson(newPasswordModel));
-        verifyOtpResponse.fold((left) => emit(_ErrorNewPassword(left.message)), (right) => emit(_LoadedNewPassword()));
+        verifyOtpResponse.fold((left) => emit(_ErrorNewPassword(left.message)), (right) => emit(const _LoadedNewPassword()));
       } catch (e) {
         logger.e('Server Error New Password Section : $e');
       }

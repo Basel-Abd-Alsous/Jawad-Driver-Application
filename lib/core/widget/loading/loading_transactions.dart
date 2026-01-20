@@ -8,6 +8,6 @@ class LoadingTransactions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(itemCount: 4, separatorBuilder: (context, index) => 10.gap, itemBuilder: (context, index) => TransactionItem(loading: true));
+    return ListView.separated(itemCount: 4, separatorBuilder: (context, index) => 10.gap, itemBuilder: (context, index) => const TransactionItem(loading: true));
   }
 }

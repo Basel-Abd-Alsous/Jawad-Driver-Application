@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive_ce_flutter/adapters.dart';
 
 import '../../../core/services/hive/box_key.dart';
 import '../../../main.dart';
@@ -20,7 +20,7 @@ class WidgetMap extends StatelessWidget {
         return ValueListenableBuilder<Box<Driver>>(
           valueListenable: sl<Box<Driver>>().listenable(),
           builder: (context, value, child) {
-            Driver driver = value.get(BoxKey.user) ?? Driver();
+            Driver driver = value.get(BoxKey.user) ?? const Driver();
             switch (driver.workStatus) {
               case true:
                 return ValueListenableBuilder<LatLng>(
@@ -39,9 +39,9 @@ class WidgetMap extends StatelessWidget {
                   },
                 );
               case false:
-                return WidgetDriverUnactive();
+                return const WidgetDriverUnactive();
               default:
-                return WidgetDriverUnactive();
+                return const WidgetDriverUnactive();
             }
           },
         );

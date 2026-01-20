@@ -31,7 +31,7 @@ class WidgetHeaderCardRequist extends StatelessWidget {
           height: 50,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(1000), border: Border.all(color: AppColor.secondColor, width: 1)),
-          child: isLoading == true ? WidgetLoading(width: 40, height: 40) : WidgetCachNetworkImage(radius: 1000, image: travilRequist.rider?.profileImage ?? ''),
+          child: isLoading == true ? const WidgetLoading(width: 40, height: 40) : WidgetCachNetworkImage(radius: 1000, image: travilRequist.rider?.profileImage ?? ''),
         ),
         10.gap,
         Expanded(
@@ -40,13 +40,13 @@ class WidgetHeaderCardRequist extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             spacing: isLoading == true ? 5 : 0,
             children: [
-              isLoading == true ? WidgetLoading(width: 80) : Text(travilRequist.rider?.name ?? '', style: AppTextStyle.style16B.copyWith(color: AppColor.black)),
-              isLoading == true ? WidgetLoading(width: 40) : Text('${local.tripNumber} - ${travilRequist.travelNo}', style: AppTextStyle.style12B.copyWith(color: AppColor.grey)),
+              isLoading == true ? const WidgetLoading(width: 80) : Text(travilRequist.rider?.name ?? '', style: AppTextStyle.style16B.copyWith(color: AppColor.black)),
+              isLoading == true ? const WidgetLoading(width: 40) : Text('${local.tripNumber} - ${travilRequist.travelNo}', style: AppTextStyle.style12B.copyWith(color: AppColor.grey)),
             ],
           ),
         ),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
           decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(1000)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -55,14 +55,14 @@ class WidgetHeaderCardRequist extends StatelessWidget {
             spacing: 5,
             children: [
               isLoading == true
-                  ? WidgetLoading(width: 30)
+                  ? const WidgetLoading(width: 30)
                   : Text(
                     double.tryParse('${isDetails == true ? travilRequist.yourRate : travilRequist.rider?.rating ?? 0.0}')?.toStringAsFixed(1) ?? '0.0',
                     style: AppTextStyle.style12B.copyWith(color: AppColor.black),
                   ),
               SvgPicture.asset(Assets.svgStar, width: 25, color: isLoading == true ? AppColor.grey.withOpacity(0.4) : null),
               if (status != TravelStatus.pending && status != null)
-                InkWell(onTap: () => context.push('${AppRoutes.chat}?id=${travilRequist.chatChannelId}'), child: Icon(Icons.chat, color: AppColor.black)),
+                InkWell(onTap: () => context.push('${AppRoutes.chat}?id=${travilRequist.chatChannelId}'), child: const Icon(Icons.chat, color: AppColor.black)),
             ],
           ),
         ),

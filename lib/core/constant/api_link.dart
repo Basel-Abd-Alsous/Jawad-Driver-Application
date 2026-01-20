@@ -12,6 +12,9 @@ class ApiLinks {
   //============================== Auth =========================================//
   static String login = dotenv.env['LOGIN']!;
   static String terms = dotenv.env['TERMS']!;
+  static String contact = dotenv.env['CONTACT']!;
+  static String feedback = dotenv.env['FEEDBACK']!;
+  static String feedbackCategory = dotenv.env['FEEDBACK_CATEGORY']!;
   static String privacy = dotenv.env['PRIVACY']!;
   static String register = dotenv.env['REGISTER']!;
   static String registerStatus = dotenv.env['REGISTER_STATUS']!;
@@ -51,7 +54,7 @@ class ApiLinks {
   static String canceledTravels = dotenv.env['CANCELED_TRAVEL']!;
   static String travelDetails = dotenv.env['TRAVEL_DETAIL']!;
   static String travelTrack = dotenv.env['TRAVEL_TRACK']!;
-   //============================== Wallet =========================================//
+  //============================== Wallet =========================================//
   static String chargerWallet = dotenv.env['CHARGER_WALLET']!;
   static String paymentCallback = dotenv.env['PAYMENT_CALLBACK']!;
   static String transactionWallet = dotenv.env['TRANSACTION_WALLET']!;
@@ -59,4 +62,5 @@ class ApiLinks {
   //============================== Chat =========================================//
   static String chat = dotenv.env['GET_CHAT']!;
   static String sendMessage = dotenv.env['SEND_CHAT']!;
+  static String boarding = dotenv.env['BORDING']!;
 }

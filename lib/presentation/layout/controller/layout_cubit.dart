@@ -16,10 +16,10 @@ part 'layout_state.dart';
 part 'layout_cubit.freezed.dart';
 
 class LayoutCubit extends Cubit<LayoutState> {
-  LayoutCubit() : super(LayoutState.initial());
+  LayoutCubit() : super(const LayoutState.initial());
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  List<Widget> screens = [HomeScreen(), MyVisitScreen(), WalletScreen(), MyDocumentScreen()];
+  List<Widget> screens = [const HomeScreen(), const MyVisitScreen(), const WalletScreen(), const MyDocumentScreen()];
   ValueNotifier<int> currentIndex = ValueNotifier(0);
 
   // Change Index Page

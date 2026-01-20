@@ -30,7 +30,7 @@ class _WidgetBottomSheetState extends State<WidgetBottomSheet> with SingleTicker
         builder: (context, scrollController) {
           return Container(
             padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
               boxShadow: [BoxShadow(blurRadius: 10, color: Colors.black12, offset: Offset(0, -2))],
@@ -49,8 +49,8 @@ class _WidgetBottomSheetState extends State<WidgetBottomSheet> with SingleTicker
   }
 
   Future<void> _initAnimation() async {
-    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
-    _offsetAnimation = Tween<Offset>(begin: Offset(0.0, 1.0), end: Offset.zero).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
+    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+    _offsetAnimation = Tween<Offset>(begin: const Offset(0.0, 1.0), end: Offset.zero).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
     WidgetsBinding.instance.addPostFrameCallback((_) => _controller.forward());
   }
 }

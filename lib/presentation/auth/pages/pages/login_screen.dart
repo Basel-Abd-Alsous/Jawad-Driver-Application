@@ -16,13 +16,13 @@ class LoginScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            WidgetAuthBackground(),
+            const WidgetAuthBackground(),
             MultiBlocProvider(
               providers: [
                 BlocProvider<LoginCubit>(create: (context) => sl<LoginCubit>()),
                 BlocProvider<RegisterCubit>(create: (context) => sl<RegisterCubit>()),
               ],
-              child: AuthHintText(),
+              child: const AuthHintText(),
             ),
           ],
         ),

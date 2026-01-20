@@ -22,7 +22,7 @@ class ContainerPreviousVisit extends StatelessWidget {
       child: BlocBuilder<VisitCubit, VisitState>(
         builder: (context, state) {
           return state.maybeWhen(
-            loadingPreviousVisit: () => LoadingVisits(),
+            loadingPreviousVisit: () => const LoadingVisits(),
             loadedPreviousVisit: (data, hasMore) {
               final isEmpty = data.payload?.travels?.isEmpty ?? true;
               if (isEmpty) {

@@ -34,7 +34,7 @@ class MyVisitScreen extends StatelessWidget {
               indicatorWeight: 2,
               tabs: [Tab(text: local.previous_trips), Tab(text: local.canceledTrips)],
             ),
-            Expanded(child: TabBarView(children: [ContainerPreviousVisit(), ContainerCancelVisits()])),
+            const Expanded(child: TabBarView(children: [ContainerPreviousVisit(), ContainerCancelVisits()])),
           ],
         ),
       ),

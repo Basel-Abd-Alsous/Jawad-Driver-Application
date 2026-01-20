@@ -23,6 +23,8 @@ import 'presentation/home/domain/repoistory/home_repoistory.dart';
 import 'presentation/home/domain/repoistory/profile_repoistory.dart';
 import 'presentation/home/domain/usecase/home_usecase.dart';
 import 'presentation/introduction/controller/introductions_bloc.dart';
+import 'presentation/introduction/domain/repoistory/boarding_repo.dart';
+import 'presentation/introduction/domain/usecase/boarding_usecase.dart';
 import 'presentation/layout/controller/layout_cubit.dart';
 import 'presentation/layout/domain/repoistory/work_status_repoistory.dart';
 import 'presentation/layout/domain/usecase/work_status_usecase.dart';
@@ -51,7 +53,7 @@ Future<void> initGetIt() async {
   AndroidOptions getAndroidOptions() => const AndroidOptions(encryptedSharedPreferences: true);
   sl.registerSingleton<FlutterSecureStorage>(FlutterSecureStorage(aOptions: getAndroidOptions()));
   //======================== Bloc ========================================
-  sl.registerFactory(() => IntroductionsBloc());
+  sl.registerFactory(() => IntroductionsBloc(usecase: sl<BoardingUsecase>()));
   sl.registerFactory(() => SplashBloc());
   sl.registerFactory(() => LoginCubit(loginUseCase: sl(), registerUsecase: sl()));
   sl.registerFactory(() => ForgetCubit(forgetUsecase: sl()));
@@ -66,6 +68,7 @@ Future<void> initGetIt() async {
   sl.registerFactory(() => ChatCubit(chatUsecase: sl(), homeUsecase: sl()));
   sl.registerFactory(() => DrawerCubit(usecase: sl()));
   //======================== UseCase ========================================
+  sl.registerLazySingleton(() => BoardingUsecase(sl()));
   sl.registerLazySingleton(() => LoginUseCase(loginRepository: sl()));
   sl.registerLazySingleton(() => RegisterUsecase(registerReposotory: sl()));
   sl.registerLazySingleton(() => ForgetUsecase(forgetRepository: sl()));
@@ -78,6 +81,7 @@ Future<void> initGetIt() async {
   sl.registerLazySingleton(() => ProfileUsecase(profileRepository: sl()));
   sl.registerLazySingleton(() => DrawerUsecase(sl()));
   //======================== Repositories ======================================
+  sl.registerLazySingleton<BoardingRepoistory>(() => BoardingRepositoryImp());
   sl.registerLazySingleton<LoginRepository>(() => LoginRepositoryImpl());
   sl.registerLazySingleton<RegisterReposotory>(() => RegisterReposotoryImpl());
   sl.registerLazySingleton<ForgetRepository>(() => ForgetRepositoryImpl());

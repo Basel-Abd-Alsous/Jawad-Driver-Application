@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
-          return Scaffold(body: SafeArea(child: Stack(alignment: Alignment.topCenter, children: [WidgetMap(), ContainerTravelRequiest(), HomeAppBar()])));
+          return const Scaffold(body: SafeArea(child: Stack(alignment: Alignment.topCenter, children: [WidgetMap(), ContainerTravelRequiest(), HomeAppBar()])));
         },
       ),
     );

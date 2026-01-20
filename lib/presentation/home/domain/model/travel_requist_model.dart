@@ -13,7 +13,7 @@ TravelRequistModel travelRequistModelFromJson(String str) => TravelRequistModel.
 String travelRequistModelToJson(TravelRequistModel data) => json.encode(data.toJson());
 
 @freezed
-class TravelRequistModel with _$TravelRequistModel {
+abstract class TravelRequistModel with _$TravelRequistModel {
   const factory TravelRequistModel({
     @JsonKey(name: 'status') String? status,
     @JsonKey(name: 'code') int? code,
@@ -26,7 +26,7 @@ class TravelRequistModel with _$TravelRequistModel {
 }
 
 @freezed
-class TravelRequest with _$TravelRequest {
+abstract class TravelRequest with _$TravelRequest {
   const factory TravelRequest({
     @JsonKey(name: 'id') int? id,
     @JsonKey(name: 'rider') Rider? rider,
@@ -62,7 +62,7 @@ class TravelRequest with _$TravelRequest {
 }
 
 @freezed
-class Rider with _$Rider {
+abstract class Rider with _$Rider {
   const factory Rider({
     @JsonKey(name: 'id') int? id,
     @JsonKey(name: 'name') String? name,
@@ -76,14 +76,14 @@ class Rider with _$Rider {
 }
 
 @freezed
-class Service with _$Service {
+abstract class Service with _$Service {
   const factory Service({@JsonKey(name: 'id') int? id, @JsonKey(name: 'name') String? name, @JsonKey(name: 'image') String? image}) = _Service;
 
   factory Service.fromJson(Map<String, dynamic> json) => _$ServiceFromJson(json);
 }
 
 @freezed
-class Status with _$Status {
+abstract class Status with _$Status {
   const factory Status({@JsonKey(name: 'name') String? name, @JsonKey(name: 'color') String? color, @JsonKey(name: 'value') String? value}) = _Status;
 
   factory Status.fromJson(Map<String, dynamic> json) => _$StatusFromJson(json);

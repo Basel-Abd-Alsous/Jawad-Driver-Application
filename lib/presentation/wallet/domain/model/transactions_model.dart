@@ -4,7 +4,7 @@ part 'transactions_model.freezed.dart';
 part 'transactions_model.g.dart';
 
 @freezed
-class TransactionsModel with _$TransactionsModel {
+abstract class TransactionsModel with _$TransactionsModel {
   const factory TransactionsModel({
     @JsonKey(name: "status") String? status,
     @JsonKey(name: "code") int? code,
@@ -17,18 +17,15 @@ class TransactionsModel with _$TransactionsModel {
 }
 
 @freezed
-class Payload with _$Payload {
-  const factory Payload({
-    @JsonKey(name: "wallet_amount") String? walletAmount,
-    @JsonKey(name: "transactions") List<Transaction>? transactions,
-    @JsonKey(name: "pagination") Pagination? pagination,
-  }) = _Payload;
+abstract class Payload with _$Payload {
+  const factory Payload({@JsonKey(name: "wallet_amount") String? walletAmount, @JsonKey(name: "transactions") List<Transaction>? transactions, @JsonKey(name: "pagination") Pagination? pagination}) =
+      _Payload;
 
   factory Payload.fromJson(Map<String, dynamic> json) => _$PayloadFromJson(json);
 }
 
 @freezed
-class Pagination with _$Pagination {
+abstract class Pagination with _$Pagination {
   const factory Pagination({
     @JsonKey(name: "per_page") int? perPage,
     @JsonKey(name: "path") String? path,
@@ -46,7 +43,7 @@ class Pagination with _$Pagination {
 }
 
 @freezed
-class Transaction with _$Transaction {
+abstract class Transaction with _$Transaction {
   const factory Transaction({
     @JsonKey(name: "id") int? id,
     @JsonKey(name: "balance") String? balance,
@@ -60,7 +57,7 @@ class Transaction with _$Transaction {
 }
 
 @freezed
-class StatusData with _$StatusData {
+abstract class StatusData with _$StatusData {
   const factory StatusData({@JsonKey(name: "status") String? status, @JsonKey(name: "label") String? label, @JsonKey(name: "color") String? color}) = _StatusData;
 
   factory StatusData.fromJson(Map<String, dynamic> json) => _$StatusDataFromJson(json);

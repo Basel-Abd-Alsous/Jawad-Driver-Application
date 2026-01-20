@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:hive_flutter/hive_flutter.dart' show Box;
+import 'package:hive_ce_flutter/hive_ce_flutter.dart' show Box;
 
 import '../../../../../core/services/hive/box_key.dart';
 import '../../../../../core/router/router_key.dart';
@@ -29,8 +29,8 @@ class BankInfoContainer extends StatelessWidget with FormValidationMixin {
       listener: _listener,
       builder: (context, state) {
         return Container(
-          margin: EdgeInsets.all(10),
-          padding: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(color: AppColor.onSecondColor.withValues(alpha: 0.23), borderRadius: BorderRadius.circular(AppBorderRadius.lg16)),
           child: Form(
             key: context.read<RegisterCubit>().formKeyStep4,
@@ -96,11 +96,7 @@ class BankInfoContainer extends StatelessWidget with FormValidationMixin {
                   controller: context.read<RegisterCubit>().stcpay,
                   keyboardType: TextInputType.phone,
                   prefixIcon: const Icon(Icons.phone),
-                  validator:
-                      (value) =>
-                          context.read<RegisterCubit>().iban.text.isNotEmpty || context.read<RegisterCubit>().bankName.text.isNotEmpty
-                              ? null
-                              : validateMobile(context, value),
+                  validator: (value) => context.read<RegisterCubit>().iban.text.isNotEmpty || context.read<RegisterCubit>().bankName.text.isNotEmpty ? null : validateMobile(context, value),
                 ),
                 30.gap,
                 Row(
@@ -137,24 +133,21 @@ class BankInfoContainer extends StatelessWidget with FormValidationMixin {
     final local = AppLocalizations.of(context)!;
 
     state.maybeWhen(
-      loadedBankInfo:
-          () => SmartDialog.show(
-            builder:
-                (_) => WidgetDilog(
-                  title: local.created_account,
-                  message: local.account_created_success,
-                  cancelText: local.home,
-                  onCancel: () {
-                    sl<Box>(instanceName: BoxKey.appBox).put(BoxKey.userStatusRegister, 'completed');
-                    context.go(AppRoutes.layout);
-                    SmartDialog.dismiss();
-                  },
-                ),
-          ),
-      errorBankInfo:
-          (message) => SmartDialog.show(
-            builder: (_) => WidgetDilog(isError: true, title: local.warning, message: message, cancelText: local.back, onCancel: () => SmartDialog.dismiss()),
-          ),
+      loadedBankInfo: () => SmartDialog.show(
+        builder: (_) => WidgetDilog(
+          title: local.created_account,
+          message: local.account_created_success,
+          cancelText: local.home,
+          onCancel: () {
+            sl<Box>(instanceName: BoxKey.appBox).put(BoxKey.userStatusRegister, 'completed');
+            context.go(AppRoutes.layout);
+            SmartDialog.dismiss();
+          },
+        ),
+      ),
+      errorBankInfo: (message) => SmartDialog.show(
+        builder: (_) => WidgetDilog(isError: true, title: local.warning, message: message, cancelText: local.back, onCancel: () => SmartDialog.dismiss()),
+      ),
       orElse: () => null,
     );
   }

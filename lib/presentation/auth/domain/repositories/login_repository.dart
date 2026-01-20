@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 
 import '../../../../core/constant/api_link.dart';
 import '../../../../core/errors/dio_exception.dart';
@@ -26,12 +26,7 @@ class LoginRepositoryImpl implements LoginRepository {
       if (loginResponse.response.data['code'] != 200) {
         return Left(ServerFailure.fromResponse(loginResponse.response.data['code'], message: loginResponse.response.data['message']));
       }
-      return Right(
-        Result.success({
-          'token': loginResponse.response.data['payload']['token'],
-          'registrationStatus': loginResponse.response.data['payload']['user']['registration_status'],
-        }),
-      );
+      return Right(Result.success({'token': loginResponse.response.data['payload']['token'], 'registrationStatus': loginResponse.response.data['payload']['user']['registration_status']}));
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {

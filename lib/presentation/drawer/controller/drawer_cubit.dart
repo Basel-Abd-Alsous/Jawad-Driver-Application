@@ -1,12 +1,15 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../core/context/global.dart';
+import '../../../core/utils/color.dart';
+import '../domain/model/contact_model.dart';
+import '../domain/model/feedback_model.dart';
+import '../domain/model/params/feedback_param.dart';
 import '../domain/usecase/drawer_usecase.dart';
 
 part 'drawer_state.dart';
@@ -14,33 +17,23 @@ part 'drawer_cubit.freezed.dart';
 
 class DrawerCubit extends Cubit<DrawerState> {
   final DrawerUsecase usecase;
-  DrawerCubit({required this.usecase}) : super(DrawerState.initial());
+  DrawerCubit({required this.usecase}) : super(const DrawerState.initial());
 
   ValueNotifier<String> content = ValueNotifier('');
+  ValueNotifier<ContactModel?> contactUs = ValueNotifier(null);
+  ValueNotifier<FeedbackModel?> feedbackCategory = ValueNotifier(null);
+
+  /// Form key
   final formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
-  final phoneController = TextEditingController();
-  final messageController = TextEditingController();
-  List<File> attachments = [];
-  final String phoneNumber = '+962791234567';
-  final String email = 'support@example.com';
-  final String whatsappNumber = '+962791234567';
 
-  Future<void> pickAttachments() async {
-    final result = await FilePicker.platform.pickFiles(allowMultiple: true);
-    if (result != null) {
-      attachments.addAll(result.paths.whereType<String>().map((e) => File(e)));
-    }
-  }
+  /// Controllers
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController messageController = TextEditingController();
 
-  void submit() {
-    if (!formKey.currentState!.validate()) return;
-
-    debugPrint(emailController.text);
-    debugPrint(phoneController.text);
-    debugPrint(messageController.text);
-    debugPrint(attachments.length.toString());
-  }
+  /// Dropdown
+  List<Map<String, dynamic>> feedbackCategories = [];
+  String? selectedFeedbackType;
 
   Future<void> getPrivacy() async {
     SmartDialog.showLoading();
@@ -72,21 +65,53 @@ class DrawerCubit extends Cubit<DrawerState> {
     );
   }
 
+  Future<void> getContact() async {
+    SmartDialog.showLoading();
+    final result = await usecase.getContactUs();
+    result.fold((left) => SmartDialog.dismiss(), (right) {
+      print(right.data);
+      contactUs.value = right.data!;
+      SmartDialog.dismiss();
+    });
+  }
+
+  Future<void> getFeedbackCategory() async {
+    SmartDialog.showLoading();
+    final result = await usecase.getFeedbackList();
+    result.fold((left) => SmartDialog.dismiss(), (right) {
+      print(right.data);
+      feedbackCategory.value = right.data!;
+      SmartDialog.dismiss();
+    });
+  }
+
+  Future<void> sendFeedback() async {
+    if (!formKey.currentState!.validate()) return;
+    SmartDialog.showLoading();
+    FeedbackParam feedbackParam = FeedbackParam(appType: "driver", feedbackType: selectedFeedbackType ?? "", email: emailController.text, phone: phoneController.text, message: messageController.text);
+    final result = await usecase.sendFeedback(feedbackParam);
+    result.fold((left) => SmartDialog.dismiss(), (right) {
+      print(right.data);
+      SmartDialog.dismiss();
+      SmartDialog.showToast('Succes Send Your Feedback', maskColor: AppColor.green);
+      GlobalContext.context.pop();
+    });
+  }
+
   // Launch phone call
-  void callPhone() async {
+  void callPhone(String phoneNumber) async {
     final Uri url = Uri(scheme: 'tel', path: phoneNumber);
     await launchUrl(url);
   }
 
   // Launch email
-  void sendEmail() async {
+  void sendEmail(String email) async {
     final Uri url = Uri(scheme: 'mailto', path: email, query: 'subject=Support Request&body=Hello, I need help with...');
     await launchUrl(url);
   }
 
-  // Launch WhatsApp
-  void openWhatsApp() async {
-    final String url = 'https://wa.me/${whatsappNumber.replaceAll("+", "")}';
-    await launchUrl(Uri.parse(url));
+  Future<void> openUrl(String url) async {
+    final uri = Uri.parse(url);
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
   }
 }

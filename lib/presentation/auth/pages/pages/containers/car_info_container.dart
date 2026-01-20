@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 
 import '../../../../../core/router/router_key.dart';
 import '../../../../../core/extension/space_extension.dart';
@@ -33,8 +33,8 @@ class CarInfoContainer extends StatelessWidget with FormValidationMixin {
       builder: (context, state) {
         bool isLoadingCarModelAndColor = state.maybeWhen(orElse: () => false, loadingCarModelAndColorInfo: () => true);
         return Container(
-          margin: EdgeInsets.all(10),
-          padding: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(color: AppColor.onSecondColor.withValues(alpha: 0.23), borderRadius: BorderRadius.circular(AppBorderRadius.lg16)),
           child: Form(
             key: context.read<RegisterCubit>().formKeyStep3,
@@ -88,8 +88,8 @@ class CarInfoContainer extends StatelessWidget with FormValidationMixin {
                 5.gap,
                 Text(local.type, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
                 isLoadingCarModelAndColor
-                    ? Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
+                    ? const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10),
                         child: WidgetLoading(width: double.infinity, radius: 2),
                       )
                     : WidgetAuthDropdownField<ColorModel>(
@@ -118,8 +118,8 @@ class CarInfoContainer extends StatelessWidget with FormValidationMixin {
                 5.gap,
                 Text(local.model, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
                 isLoadingCarModelAndColor
-                    ? Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
+                    ? const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10),
                         child: WidgetLoading(width: double.infinity, radius: 2),
                       )
                     : ValueListenableBuilder<List<ColorModel>>(
@@ -147,8 +147,8 @@ class CarInfoContainer extends StatelessWidget with FormValidationMixin {
                 5.gap,
                 Text('Year', style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
                 isLoadingCarModelAndColor
-                    ? Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
+                    ? const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10),
                         child: WidgetLoading(width: double.infinity, radius: 2),
                       )
                     : ValueListenableBuilder<List<String>>(
@@ -176,8 +176,8 @@ class CarInfoContainer extends StatelessWidget with FormValidationMixin {
                 5.gap,
                 Text(local.color, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
                 isLoadingCarModelAndColor
-                    ? Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
+                    ? const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10),
                         child: WidgetLoading(width: double.infinity, radius: 2),
                       )
                     : WidgetAuthDropdownField<ColorModel>(

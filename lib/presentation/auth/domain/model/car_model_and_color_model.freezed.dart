@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,719 +9,873 @@ part of 'car_model_and_color_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-CarModelAndColorModel _$CarModelAndColorModelFromJson(
-    Map<String, dynamic> json) {
-  return _CarModelAndColorModel.fromJson(json);
-}
 
 /// @nodoc
 mixin _$CarModelAndColorModel {
-  @JsonKey(name: 'status')
-  String? get status => throw _privateConstructorUsedError;
-  @JsonKey(name: 'code')
-  int? get code => throw _privateConstructorUsedError;
-  @JsonKey(name: 'message')
-  String? get message => throw _privateConstructorUsedError;
-  @JsonKey(name: 'payload')
-  Payload? get payload => throw _privateConstructorUsedError;
-  @JsonKey(name: 'isSuccess')
-  bool? get isSuccess => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $CarModelAndColorModelCopyWith<CarModelAndColorModel> get copyWith =>
-      throw _privateConstructorUsedError;
+@JsonKey(name: 'status') String? get status;@JsonKey(name: 'code') int? get code;@JsonKey(name: 'message') String? get message;@JsonKey(name: 'payload') Payload? get payload;@JsonKey(name: 'isSuccess') bool? get isSuccess;
+/// Create a copy of CarModelAndColorModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CarModelAndColorModelCopyWith<CarModelAndColorModel> get copyWith => _$CarModelAndColorModelCopyWithImpl<CarModelAndColorModel>(this as CarModelAndColorModel, _$identity);
+
+  /// Serializes this CarModelAndColorModel to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CarModelAndColorModel&&(identical(other.status, status) || other.status == status)&&(identical(other.code, code) || other.code == code)&&(identical(other.message, message) || other.message == message)&&(identical(other.payload, payload) || other.payload == payload)&&(identical(other.isSuccess, isSuccess) || other.isSuccess == isSuccess));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,status,code,message,payload,isSuccess);
+
+@override
+String toString() {
+  return 'CarModelAndColorModel(status: $status, code: $code, message: $message, payload: $payload, isSuccess: $isSuccess)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $CarModelAndColorModelCopyWith<$Res> {
-  factory $CarModelAndColorModelCopyWith(CarModelAndColorModel value,
-          $Res Function(CarModelAndColorModel) then) =
-      _$CarModelAndColorModelCopyWithImpl<$Res, CarModelAndColorModel>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'status') String? status,
-      @JsonKey(name: 'code') int? code,
-      @JsonKey(name: 'message') String? message,
-      @JsonKey(name: 'payload') Payload? payload,
-      @JsonKey(name: 'isSuccess') bool? isSuccess});
+abstract mixin class $CarModelAndColorModelCopyWith<$Res>  {
+  factory $CarModelAndColorModelCopyWith(CarModelAndColorModel value, $Res Function(CarModelAndColorModel) _then) = _$CarModelAndColorModelCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'status') String? status,@JsonKey(name: 'code') int? code,@JsonKey(name: 'message') String? message,@JsonKey(name: 'payload') Payload? payload,@JsonKey(name: 'isSuccess') bool? isSuccess
+});
 
-  $PayloadCopyWith<$Res>? get payload;
+
+$PayloadCopyWith<$Res>? get payload;
+
 }
-
 /// @nodoc
-class _$CarModelAndColorModelCopyWithImpl<$Res,
-        $Val extends CarModelAndColorModel>
+class _$CarModelAndColorModelCopyWithImpl<$Res>
     implements $CarModelAndColorModelCopyWith<$Res> {
-  _$CarModelAndColorModelCopyWithImpl(this._value, this._then);
+  _$CarModelAndColorModelCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final CarModelAndColorModel _self;
+  final $Res Function(CarModelAndColorModel) _then;
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? status = freezed,
-    Object? code = freezed,
-    Object? message = freezed,
-    Object? payload = freezed,
-    Object? isSuccess = freezed,
-  }) {
-    return _then(_value.copyWith(
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String?,
-      code: freezed == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as int?,
-      message: freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
-      payload: freezed == payload
-          ? _value.payload
-          : payload // ignore: cast_nullable_to_non_nullable
-              as Payload?,
-      isSuccess: freezed == isSuccess
-          ? _value.isSuccess
-          : isSuccess // ignore: cast_nullable_to_non_nullable
-              as bool?,
-    ) as $Val);
+/// Create a copy of CarModelAndColorModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? status = freezed,Object? code = freezed,Object? message = freezed,Object? payload = freezed,Object? isSuccess = freezed,}) {
+  return _then(_self.copyWith(
+status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String?,code: freezed == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
+as int?,message: freezed == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String?,payload: freezed == payload ? _self.payload : payload // ignore: cast_nullable_to_non_nullable
+as Payload?,isSuccess: freezed == isSuccess ? _self.isSuccess : isSuccess // ignore: cast_nullable_to_non_nullable
+as bool?,
+  ));
+}
+/// Create a copy of CarModelAndColorModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PayloadCopyWith<$Res>? get payload {
+    if (_self.payload == null) {
+    return null;
   }
 
-  @override
-  @pragma('vm:prefer-inline')
-  $PayloadCopyWith<$Res>? get payload {
-    if (_value.payload == null) {
-      return null;
-    }
-
-    return $PayloadCopyWith<$Res>(_value.payload!, (value) {
-      return _then(_value.copyWith(payload: value) as $Val);
-    });
-  }
+  return $PayloadCopyWith<$Res>(_self.payload!, (value) {
+    return _then(_self.copyWith(payload: value));
+  });
+}
 }
 
-/// @nodoc
-abstract class _$$CarModelAndColorModelImplCopyWith<$Res>
-    implements $CarModelAndColorModelCopyWith<$Res> {
-  factory _$$CarModelAndColorModelImplCopyWith(
-          _$CarModelAndColorModelImpl value,
-          $Res Function(_$CarModelAndColorModelImpl) then) =
-      __$$CarModelAndColorModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'status') String? status,
-      @JsonKey(name: 'code') int? code,
-      @JsonKey(name: 'message') String? message,
-      @JsonKey(name: 'payload') Payload? payload,
-      @JsonKey(name: 'isSuccess') bool? isSuccess});
 
-  @override
-  $PayloadCopyWith<$Res>? get payload;
+/// Adds pattern-matching-related methods to [CarModelAndColorModel].
+extension CarModelAndColorModelPatterns on CarModelAndColorModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _CarModelAndColorModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _CarModelAndColorModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _CarModelAndColorModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _CarModelAndColorModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _CarModelAndColorModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _CarModelAndColorModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'status')  String? status, @JsonKey(name: 'code')  int? code, @JsonKey(name: 'message')  String? message, @JsonKey(name: 'payload')  Payload? payload, @JsonKey(name: 'isSuccess')  bool? isSuccess)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _CarModelAndColorModel() when $default != null:
+return $default(_that.status,_that.code,_that.message,_that.payload,_that.isSuccess);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'status')  String? status, @JsonKey(name: 'code')  int? code, @JsonKey(name: 'message')  String? message, @JsonKey(name: 'payload')  Payload? payload, @JsonKey(name: 'isSuccess')  bool? isSuccess)  $default,) {final _that = this;
+switch (_that) {
+case _CarModelAndColorModel():
+return $default(_that.status,_that.code,_that.message,_that.payload,_that.isSuccess);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'status')  String? status, @JsonKey(name: 'code')  int? code, @JsonKey(name: 'message')  String? message, @JsonKey(name: 'payload')  Payload? payload, @JsonKey(name: 'isSuccess')  bool? isSuccess)?  $default,) {final _that = this;
+switch (_that) {
+case _CarModelAndColorModel() when $default != null:
+return $default(_that.status,_that.code,_that.message,_that.payload,_that.isSuccess);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-class __$$CarModelAndColorModelImplCopyWithImpl<$Res>
-    extends _$CarModelAndColorModelCopyWithImpl<$Res,
-        _$CarModelAndColorModelImpl>
-    implements _$$CarModelAndColorModelImplCopyWith<$Res> {
-  __$$CarModelAndColorModelImplCopyWithImpl(_$CarModelAndColorModelImpl _value,
-      $Res Function(_$CarModelAndColorModelImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? status = freezed,
-    Object? code = freezed,
-    Object? message = freezed,
-    Object? payload = freezed,
-    Object? isSuccess = freezed,
-  }) {
-    return _then(_$CarModelAndColorModelImpl(
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String?,
-      code: freezed == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as int?,
-      message: freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
-      payload: freezed == payload
-          ? _value.payload
-          : payload // ignore: cast_nullable_to_non_nullable
-              as Payload?,
-      isSuccess: freezed == isSuccess
-          ? _value.isSuccess
-          : isSuccess // ignore: cast_nullable_to_non_nullable
-              as bool?,
-    ));
-  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$CarModelAndColorModelImpl implements _CarModelAndColorModel {
-  const _$CarModelAndColorModelImpl(
-      {@JsonKey(name: 'status') this.status,
-      @JsonKey(name: 'code') this.code,
-      @JsonKey(name: 'message') this.message,
-      @JsonKey(name: 'payload') this.payload,
-      @JsonKey(name: 'isSuccess') this.isSuccess});
 
-  factory _$CarModelAndColorModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CarModelAndColorModelImplFromJson(json);
+class _CarModelAndColorModel implements CarModelAndColorModel {
+  const _CarModelAndColorModel({@JsonKey(name: 'status') this.status, @JsonKey(name: 'code') this.code, @JsonKey(name: 'message') this.message, @JsonKey(name: 'payload') this.payload, @JsonKey(name: 'isSuccess') this.isSuccess});
+  factory _CarModelAndColorModel.fromJson(Map<String, dynamic> json) => _$CarModelAndColorModelFromJson(json);
 
-  @override
-  @JsonKey(name: 'status')
-  final String? status;
-  @override
-  @JsonKey(name: 'code')
-  final int? code;
-  @override
-  @JsonKey(name: 'message')
-  final String? message;
-  @override
-  @JsonKey(name: 'payload')
-  final Payload? payload;
-  @override
-  @JsonKey(name: 'isSuccess')
-  final bool? isSuccess;
+@override@JsonKey(name: 'status') final  String? status;
+@override@JsonKey(name: 'code') final  int? code;
+@override@JsonKey(name: 'message') final  String? message;
+@override@JsonKey(name: 'payload') final  Payload? payload;
+@override@JsonKey(name: 'isSuccess') final  bool? isSuccess;
 
-  @override
-  String toString() {
-    return 'CarModelAndColorModel(status: $status, code: $code, message: $message, payload: $payload, isSuccess: $isSuccess)';
-  }
+/// Create a copy of CarModelAndColorModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$CarModelAndColorModelCopyWith<_CarModelAndColorModel> get copyWith => __$CarModelAndColorModelCopyWithImpl<_CarModelAndColorModel>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CarModelAndColorModelImpl &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.code, code) || other.code == code) &&
-            (identical(other.message, message) || other.message == message) &&
-            (identical(other.payload, payload) || other.payload == payload) &&
-            (identical(other.isSuccess, isSuccess) ||
-                other.isSuccess == isSuccess));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, status, code, message, payload, isSuccess);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$CarModelAndColorModelImplCopyWith<_$CarModelAndColorModelImpl>
-      get copyWith => __$$CarModelAndColorModelImplCopyWithImpl<
-          _$CarModelAndColorModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$CarModelAndColorModelImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$CarModelAndColorModelToJson(this, );
 }
 
-abstract class _CarModelAndColorModel implements CarModelAndColorModel {
-  const factory _CarModelAndColorModel(
-          {@JsonKey(name: 'status') final String? status,
-          @JsonKey(name: 'code') final int? code,
-          @JsonKey(name: 'message') final String? message,
-          @JsonKey(name: 'payload') final Payload? payload,
-          @JsonKey(name: 'isSuccess') final bool? isSuccess}) =
-      _$CarModelAndColorModelImpl;
-
-  factory _CarModelAndColorModel.fromJson(Map<String, dynamic> json) =
-      _$CarModelAndColorModelImpl.fromJson;
-
-  @override
-  @JsonKey(name: 'status')
-  String? get status;
-  @override
-  @JsonKey(name: 'code')
-  int? get code;
-  @override
-  @JsonKey(name: 'message')
-  String? get message;
-  @override
-  @JsonKey(name: 'payload')
-  Payload? get payload;
-  @override
-  @JsonKey(name: 'isSuccess')
-  bool? get isSuccess;
-  @override
-  @JsonKey(ignore: true)
-  _$$CarModelAndColorModelImplCopyWith<_$CarModelAndColorModelImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CarModelAndColorModel&&(identical(other.status, status) || other.status == status)&&(identical(other.code, code) || other.code == code)&&(identical(other.message, message) || other.message == message)&&(identical(other.payload, payload) || other.payload == payload)&&(identical(other.isSuccess, isSuccess) || other.isSuccess == isSuccess));
 }
 
-Payload _$PayloadFromJson(Map<String, dynamic> json) {
-  return _Payload.fromJson(json);
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,status,code,message,payload,isSuccess);
+
+@override
+String toString() {
+  return 'CarModelAndColorModel(status: $status, code: $code, message: $message, payload: $payload, isSuccess: $isSuccess)';
 }
+
+
+}
+
+/// @nodoc
+abstract mixin class _$CarModelAndColorModelCopyWith<$Res> implements $CarModelAndColorModelCopyWith<$Res> {
+  factory _$CarModelAndColorModelCopyWith(_CarModelAndColorModel value, $Res Function(_CarModelAndColorModel) _then) = __$CarModelAndColorModelCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'status') String? status,@JsonKey(name: 'code') int? code,@JsonKey(name: 'message') String? message,@JsonKey(name: 'payload') Payload? payload,@JsonKey(name: 'isSuccess') bool? isSuccess
+});
+
+
+@override $PayloadCopyWith<$Res>? get payload;
+
+}
+/// @nodoc
+class __$CarModelAndColorModelCopyWithImpl<$Res>
+    implements _$CarModelAndColorModelCopyWith<$Res> {
+  __$CarModelAndColorModelCopyWithImpl(this._self, this._then);
+
+  final _CarModelAndColorModel _self;
+  final $Res Function(_CarModelAndColorModel) _then;
+
+/// Create a copy of CarModelAndColorModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? status = freezed,Object? code = freezed,Object? message = freezed,Object? payload = freezed,Object? isSuccess = freezed,}) {
+  return _then(_CarModelAndColorModel(
+status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String?,code: freezed == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
+as int?,message: freezed == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String?,payload: freezed == payload ? _self.payload : payload // ignore: cast_nullable_to_non_nullable
+as Payload?,isSuccess: freezed == isSuccess ? _self.isSuccess : isSuccess // ignore: cast_nullable_to_non_nullable
+as bool?,
+  ));
+}
+
+/// Create a copy of CarModelAndColorModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PayloadCopyWith<$Res>? get payload {
+    if (_self.payload == null) {
+    return null;
+  }
+
+  return $PayloadCopyWith<$Res>(_self.payload!, (value) {
+    return _then(_self.copyWith(payload: value));
+  });
+}
+}
+
 
 /// @nodoc
 mixin _$Payload {
-  @JsonKey(name: 'types')
-  List<ColorModel>? get types => throw _privateConstructorUsedError;
-  @JsonKey(name: 'colors')
-  List<ColorModel>? get colors => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $PayloadCopyWith<Payload> get copyWith => throw _privateConstructorUsedError;
+@JsonKey(name: 'types') List<ColorModel>? get types;@JsonKey(name: 'colors') List<ColorModel>? get colors;
+/// Create a copy of Payload
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PayloadCopyWith<Payload> get copyWith => _$PayloadCopyWithImpl<Payload>(this as Payload, _$identity);
+
+  /// Serializes this Payload to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Payload&&const DeepCollectionEquality().equals(other.types, types)&&const DeepCollectionEquality().equals(other.colors, colors));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(types),const DeepCollectionEquality().hash(colors));
+
+@override
+String toString() {
+  return 'Payload(types: $types, colors: $colors)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $PayloadCopyWith<$Res> {
-  factory $PayloadCopyWith(Payload value, $Res Function(Payload) then) =
-      _$PayloadCopyWithImpl<$Res, Payload>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'types') List<ColorModel>? types,
-      @JsonKey(name: 'colors') List<ColorModel>? colors});
-}
+abstract mixin class $PayloadCopyWith<$Res>  {
+  factory $PayloadCopyWith(Payload value, $Res Function(Payload) _then) = _$PayloadCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'types') List<ColorModel>? types,@JsonKey(name: 'colors') List<ColorModel>? colors
+});
 
+
+
+
+}
 /// @nodoc
-class _$PayloadCopyWithImpl<$Res, $Val extends Payload>
+class _$PayloadCopyWithImpl<$Res>
     implements $PayloadCopyWith<$Res> {
-  _$PayloadCopyWithImpl(this._value, this._then);
+  _$PayloadCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Payload _self;
+  final $Res Function(Payload) _then;
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? types = freezed,
-    Object? colors = freezed,
-  }) {
-    return _then(_value.copyWith(
-      types: freezed == types
-          ? _value.types
-          : types // ignore: cast_nullable_to_non_nullable
-              as List<ColorModel>?,
-      colors: freezed == colors
-          ? _value.colors
-          : colors // ignore: cast_nullable_to_non_nullable
-              as List<ColorModel>?,
-    ) as $Val);
-  }
+/// Create a copy of Payload
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? types = freezed,Object? colors = freezed,}) {
+  return _then(_self.copyWith(
+types: freezed == types ? _self.types : types // ignore: cast_nullable_to_non_nullable
+as List<ColorModel>?,colors: freezed == colors ? _self.colors : colors // ignore: cast_nullable_to_non_nullable
+as List<ColorModel>?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$PayloadImplCopyWith<$Res> implements $PayloadCopyWith<$Res> {
-  factory _$$PayloadImplCopyWith(
-          _$PayloadImpl value, $Res Function(_$PayloadImpl) then) =
-      __$$PayloadImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'types') List<ColorModel>? types,
-      @JsonKey(name: 'colors') List<ColorModel>? colors});
 }
 
-/// @nodoc
-class __$$PayloadImplCopyWithImpl<$Res>
-    extends _$PayloadCopyWithImpl<$Res, _$PayloadImpl>
-    implements _$$PayloadImplCopyWith<$Res> {
-  __$$PayloadImplCopyWithImpl(
-      _$PayloadImpl _value, $Res Function(_$PayloadImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? types = freezed,
-    Object? colors = freezed,
-  }) {
-    return _then(_$PayloadImpl(
-      types: freezed == types
-          ? _value._types
-          : types // ignore: cast_nullable_to_non_nullable
-              as List<ColorModel>?,
-      colors: freezed == colors
-          ? _value._colors
-          : colors // ignore: cast_nullable_to_non_nullable
-              as List<ColorModel>?,
-    ));
-  }
+/// Adds pattern-matching-related methods to [Payload].
+extension PayloadPatterns on Payload {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Payload value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _Payload() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Payload value)  $default,){
+final _that = this;
+switch (_that) {
+case _Payload():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Payload value)?  $default,){
+final _that = this;
+switch (_that) {
+case _Payload() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'types')  List<ColorModel>? types, @JsonKey(name: 'colors')  List<ColorModel>? colors)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _Payload() when $default != null:
+return $default(_that.types,_that.colors);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'types')  List<ColorModel>? types, @JsonKey(name: 'colors')  List<ColorModel>? colors)  $default,) {final _that = this;
+switch (_that) {
+case _Payload():
+return $default(_that.types,_that.colors);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'types')  List<ColorModel>? types, @JsonKey(name: 'colors')  List<ColorModel>? colors)?  $default,) {final _that = this;
+switch (_that) {
+case _Payload() when $default != null:
+return $default(_that.types,_that.colors);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PayloadImpl implements _Payload {
-  const _$PayloadImpl(
-      {@JsonKey(name: 'types') final List<ColorModel>? types,
-      @JsonKey(name: 'colors') final List<ColorModel>? colors})
-      : _types = types,
-        _colors = colors;
 
-  factory _$PayloadImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PayloadImplFromJson(json);
+class _Payload implements Payload {
+  const _Payload({@JsonKey(name: 'types') final  List<ColorModel>? types, @JsonKey(name: 'colors') final  List<ColorModel>? colors}): _types = types,_colors = colors;
+  factory _Payload.fromJson(Map<String, dynamic> json) => _$PayloadFromJson(json);
 
-  final List<ColorModel>? _types;
-  @override
-  @JsonKey(name: 'types')
-  List<ColorModel>? get types {
-    final value = _types;
-    if (value == null) return null;
-    if (_types is EqualUnmodifiableListView) return _types;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  final List<ColorModel>? _colors;
-  @override
-  @JsonKey(name: 'colors')
-  List<ColorModel>? get colors {
-    final value = _colors;
-    if (value == null) return null;
-    if (_colors is EqualUnmodifiableListView) return _colors;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
-  String toString() {
-    return 'Payload(types: $types, colors: $colors)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PayloadImpl &&
-            const DeepCollectionEquality().equals(other._types, _types) &&
-            const DeepCollectionEquality().equals(other._colors, _colors));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_types),
-      const DeepCollectionEquality().hash(_colors));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PayloadImplCopyWith<_$PayloadImpl> get copyWith =>
-      __$$PayloadImplCopyWithImpl<_$PayloadImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PayloadImplToJson(
-      this,
-    );
-  }
+ final  List<ColorModel>? _types;
+@override@JsonKey(name: 'types') List<ColorModel>? get types {
+  final value = _types;
+  if (value == null) return null;
+  if (_types is EqualUnmodifiableListView) return _types;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
 }
 
-abstract class _Payload implements Payload {
-  const factory _Payload(
-      {@JsonKey(name: 'types') final List<ColorModel>? types,
-      @JsonKey(name: 'colors') final List<ColorModel>? colors}) = _$PayloadImpl;
-
-  factory _Payload.fromJson(Map<String, dynamic> json) = _$PayloadImpl.fromJson;
-
-  @override
-  @JsonKey(name: 'types')
-  List<ColorModel>? get types;
-  @override
-  @JsonKey(name: 'colors')
-  List<ColorModel>? get colors;
-  @override
-  @JsonKey(ignore: true)
-  _$$PayloadImplCopyWith<_$PayloadImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+ final  List<ColorModel>? _colors;
+@override@JsonKey(name: 'colors') List<ColorModel>? get colors {
+  final value = _colors;
+  if (value == null) return null;
+  if (_colors is EqualUnmodifiableListView) return _colors;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
 }
 
-ColorModel _$ColorModelFromJson(Map<String, dynamic> json) {
-  return _ColorModel.fromJson(json);
+
+/// Create a copy of Payload
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PayloadCopyWith<_Payload> get copyWith => __$PayloadCopyWithImpl<_Payload>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$PayloadToJson(this, );
 }
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Payload&&const DeepCollectionEquality().equals(other._types, _types)&&const DeepCollectionEquality().equals(other._colors, _colors));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_types),const DeepCollectionEquality().hash(_colors));
+
+@override
+String toString() {
+  return 'Payload(types: $types, colors: $colors)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PayloadCopyWith<$Res> implements $PayloadCopyWith<$Res> {
+  factory _$PayloadCopyWith(_Payload value, $Res Function(_Payload) _then) = __$PayloadCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'types') List<ColorModel>? types,@JsonKey(name: 'colors') List<ColorModel>? colors
+});
+
+
+
+
+}
+/// @nodoc
+class __$PayloadCopyWithImpl<$Res>
+    implements _$PayloadCopyWith<$Res> {
+  __$PayloadCopyWithImpl(this._self, this._then);
+
+  final _Payload _self;
+  final $Res Function(_Payload) _then;
+
+/// Create a copy of Payload
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? types = freezed,Object? colors = freezed,}) {
+  return _then(_Payload(
+types: freezed == types ? _self._types : types // ignore: cast_nullable_to_non_nullable
+as List<ColorModel>?,colors: freezed == colors ? _self._colors : colors // ignore: cast_nullable_to_non_nullable
+as List<ColorModel>?,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$ColorModel {
-  @JsonKey(name: 'id')
-  int? get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'name')
-  String? get name => throw _privateConstructorUsedError;
-  @JsonKey(name: 'value')
-  String? get value => throw _privateConstructorUsedError;
-  @JsonKey(name: 'created_at')
-  DateTime? get createdAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'updated_at')
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'models')
-  List<ColorModel>? get models => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $ColorModelCopyWith<ColorModel> get copyWith =>
-      throw _privateConstructorUsedError;
+@JsonKey(name: 'id') int? get id;@JsonKey(name: 'name') String? get name;@JsonKey(name: 'value') String? get value;@JsonKey(name: 'created_at') DateTime? get createdAt;@JsonKey(name: 'updated_at') DateTime? get updatedAt;@JsonKey(name: 'models') List<ColorModel>? get models;
+/// Create a copy of ColorModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ColorModelCopyWith<ColorModel> get copyWith => _$ColorModelCopyWithImpl<ColorModel>(this as ColorModel, _$identity);
+
+  /// Serializes this ColorModel to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ColorModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.value, value) || other.value == value)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other.models, models));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,name,value,createdAt,updatedAt,const DeepCollectionEquality().hash(models));
+
+@override
+String toString() {
+  return 'ColorModel(id: $id, name: $name, value: $value, createdAt: $createdAt, updatedAt: $updatedAt, models: $models)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $ColorModelCopyWith<$Res> {
-  factory $ColorModelCopyWith(
-          ColorModel value, $Res Function(ColorModel) then) =
-      _$ColorModelCopyWithImpl<$Res, ColorModel>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'id') int? id,
-      @JsonKey(name: 'name') String? name,
-      @JsonKey(name: 'value') String? value,
-      @JsonKey(name: 'created_at') DateTime? createdAt,
-      @JsonKey(name: 'updated_at') DateTime? updatedAt,
-      @JsonKey(name: 'models') List<ColorModel>? models});
-}
+abstract mixin class $ColorModelCopyWith<$Res>  {
+  factory $ColorModelCopyWith(ColorModel value, $Res Function(ColorModel) _then) = _$ColorModelCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'id') int? id,@JsonKey(name: 'name') String? name,@JsonKey(name: 'value') String? value,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt,@JsonKey(name: 'models') List<ColorModel>? models
+});
 
+
+
+
+}
 /// @nodoc
-class _$ColorModelCopyWithImpl<$Res, $Val extends ColorModel>
+class _$ColorModelCopyWithImpl<$Res>
     implements $ColorModelCopyWith<$Res> {
-  _$ColorModelCopyWithImpl(this._value, this._then);
+  _$ColorModelCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final ColorModel _self;
+  final $Res Function(ColorModel) _then;
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? value = freezed,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
-    Object? models = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      value: freezed == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      models: freezed == models
-          ? _value.models
-          : models // ignore: cast_nullable_to_non_nullable
-              as List<ColorModel>?,
-    ) as $Val);
-  }
+/// Create a copy of ColorModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = freezed,Object? value = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? models = freezed,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,value: freezed == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,models: freezed == models ? _self.models : models // ignore: cast_nullable_to_non_nullable
+as List<ColorModel>?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$ColorModelImplCopyWith<$Res>
-    implements $ColorModelCopyWith<$Res> {
-  factory _$$ColorModelImplCopyWith(
-          _$ColorModelImpl value, $Res Function(_$ColorModelImpl) then) =
-      __$$ColorModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'id') int? id,
-      @JsonKey(name: 'name') String? name,
-      @JsonKey(name: 'value') String? value,
-      @JsonKey(name: 'created_at') DateTime? createdAt,
-      @JsonKey(name: 'updated_at') DateTime? updatedAt,
-      @JsonKey(name: 'models') List<ColorModel>? models});
 }
 
-/// @nodoc
-class __$$ColorModelImplCopyWithImpl<$Res>
-    extends _$ColorModelCopyWithImpl<$Res, _$ColorModelImpl>
-    implements _$$ColorModelImplCopyWith<$Res> {
-  __$$ColorModelImplCopyWithImpl(
-      _$ColorModelImpl _value, $Res Function(_$ColorModelImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? value = freezed,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
-    Object? models = freezed,
-  }) {
-    return _then(_$ColorModelImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      value: freezed == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      models: freezed == models
-          ? _value._models
-          : models // ignore: cast_nullable_to_non_nullable
-              as List<ColorModel>?,
-    ));
-  }
+/// Adds pattern-matching-related methods to [ColorModel].
+extension ColorModelPatterns on ColorModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ColorModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ColorModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ColorModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _ColorModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ColorModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ColorModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  int? id, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'value')  String? value, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt, @JsonKey(name: 'models')  List<ColorModel>? models)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ColorModel() when $default != null:
+return $default(_that.id,_that.name,_that.value,_that.createdAt,_that.updatedAt,_that.models);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'id')  int? id, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'value')  String? value, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt, @JsonKey(name: 'models')  List<ColorModel>? models)  $default,) {final _that = this;
+switch (_that) {
+case _ColorModel():
+return $default(_that.id,_that.name,_that.value,_that.createdAt,_that.updatedAt,_that.models);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'id')  int? id, @JsonKey(name: 'name')  String? name, @JsonKey(name: 'value')  String? value, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt, @JsonKey(name: 'models')  List<ColorModel>? models)?  $default,) {final _that = this;
+switch (_that) {
+case _ColorModel() when $default != null:
+return $default(_that.id,_that.name,_that.value,_that.createdAt,_that.updatedAt,_that.models);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ColorModelImpl implements _ColorModel {
-  const _$ColorModelImpl(
-      {@JsonKey(name: 'id') this.id,
-      @JsonKey(name: 'name') this.name,
-      @JsonKey(name: 'value') this.value,
-      @JsonKey(name: 'created_at') this.createdAt,
-      @JsonKey(name: 'updated_at') this.updatedAt,
-      @JsonKey(name: 'models') final List<ColorModel>? models})
-      : _models = models;
 
-  factory _$ColorModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ColorModelImplFromJson(json);
+class _ColorModel implements ColorModel {
+  const _ColorModel({@JsonKey(name: 'id') this.id, @JsonKey(name: 'name') this.name, @JsonKey(name: 'value') this.value, @JsonKey(name: 'created_at') this.createdAt, @JsonKey(name: 'updated_at') this.updatedAt, @JsonKey(name: 'models') final  List<ColorModel>? models}): _models = models;
+  factory _ColorModel.fromJson(Map<String, dynamic> json) => _$ColorModelFromJson(json);
 
-  @override
-  @JsonKey(name: 'id')
-  final int? id;
-  @override
-  @JsonKey(name: 'name')
-  final String? name;
-  @override
-  @JsonKey(name: 'value')
-  final String? value;
-  @override
-  @JsonKey(name: 'created_at')
-  final DateTime? createdAt;
-  @override
-  @JsonKey(name: 'updated_at')
-  final DateTime? updatedAt;
-  final List<ColorModel>? _models;
-  @override
-  @JsonKey(name: 'models')
-  List<ColorModel>? get models {
-    final value = _models;
-    if (value == null) return null;
-    if (_models is EqualUnmodifiableListView) return _models;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
-  String toString() {
-    return 'ColorModel(id: $id, name: $name, value: $value, createdAt: $createdAt, updatedAt: $updatedAt, models: $models)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ColorModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.value, value) || other.value == value) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt) &&
-            const DeepCollectionEquality().equals(other._models, _models));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, name, value, createdAt,
-      updatedAt, const DeepCollectionEquality().hash(_models));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ColorModelImplCopyWith<_$ColorModelImpl> get copyWith =>
-      __$$ColorModelImplCopyWithImpl<_$ColorModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ColorModelImplToJson(
-      this,
-    );
-  }
+@override@JsonKey(name: 'id') final  int? id;
+@override@JsonKey(name: 'name') final  String? name;
+@override@JsonKey(name: 'value') final  String? value;
+@override@JsonKey(name: 'created_at') final  DateTime? createdAt;
+@override@JsonKey(name: 'updated_at') final  DateTime? updatedAt;
+ final  List<ColorModel>? _models;
+@override@JsonKey(name: 'models') List<ColorModel>? get models {
+  final value = _models;
+  if (value == null) return null;
+  if (_models is EqualUnmodifiableListView) return _models;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
 }
 
-abstract class _ColorModel implements ColorModel {
-  const factory _ColorModel(
-          {@JsonKey(name: 'id') final int? id,
-          @JsonKey(name: 'name') final String? name,
-          @JsonKey(name: 'value') final String? value,
-          @JsonKey(name: 'created_at') final DateTime? createdAt,
-          @JsonKey(name: 'updated_at') final DateTime? updatedAt,
-          @JsonKey(name: 'models') final List<ColorModel>? models}) =
-      _$ColorModelImpl;
 
-  factory _ColorModel.fromJson(Map<String, dynamic> json) =
-      _$ColorModelImpl.fromJson;
+/// Create a copy of ColorModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ColorModelCopyWith<_ColorModel> get copyWith => __$ColorModelCopyWithImpl<_ColorModel>(this, _$identity);
 
-  @override
-  @JsonKey(name: 'id')
-  int? get id;
-  @override
-  @JsonKey(name: 'name')
-  String? get name;
-  @override
-  @JsonKey(name: 'value')
-  String? get value;
-  @override
-  @JsonKey(name: 'created_at')
-  DateTime? get createdAt;
-  @override
-  @JsonKey(name: 'updated_at')
-  DateTime? get updatedAt;
-  @override
-  @JsonKey(name: 'models')
-  List<ColorModel>? get models;
-  @override
-  @JsonKey(ignore: true)
-  _$$ColorModelImplCopyWith<_$ColorModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$ColorModelToJson(this, );
 }
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ColorModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.value, value) || other.value == value)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other._models, _models));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,name,value,createdAt,updatedAt,const DeepCollectionEquality().hash(_models));
+
+@override
+String toString() {
+  return 'ColorModel(id: $id, name: $name, value: $value, createdAt: $createdAt, updatedAt: $updatedAt, models: $models)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ColorModelCopyWith<$Res> implements $ColorModelCopyWith<$Res> {
+  factory _$ColorModelCopyWith(_ColorModel value, $Res Function(_ColorModel) _then) = __$ColorModelCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'id') int? id,@JsonKey(name: 'name') String? name,@JsonKey(name: 'value') String? value,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt,@JsonKey(name: 'models') List<ColorModel>? models
+});
+
+
+
+
+}
+/// @nodoc
+class __$ColorModelCopyWithImpl<$Res>
+    implements _$ColorModelCopyWith<$Res> {
+  __$ColorModelCopyWithImpl(this._self, this._then);
+
+  final _ColorModel _self;
+  final $Res Function(_ColorModel) _then;
+
+/// Create a copy of ColorModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = freezed,Object? value = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? models = freezed,}) {
+  return _then(_ColorModel(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,value: freezed == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,models: freezed == models ? _self._models : models // ignore: cast_nullable_to_non_nullable
+as List<ColorModel>?,
+  ));
+}
+
+
+}
+
+// dart format on

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'core/services/hive/hive.service.dart';
 import 'l10n/l10n.dart';
 
 import 'package:logger/logger.dart';
@@ -14,7 +15,6 @@ import 'core/utils/color.dart';
 import 'core/router/routes.dart';
 import 'injection_container.dart';
 import 'core/services/app.service.dart';
-import 'core/services/hive/hive.service.dart';
 import 'core/observer/block_observer.dart';
 import 'core/cubits/theme_cubit/theme.cubit.dart';
 import 'core/cubits/token_cubit/token_cubit.dart';
@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
+      const SystemUiOverlayStyle(
         statusBarColor: AppColor.black,
         statusBarIconBrightness: Brightness.light,
         statusBarBrightness: Brightness.dark,
@@ -100,7 +100,7 @@ class MyApp extends StatelessWidget {
                       debugShowCheckedModeBanner: false,
                       theme: theme.copyWith(
                         scaffoldBackgroundColor: Colors.white,
-                        appBarTheme: AppBarTheme(
+                        appBarTheme: const AppBarTheme(
                           surfaceTintColor: AppColor.white,
                           systemOverlayStyle: SystemUiOverlayStyle(
                             statusBarColor: AppColor.black,

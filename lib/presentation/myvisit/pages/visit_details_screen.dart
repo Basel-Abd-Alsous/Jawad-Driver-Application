@@ -22,9 +22,9 @@ class VisitDetailsScreen extends StatelessWidget {
         body: BlocBuilder<VisitDetailsCubit, VisitDetailsState>(
           builder: (context, state) {
             return state.maybeWhen(
-              loadingVisitDetails: () => LoadingVisitDetails(),
+              loadingVisitDetails: () => const LoadingVisitDetails(),
               loadedVisitDetails:
-                  (date) => ListView(padding: EdgeInsets.all(10), physics: NeverScrollableScrollPhysics(), children: <Widget>[ContainerMapVisitDetails(data: date), ContainerVisitDetails(date: date)]),
+                  (date) => ListView(padding: const EdgeInsets.all(10), physics: const NeverScrollableScrollPhysics(), children: <Widget>[ContainerMapVisitDetails(data: date), ContainerVisitDetails(date: date)]),
               errorVisitDetails: (message) => Center(child: Text(message)),
               orElse: () => const SizedBox(),
             );

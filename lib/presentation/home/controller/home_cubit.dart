@@ -11,7 +11,7 @@ import 'package:geocoding/geocoding.dart' as geocoding;
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import 'package:location/location.dart' hide LocationAccuracy;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sliding_action_button/sliding_action_button.dart';
@@ -49,7 +49,7 @@ class HomeCubit extends Cubit<HomeState> {
   WebSocketChannel? _channel;
   String brodcast = '';
   bool _isManuallyClosed = false;
-  ValueNotifier<TravelRequest?> currentTravel = ValueNotifier(TravelRequest());
+  ValueNotifier<TravelRequest?> currentTravel = ValueNotifier(const TravelRequest());
   ValueNotifier<String> remainingAmount = ValueNotifier('');
   ValueNotifier<TravelStatus?> travelStatus = ValueNotifier(TravelStatus.pending);
   AudioPlayer player = AudioPlayer();
@@ -59,9 +59,9 @@ class HomeCubit extends Cubit<HomeState> {
   final key = GlobalKey<FormState>();
   TextEditingController ammount = TextEditingController();
 
-  HomeCubit({required this.homeUsecase, required this.workStatusUsecase}) : super(HomeState.initial()) {
+  HomeCubit({required this.homeUsecase, required this.workStatusUsecase}) : super(const HomeState.initial()) {
     getUserLocation();
-    Future.delayed(Duration(seconds: 2), () async {
+    Future.delayed(const Duration(seconds: 2), () async {
       await havePermissionMap();
       await _checkRunning();
       await initBackgroundLocationListener();
@@ -92,21 +92,21 @@ class HomeCubit extends Cubit<HomeState> {
   String? mapStyleString;
   GoogleMapController? mapController;
   final Location location = Location();
-  ValueNotifier<LatLng> initialPosition = ValueNotifier(LatLng(24.7136, 46.6753));
+  ValueNotifier<LatLng> initialPosition = ValueNotifier(const LatLng(24.7136, 46.6753));
   Set<Circle> circles = {};
 
   Future<void> getUserLocation() async {
     try {
-      emit(HomeState.loadingMap());
+      emit(const HomeState.loadingMap());
       LocationHelper().getCurrentLocation().then((locationData) async {
         initialPosition.value = LatLng(locationData?.latitude ?? 0.0, locationData?.longitude ?? 0.0);
         circles.addAll([
-          Circle(circleId: CircleId('user_circle'), center: initialPosition.value, radius: 200, fillColor: Colors.black87.withOpacity(0.3), strokeColor: Colors.black87, strokeWidth: 2),
+          Circle(circleId: const CircleId('user_circle'), center: initialPosition.value, radius: 200, fillColor: Colors.black87.withOpacity(0.3), strokeColor: Colors.black87, strokeWidth: 2),
         ]);
         mapController?.animateCamera(CameraUpdate.newLatLngZoom(initialPosition.value, 15));
       });
 
-      emit(HomeState.loadedMap());
+      emit(const HomeState.loadedMap());
     } catch (e, stack) {
       logger.w(e.toString() + stack.toString());
     }
@@ -338,7 +338,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> getTravelRequist() async {
-    emit(HomeState.loadingTravelRequest());
+    emit(const HomeState.loadingTravelRequest());
     final result = await homeUsecase.travelRequist();
     result.fold((failure) => emit(HomeState.errorTravelRequest(failure.message)), (result) {
       emit(HomeState.loadedTravelRequest(result.data!));
@@ -548,7 +548,7 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-  double _calculateTotalDistance(List<Map<String, dynamic>> points) {
+  double _calculateTotalDistance(List<Map<dynamic, dynamic>> points) {
     double totalDistance = 0.0;
 
     for (int i = 1; i < points.length; i++) {
@@ -658,7 +658,7 @@ class HomeCubit extends Cubit<HomeState> {
       },
       (r) async {
         travelStatus.value = TravelStatus.pending;
-        currentTravel.value = TravelRequest();
+        currentTravel.value = const TravelRequest();
         GlobalContext.context.pop();
         points.clear();
         ammount.clear();

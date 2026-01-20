@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,513 +9,588 @@ part of 'document_status_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-DocumentStatusModel _$DocumentStatusModelFromJson(Map<String, dynamic> json) {
-  return _DocumentStatusModel.fromJson(json);
-}
 
 /// @nodoc
 mixin _$DocumentStatusModel {
-  @JsonKey(name: 'status')
-  String? get status => throw _privateConstructorUsedError;
-  @JsonKey(name: 'data')
-  Data? get data => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $DocumentStatusModelCopyWith<DocumentStatusModel> get copyWith =>
-      throw _privateConstructorUsedError;
+@JsonKey(name: 'status') String? get status;@JsonKey(name: 'data') Data? get data;
+/// Create a copy of DocumentStatusModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DocumentStatusModelCopyWith<DocumentStatusModel> get copyWith => _$DocumentStatusModelCopyWithImpl<DocumentStatusModel>(this as DocumentStatusModel, _$identity);
+
+  /// Serializes this DocumentStatusModel to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentStatusModel&&(identical(other.status, status) || other.status == status)&&(identical(other.data, data) || other.data == data));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,status,data);
+
+@override
+String toString() {
+  return 'DocumentStatusModel(status: $status, data: $data)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $DocumentStatusModelCopyWith<$Res> {
-  factory $DocumentStatusModelCopyWith(
-          DocumentStatusModel value, $Res Function(DocumentStatusModel) then) =
-      _$DocumentStatusModelCopyWithImpl<$Res, DocumentStatusModel>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'status') String? status,
-      @JsonKey(name: 'data') Data? data});
+abstract mixin class $DocumentStatusModelCopyWith<$Res>  {
+  factory $DocumentStatusModelCopyWith(DocumentStatusModel value, $Res Function(DocumentStatusModel) _then) = _$DocumentStatusModelCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'status') String? status,@JsonKey(name: 'data') Data? data
+});
 
-  $DataCopyWith<$Res>? get data;
+
+$DataCopyWith<$Res>? get data;
+
 }
-
 /// @nodoc
-class _$DocumentStatusModelCopyWithImpl<$Res, $Val extends DocumentStatusModel>
+class _$DocumentStatusModelCopyWithImpl<$Res>
     implements $DocumentStatusModelCopyWith<$Res> {
-  _$DocumentStatusModelCopyWithImpl(this._value, this._then);
+  _$DocumentStatusModelCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final DocumentStatusModel _self;
+  final $Res Function(DocumentStatusModel) _then;
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? status = freezed,
-    Object? data = freezed,
-  }) {
-    return _then(_value.copyWith(
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String?,
-      data: freezed == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as Data?,
-    ) as $Val);
+/// Create a copy of DocumentStatusModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? status = freezed,Object? data = freezed,}) {
+  return _then(_self.copyWith(
+status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String?,data: freezed == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as Data?,
+  ));
+}
+/// Create a copy of DocumentStatusModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$DataCopyWith<$Res>? get data {
+    if (_self.data == null) {
+    return null;
   }
 
-  @override
-  @pragma('vm:prefer-inline')
-  $DataCopyWith<$Res>? get data {
-    if (_value.data == null) {
-      return null;
-    }
-
-    return $DataCopyWith<$Res>(_value.data!, (value) {
-      return _then(_value.copyWith(data: value) as $Val);
-    });
-  }
+  return $DataCopyWith<$Res>(_self.data!, (value) {
+    return _then(_self.copyWith(data: value));
+  });
+}
 }
 
-/// @nodoc
-abstract class _$$DocumentStatusModelImplCopyWith<$Res>
-    implements $DocumentStatusModelCopyWith<$Res> {
-  factory _$$DocumentStatusModelImplCopyWith(_$DocumentStatusModelImpl value,
-          $Res Function(_$DocumentStatusModelImpl) then) =
-      __$$DocumentStatusModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'status') String? status,
-      @JsonKey(name: 'data') Data? data});
 
-  @override
-  $DataCopyWith<$Res>? get data;
+/// Adds pattern-matching-related methods to [DocumentStatusModel].
+extension DocumentStatusModelPatterns on DocumentStatusModel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _DocumentStatusModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _DocumentStatusModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _DocumentStatusModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _DocumentStatusModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _DocumentStatusModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _DocumentStatusModel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'status')  String? status, @JsonKey(name: 'data')  Data? data)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _DocumentStatusModel() when $default != null:
+return $default(_that.status,_that.data);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'status')  String? status, @JsonKey(name: 'data')  Data? data)  $default,) {final _that = this;
+switch (_that) {
+case _DocumentStatusModel():
+return $default(_that.status,_that.data);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'status')  String? status, @JsonKey(name: 'data')  Data? data)?  $default,) {final _that = this;
+switch (_that) {
+case _DocumentStatusModel() when $default != null:
+return $default(_that.status,_that.data);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-class __$$DocumentStatusModelImplCopyWithImpl<$Res>
-    extends _$DocumentStatusModelCopyWithImpl<$Res, _$DocumentStatusModelImpl>
-    implements _$$DocumentStatusModelImplCopyWith<$Res> {
-  __$$DocumentStatusModelImplCopyWithImpl(_$DocumentStatusModelImpl _value,
-      $Res Function(_$DocumentStatusModelImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? status = freezed,
-    Object? data = freezed,
-  }) {
-    return _then(_$DocumentStatusModelImpl(
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String?,
-      data: freezed == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as Data?,
-    ));
-  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$DocumentStatusModelImpl implements _DocumentStatusModel {
-  const _$DocumentStatusModelImpl(
-      {@JsonKey(name: 'status') this.status, @JsonKey(name: 'data') this.data});
 
-  factory _$DocumentStatusModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DocumentStatusModelImplFromJson(json);
+class _DocumentStatusModel implements DocumentStatusModel {
+  const _DocumentStatusModel({@JsonKey(name: 'status') this.status, @JsonKey(name: 'data') this.data});
+  factory _DocumentStatusModel.fromJson(Map<String, dynamic> json) => _$DocumentStatusModelFromJson(json);
 
-  @override
-  @JsonKey(name: 'status')
-  final String? status;
-  @override
-  @JsonKey(name: 'data')
-  final Data? data;
+@override@JsonKey(name: 'status') final  String? status;
+@override@JsonKey(name: 'data') final  Data? data;
 
-  @override
-  String toString() {
-    return 'DocumentStatusModel(status: $status, data: $data)';
-  }
+/// Create a copy of DocumentStatusModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$DocumentStatusModelCopyWith<_DocumentStatusModel> get copyWith => __$DocumentStatusModelCopyWithImpl<_DocumentStatusModel>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DocumentStatusModelImpl &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.data, data) || other.data == data));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, status, data);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DocumentStatusModelImplCopyWith<_$DocumentStatusModelImpl> get copyWith =>
-      __$$DocumentStatusModelImplCopyWithImpl<_$DocumentStatusModelImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$DocumentStatusModelImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$DocumentStatusModelToJson(this, );
 }
 
-abstract class _DocumentStatusModel implements DocumentStatusModel {
-  const factory _DocumentStatusModel(
-      {@JsonKey(name: 'status') final String? status,
-      @JsonKey(name: 'data') final Data? data}) = _$DocumentStatusModelImpl;
-
-  factory _DocumentStatusModel.fromJson(Map<String, dynamic> json) =
-      _$DocumentStatusModelImpl.fromJson;
-
-  @override
-  @JsonKey(name: 'status')
-  String? get status;
-  @override
-  @JsonKey(name: 'data')
-  Data? get data;
-  @override
-  @JsonKey(ignore: true)
-  _$$DocumentStatusModelImplCopyWith<_$DocumentStatusModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DocumentStatusModel&&(identical(other.status, status) || other.status == status)&&(identical(other.data, data) || other.data == data));
 }
 
-Data _$DataFromJson(Map<String, dynamic> json) {
-  return _Data.fromJson(json);
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,status,data);
+
+@override
+String toString() {
+  return 'DocumentStatusModel(status: $status, data: $data)';
 }
+
+
+}
+
+/// @nodoc
+abstract mixin class _$DocumentStatusModelCopyWith<$Res> implements $DocumentStatusModelCopyWith<$Res> {
+  factory _$DocumentStatusModelCopyWith(_DocumentStatusModel value, $Res Function(_DocumentStatusModel) _then) = __$DocumentStatusModelCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'status') String? status,@JsonKey(name: 'data') Data? data
+});
+
+
+@override $DataCopyWith<$Res>? get data;
+
+}
+/// @nodoc
+class __$DocumentStatusModelCopyWithImpl<$Res>
+    implements _$DocumentStatusModelCopyWith<$Res> {
+  __$DocumentStatusModelCopyWithImpl(this._self, this._then);
+
+  final _DocumentStatusModel _self;
+  final $Res Function(_DocumentStatusModel) _then;
+
+/// Create a copy of DocumentStatusModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? status = freezed,Object? data = freezed,}) {
+  return _then(_DocumentStatusModel(
+status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String?,data: freezed == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as Data?,
+  ));
+}
+
+/// Create a copy of DocumentStatusModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$DataCopyWith<$Res>? get data {
+    if (_self.data == null) {
+    return null;
+  }
+
+  return $DataCopyWith<$Res>(_self.data!, (value) {
+    return _then(_self.copyWith(data: value));
+  });
+}
+}
+
 
 /// @nodoc
 mixin _$Data {
-  @JsonKey(name: 'total_required')
-  int? get totalRequired => throw _privateConstructorUsedError;
-  @JsonKey(name: 'uploaded')
-  int? get uploaded => throw _privateConstructorUsedError;
-  @JsonKey(name: 'approved')
-  int? get approved => throw _privateConstructorUsedError;
-  @JsonKey(name: 'pending')
-  int? get pending => throw _privateConstructorUsedError;
-  @JsonKey(name: 'rejected')
-  int? get rejected => throw _privateConstructorUsedError;
-  @JsonKey(name: 'missing')
-  List<dynamic>? get missing => throw _privateConstructorUsedError;
-  @JsonKey(name: 'completion_percentage')
-  int? get completionPercentage => throw _privateConstructorUsedError;
-  @JsonKey(name: 'all_approved')
-  bool? get allApproved => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $DataCopyWith<Data> get copyWith => throw _privateConstructorUsedError;
+@JsonKey(name: 'total_required') int? get totalRequired;@JsonKey(name: 'uploaded') int? get uploaded;@JsonKey(name: 'approved') int? get approved;@JsonKey(name: 'pending') int? get pending;@JsonKey(name: 'rejected') int? get rejected;@JsonKey(name: 'missing') List<dynamic>? get missing;@JsonKey(name: 'completion_percentage') int? get completionPercentage;@JsonKey(name: 'all_approved') bool? get allApproved;
+/// Create a copy of Data
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DataCopyWith<Data> get copyWith => _$DataCopyWithImpl<Data>(this as Data, _$identity);
+
+  /// Serializes this Data to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Data&&(identical(other.totalRequired, totalRequired) || other.totalRequired == totalRequired)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded)&&(identical(other.approved, approved) || other.approved == approved)&&(identical(other.pending, pending) || other.pending == pending)&&(identical(other.rejected, rejected) || other.rejected == rejected)&&const DeepCollectionEquality().equals(other.missing, missing)&&(identical(other.completionPercentage, completionPercentage) || other.completionPercentage == completionPercentage)&&(identical(other.allApproved, allApproved) || other.allApproved == allApproved));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,totalRequired,uploaded,approved,pending,rejected,const DeepCollectionEquality().hash(missing),completionPercentage,allApproved);
+
+@override
+String toString() {
+  return 'Data(totalRequired: $totalRequired, uploaded: $uploaded, approved: $approved, pending: $pending, rejected: $rejected, missing: $missing, completionPercentage: $completionPercentage, allApproved: $allApproved)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $DataCopyWith<$Res> {
-  factory $DataCopyWith(Data value, $Res Function(Data) then) =
-      _$DataCopyWithImpl<$Res, Data>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'total_required') int? totalRequired,
-      @JsonKey(name: 'uploaded') int? uploaded,
-      @JsonKey(name: 'approved') int? approved,
-      @JsonKey(name: 'pending') int? pending,
-      @JsonKey(name: 'rejected') int? rejected,
-      @JsonKey(name: 'missing') List<dynamic>? missing,
-      @JsonKey(name: 'completion_percentage') int? completionPercentage,
-      @JsonKey(name: 'all_approved') bool? allApproved});
-}
+abstract mixin class $DataCopyWith<$Res>  {
+  factory $DataCopyWith(Data value, $Res Function(Data) _then) = _$DataCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'total_required') int? totalRequired,@JsonKey(name: 'uploaded') int? uploaded,@JsonKey(name: 'approved') int? approved,@JsonKey(name: 'pending') int? pending,@JsonKey(name: 'rejected') int? rejected,@JsonKey(name: 'missing') List<dynamic>? missing,@JsonKey(name: 'completion_percentage') int? completionPercentage,@JsonKey(name: 'all_approved') bool? allApproved
+});
 
+
+
+
+}
 /// @nodoc
-class _$DataCopyWithImpl<$Res, $Val extends Data>
+class _$DataCopyWithImpl<$Res>
     implements $DataCopyWith<$Res> {
-  _$DataCopyWithImpl(this._value, this._then);
+  _$DataCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Data _self;
+  final $Res Function(Data) _then;
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? totalRequired = freezed,
-    Object? uploaded = freezed,
-    Object? approved = freezed,
-    Object? pending = freezed,
-    Object? rejected = freezed,
-    Object? missing = freezed,
-    Object? completionPercentage = freezed,
-    Object? allApproved = freezed,
-  }) {
-    return _then(_value.copyWith(
-      totalRequired: freezed == totalRequired
-          ? _value.totalRequired
-          : totalRequired // ignore: cast_nullable_to_non_nullable
-              as int?,
-      uploaded: freezed == uploaded
-          ? _value.uploaded
-          : uploaded // ignore: cast_nullable_to_non_nullable
-              as int?,
-      approved: freezed == approved
-          ? _value.approved
-          : approved // ignore: cast_nullable_to_non_nullable
-              as int?,
-      pending: freezed == pending
-          ? _value.pending
-          : pending // ignore: cast_nullable_to_non_nullable
-              as int?,
-      rejected: freezed == rejected
-          ? _value.rejected
-          : rejected // ignore: cast_nullable_to_non_nullable
-              as int?,
-      missing: freezed == missing
-          ? _value.missing
-          : missing // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>?,
-      completionPercentage: freezed == completionPercentage
-          ? _value.completionPercentage
-          : completionPercentage // ignore: cast_nullable_to_non_nullable
-              as int?,
-      allApproved: freezed == allApproved
-          ? _value.allApproved
-          : allApproved // ignore: cast_nullable_to_non_nullable
-              as bool?,
-    ) as $Val);
-  }
+/// Create a copy of Data
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? totalRequired = freezed,Object? uploaded = freezed,Object? approved = freezed,Object? pending = freezed,Object? rejected = freezed,Object? missing = freezed,Object? completionPercentage = freezed,Object? allApproved = freezed,}) {
+  return _then(_self.copyWith(
+totalRequired: freezed == totalRequired ? _self.totalRequired : totalRequired // ignore: cast_nullable_to_non_nullable
+as int?,uploaded: freezed == uploaded ? _self.uploaded : uploaded // ignore: cast_nullable_to_non_nullable
+as int?,approved: freezed == approved ? _self.approved : approved // ignore: cast_nullable_to_non_nullable
+as int?,pending: freezed == pending ? _self.pending : pending // ignore: cast_nullable_to_non_nullable
+as int?,rejected: freezed == rejected ? _self.rejected : rejected // ignore: cast_nullable_to_non_nullable
+as int?,missing: freezed == missing ? _self.missing : missing // ignore: cast_nullable_to_non_nullable
+as List<dynamic>?,completionPercentage: freezed == completionPercentage ? _self.completionPercentage : completionPercentage // ignore: cast_nullable_to_non_nullable
+as int?,allApproved: freezed == allApproved ? _self.allApproved : allApproved // ignore: cast_nullable_to_non_nullable
+as bool?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$DataImplCopyWith<$Res> implements $DataCopyWith<$Res> {
-  factory _$$DataImplCopyWith(
-          _$DataImpl value, $Res Function(_$DataImpl) then) =
-      __$$DataImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'total_required') int? totalRequired,
-      @JsonKey(name: 'uploaded') int? uploaded,
-      @JsonKey(name: 'approved') int? approved,
-      @JsonKey(name: 'pending') int? pending,
-      @JsonKey(name: 'rejected') int? rejected,
-      @JsonKey(name: 'missing') List<dynamic>? missing,
-      @JsonKey(name: 'completion_percentage') int? completionPercentage,
-      @JsonKey(name: 'all_approved') bool? allApproved});
 }
 
-/// @nodoc
-class __$$DataImplCopyWithImpl<$Res>
-    extends _$DataCopyWithImpl<$Res, _$DataImpl>
-    implements _$$DataImplCopyWith<$Res> {
-  __$$DataImplCopyWithImpl(_$DataImpl _value, $Res Function(_$DataImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? totalRequired = freezed,
-    Object? uploaded = freezed,
-    Object? approved = freezed,
-    Object? pending = freezed,
-    Object? rejected = freezed,
-    Object? missing = freezed,
-    Object? completionPercentage = freezed,
-    Object? allApproved = freezed,
-  }) {
-    return _then(_$DataImpl(
-      totalRequired: freezed == totalRequired
-          ? _value.totalRequired
-          : totalRequired // ignore: cast_nullable_to_non_nullable
-              as int?,
-      uploaded: freezed == uploaded
-          ? _value.uploaded
-          : uploaded // ignore: cast_nullable_to_non_nullable
-              as int?,
-      approved: freezed == approved
-          ? _value.approved
-          : approved // ignore: cast_nullable_to_non_nullable
-              as int?,
-      pending: freezed == pending
-          ? _value.pending
-          : pending // ignore: cast_nullable_to_non_nullable
-              as int?,
-      rejected: freezed == rejected
-          ? _value.rejected
-          : rejected // ignore: cast_nullable_to_non_nullable
-              as int?,
-      missing: freezed == missing
-          ? _value._missing
-          : missing // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>?,
-      completionPercentage: freezed == completionPercentage
-          ? _value.completionPercentage
-          : completionPercentage // ignore: cast_nullable_to_non_nullable
-              as int?,
-      allApproved: freezed == allApproved
-          ? _value.allApproved
-          : allApproved // ignore: cast_nullable_to_non_nullable
-              as bool?,
-    ));
-  }
+/// Adds pattern-matching-related methods to [Data].
+extension DataPatterns on Data {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Data value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _Data() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Data value)  $default,){
+final _that = this;
+switch (_that) {
+case _Data():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Data value)?  $default,){
+final _that = this;
+switch (_that) {
+case _Data() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'total_required')  int? totalRequired, @JsonKey(name: 'uploaded')  int? uploaded, @JsonKey(name: 'approved')  int? approved, @JsonKey(name: 'pending')  int? pending, @JsonKey(name: 'rejected')  int? rejected, @JsonKey(name: 'missing')  List<dynamic>? missing, @JsonKey(name: 'completion_percentage')  int? completionPercentage, @JsonKey(name: 'all_approved')  bool? allApproved)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _Data() when $default != null:
+return $default(_that.totalRequired,_that.uploaded,_that.approved,_that.pending,_that.rejected,_that.missing,_that.completionPercentage,_that.allApproved);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'total_required')  int? totalRequired, @JsonKey(name: 'uploaded')  int? uploaded, @JsonKey(name: 'approved')  int? approved, @JsonKey(name: 'pending')  int? pending, @JsonKey(name: 'rejected')  int? rejected, @JsonKey(name: 'missing')  List<dynamic>? missing, @JsonKey(name: 'completion_percentage')  int? completionPercentage, @JsonKey(name: 'all_approved')  bool? allApproved)  $default,) {final _that = this;
+switch (_that) {
+case _Data():
+return $default(_that.totalRequired,_that.uploaded,_that.approved,_that.pending,_that.rejected,_that.missing,_that.completionPercentage,_that.allApproved);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'total_required')  int? totalRequired, @JsonKey(name: 'uploaded')  int? uploaded, @JsonKey(name: 'approved')  int? approved, @JsonKey(name: 'pending')  int? pending, @JsonKey(name: 'rejected')  int? rejected, @JsonKey(name: 'missing')  List<dynamic>? missing, @JsonKey(name: 'completion_percentage')  int? completionPercentage, @JsonKey(name: 'all_approved')  bool? allApproved)?  $default,) {final _that = this;
+switch (_that) {
+case _Data() when $default != null:
+return $default(_that.totalRequired,_that.uploaded,_that.approved,_that.pending,_that.rejected,_that.missing,_that.completionPercentage,_that.allApproved);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$DataImpl implements _Data {
-  const _$DataImpl(
-      {@JsonKey(name: 'total_required') this.totalRequired,
-      @JsonKey(name: 'uploaded') this.uploaded,
-      @JsonKey(name: 'approved') this.approved,
-      @JsonKey(name: 'pending') this.pending,
-      @JsonKey(name: 'rejected') this.rejected,
-      @JsonKey(name: 'missing') final List<dynamic>? missing,
-      @JsonKey(name: 'completion_percentage') this.completionPercentage,
-      @JsonKey(name: 'all_approved') this.allApproved})
-      : _missing = missing;
 
-  factory _$DataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DataImplFromJson(json);
+class _Data implements Data {
+  const _Data({@JsonKey(name: 'total_required') this.totalRequired, @JsonKey(name: 'uploaded') this.uploaded, @JsonKey(name: 'approved') this.approved, @JsonKey(name: 'pending') this.pending, @JsonKey(name: 'rejected') this.rejected, @JsonKey(name: 'missing') final  List<dynamic>? missing, @JsonKey(name: 'completion_percentage') this.completionPercentage, @JsonKey(name: 'all_approved') this.allApproved}): _missing = missing;
+  factory _Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 
-  @override
-  @JsonKey(name: 'total_required')
-  final int? totalRequired;
-  @override
-  @JsonKey(name: 'uploaded')
-  final int? uploaded;
-  @override
-  @JsonKey(name: 'approved')
-  final int? approved;
-  @override
-  @JsonKey(name: 'pending')
-  final int? pending;
-  @override
-  @JsonKey(name: 'rejected')
-  final int? rejected;
-  final List<dynamic>? _missing;
-  @override
-  @JsonKey(name: 'missing')
-  List<dynamic>? get missing {
-    final value = _missing;
-    if (value == null) return null;
-    if (_missing is EqualUnmodifiableListView) return _missing;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
-  @JsonKey(name: 'completion_percentage')
-  final int? completionPercentage;
-  @override
-  @JsonKey(name: 'all_approved')
-  final bool? allApproved;
-
-  @override
-  String toString() {
-    return 'Data(totalRequired: $totalRequired, uploaded: $uploaded, approved: $approved, pending: $pending, rejected: $rejected, missing: $missing, completionPercentage: $completionPercentage, allApproved: $allApproved)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DataImpl &&
-            (identical(other.totalRequired, totalRequired) ||
-                other.totalRequired == totalRequired) &&
-            (identical(other.uploaded, uploaded) ||
-                other.uploaded == uploaded) &&
-            (identical(other.approved, approved) ||
-                other.approved == approved) &&
-            (identical(other.pending, pending) || other.pending == pending) &&
-            (identical(other.rejected, rejected) ||
-                other.rejected == rejected) &&
-            const DeepCollectionEquality().equals(other._missing, _missing) &&
-            (identical(other.completionPercentage, completionPercentage) ||
-                other.completionPercentage == completionPercentage) &&
-            (identical(other.allApproved, allApproved) ||
-                other.allApproved == allApproved));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      totalRequired,
-      uploaded,
-      approved,
-      pending,
-      rejected,
-      const DeepCollectionEquality().hash(_missing),
-      completionPercentage,
-      allApproved);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DataImplCopyWith<_$DataImpl> get copyWith =>
-      __$$DataImplCopyWithImpl<_$DataImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$DataImplToJson(
-      this,
-    );
-  }
+@override@JsonKey(name: 'total_required') final  int? totalRequired;
+@override@JsonKey(name: 'uploaded') final  int? uploaded;
+@override@JsonKey(name: 'approved') final  int? approved;
+@override@JsonKey(name: 'pending') final  int? pending;
+@override@JsonKey(name: 'rejected') final  int? rejected;
+ final  List<dynamic>? _missing;
+@override@JsonKey(name: 'missing') List<dynamic>? get missing {
+  final value = _missing;
+  if (value == null) return null;
+  if (_missing is EqualUnmodifiableListView) return _missing;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
 }
 
-abstract class _Data implements Data {
-  const factory _Data(
-      {@JsonKey(name: 'total_required') final int? totalRequired,
-      @JsonKey(name: 'uploaded') final int? uploaded,
-      @JsonKey(name: 'approved') final int? approved,
-      @JsonKey(name: 'pending') final int? pending,
-      @JsonKey(name: 'rejected') final int? rejected,
-      @JsonKey(name: 'missing') final List<dynamic>? missing,
-      @JsonKey(name: 'completion_percentage') final int? completionPercentage,
-      @JsonKey(name: 'all_approved') final bool? allApproved}) = _$DataImpl;
+@override@JsonKey(name: 'completion_percentage') final  int? completionPercentage;
+@override@JsonKey(name: 'all_approved') final  bool? allApproved;
 
-  factory _Data.fromJson(Map<String, dynamic> json) = _$DataImpl.fromJson;
+/// Create a copy of Data
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$DataCopyWith<_Data> get copyWith => __$DataCopyWithImpl<_Data>(this, _$identity);
 
-  @override
-  @JsonKey(name: 'total_required')
-  int? get totalRequired;
-  @override
-  @JsonKey(name: 'uploaded')
-  int? get uploaded;
-  @override
-  @JsonKey(name: 'approved')
-  int? get approved;
-  @override
-  @JsonKey(name: 'pending')
-  int? get pending;
-  @override
-  @JsonKey(name: 'rejected')
-  int? get rejected;
-  @override
-  @JsonKey(name: 'missing')
-  List<dynamic>? get missing;
-  @override
-  @JsonKey(name: 'completion_percentage')
-  int? get completionPercentage;
-  @override
-  @JsonKey(name: 'all_approved')
-  bool? get allApproved;
-  @override
-  @JsonKey(ignore: true)
-  _$$DataImplCopyWith<_$DataImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$DataToJson(this, );
 }
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Data&&(identical(other.totalRequired, totalRequired) || other.totalRequired == totalRequired)&&(identical(other.uploaded, uploaded) || other.uploaded == uploaded)&&(identical(other.approved, approved) || other.approved == approved)&&(identical(other.pending, pending) || other.pending == pending)&&(identical(other.rejected, rejected) || other.rejected == rejected)&&const DeepCollectionEquality().equals(other._missing, _missing)&&(identical(other.completionPercentage, completionPercentage) || other.completionPercentage == completionPercentage)&&(identical(other.allApproved, allApproved) || other.allApproved == allApproved));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,totalRequired,uploaded,approved,pending,rejected,const DeepCollectionEquality().hash(_missing),completionPercentage,allApproved);
+
+@override
+String toString() {
+  return 'Data(totalRequired: $totalRequired, uploaded: $uploaded, approved: $approved, pending: $pending, rejected: $rejected, missing: $missing, completionPercentage: $completionPercentage, allApproved: $allApproved)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$DataCopyWith<$Res> implements $DataCopyWith<$Res> {
+  factory _$DataCopyWith(_Data value, $Res Function(_Data) _then) = __$DataCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'total_required') int? totalRequired,@JsonKey(name: 'uploaded') int? uploaded,@JsonKey(name: 'approved') int? approved,@JsonKey(name: 'pending') int? pending,@JsonKey(name: 'rejected') int? rejected,@JsonKey(name: 'missing') List<dynamic>? missing,@JsonKey(name: 'completion_percentage') int? completionPercentage,@JsonKey(name: 'all_approved') bool? allApproved
+});
+
+
+
+
+}
+/// @nodoc
+class __$DataCopyWithImpl<$Res>
+    implements _$DataCopyWith<$Res> {
+  __$DataCopyWithImpl(this._self, this._then);
+
+  final _Data _self;
+  final $Res Function(_Data) _then;
+
+/// Create a copy of Data
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? totalRequired = freezed,Object? uploaded = freezed,Object? approved = freezed,Object? pending = freezed,Object? rejected = freezed,Object? missing = freezed,Object? completionPercentage = freezed,Object? allApproved = freezed,}) {
+  return _then(_Data(
+totalRequired: freezed == totalRequired ? _self.totalRequired : totalRequired // ignore: cast_nullable_to_non_nullable
+as int?,uploaded: freezed == uploaded ? _self.uploaded : uploaded // ignore: cast_nullable_to_non_nullable
+as int?,approved: freezed == approved ? _self.approved : approved // ignore: cast_nullable_to_non_nullable
+as int?,pending: freezed == pending ? _self.pending : pending // ignore: cast_nullable_to_non_nullable
+as int?,rejected: freezed == rejected ? _self.rejected : rejected // ignore: cast_nullable_to_non_nullable
+as int?,missing: freezed == missing ? _self._missing : missing // ignore: cast_nullable_to_non_nullable
+as List<dynamic>?,completionPercentage: freezed == completionPercentage ? _self.completionPercentage : completionPercentage // ignore: cast_nullable_to_non_nullable
+as int?,allApproved: freezed == allApproved ? _self.allApproved : allApproved // ignore: cast_nullable_to_non_nullable
+as bool?,
+  ));
+}
+
+
+}
+
+// dart format on

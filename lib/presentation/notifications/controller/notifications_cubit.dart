@@ -15,13 +15,13 @@ class NotificationCubit extends Cubit<NotificationState> {
 
   int pageIndex = 1;
   ScrollController scrollController = ScrollController();
-  NotificationCubit({required this.notificationsUsecase}) : super(NotificationState.initial());
+  NotificationCubit({required this.notificationsUsecase}) : super(const NotificationState.initial());
 
   // Function To Get All Notification
   Future<void> getAllNotification({bool? loadMore}) async {
     try {
       if (loadMore != true) {
-        emit(_LoadingNotifications());
+        emit(const _LoadingNotifications());
         final result = await notificationsUsecase(pageIndex);
         result.fold((failure) => emit(_ErrorNotifications(failure.message)), (success) {
           _changeIndexPage();

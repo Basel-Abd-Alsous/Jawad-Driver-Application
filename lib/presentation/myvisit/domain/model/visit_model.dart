@@ -7,7 +7,7 @@ part 'visit_model.freezed.dart';
 part 'visit_model.g.dart';
 
 @freezed
-class VisitModel with _$VisitModel {
+abstract class VisitModel with _$VisitModel {
   const factory VisitModel({
     @JsonKey(name: "status") String? status,
     @JsonKey(name: "code") int? code,
@@ -20,14 +20,14 @@ class VisitModel with _$VisitModel {
 }
 
 @freezed
-class Payload with _$Payload {
+abstract class Payload with _$Payload {
   const factory Payload({@JsonKey(name: "travels") List<Travel>? travels, @JsonKey(name: "pagination") Pagination? pagination}) = _Payload;
 
   factory Payload.fromJson(Map<String, dynamic> json) => _$PayloadFromJson(json);
 }
 
 @freezed
-class Travel with _$Travel {
+abstract class Travel with _$Travel {
   const factory Travel({
     @JsonKey(name: "id") int? id,
     @JsonKey(name: "distance_between_them") dynamic distanceBetweenThem,

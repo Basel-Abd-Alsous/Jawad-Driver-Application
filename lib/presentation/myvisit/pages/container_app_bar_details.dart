@@ -21,81 +21,80 @@ class ContainerMapVisitDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          isLoading == true ? WidgetLoading(width: 80) : Text(formatDate(data?.payload?.arrivalTime ?? ''), style: AppTextStyle.style18.copyWith(color: AppColor.grey)),
+          isLoading == true ? const WidgetLoading(width: 80) : Text(formatDate(data?.payload?.arrivalTime ?? ''), style: AppTextStyle.style18.copyWith(color: AppColor.grey)),
           5.gap,
           Row(
             spacing: 10,
             children: [
               SvgPicture.asset(Assets.svgSar, width: 17, height: 17, color: isLoading == false ? null : AppColor.grey.withOpacity(0.4)),
-              isLoading == true ? WidgetLoading(width: 30) : Text('${data?.payload?.amount ?? '0.0'}', style: AppTextStyle.style20B.copyWith(color: AppColor.black)),
+              isLoading == true ? const WidgetLoading(width: 30) : Text('${data?.payload?.amount ?? '0.0'}', style: AppTextStyle.style20B.copyWith(color: AppColor.black)),
             ],
           ),
           10.gap,
           InkWell(
-            onTap:
-                isLoading == true
-                    ? null
-                    : () async {
-                      final url =
-                          'https://www.google.com/maps/dir/?api=1'
-                          '&origin=${data?.payload?.pickupLat ?? '31.9454'},${data?.payload?.pickupLng ?? '35.9284'}'
-                          '&destination=${data?.payload?.arriveLat ?? '32.5568'},${data?.payload?.arriveLng ?? '35.8469'}';
+            onTap: isLoading == true
+                ? null
+                : () async {
+                    final url =
+                        'https://www.google.com/maps/dir/?api=1'
+                        '&origin=${data?.payload?.pickupLat ?? '31.9454'},${data?.payload?.pickupLng ?? '35.9284'}'
+                        '&destination=${data?.payload?.arriveLat ?? '32.5568'},${data?.payload?.arriveLng ?? '35.8469'}';
 
-                      await launch(url);
-                    },
+                    await launch(url);
+                  },
             child: Container(
               height: MediaQuery.of(context).size.height * 0.35,
               clipBehavior: Clip.antiAliasWithSaveLayer,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), border: Border.all(color: AppColor.grey.withOpacity(0.4), width: 1)),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: AppColor.grey.withOpacity(0.4), width: 1),
+              ),
               child: Column(
                 children: [
                   Expanded(
-                    child:
-                        isLoading == true
-                            ? WidgetLoading(width: double.infinity, height: MediaQuery.of(context).size.height * 0.5)
-                            : Stack(
-                              alignment: Alignment.topLeft,
-                              children: [
-                                ValueListenableBuilder<Set<Polyline>>(
-                                  valueListenable: context.read<VisitDetailsCubit>().polylines,
-                                  builder:
-                                      (context, value, child) => GoogleMap(
-                                        onMapCreated: context.read<VisitDetailsCubit>().onMapCreated,
-                                        initialCameraPosition: CameraPosition(target: context.read<VisitDetailsCubit>().start!, zoom: 11),
-                                        polylines: value,
-                                        markers: {
-                                          Marker(markerId: const MarkerId('start'), position: context.read<VisitDetailsCubit>().start!),
-                                          Marker(markerId: const MarkerId('end'), position: context.read<VisitDetailsCubit>().end!),
-                                        },
-                                        myLocationEnabled: false,
-                                        myLocationButtonEnabled: false,
-                                        zoomControlsEnabled: false,
-                                      ),
+                    child: isLoading == true
+                        ? WidgetLoading(width: double.infinity, height: MediaQuery.of(context).size.height * 0.5)
+                        : Stack(
+                            alignment: Alignment.topLeft,
+                            children: [
+                              ValueListenableBuilder<Set<Polyline>>(
+                                valueListenable: context.read<VisitDetailsCubit>().polylines,
+                                builder: (context, value, child) => GoogleMap(
+                                  onMapCreated: context.read<VisitDetailsCubit>().onMapCreated,
+                                  initialCameraPosition: CameraPosition(target: context.read<VisitDetailsCubit>().start!, zoom: 11),
+                                  polylines: value,
+                                  markers: {
+                                    Marker(markerId: const MarkerId('start'), position: context.read<VisitDetailsCubit>().start!),
+                                    Marker(markerId: const MarkerId('end'), position: context.read<VisitDetailsCubit>().end!),
+                                  },
+                                  myLocationEnabled: false,
+                                  myLocationButtonEnabled: false,
+                                  zoomControlsEnabled: false,
                                 ),
-                                InkWell(
-                                  onTap:
-                                      isLoading == true
-                                          ? null
-                                          : () async {
-                                            final url =
-                                                'https://www.google.com/maps/dir/?api=1'
-                                                '&origin=31.9454,35.9284'
-                                                '&destination=32.5568,35.8469';
+                              ),
+                              InkWell(
+                                onTap: isLoading == true
+                                    ? null
+                                    : () async {
+                                        const url =
+                                            'https://www.google.com/maps/dir/?api=1'
+                                            '&origin=31.9454,35.9284'
+                                            '&destination=32.5568,35.8469';
 
-                                            await launch(url);
-                                          },
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                                    color: AppColor.secondColor,
-                                    child: Text('View in Google Maps', style: AppTextStyle.style14.copyWith(color: AppColor.white)),
-                                  ),
+                                        await launch(url);
+                                      },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                  color: AppColor.secondColor,
+                                  child: Text('View in Google Maps', style: AppTextStyle.style14.copyWith(color: AppColor.white)),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
+                          ),
                   ),
                   Divider(height: 1, color: AppColor.grey.withOpacity(0.4)),
                   10.gap,
@@ -127,8 +126,21 @@ class LocationListItem extends StatelessWidget {
       child: Row(
         spacing: 10,
         children: [
-          Expanded(child: isLoading == true ? WidgetLoading(width: 20) : Text(title, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500))),
-          Container(width: 8, height: 8, decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle)),
+          Expanded(
+            child: isLoading == true
+                ? const WidgetLoading(width: 20)
+                : Text(
+                    title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  ),
+          ),
+          Container(
+            width: 8,
+            height: 8,
+            decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
+          ),
         ],
       ),
     );

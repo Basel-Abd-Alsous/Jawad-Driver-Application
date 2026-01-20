@@ -51,7 +51,7 @@ class DocumentContainer extends StatelessWidget with FormValidationMixin {
                         return WidgetAuthTextField(
                           controller: TextEditingController(text: document.path),
                           hintText: '${local.selec}${document.name}',
-                          suffixIcon: Icon(Icons.cloud_upload_rounded, color: AppColor.white, size: 30),
+                          suffixIcon: const Icon(Icons.cloud_upload_rounded, color: AppColor.white, size: 30),
                           prefixIcon: document.path != null
                               ? Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -69,7 +69,7 @@ class DocumentContainer extends StatelessWidget with FormValidationMixin {
                                     ),
                                   ],
                                 )
-                              : Icon(Icons.perm_contact_calendar_sharp, color: AppColor.white, size: 30),
+                              : const Icon(Icons.perm_contact_calendar_sharp, color: AppColor.white, size: 30),
                           readOnly: true,
                           validator: document.isRequired == false ? (p0) => null : (p0) => validateNull(context,p0),
                           onTap: () {

@@ -25,7 +25,7 @@ class NextButton extends StatelessWidget {
             child: AppButton.text(
               color: AppColor.white,
               textStyle: AppTextStyle.style18B,
-              onPressed: () => context.read<IntroductionsBloc>().add(IntroductionsEvent.nextPageEvent()),
+              onPressed: () => context.read<IntroductionsBloc>().add(const IntroductionsEvent.nextPageEvent()),
               text: local.next,
             ),
           );

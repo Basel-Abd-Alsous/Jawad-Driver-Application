@@ -15,7 +15,7 @@ class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<SplashBloc>()..add(SplashEvent.started()),
+      create: (context) => sl<SplashBloc>()..add(const SplashEvent.started()),
       child: Scaffold(
         backgroundColor: AppColor.primaryColor,
         body: BlocConsumer<SplashBloc, SplashState>(
@@ -30,7 +30,7 @@ class Splash extends StatelessWidget {
               player: (controller) {
                 return Center(child: AspectRatio(aspectRatio: controller.value.aspectRatio, child: VideoPlayer(controller)));
               },
-              orElse: () => Center(child: Text('Loading')),
+              orElse: () => const Center(child: Text('Loading')),
             );
           },
         ),

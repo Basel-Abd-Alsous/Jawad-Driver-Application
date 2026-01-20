@@ -28,7 +28,7 @@ class ChatScreen extends StatelessWidget {
                     itemCount: value.reversed.length,
                     reverse: true,
 
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     separatorBuilder: (context, index) => 5.gap,
                     itemBuilder: (context, index) {
                       Message data = value.reversed.toList()[index];
@@ -42,7 +42,7 @@ class ChatScreen extends StatelessWidget {
                             crossAxisAlignment: data.type != 'driver' ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                             children: [
                               Container(
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   color: AppColor.black.withOpacity(data.type != 'driver' ? 0.2 : 1),
                                   borderRadius: BorderRadius.circular(10),
@@ -72,12 +72,12 @@ class ChatScreen extends StatelessWidget {
                   suffixIcon: IconButton.filled(
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10))),
+                        const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10))),
                       ),
                     ),
                     color: AppColor.black,
                     onPressed: () => context.read<ChatCubit>().sendMessage(id),
-                    icon: Icon(Icons.send, color: AppColor.white),
+                    icon: const Icon(Icons.send, color: AppColor.white),
                   ),
                 ),
               ),

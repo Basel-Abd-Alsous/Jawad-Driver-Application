@@ -51,7 +51,7 @@ class FirebaseNotification {
         ?.createNotificationChannel(channel);
     var initializationSettingsAndroid =
         const AndroidInitializationSettings('@mipmap/ic_launcher');
-    var initializeSettingIOS = DarwinInitializationSettings();
+    var initializeSettingIOS = const DarwinInitializationSettings();
 
     var initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializeSettingIOS);

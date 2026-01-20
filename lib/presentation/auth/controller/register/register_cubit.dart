@@ -58,7 +58,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   int currentYear = DateTime.now().year;
   ValueNotifier<List<String>> yearsList = ValueNotifier([]);
 
-  RegisterCubit({required this.registerUsecase, required this.forgetUsecase}) : super(RegisterState.initial());
+  RegisterCubit({required this.registerUsecase, required this.forgetUsecase}) : super(const RegisterState.initial());
 
   Future<void> selectDate() async {
     FocusScope.of(GlobalContext.context).requestFocus(FocusNode());
@@ -101,7 +101,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   Future<void> register() async {
     if (formKeyStep3.currentState!.validate()) {
       try {
-        emit(_LoadingSignUp());
+        emit(const _LoadingSignUp());
         final oneSignalId = OneSignal.User.pushSubscription.id;
         final loginResponse = await registerUsecase.register(
           RegisterModel.fromJson({
@@ -137,7 +137,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   // Get All Documents Type Function
   Future<void> getAllDocumentsType(MyDocumentModel? myDocumentModel) async {
     try {
-      emit(_LoadingDocumentType());
+      emit(const _LoadingDocumentType());
       final getAllDocumentsTypeResponse = await registerUsecase.documentsType();
       getAllDocumentsTypeResponse.fold((left) => emit(_ErrorDocumentType(left.message)), (right) {
         if (myDocumentModel != null) {
@@ -225,7 +225,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   // My Documents Function
   Future<void> myDocuments({bool? isLogin}) async {
     try {
-      emit(_LoadingMyDocument());
+      emit(const _LoadingMyDocument());
       final myDocumentsResponse = await registerUsecase.myDocument();
       myDocumentsResponse.fold((left) => emit(_ErrorMyDocument(left.message)), (right) async {
         if (right.data?.payload != null) {
@@ -246,7 +246,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   // Get Car Model And Color Model Function
   Future<void> getCarModelAndColor() async {
     try {
-      emit(_LoadingCarModelAndColorInfo());
+      emit(const _LoadingCarModelAndColorInfo());
       final carModelAndColorResponse = await registerUsecase.carModelAndColor();
       carModelAndColorResponse.fold((left) => emit(_ErrorCarModelAndColorInfo(left.message)), (right) {
         types = right.data!.payload!.types!.toList();
@@ -263,7 +263,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   Future<void> uploadCarInfo() async {
     if (formKeyStep3.currentState!.validate()) {
       try {
-        emit(_LoadingCarInfo());
+        emit(const _LoadingCarInfo());
         final carInfoData = {
           'plate_number': plateNo.text,
           'plate_code': plateCode.text,
@@ -273,7 +273,7 @@ class RegisterCubit extends Cubit<RegisterState> {
           "year": selectedYear.value == '' ? '${DateTime.now().year}' : selectedYear.value,
         };
         final uploadCarInfoResponse = await registerUsecase.carInfo(CarInfoModel.fromJson(carInfoData));
-        uploadCarInfoResponse.fold((left) => emit(_ErrorCarInfo(left.message)), (right) => emit(_LoadedCarInfo()));
+        uploadCarInfoResponse.fold((left) => emit(_ErrorCarInfo(left.message)), (right) => emit(const _LoadedCarInfo()));
       } catch (e) {
         logger.e('Server Error Upload Car Info Section : $e');
       }
@@ -284,7 +284,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   Future<void> uploadBankInfo() async {
     if (formKeyStep4.currentState!.validate()) {
       try {
-        emit(_LoadingBankInfo());
+        emit(const _LoadingBankInfo());
         final bankInfoData = {
           'bank_name': bankName.text.isEmpty ? 'empty bank' : bankName.text,
           'number': '000000000000000',
@@ -296,7 +296,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         };
         final uploadBankInfoResponse = await registerUsecase.bankInfo(BankInfoModel.fromJson(bankInfoData));
         uploadBankInfoResponse.fold((left) => emit(_ErrorBankInfo(left.message)), (right) {
-          emit(_LoadedBankInfo());
+          emit(const _LoadedBankInfo());
         });
       } catch (e) {
         logger.e('Server Error Upload Bank Info Section : $e');
@@ -321,13 +321,13 @@ class RegisterCubit extends Cubit<RegisterState> {
     selectedModel = null;
     models.value = [];
     models.value = List.from(models.value)..addAll(type.models ?? []);
-    emit(_SelectType());
+    emit(const _SelectType());
   }
 
   // Select Model
   void selectModel(ColorModel? model) {
     selectedModel = model;
-    emit(_SelectModel());
+    emit(const _SelectModel());
   }
 
   // Select Year
@@ -338,6 +338,6 @@ class RegisterCubit extends Cubit<RegisterState> {
   // Select Color
   void selectColor(ColorModel? color) {
     selectedColor = color;
-    emit(_SelectColor());
+    emit(const _SelectColor());
   }
 }

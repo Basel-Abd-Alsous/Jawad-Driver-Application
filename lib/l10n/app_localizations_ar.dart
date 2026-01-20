@@ -90,6 +90,21 @@ class AppLocalizationsAr extends AppLocalizations {
   String get withdrawCash => 'طلب سحب نقدي';
 
   @override
+  String get commission => 'العمولة';
+
+  @override
+  String get driver_profit => 'ربح السائق';
+
+  @override
+  String get feedback => 'ملاحظات';
+
+  @override
+  String get feedbackType => 'نوع الملاحظة';
+
+  @override
+  String get pleaseSelectFeedbackType => 'الرجاء اختيار نوع الملاحظة';
+
+  @override
   String get submit => 'ارسال';
 
   @override
@@ -109,6 +124,24 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get areyousureyouwanttodeleteyouraccount => 'هل أنت متأكد أنك تريد حذف حسابك؟';
+
+  @override
+  String get whatsapp => 'واتساب';
+
+  @override
+  String get instagram => 'انستغرام';
+
+  @override
+  String get contact_via_whatsapp => 'تواصل معنا عبر واتساب';
+
+  @override
+  String get follow_on_instagram => 'تابعنا على انستغرام';
+
+  @override
+  String get follow_on_twitter => 'تابعنا على تويتر';
+
+  @override
+  String get twitter => 'تويتر';
 
   @override
   String get plate_number => 'رقم اللوحة';
@@ -474,7 +507,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get paymentInApp => 'من التطبيق';
 
   @override
-  String get amount => 'المبلغ';
+  String get amount => 'المبلغ الإجمالي';
 
   @override
   String get myWallet => 'محفظتي';

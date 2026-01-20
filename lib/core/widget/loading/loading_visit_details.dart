@@ -8,6 +8,6 @@ class LoadingVisitDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(physics: NeverScrollableScrollPhysics(), children: <Widget>[ContainerMapVisitDetails(isLoading: true), ContainerVisitDetails(isLoading: true)]);
+    return ListView(physics: const NeverScrollableScrollPhysics(), children: const <Widget>[ContainerMapVisitDetails(isLoading: true), ContainerVisitDetails(isLoading: true)]);
   }
 }

@@ -19,7 +19,7 @@ class DynamicConfig {
   static bool _isInTrip = false;
   static bool get isInTrip => _isInTrip;
   static void setTripMode(bool inTrip) => _isInTrip = inTrip;
-  static Duration get periodicDuration => _isInTrip ? Duration(seconds: 30) : Duration(seconds: 20);
+  static Duration get periodicDuration => _isInTrip ? const Duration(seconds: 30) : const Duration(seconds: 20);
   static double get accuracyThreshold => _isInTrip ? 2.0 : 10.0;
   static int get distanceFilter => _isInTrip ? 3 : 10;
   static double get minMovingSpeedKmh => _isInTrip ? 3.0 : 0.0;
@@ -110,7 +110,7 @@ Future<bool> backgroundEntryPoint(ServiceInstance service) async {
 
   // 📊 المتغيرات الأساسية
   double? lastHeading;
-  DateTime lastLocationSendTime = DateTime.now().subtract(Duration(seconds: 60));
+  DateTime lastLocationSendTime = DateTime.now().subtract(const Duration(seconds: 60));
   Position? lastPosition;
   final movingAvgLat = _MovingAverage(3);
   final movingAvgLng = _MovingAverage(3);
@@ -152,7 +152,7 @@ Future<bool> backgroundEntryPoint(ServiceInstance service) async {
       }
 
       Position pos = await Geolocator.getCurrentPosition(
-        locationSettings: LocationSettings(distanceFilter: 0, accuracy: LocationAccuracy.bestForNavigation),
+        locationSettings: const LocationSettings(distanceFilter: 0, accuracy: LocationAccuracy.bestForNavigation),
         desiredAccuracy: LocationAccuracy.bestForNavigation,
       );
 
@@ -179,9 +179,7 @@ Future<bool> backgroundEntryPoint(ServiceInstance service) async {
       lastLocationSendTime = DateTime.now();
       TripStatistics.recordUpdate(reason);
 
-      logger.i(
-        "📍 [${DynamicConfig.isInTrip ? 'TRIP' : 'NORMAL'}] → $reason - سرعة: ${speedKmh.toStringAsFixed(1)} كم/س - دقة: ${pos.accuracy.toStringAsFixed(1)} م",
-      );
+      logger.i("📍 [${DynamicConfig.isInTrip ? 'TRIP' : 'NORMAL'}] → $reason - سرعة: ${speedKmh.toStringAsFixed(1)} كم/س - دقة: ${pos.accuracy.toStringAsFixed(1)} م");
     } catch (e, st) {
       logger.i('❌ خطأ في safePrintCurrentLocation: $e , $st');
     }
@@ -254,31 +252,32 @@ Future<bool> backgroundEntryPoint(ServiceInstance service) async {
   /// 🛰️ بدء تدفق الموقع
   void startPositionStream() {
     try {
-      positionStreamSub = Geolocator.getPositionStream(
-        locationSettings: LocationSettings(accuracy: LocationAccuracy.bestForNavigation, distanceFilter: DynamicConfig.isInTrip ? 1 : 5),
-      ).listen((Position pos) async {
-        lastPosition = pos;
-        currentLatLng = LatLng(pos.latitude, pos.longitude);
-        double speedKmh = pos.speed * 3.6;
+      positionStreamSub =
+          Geolocator.getPositionStream(
+            locationSettings: LocationSettings(accuracy: LocationAccuracy.bestForNavigation, distanceFilter: DynamicConfig.isInTrip ? 1 : 5),
+          ).listen((Position pos) async {
+            lastPosition = pos;
+            currentLatLng = LatLng(pos.latitude, pos.longitude);
+            double speedKmh = pos.speed * 3.6;
 
-        if (speedKmh > 3.0) StopManager.resetStopState();
+            if (speedKmh > 3.0) StopManager.resetStopState();
 
-        movingAvgLat.add(pos.latitude);
-        movingAvgLng.add(pos.longitude);
+            movingAvgLat.add(pos.latitude);
+            movingAvgLng.add(pos.longitude);
 
-        if (lastHeading != null && DynamicConfig.isInTrip) {
-          turnDetector!.updateTurn(currentLatLng!, lastHeading!);
-        }
+            if (lastHeading != null && DynamicConfig.isInTrip) {
+              turnDetector!.updateTurn(currentLatLng!, lastHeading!);
+            }
 
-        // كشف تغيير السرعة المفاجئ
-        if (lastPosition != null && speedKmh > 10) {
-          double lastSpeedKmh = (lastPosition!.speed * 3.6);
-          double speedChange = (speedKmh - lastSpeedKmh).abs();
-          if (speedChange > 15) {
-            safePrintCurrentLocation('تغيير سرعة مفاجئ');
-          }
-        }
-      });
+            // كشف تغيير السرعة المفاجئ
+            if (lastPosition != null && speedKmh > 10) {
+              double lastSpeedKmh = (lastPosition!.speed * 3.6);
+              double speedChange = (speedKmh - lastSpeedKmh).abs();
+              if (speedChange > 15) {
+                safePrintCurrentLocation('تغيير سرعة مفاجئ');
+              }
+            }
+          });
       addSubscription(positionStreamSub!);
     } catch (e, st) {
       logger.i('❌ فشل تدفق الموقع: $e , $st');
@@ -315,7 +314,7 @@ Future<bool> backgroundEntryPoint(ServiceInstance service) async {
   logger.i('🎉 تم بدء خدمة الخلفية - وضع الرحلة');
 
   // ⏰ المؤقت الدوري الرئيسي
-  Timer.periodic(Duration(seconds: 5), (timer) async {
+  Timer.periodic(const Duration(seconds: 5), (timer) async {
     try {
       final now = DateTime.now();
       final timeSinceLastSend = now.difference(lastLocationSendTime).inSeconds;
@@ -357,7 +356,7 @@ class TurnDetection {
   final double uTurnThreshold = 140.0;
   final Logger logger;
   DateTime lastTurnTime = DateTime.fromMillisecondsSinceEpoch(0);
-  final Duration turnCooldown = Duration(seconds: 3);
+  Duration turnCooldown = const Duration(seconds: 3);
 
   TurnDetection({required this.logger});
 
@@ -428,9 +427,6 @@ class FileLogger {
     consoleLogger?.i('[$timestamp] $message');
   }
 }
-
-
-
 
 // // ignore_for_file: unnecessary_cast
 // import 'dart:async';

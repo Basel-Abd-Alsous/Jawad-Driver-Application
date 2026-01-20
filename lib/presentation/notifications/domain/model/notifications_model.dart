@@ -6,7 +6,7 @@ part 'notifications_model.freezed.dart';
 part 'notifications_model.g.dart';
 
 @freezed
-class NotificationsModel with _$NotificationsModel {
+abstract class NotificationsModel with _$NotificationsModel {
   const factory NotificationsModel({
     @JsonKey(name: "status") String? status,
     @JsonKey(name: "code") int? code,
@@ -19,7 +19,7 @@ class NotificationsModel with _$NotificationsModel {
 }
 
 @freezed
-class Payload with _$Payload {
+abstract class Payload with _$Payload {
   const factory Payload({
     @JsonKey(name: "notifications") List<NotificationData>? notifications,
     @JsonKey(name: "unread_notifications_count") int? unreadNotificationsCount,
@@ -30,7 +30,7 @@ class Payload with _$Payload {
 }
 
 @freezed
-class NotificationData with _$NotificationData {
+abstract class NotificationData with _$NotificationData {
   const factory NotificationData({
     @JsonKey(name: "id") String? id,
     @JsonKey(name: "image") String? image,

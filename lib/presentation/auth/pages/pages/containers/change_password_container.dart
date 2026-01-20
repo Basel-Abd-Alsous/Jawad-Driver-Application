@@ -27,8 +27,8 @@ class ChangePasswordContainer extends StatelessWidget with FormValidationMixin {
       listener: _listener,
       builder: (context, state) {
         return Container(
-          margin: EdgeInsets.all(10),
-          padding: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: AppColor.onSecondColor.withValues(alpha: 0.23),
             borderRadius: BorderRadius.circular(AppBorderRadius.lg16),
@@ -48,7 +48,7 @@ class ChangePasswordContainer extends StatelessWidget with FormValidationMixin {
                     controller: context.read<ForgetCubit>().newPass,
                     obscureText: value,
                     keyboardType: TextInputType.text,
-                    prefixIcon: Icon(Icons.lock),
+                    prefixIcon: const Icon(Icons.lock),
                     suffixIcon: IconButton(
                       onPressed: () => context.read<ForgetCubit>().changeObscure(),
                       icon: Icon(value == true ? Icons.visibility_off : Icons.visibility),
@@ -65,7 +65,7 @@ class ChangePasswordContainer extends StatelessWidget with FormValidationMixin {
                     controller: context.read<ForgetCubit>().confirmPassword,
                     obscureText: value,
                     keyboardType: TextInputType.text,
-                    prefixIcon: Icon(Icons.lock),
+                    prefixIcon: const Icon(Icons.lock),
                     suffixIcon: IconButton(
                       onPressed: () => context.read<ForgetCubit>().changeObscureConfirm(),
                       icon: Icon(value == true ? Icons.visibility_off : Icons.visibility),

@@ -43,15 +43,15 @@ class LoginCubit extends Cubit<LoginState> {
   final TextEditingController password = TextEditingController();
   ValueNotifier<bool> obscureText = ValueNotifier(true);
 
-  LoginCubit({required this.registerUsecase, required this.loginUseCase}) : super(LoginState.initial());
+  LoginCubit({required this.registerUsecase, required this.loginUseCase}) : super(const LoginState.initial());
 
   // Login Function
   Future<void> login() async {
     if (formKey.currentState!.validate()) {
       try {
-        emit(_LoadingLogin());
+        emit(const _LoadingLogin());
         final oneSignalId = OneSignal.User.pushSubscription.id;
-        final loginData = {'phone': formatPhone(mobile.text), 'password': password.text, 'user_type': 'driver', 'fcm_token': oneSignalId};
+        final loginData = {'phone': mobile.text, 'password': password.text, 'user_type': 'driver', 'fcm_token': oneSignalId};
         final loginResponse = await loginUseCase.login(LoginRequiestModel.fromJson(loginData));
         loginResponse.fold((left) => emit(_ErrorLogin(left.message)), (right) => emit(_LoadedLogin(right.data!)));
       } catch (e) {
@@ -75,7 +75,7 @@ class LoginCubit extends Cubit<LoginState> {
   // Document Status Function
   Future<void> documentStatus() async {
     try {
-      emit(_LoadingDocumentStatus());
+      emit(const _LoadingDocumentStatus());
       final documentStatusResponse = await registerUsecase.documentStatus();
       documentStatusResponse.fold((left) => emit(_ErrorDocumentStatus(left.message)), (right) => emit(_LoadedDocumentStatus(right.data!)));
     } catch (e) {
@@ -86,7 +86,7 @@ class LoginCubit extends Cubit<LoginState> {
   // Register Status Function
   Future<void> registerStatus() async {
     try {
-      emit(_LoadingRegisterStatus());
+      emit(const _LoadingRegisterStatus());
       final registerStatusResponse = await registerUsecase.registerStatus();
       registerStatusResponse.fold((left) => emit(_ErrorRegisterStatus(left.message)), (right) => emit(_LoadedRegisterStatus(right.data!)));
     } catch (e) {

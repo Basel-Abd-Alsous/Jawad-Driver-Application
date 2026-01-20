@@ -257,6 +257,36 @@ abstract class AppLocalizations {
   /// **'Withdraw Cash'**
   String get withdrawCash;
 
+  /// No description provided for @commission.
+  ///
+  /// In en, this message translates to:
+  /// **'Commission'**
+  String get commission;
+
+  /// No description provided for @driver_profit.
+  ///
+  /// In en, this message translates to:
+  /// **'Driver Profit'**
+  String get driver_profit;
+
+  /// No description provided for @feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback'**
+  String get feedback;
+
+  /// No description provided for @feedbackType.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback Type'**
+  String get feedbackType;
+
+  /// No description provided for @pleaseSelectFeedbackType.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a feedback type'**
+  String get pleaseSelectFeedbackType;
+
   /// No description provided for @submit.
   ///
   /// In en, this message translates to:
@@ -298,6 +328,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to delete your account?'**
   String get areyousureyouwanttodeleteyouraccount;
+
+  /// No description provided for @whatsapp.
+  ///
+  /// In en, this message translates to:
+  /// **'WhatsApp'**
+  String get whatsapp;
+
+  /// No description provided for @instagram.
+  ///
+  /// In en, this message translates to:
+  /// **'Instagram'**
+  String get instagram;
+
+  /// No description provided for @contact_via_whatsapp.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact us via WhatsApp'**
+  String get contact_via_whatsapp;
+
+  /// No description provided for @follow_on_instagram.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow us on Instagram'**
+  String get follow_on_instagram;
+
+  /// No description provided for @follow_on_twitter.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow us on Twitter'**
+  String get follow_on_twitter;
+
+  /// No description provided for @twitter.
+  ///
+  /// In en, this message translates to:
+  /// **'Twitter'**
+  String get twitter;
 
   /// No description provided for @plate_number.
   ///

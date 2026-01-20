@@ -6,9 +6,8 @@ part of 'notifications_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$NotificationsModelImpl _$$NotificationsModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$NotificationsModelImpl(
+_NotificationsModel _$NotificationsModelFromJson(Map<String, dynamic> json) =>
+    _NotificationsModel(
       status: json['status'] as String?,
       code: (json['code'] as num?)?.toInt(),
       message: json['message'] as String?,
@@ -18,8 +17,7 @@ _$NotificationsModelImpl _$$NotificationsModelImplFromJson(
       isSuccess: json['isSuccess'] as bool?,
     );
 
-Map<String, dynamic> _$$NotificationsModelImplToJson(
-        _$NotificationsModelImpl instance) =>
+Map<String, dynamic> _$NotificationsModelToJson(_NotificationsModel instance) =>
     <String, dynamic>{
       'status': instance.status,
       'code': instance.code,
@@ -28,28 +26,25 @@ Map<String, dynamic> _$$NotificationsModelImplToJson(
       'isSuccess': instance.isSuccess,
     };
 
-_$PayloadImpl _$$PayloadImplFromJson(Map<String, dynamic> json) =>
-    _$PayloadImpl(
-      notifications: (json['notifications'] as List<dynamic>?)
-          ?.map((e) => NotificationData.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      unreadNotificationsCount:
-          (json['unread_notifications_count'] as num?)?.toInt(),
-      pagination: json['pagination'] == null
-          ? null
-          : Pagination.fromJson(json['pagination'] as Map<String, dynamic>),
-    );
+_Payload _$PayloadFromJson(Map<String, dynamic> json) => _Payload(
+  notifications: (json['notifications'] as List<dynamic>?)
+      ?.map((e) => NotificationData.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  unreadNotificationsCount: (json['unread_notifications_count'] as num?)
+      ?.toInt(),
+  pagination: json['pagination'] == null
+      ? null
+      : Pagination.fromJson(json['pagination'] as Map<String, dynamic>),
+);
 
-Map<String, dynamic> _$$PayloadImplToJson(_$PayloadImpl instance) =>
-    <String, dynamic>{
-      'notifications': instance.notifications,
-      'unread_notifications_count': instance.unreadNotificationsCount,
-      'pagination': instance.pagination,
-    };
+Map<String, dynamic> _$PayloadToJson(_Payload instance) => <String, dynamic>{
+  'notifications': instance.notifications,
+  'unread_notifications_count': instance.unreadNotificationsCount,
+  'pagination': instance.pagination,
+};
 
-_$NotificationDataImpl _$$NotificationDataImplFromJson(
-        Map<String, dynamic> json) =>
-    _$NotificationDataImpl(
+_NotificationData _$NotificationDataFromJson(Map<String, dynamic> json) =>
+    _NotificationData(
       id: json['id'] as String?,
       image: json['image'] as String?,
       title: json['title'] as String?,
@@ -60,8 +55,7 @@ _$NotificationDataImpl _$$NotificationDataImplFromJson(
       readAt: json['read_at'],
     );
 
-Map<String, dynamic> _$$NotificationDataImplToJson(
-        _$NotificationDataImpl instance) =>
+Map<String, dynamic> _$NotificationDataToJson(_NotificationData instance) =>
     <String, dynamic>{
       'id': instance.id,
       'image': instance.image,

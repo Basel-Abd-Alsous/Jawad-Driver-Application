@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 
 import '../../../../core/constant/api_link.dart';
 import '../../../../core/services/hive/box_key.dart';
@@ -106,7 +106,7 @@ class HomeReoistoryImpl implements HomeRepoistory {
       if (responseWorkStatus.response.data['code'] != 200) {
         return Left(ServerFailure.fromResponse(responseWorkStatus.response.statusCode, message: responseWorkStatus.response.data['message']));
       }
-      return Right(unit);
+      return const Right(unit);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {
@@ -124,7 +124,7 @@ class HomeReoistoryImpl implements HomeRepoistory {
       if (responseWorkStatus.response.data['code'] != 200) {
         return Left(ServerFailure.fromResponse(responseWorkStatus.response.statusCode, message: responseWorkStatus.response.data['message']));
       }
-      return Right(unit);
+      return const Right(unit);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {
@@ -142,7 +142,7 @@ class HomeReoistoryImpl implements HomeRepoistory {
       if (responseWorkStatus.response.data['code'] != 200) {
         return Left(ServerFailure.fromResponse(responseWorkStatus.response.statusCode, message: responseWorkStatus.response.data['message']));
       }
-      return Right(unit);
+      return const Right(unit);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {
@@ -156,16 +156,11 @@ class HomeReoistoryImpl implements HomeRepoistory {
       final ApiClient client = ApiClient(DioHelper().dio);
       final savedLang = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language, defaultValue: 'ar') as String;
       String? token = 'Bearer ${await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token)}';
-      final responseWorkStatus = await client.postRequest(
-        endpoint: ApiLinks.arrivedTravel + id.toString(),
-        language: savedLang,
-        authorization: token,
-        body: {'latitude': lat, 'longitude': long},
-      );
+      final responseWorkStatus = await client.postRequest(endpoint: ApiLinks.arrivedTravel + id.toString(), language: savedLang, authorization: token, body: {'latitude': lat, 'longitude': long});
       if (responseWorkStatus.response.data['code'] != 200) {
         return Left(ServerFailure.fromResponse(responseWorkStatus.response.statusCode, message: responseWorkStatus.response.data['message']));
       }
-      return Right(unit);
+      return const Right(unit);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {
@@ -183,7 +178,7 @@ class HomeReoistoryImpl implements HomeRepoistory {
       if (responseWorkStatus.response.data['code'] != 200) {
         return Left(ServerFailure.fromResponse(responseWorkStatus.response.statusCode, message: responseWorkStatus.response.data['message']));
       }
-      return Right(unit);
+      return const Right(unit);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {
@@ -197,12 +192,7 @@ class HomeReoistoryImpl implements HomeRepoistory {
       final ApiClient client = ApiClient(DioHelper().dio);
       String? token = 'Bearer ${await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token)}';
       final savedLang = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language, defaultValue: 'ar') as String;
-      final responseWorkStatus = await client.postRequest(
-        endpoint: ApiLinks.endTravel + id.toString(),
-        language: savedLang,
-        authorization: token,
-        body: {'arrive_location': arrived, 'track': points},
-      );
+      final responseWorkStatus = await client.postRequest(endpoint: ApiLinks.endTravel + id.toString(), language: savedLang, authorization: token, body: {'arrive_location': arrived, 'track': points});
       if (responseWorkStatus.response.data['code'] != 200) {
         return Left(ServerFailure.fromResponse(responseWorkStatus.response.statusCode, message: responseWorkStatus.response.data['message']));
       }
@@ -220,16 +210,11 @@ class HomeReoistoryImpl implements HomeRepoistory {
       final ApiClient client = ApiClient(DioHelper().dio);
       String? token = 'Bearer ${await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token)}';
       final savedLang = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language, defaultValue: 'ar') as String;
-      final responseWorkStatus = await client.postRequest(
-        endpoint: ApiLinks.payTravel + id.toString(),
-        language: savedLang,
-        authorization: token,
-        body: {'amount': amount},
-      );
+      final responseWorkStatus = await client.postRequest(endpoint: ApiLinks.payTravel + id.toString(), language: savedLang, authorization: token, body: {'amount': amount});
       if (responseWorkStatus.response.data['code'] != 200) {
         return Left(ServerFailure.fromResponse(responseWorkStatus.response.statusCode, message: responseWorkStatus.response.data['message']));
       }
-      return Right(unit);
+      return const Right(unit);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {

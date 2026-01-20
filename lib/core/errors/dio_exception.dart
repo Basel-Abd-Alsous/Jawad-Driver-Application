@@ -2,7 +2,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 
 import '../../injection_container.dart';
 import '../context/global.dart';
@@ -28,10 +28,7 @@ class ServerFailure extends Failure {
       case DioExceptionType.badResponse:
         return ServerFailure.fromResponse(
           dioException.response?.statusCode,
-          message:
-              dioException.response?.data.toString().contains('message') ?? true
-                  ? dioException.response?.data['message']
-                  : dioException.response?.data.toString(),
+          message: dioException.response?.data.toString().contains('message') ?? true ? dioException.response?.data['message'] : dioException.response?.data.toString(),
         );
 
       case DioExceptionType.sendTimeout:
@@ -57,18 +54,17 @@ class ServerFailure extends Failure {
           SmartDialog.show(
             clickMaskDismiss: false,
             backType: SmartBackType.block,
-            builder:
-                (context) => WidgetDilog(
-                  isError: true,
-                  title: 'Worning',
-                  message: 'Your Session Expired',
-                  cancelText: 'Login',
-                  onCancel: () {
-                    sl<Box>(instanceName: BoxKey.appBox).clear();
-                    SmartDialog.dismiss();
-                    GlobalContext.context.go(AppRoutes.login);
-                  },
-                ),
+            builder: (context) => WidgetDilog(
+              isError: true,
+              title: 'Worning',
+              message: 'Your Session Expired',
+              cancelText: 'Login',
+              onCancel: () {
+                sl<Box>(instanceName: BoxKey.appBox).clear();
+                SmartDialog.dismiss();
+                GlobalContext.context.go(AppRoutes.login);
+              },
+            ),
           );
         }
 

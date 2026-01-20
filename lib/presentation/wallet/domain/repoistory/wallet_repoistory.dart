@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 
 import '../../../../core/constant/api_link.dart';
 import '../../../../core/services/hive/box_key.dart';
@@ -26,12 +26,7 @@ class WalletRepoistoryImpl implements WalletRepoistory {
       final ApiClient client = ApiClient(DioHelper().dio);
       String? token = 'Bearer ${await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token)}';
       final savedLang = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language, defaultValue: 'ar') as String;
-      final loginResponse = await client.postRequest(
-        endpoint: ApiLinks.chargerWallet,
-        language: savedLang,
-        body: {'balance': balance, "phone": phone, "payment_method": type},
-        authorization: token,
-      );
+      final loginResponse = await client.postRequest(endpoint: ApiLinks.chargerWallet, language: savedLang, body: {'balance': balance, "phone": phone, "payment_method": type}, authorization: token);
       if (loginResponse.response.data['code'] != 200) {
         return Left(ServerFailure.fromResponse(loginResponse.response.data['code'], message: loginResponse.response.data['message']));
       }
@@ -53,12 +48,7 @@ class WalletRepoistoryImpl implements WalletRepoistory {
       final ApiClient client = ApiClient(DioHelper().dio);
       String? token = 'Bearer ${await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token)}';
       final savedLang = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language, defaultValue: 'ar') as String;
-      final loginResponse = await client.postRequest(
-        endpoint: ApiLinks.paymentCallback,
-        language: savedLang,
-        body: {'request_id': id, 'otp': otp},
-        authorization: token,
-      );
+      final loginResponse = await client.postRequest(endpoint: ApiLinks.paymentCallback, language: savedLang, body: {'request_id': id, 'otp': otp}, authorization: token);
       if (loginResponse.response.data['code'] != 200) {
         return Left(ServerFailure.fromResponse(loginResponse.response.data['code'], message: loginResponse.response.data['message']));
       }
@@ -95,16 +85,11 @@ class WalletRepoistoryImpl implements WalletRepoistory {
       String? token = 'Bearer ${await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token)}';
       final ApiClient client = ApiClient(DioHelper().dio);
       final savedLang = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language, defaultValue: 'ar') as String;
-      final loginResponse = await client.postRequest(
-        endpoint: ApiLinks.cashRequest,
-        authorization: token,
-        language: savedLang,
-        body: {'amount': amount, 'method': 'bank'},
-      );
+      final loginResponse = await client.postRequest(endpoint: ApiLinks.cashRequest, authorization: token, language: savedLang, body: {'amount': amount, 'method': 'bank'});
       if (loginResponse.response.data['code'] != 200) {
         return Left(ServerFailure.fromResponse(loginResponse.response.data['code'], message: loginResponse.response.data['message']));
       }
-      return Right(unit);
+      return const Right(unit);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {

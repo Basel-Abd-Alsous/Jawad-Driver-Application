@@ -12,7 +12,7 @@ part 'visit_cubit.freezed.dart';
 
 class VisitCubit extends Cubit<VisitState> {
   final VisitUsecase visitUsecase;
-  VisitCubit({required this.visitUsecase}) : super(VisitState.initial());
+  VisitCubit({required this.visitUsecase}) : super(const VisitState.initial());
 
   int pageIndex = 1;
   int pageIndexCanceled = 1;
@@ -23,7 +23,7 @@ class VisitCubit extends Cubit<VisitState> {
   Future<void> getAllCompletedVisit({bool? loadMore}) async {
     try {
       if (loadMore != true) {
-        emit(_LoadingPreviousVisit());
+        emit(const _LoadingPreviousVisit());
         final result = await visitUsecase.getAllPreviousVisit(pageIndex);
         result.fold((failure) => emit(_ErrorPreviousVisit(failure.message)), (success) {
           _changeIndexPage();
@@ -73,7 +73,7 @@ class VisitCubit extends Cubit<VisitState> {
   Future<void> getAllCanceledVisit({bool? loadMore}) async {
     try {
       if (loadMore != true) {
-        emit(_LoadingCancelVisits());
+        emit(const _LoadingCancelVisits());
         final result = await visitUsecase.getAllCancelVisit(pageIndex);
         result.fold((failure) => emit(_ErrorCancelVisits(failure.message)), (success) {
           _changeIndexPageCanceled();

@@ -25,7 +25,7 @@ class ProfileScreen extends StatelessWidget with FormValidationMixin {
         body: BlocBuilder<ProfileCubit, ProfileState>(
           builder: (context, state) {
             return SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
 
               child: Form(
                 key: context.read<ProfileCubit>().key,
@@ -35,7 +35,7 @@ class ProfileScreen extends StatelessWidget with FormValidationMixin {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     10.gap,
-                    Center(child: WidgetDriverImage()),
+                    const Center(child: WidgetDriverImage()),
                     10.gap,
                     Text(local.full_name, style: AppTextStyle.style14B),
                     5.gap,

@@ -1,11 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 
 part 'user_model.freezed.dart';
 part 'user_model.g.dart';
 
 @freezed
-class UserModel with _$UserModel {
+abstract class UserModel with _$UserModel {
   const factory UserModel({
     @JsonKey(name: 'status') String? status,
     @JsonKey(name: 'code') int? code,
@@ -18,7 +18,7 @@ class UserModel with _$UserModel {
 }
 
 @freezed
-class Payload with _$Payload {
+abstract class Payload with _$Payload {
   const factory Payload({@JsonKey(name: 'driver') Driver? driver}) = _Payload;
 
   factory Payload.fromJson(Map<String, dynamic> json) => _$PayloadFromJson(json);
@@ -26,7 +26,7 @@ class Payload with _$Payload {
 
 @freezed
 @HiveType(typeId: 0)
-class Driver with _$Driver {
+abstract class Driver with _$Driver {
   const factory Driver({
     @HiveField(1) @JsonKey(name: 'id') int? id,
     @HiveField(2) @JsonKey(name: 'first_name') String? firstName,
@@ -42,7 +42,7 @@ class Driver with _$Driver {
     @HiveField(12) @JsonKey(name: 'created_at') DateTime? createdAt,
     @HiveField(13) @JsonKey(name: 'updated_at') DateTime? updatedAt,
     @HiveField(14) @JsonKey(name: 'rating') dynamic rating,
- }) = _Driver;
+  }) = _Driver;
 
   factory Driver.fromJson(Map<String, dynamic> json) => _$DriverFromJson(json);
 }

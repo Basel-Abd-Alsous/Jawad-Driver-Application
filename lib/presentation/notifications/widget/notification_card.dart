@@ -16,7 +16,7 @@ class NotificationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(color: AppColor.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: AppColor.grey)),
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -28,12 +28,12 @@ class NotificationItem extends StatelessWidget {
                 height: 40,
                 child:
                     loading == true
-                        ? WidgetLoading(width: 40, height: 40, radius: 1000)
+                        ? const WidgetLoading(width: 40, height: 40, radius: 1000)
                         : WidgetCachNetworkImage(radius: 1000, image: notification?.image ?? ""),
               ),
               10.gap,
               loading == true
-                  ? WidgetLoading(width: 40)
+                  ? const WidgetLoading(width: 40)
                   : Text((notification?.createdAt ?? DateTime.now()).toString().substring(0, 10), style: AppTextStyle.style12),
             ],
           ),
@@ -43,10 +43,10 @@ class NotificationItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                loading == true ? WidgetLoading(width: 70) : Text(notification?.title ?? '', style: AppTextStyle.style14B),
+                loading == true ? const WidgetLoading(width: 70) : Text(notification?.title ?? '', style: AppTextStyle.style14B),
                 10.gap,
                 loading == true
-                    ? Column(
+                    ? const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       spacing: 5,

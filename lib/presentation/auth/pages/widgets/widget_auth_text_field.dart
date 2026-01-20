@@ -46,7 +46,7 @@ class WidgetAuthTextField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: hentTextStyle ?? AppTextStyle.style12.copyWith(color: AppColor.white),
-        contentPadding: EdgeInsets.all(10),
+        contentPadding: const EdgeInsets.all(10),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         prefixIconColor: AppColor.white,

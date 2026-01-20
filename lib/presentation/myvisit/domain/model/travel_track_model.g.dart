@@ -6,9 +6,8 @@ part of 'travel_track_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$TravelTrackModelImpl _$$TravelTrackModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$TravelTrackModelImpl(
+_TravelTrackModel _$TravelTrackModelFromJson(Map<String, dynamic> json) =>
+    _TravelTrackModel(
       status: json['status'] as String?,
       code: (json['code'] as num?)?.toInt(),
       message: json['message'] as String?,
@@ -18,8 +17,7 @@ _$TravelTrackModelImpl _$$TravelTrackModelImplFromJson(
       isSuccess: json['isSuccess'] as bool?,
     );
 
-Map<String, dynamic> _$$TravelTrackModelImplToJson(
-        _$TravelTrackModelImpl instance) =>
+Map<String, dynamic> _$TravelTrackModelToJson(_TravelTrackModel instance) =>
     <String, dynamic>{
       'status': instance.status,
       'code': instance.code,
@@ -28,14 +26,12 @@ Map<String, dynamic> _$$TravelTrackModelImplToJson(
       'isSuccess': instance.isSuccess,
     };
 
-_$PayloadImpl _$$PayloadImplFromJson(Map<String, dynamic> json) =>
-    _$PayloadImpl(
-      latitude: (json['latitude'] as num?)?.toDouble(),
-      longitude: (json['longitude'] as num?)?.toDouble(),
-    );
+_Payload _$PayloadFromJson(Map<String, dynamic> json) => _Payload(
+  latitude: (json['latitude'] as num?)?.toDouble(),
+  longitude: (json['longitude'] as num?)?.toDouble(),
+);
 
-Map<String, dynamic> _$$PayloadImplToJson(_$PayloadImpl instance) =>
-    <String, dynamic>{
-      'latitude': instance.latitude,
-      'longitude': instance.longitude,
-    };
+Map<String, dynamic> _$PayloadToJson(_Payload instance) => <String, dynamic>{
+  'latitude': instance.latitude,
+  'longitude': instance.longitude,
+};

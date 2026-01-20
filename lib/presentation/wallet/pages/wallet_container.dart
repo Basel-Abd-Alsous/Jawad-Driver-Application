@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 
 import '../../../core/constant/app_image.dart';
 import '../../../core/extension/space_extension.dart';
@@ -30,7 +30,11 @@ class WalletContainer extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(10),
           width: double.infinity,
-          decoration: BoxDecoration(color: AppColor.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: AppColor.grey.withOpacity(0.2))),
+          decoration: BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: AppColor.grey.withOpacity(0.2)),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -39,10 +43,15 @@ class WalletContainer extends StatelessWidget {
               BlocBuilder<WalletCubit, WalletState>(
                 builder: (context, state) {
                   return state.maybeWhen(
-                    loadingTransactionWallet: () => WidgetLoading(width: 50),
-                    loadedTransactionWallet: (data, _) =>
-                        Row(spacing: 4, children: [SvgPicture.asset(Assets.svgSar, width: 30, height: 30), Text(data.payload?.walletAmount ?? '0.0', style: AppTextStyle.style30B)]),
-                    orElse: () => SizedBox.shrink(),
+                    loadingTransactionWallet: () => const WidgetLoading(width: 50),
+                    loadedTransactionWallet: (data, _) => Row(
+                      spacing: 4,
+                      children: [
+                        SvgPicture.asset(Assets.svgSar, width: 30, height: 30),
+                        Text(data.payload?.walletAmount ?? '0.0', style: AppTextStyle.style30B),
+                      ],
+                    ),
+                    orElse: () => const SizedBox.shrink(),
                   );
                 },
               ),
@@ -90,8 +99,11 @@ class WalletContainer extends StatelessWidget {
               20.gap,
               ListTile(
                 dense: true,
-                contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10), side: BorderSide(color: AppColor.grey.withOpacity(0.2))),
+                contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  side: BorderSide(color: AppColor.grey.withOpacity(0.2)),
+                ),
                 title: Text(local.visa, style: AppTextStyle.style14B),
                 leading: SvgPicture.asset(Assets.svgVisa, width: 35, height: 35),
                 trailing: Icon(language == 'ar' ? Icons.arrow_forward : Icons.arrow_back),
@@ -103,11 +115,14 @@ class WalletContainer extends StatelessWidget {
               10.gap,
               ListTile(
                 dense: true,
-                contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10), side: BorderSide(color: AppColor.grey.withOpacity(0.2))),
+                contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  side: BorderSide(color: AppColor.grey.withOpacity(0.2)),
+                ),
                 title: Text(local.mobile, style: AppTextStyle.style14B),
                 trailing: Icon(language == 'ar' ? Icons.arrow_forward : Icons.arrow_back),
-                leading: Icon(Icons.phone, color: AppColor.black),
+                leading: const Icon(Icons.phone, color: AppColor.black),
                 onTap: () {
                   Navigator.of(context).pop();
                   _chargerWallet(context, mobile: true);
@@ -142,7 +157,10 @@ class WalletContainer extends StatelessWidget {
             return SafeArea(
               child: Container(
                 padding: EdgeInsets.only(top: 15, left: 15, right: 15, bottom: MediaQuery.of(context).viewInsets.bottom + 10),
-                decoration: const BoxDecoration(color: AppColor.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+                decoration: const BoxDecoration(
+                  color: AppColor.white,
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                ),
                 child: Form(
                   key: context.read<WalletCubit>().formKey,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -161,7 +179,7 @@ class WalletContainer extends StatelessWidget {
                             controller: value,
                             textStyle: AppTextStyle.style14.copyWith(color: AppColor.black),
                             keyboardType: TextInputType.phone,
-                            prefixIcon: Icon(Icons.phone, color: AppColor.grey),
+                            prefixIcon: const Icon(Icons.phone, color: AppColor.grey),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return AppLocalizations.of(context)!.emptyMobileHint;

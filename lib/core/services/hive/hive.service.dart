@@ -1,7 +1,7 @@
 import '../../../injection_container.dart';
 import '../../../presentation/layout/domain/model/user_model.dart';
 
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 
 import 'box_key.dart';
 

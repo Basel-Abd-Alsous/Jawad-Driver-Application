@@ -19,7 +19,7 @@ class WidgetAuthButton extends StatelessWidget {
     final local = AppLocalizations.of(context)!;
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 15),
+      margin: const EdgeInsets.symmetric(horizontal: 15),
       child: BlocBuilder<LoginCubit, LoginState>(
         builder: (context, stateLogin) {
           return BlocBuilder<RegisterCubit, RegisterState>(

@@ -36,7 +36,7 @@ class LastVisitCard extends StatelessWidget {
               spacing: 5,
               children: [
                 SvgPicture.asset(Assets.svgVisit, width: 20, height: 20, color: loading == true ? AppColor.grey : AppColor.black),
-                loading == true ? WidgetLoading(width: 160) : Expanded(child: WidgetTowText(text1: travel?.arriveLocation ?? '')),
+                loading == true ? const WidgetLoading(width: 160) : Expanded(child: WidgetTowText(text1: travel?.arriveLocation ?? '')),
               ],
             ),
             Divider(color: AppColor.grey.withOpacity(0.5), height: 1.2),
@@ -45,7 +45,7 @@ class LastVisitCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 loading == true
-                    ? Padding(padding: const EdgeInsets.all(5.0), child: WidgetLoading(width: 80))
+                    ? const Padding(padding: EdgeInsets.all(5.0), child: WidgetLoading(width: 80))
                     : Expanded(child: WidgetTowText(text1: (travel?.arrivalTime ?? '- - - - - - - - - -').substring(0, 10))),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
@@ -55,7 +55,7 @@ class LastVisitCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     spacing: 5,
                     children: [
-                      loading == true ? WidgetLoading(width: 40) : Text(travel?.amount ?? '', style: AppTextStyle.style14B.copyWith(color: AppColor.black)),
+                      loading == true ? const WidgetLoading(width: 40) : Text(travel?.amount ?? '', style: AppTextStyle.style14B.copyWith(color: AppColor.black)),
                       SvgPicture.asset(Assets.svgSar, width: 20, height: 20, color: loading == true ? AppColor.grey : AppColor.black),
                     ],
                   ),
@@ -78,7 +78,7 @@ class LastVisitCard extends StatelessWidget {
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(10000)),
                     child:
                         loading == true
-                            ? WidgetLoading(width: 35, height: 35)
+                            ? const WidgetLoading(width: 35, height: 35)
                             : WidgetCachNetworkImage(radius: 10000, image: travel?.rider?.profileImage ?? ''),
                   ),
                   Expanded(
@@ -88,14 +88,14 @@ class LastVisitCard extends StatelessWidget {
                       spacing: loading == true ? 7 : 0,
                       children: [
                         loading == true
-                            ? Row(children: [WidgetLoading(width: 100)])
+                            ? const Row(children: [WidgetLoading(width: 100)])
                             : Text(
                               (travel?.rider?.name ?? '')
                                   .toUpperCase(),
                               style: AppTextStyle.style12B,
                             ),
                         loading == true
-                            ? Row(children: [WidgetLoading(width: 60)])
+                            ? const Row(children: [WidgetLoading(width: 60)])
                             : Text((travel?.rider?.phone ?? '').toUpperCase(), style: AppTextStyle.style10.copyWith(color: AppColor.grey)),
                       ],
                     ),
@@ -107,7 +107,7 @@ class LastVisitCard extends StatelessWidget {
                     spacing: 5,
                     children: [
                       loading == true
-                          ? Row(children: [WidgetLoading(width: 30)])
+                          ? const Row(children: [WidgetLoading(width: 30)])
                           : Text('${double.tryParse('${travel?.yourRate ?? 0}') ?? ''}', style: AppTextStyle.style12B.copyWith(color: AppColor.black)),
                       SvgPicture.asset(Assets.svgStar),
                     ],

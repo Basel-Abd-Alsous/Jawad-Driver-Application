@@ -93,10 +93,10 @@ Map<String, dynamic> _$WalletDetailsToJson(WalletDetails instance) =>
     };
 
 WalletStatus _$WalletStatusFromJson(Map<String, dynamic> json) => WalletStatus(
-      status: json['status'] as String,
-      label: json['label'] as String,
-      color: json['color'] as String,
-    );
+  status: json['status'] as String,
+  label: json['label'] as String,
+  color: json['color'] as String,
+);
 
 Map<String, dynamic> _$WalletStatusToJson(WalletStatus instance) =>
     <String, dynamic>{

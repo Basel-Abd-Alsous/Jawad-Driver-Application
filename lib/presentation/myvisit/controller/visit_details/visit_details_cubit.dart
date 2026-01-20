@@ -23,7 +23,7 @@ part 'visit_details_cubit.freezed.dart';
 
 class VisitDetailsCubit extends Cubit<VisitDetailsState> {
   final VisitUsecase visitUsecase;
-  VisitDetailsCubit({required this.visitUsecase}) : super(VisitDetailsState.initial());
+  VisitDetailsCubit({required this.visitUsecase}) : super(const VisitDetailsState.initial());
 
   LatLng? start;
   LatLng? end;
@@ -67,7 +67,7 @@ class VisitDetailsCubit extends Cubit<VisitDetailsState> {
         final encoded = dataJson['routes'][0]['overview_polyline']['points'];
         final List<LatLng> routePoints = _decodePolyline(encoded);
 
-        allPolylines.add(Polyline(polylineId: PolylineId('road_route'), color: AppColor.black, width: 5, points: routePoints));
+        allPolylines.add(Polyline(polylineId: const PolylineId('road_route'), color: AppColor.black, width: 5, points: routePoints));
       } else {
         print('No route found for the trip.');
       }
@@ -149,7 +149,7 @@ class VisitDetailsCubit extends Cubit<VisitDetailsState> {
   // Function To Get Visit Details
   Future<void> getVisitDetails(int id) async {
     try {
-      emit(_LoadingVisitDetails());
+      emit(const _LoadingVisitDetails());
       final result = await visitUsecase.getVisitDetails(id);
       result.fold((failure) => emit(_ErrorVisitDetails(failure.message)), (success) async {
         await getTravelTrack(id);
@@ -198,7 +198,7 @@ class VisitDetailsCubit extends Cubit<VisitDetailsState> {
   void showAddRatingBottomSheet(BuildContext context, int id) {
     showModalBottomSheet(
       context: context,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
       isScrollControlled: true,
       builder: (context) {
         return Padding(
@@ -206,8 +206,8 @@ class VisitDetailsCubit extends Cubit<VisitDetailsState> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(AppLocalizations.of(GlobalContext.context)!.addRating, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              SizedBox(height: 20),
+              Text(AppLocalizations.of(GlobalContext.context)!.addRating, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 20),
 
               /// ⭐ Rating Bar
               RatingBar.builder(
@@ -217,13 +217,13 @@ class VisitDetailsCubit extends Cubit<VisitDetailsState> {
                 allowHalfRating: true,
                 itemCount: 5,
                 itemSize: 36,
-                itemPadding: EdgeInsets.symmetric(horizontal: 4),
-                itemBuilder: (context, _) => Icon(Icons.star, color: Colors.amber),
+                itemPadding: const EdgeInsets.symmetric(horizontal: 4),
+                itemBuilder: (context, _) => const Icon(Icons.star, color: Colors.amber),
                 onRatingUpdate: (value) {
                   rate = value;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               /// ✅ Submit Button
               ElevatedButton(
@@ -231,7 +231,7 @@ class VisitDetailsCubit extends Cubit<VisitDetailsState> {
                   Navigator.pop(context);
                   await addRate(id);
                 },
-                style: ElevatedButton.styleFrom(minimumSize: Size(double.infinity, 48)),
+                style: ElevatedButton.styleFrom(minimumSize: const Size(double.infinity, 48)),
                 child: Text(AppLocalizations.of(GlobalContext.context)!.submit, style: AppTextStyle.style16B),
               ),
             ],

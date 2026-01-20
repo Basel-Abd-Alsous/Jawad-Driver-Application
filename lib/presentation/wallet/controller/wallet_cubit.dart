@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -44,7 +44,7 @@ class WalletCubit extends Cubit<WalletState> {
   ScrollController scrollController = ScrollController();
   int pageIndex = 1;
 
-  WalletCubit({required this.walletUsecase, required this.homeUsecase}) : super(WalletState.initial()) {
+  WalletCubit({required this.walletUsecase, required this.homeUsecase}) : super(const WalletState.initial()) {
     Future.wait([handelMobile(), connect()]);
   }
 
@@ -65,32 +65,33 @@ class WalletCubit extends Cubit<WalletState> {
         (failure) {
           SmartDialog.dismiss();
           SmartDialog.show(
-            builder:
-                (context) => WidgetDilog(
-                  isError: true,
-                  title: AppLocalizations.of(GlobalContext.context)!.warning,
-                  message: failure.message,
-                  cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-                  onCancel: () => SmartDialog.dismiss(),
-                ),
+            builder: (context) => WidgetDilog(
+              isError: true,
+              title: AppLocalizations.of(GlobalContext.context)!.warning,
+              message: failure.message,
+              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
+              onCancel: () => SmartDialog.dismiss(),
+            ),
           );
         },
         (success) async {
           GlobalContext.context.pop();
           SmartDialog.dismiss();
-          showDialog(context: GlobalContext.context, builder: (context) => WalletOtpDialog(phoneNumber: mobile.value.text, id: success.data!));
+          showDialog(
+            context: GlobalContext.context,
+            builder: (context) => WalletOtpDialog(phoneNumber: mobile.value.text, id: success.data!),
+          );
         },
       );
     } catch (e) {
       SmartDialog.dismiss();
       SmartDialog.show(
-        builder:
-            (context) => WidgetDilog(
-              title: AppLocalizations.of(GlobalContext.context)!.warning,
-              message: 'Server Error In Charger Wallet Section : $e',
-              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-              onCancel: () => SmartDialog.dismiss(),
-            ),
+        builder: (context) => WidgetDilog(
+          title: AppLocalizations.of(GlobalContext.context)!.warning,
+          message: 'Server Error In Charger Wallet Section : $e',
+          cancelText: AppLocalizations.of(GlobalContext.context)!.back,
+          onCancel: () => SmartDialog.dismiss(),
+        ),
       );
       log('Server Error In Charger Wallet Section : $e');
     }
@@ -108,14 +109,13 @@ class WalletCubit extends Cubit<WalletState> {
         (failure) {
           SmartDialog.dismiss();
           SmartDialog.show(
-            builder:
-                (context) => WidgetDilog(
-                  isError: true,
-                  title: AppLocalizations.of(GlobalContext.context)!.warning,
-                  message: failure.message,
-                  cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-                  onCancel: () => SmartDialog.dismiss(),
-                ),
+            builder: (context) => WidgetDilog(
+              isError: true,
+              title: AppLocalizations.of(GlobalContext.context)!.warning,
+              message: failure.message,
+              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
+              onCancel: () => SmartDialog.dismiss(),
+            ),
           );
         },
         (success) async {
@@ -127,13 +127,12 @@ class WalletCubit extends Cubit<WalletState> {
     } catch (e) {
       SmartDialog.dismiss();
       SmartDialog.show(
-        builder:
-            (context) => WidgetDilog(
-              title: AppLocalizations.of(GlobalContext.context)!.warning,
-              message: 'Server Error In Charger Wallet Section : $e',
-              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-              onCancel: () => SmartDialog.dismiss(),
-            ),
+        builder: (context) => WidgetDilog(
+          title: AppLocalizations.of(GlobalContext.context)!.warning,
+          message: 'Server Error In Charger Wallet Section : $e',
+          cancelText: AppLocalizations.of(GlobalContext.context)!.back,
+          onCancel: () => SmartDialog.dismiss(),
+        ),
       );
       log('Server Error In Charger Wallet Section : $e');
     }
@@ -148,14 +147,13 @@ class WalletCubit extends Cubit<WalletState> {
         (failure) {
           SmartDialog.dismiss();
           SmartDialog.show(
-            builder:
-                (context) => WidgetDilog(
-                  isError: true,
-                  title: AppLocalizations.of(GlobalContext.context)!.warning,
-                  message: failure.message,
-                  cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-                  onCancel: () => SmartDialog.dismiss(),
-                ),
+            builder: (context) => WidgetDilog(
+              isError: true,
+              title: AppLocalizations.of(GlobalContext.context)!.warning,
+              message: failure.message,
+              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
+              onCancel: () => SmartDialog.dismiss(),
+            ),
           );
         },
         (success) async {
@@ -167,13 +165,12 @@ class WalletCubit extends Cubit<WalletState> {
     } catch (e) {
       SmartDialog.dismiss();
       SmartDialog.show(
-        builder:
-            (context) => WidgetDilog(
-              title: AppLocalizations.of(GlobalContext.context)!.warning,
-              message: 'Server Error In Charger Wallet Section : $e',
-              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-              onCancel: () => SmartDialog.dismiss(),
-            ),
+        builder: (context) => WidgetDilog(
+          title: AppLocalizations.of(GlobalContext.context)!.warning,
+          message: 'Server Error In Charger Wallet Section : $e',
+          cancelText: AppLocalizations.of(GlobalContext.context)!.back,
+          onCancel: () => SmartDialog.dismiss(),
+        ),
       );
       log('Server Error In Charger Wallet Section : $e');
     }
@@ -183,7 +180,7 @@ class WalletCubit extends Cubit<WalletState> {
   Future<void> getAllTransaction({bool? loadMore}) async {
     try {
       if (loadMore != true) {
-        emit(_LoadingTransactionWallet());
+        emit(const _LoadingTransactionWallet());
         final result = await walletUsecase.transactionsWallet(pageIndex);
         result.fold((failure) => emit(_ErrorTransactionWallet(failure.message)), (success) {
           _changeIndexPage();
@@ -237,40 +234,37 @@ class WalletCubit extends Cubit<WalletState> {
         (failure) {
           SmartDialog.dismiss();
           SmartDialog.show(
-            builder:
-                (context) => WidgetDilog(
-                  isError: true,
-                  title: AppLocalizations.of(GlobalContext.context)!.warning,
-                  message: failure.message,
-                  cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-                  onCancel: () => SmartDialog.dismiss(),
-                ),
+            builder: (context) => WidgetDilog(
+              isError: true,
+              title: AppLocalizations.of(GlobalContext.context)!.warning,
+              message: failure.message,
+              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
+              onCancel: () => SmartDialog.dismiss(),
+            ),
           );
         },
         (success) async {
           SmartDialog.dismiss();
           SmartDialog.show(
-            builder:
-                (context) => WidgetDilog(
-                  isError: true,
-                  title: AppLocalizations.of(GlobalContext.context)!.warning,
-                  message: AppLocalizations.of(GlobalContext.context)!.cashRequsetSuccess,
-                  cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-                  onCancel: () => SmartDialog.dismiss(),
-                ),
+            builder: (context) => WidgetDilog(
+              isError: true,
+              title: AppLocalizations.of(GlobalContext.context)!.warning,
+              message: AppLocalizations.of(GlobalContext.context)!.cashRequsetSuccess,
+              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
+              onCancel: () => SmartDialog.dismiss(),
+            ),
           );
         },
       );
     } catch (e) {
       SmartDialog.dismiss();
       SmartDialog.show(
-        builder:
-            (context) => WidgetDilog(
-              title: AppLocalizations.of(GlobalContext.context)!.warning,
-              message: 'Server Error In Cash Request Section : $e',
-              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-              onCancel: () => SmartDialog.dismiss(),
-            ),
+        builder: (context) => WidgetDilog(
+          title: AppLocalizations.of(GlobalContext.context)!.warning,
+          message: 'Server Error In Cash Request Section : $e',
+          cancelText: AppLocalizations.of(GlobalContext.context)!.back,
+          onCancel: () => SmartDialog.dismiss(),
+        ),
       );
       log('Server Error In Cash Request Section : $e');
     }
@@ -310,13 +304,7 @@ class WalletCubit extends Cubit<WalletState> {
               getAllTransaction();
             } else {
               SmartDialog.show(
-                builder:
-                    (context) => WidgetDilog(
-                      title: 'Warning',
-                      message: 'Something went wrong while charging the wallet',
-                      cancelText: 'Back',
-                      onCancel: () => SmartDialog.dismiss(),
-                    ),
+                builder: (context) => WidgetDilog(title: 'Warning', message: 'Something went wrong while charging the wallet', cancelText: 'Back', onCancel: () => SmartDialog.dismiss()),
               );
             }
             break;

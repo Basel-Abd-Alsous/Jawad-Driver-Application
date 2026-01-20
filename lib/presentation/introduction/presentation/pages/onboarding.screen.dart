@@ -13,7 +13,7 @@ class Onboarding extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.primaryColor,
-      body: BlocProvider(create: (context) => sl<IntroductionsBloc>(), child: const SlidingOnboarding()),
+      body: BlocProvider(create: (context) => sl<IntroductionsBloc>()..getBoarding(), child: const SlidingOnboarding()),
     );
   }
 }

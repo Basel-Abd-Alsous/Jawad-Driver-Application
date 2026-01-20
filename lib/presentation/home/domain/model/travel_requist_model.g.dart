@@ -6,9 +6,8 @@ part of 'travel_requist_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$TravelRequistModelImpl _$$TravelRequistModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$TravelRequistModelImpl(
+_TravelRequistModel _$TravelRequistModelFromJson(Map<String, dynamic> json) =>
+    _TravelRequistModel(
       status: json['status'] as String?,
       code: (json['code'] as num?)?.toInt(),
       message: json['message'] as String?,
@@ -18,8 +17,7 @@ _$TravelRequistModelImpl _$$TravelRequistModelImplFromJson(
       isSuccess: json['isSuccess'] as bool?,
     );
 
-Map<String, dynamic> _$$TravelRequistModelImplToJson(
-        _$TravelRequistModelImpl instance) =>
+Map<String, dynamic> _$TravelRequistModelToJson(_TravelRequistModel instance) =>
     <String, dynamic>{
       'status': instance.status,
       'code': instance.code,
@@ -28,8 +26,8 @@ Map<String, dynamic> _$$TravelRequistModelImplToJson(
       'isSuccess': instance.isSuccess,
     };
 
-_$TravelRequestImpl _$$TravelRequestImplFromJson(Map<String, dynamic> json) =>
-    _$TravelRequestImpl(
+_TravelRequest _$TravelRequestFromJson(Map<String, dynamic> json) =>
+    _TravelRequest(
       id: (json['id'] as num?)?.toInt(),
       rider: json['rider'] == null
           ? null
@@ -66,7 +64,7 @@ _$TravelRequestImpl _$$TravelRequestImplFromJson(Map<String, dynamic> json) =>
       waitingTimeFeesAmount: json['waiting_time_fees_amount'] as String?,
     );
 
-Map<String, dynamic> _$$TravelRequestImplToJson(_$TravelRequestImpl instance) =>
+Map<String, dynamic> _$TravelRequestToJson(_TravelRequest instance) =>
     <String, dynamic>{
       'id': instance.id,
       'rider': instance.rider,
@@ -98,48 +96,44 @@ Map<String, dynamic> _$$TravelRequestImplToJson(_$TravelRequestImpl instance) =>
       'waiting_time_fees_amount': instance.waitingTimeFeesAmount,
     };
 
-_$RiderImpl _$$RiderImplFromJson(Map<String, dynamic> json) => _$RiderImpl(
-      id: (json['id'] as num?)?.toInt(),
-      name: json['name'] as String?,
-      phone: json['phone'] as String?,
-      rating: (json['rating'] as num?)?.toInt(),
-      profileImage: json['profile_image'] as String?,
-      numberOfRatedTravels: (json['number_of_rated_travels'] as num?)?.toInt(),
-    );
+_Rider _$RiderFromJson(Map<String, dynamic> json) => _Rider(
+  id: (json['id'] as num?)?.toInt(),
+  name: json['name'] as String?,
+  phone: json['phone'] as String?,
+  rating: (json['rating'] as num?)?.toInt(),
+  profileImage: json['profile_image'] as String?,
+  numberOfRatedTravels: (json['number_of_rated_travels'] as num?)?.toInt(),
+);
 
-Map<String, dynamic> _$$RiderImplToJson(_$RiderImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'phone': instance.phone,
-      'rating': instance.rating,
-      'profile_image': instance.profileImage,
-      'number_of_rated_travels': instance.numberOfRatedTravels,
-    };
+Map<String, dynamic> _$RiderToJson(_Rider instance) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'phone': instance.phone,
+  'rating': instance.rating,
+  'profile_image': instance.profileImage,
+  'number_of_rated_travels': instance.numberOfRatedTravels,
+};
 
-_$ServiceImpl _$$ServiceImplFromJson(Map<String, dynamic> json) =>
-    _$ServiceImpl(
-      id: (json['id'] as num?)?.toInt(),
-      name: json['name'] as String?,
-      image: json['image'] as String?,
-    );
+_Service _$ServiceFromJson(Map<String, dynamic> json) => _Service(
+  id: (json['id'] as num?)?.toInt(),
+  name: json['name'] as String?,
+  image: json['image'] as String?,
+);
 
-Map<String, dynamic> _$$ServiceImplToJson(_$ServiceImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'image': instance.image,
-    };
+Map<String, dynamic> _$ServiceToJson(_Service instance) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'image': instance.image,
+};
 
-_$StatusImpl _$$StatusImplFromJson(Map<String, dynamic> json) => _$StatusImpl(
-      name: json['name'] as String?,
-      color: json['color'] as String?,
-      value: json['value'] as String?,
-    );
+_Status _$StatusFromJson(Map<String, dynamic> json) => _Status(
+  name: json['name'] as String?,
+  color: json['color'] as String?,
+  value: json['value'] as String?,
+);
 
-Map<String, dynamic> _$$StatusImplToJson(_$StatusImpl instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'color': instance.color,
-      'value': instance.value,
-    };
+Map<String, dynamic> _$StatusToJson(_Status instance) => <String, dynamic>{
+  'name': instance.name,
+  'color': instance.color,
+  'value': instance.value,
+};

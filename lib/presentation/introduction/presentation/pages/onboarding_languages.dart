@@ -55,7 +55,7 @@ class OnboardingLanguages extends StatelessWidget {
                             },
                           ),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Expanded(
                           child: AppButton.icon(
                             text: local.english,

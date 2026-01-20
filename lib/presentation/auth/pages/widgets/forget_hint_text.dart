@@ -30,9 +30,9 @@ class ForgetHintText extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    IconButton(onPressed: () => context.go(AppRoutes.login), icon: Icon(Icons.arrow_back_ios, color: AppColor.white)),
+                    IconButton(onPressed: () => context.go(AppRoutes.login), icon: const Icon(Icons.arrow_back_ios, color: AppColor.white)),
                     Image.asset(Assets.imagesJawadEmptyWhite, width: 0.3.sw),
-                    IconButton(onPressed: () {}, icon: SizedBox()),
+                    IconButton(onPressed: () {}, icon: const SizedBox()),
                   ],
                 ),
                 0.04.sh.gap,

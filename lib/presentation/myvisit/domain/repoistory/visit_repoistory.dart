@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 
 import '../../../../core/constant/api_link.dart';
 import '../../../../core/errors/dio_exception.dart';
@@ -109,7 +109,7 @@ class VisitRepoistoryImpl implements VisitRepoistory {
       if (result.response.data['code'] != 200) {
         return Left(ServerFailure.fromResponse(result.response.data['code'], message: result.response.data['message']));
       }
-      return Right(unit);
+      return const Right(unit);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {

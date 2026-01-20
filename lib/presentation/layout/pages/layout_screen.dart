@@ -35,7 +35,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
                   (context, value, child) => Scaffold(
                     key: context.read<LayoutCubit>().scaffoldKey,
                     appBar: value == 0 ? null : WidgetAppbar.widgetAppBar(context, context.read<LayoutCubit>().scaffoldKey),
-                    drawer: WidgetDrawer(),
+                    drawer: const WidgetDrawer(),
                     body: SafeArea(child: context.read<LayoutCubit>().screens[value]),
                     bottomNavigationBar: SafeArea(
                       child: Row(

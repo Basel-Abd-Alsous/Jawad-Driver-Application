@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 
 import '../../../core/constant/app_image.dart';
 import '../../../core/cubits/localization_cubit/localization.cubit.dart';
@@ -31,8 +31,8 @@ class WidgetDrawer extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            WidgetDrawerHeader(),
-            Divider(),
+            const WidgetDrawerHeader(),
+            const Divider(),
             WidgetDrawerList(
               title: local.editProfile,
               icon: Icon(Icons.person_2_outlined, size: 24, color: AppColor.secondColor),
@@ -65,8 +65,16 @@ class WidgetDrawer extends StatelessWidget {
                 context.push(AppRoutes.notification);
               },
             ),
-            WidgetDrawerList(title: local.support, icon: SvgPicture.asset(Assets.svgContactUs, width: 24, color: AppColor.secondColor), onTap: () => context.push(AppRoutes.complaint)),
-            WidgetDrawerList(title: local.contactUs, icon: SvgPicture.asset(Assets.svgContact, width: 24, color: AppColor.secondColor), onTap: () => context.push(AppRoutes.contactUs)),
+            WidgetDrawerList(
+              title: local.feedback,
+              icon: SvgPicture.asset(Assets.svgContact, width: 24, color: AppColor.secondColor),
+              onTap: () => context.push(AppRoutes.complaint),
+            ),
+            WidgetDrawerList(
+              title: local.contactUs,
+              icon: SvgPicture.asset(Assets.svgContactUs, width: 24, color: AppColor.secondColor),
+              onTap: () => context.push(AppRoutes.contactUs),
+            ),
             WidgetDrawerList(
               title: local.privacyPolicy,
               icon: SvgPicture.asset(Assets.svgPrivacy, width: 24, color: AppColor.secondColor),
@@ -77,7 +85,7 @@ class WidgetDrawer extends StatelessWidget {
               icon: SvgPicture.asset(Assets.svgTerms, width: 24, color: AppColor.secondColor),
               onTap: () => context.push('${AppRoutes.content}?isTerms=true'),
             ),
-            Spacer(),
+            const Spacer(),
             WidgetDrawerList(
               title: local.language,
               icon: SvgPicture.asset(Assets.svgLanguageMenu, width: 24, color: AppColor.secondColor),
@@ -102,28 +110,30 @@ class WidgetDrawer extends StatelessWidget {
             ),
             WidgetDrawerList(
               title: local.deleteYourAccount,
-              icon: Icon(Icons.delete, color: AppColor.red),
+              icon: const Icon(Icons.delete, color: AppColor.red),
               onTap: () {
                 SmartDialog.show(
-                  builder:
-                      (_) => WidgetDilog(
-                        isError: true,
-                        title: local.warning,
-                        message: local.areyousureyouwanttodeleteyouraccount,
-                        cancelText: local.back,
-                        confirmText: local.deleteYourAccount,
-                        onCancel: () {
-                          SmartDialog.dismiss();
-                        },
-                        onConfirm: () {
-                          SmartDialog.dismiss();
-                          context.go(AppRoutes.login);
-                        },
-                      ),
+                  builder: (_) => WidgetDilog(
+                    isError: true,
+                    title: local.warning,
+                    message: local.areyousureyouwanttodeleteyouraccount,
+                    cancelText: local.back,
+                    confirmText: local.deleteYourAccount,
+                    onCancel: () {
+                      SmartDialog.dismiss();
+                    },
+                    onConfirm: () {
+                      SmartDialog.dismiss();
+                      context.go(AppRoutes.login);
+                    },
+                  ),
                 );
               },
             ),
-            WidgetDrawerList(title: local.primetag_copyright, icon: SvgPicture.asset(Assets.svgCoprRight, width: 24, color: AppColor.secondColor)),
+            WidgetDrawerList(
+              title: local.primetag_copyright,
+              icon: SvgPicture.asset(Assets.svgCoprRight, width: 24, color: AppColor.secondColor),
+            ),
           ],
         ),
       ),

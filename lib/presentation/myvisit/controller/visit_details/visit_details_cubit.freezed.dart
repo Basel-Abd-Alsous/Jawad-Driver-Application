@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,612 +9,389 @@ part of 'visit_details_cubit.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
 /// @nodoc
 mixin _$VisitDetailsState {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loadingVisitDetails,
-    required TResult Function(VisitDetailsModel data) loadedVisitDetails,
-    required TResult Function(String message) errorVisitDetails,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loadingVisitDetails,
-    TResult? Function(VisitDetailsModel data)? loadedVisitDetails,
-    TResult? Function(String message)? errorVisitDetails,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loadingVisitDetails,
-    TResult Function(VisitDetailsModel data)? loadedVisitDetails,
-    TResult Function(String message)? errorVisitDetails,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_LoadingVisitDetails value) loadingVisitDetails,
-    required TResult Function(_LoadedVisitDetails value) loadedVisitDetails,
-    required TResult Function(_ErrorVisitDetails value) errorVisitDetails,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_LoadingVisitDetails value)? loadingVisitDetails,
-    TResult? Function(_LoadedVisitDetails value)? loadedVisitDetails,
-    TResult? Function(_ErrorVisitDetails value)? errorVisitDetails,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadingVisitDetails value)? loadingVisitDetails,
-    TResult Function(_LoadedVisitDetails value)? loadedVisitDetails,
-    TResult Function(_ErrorVisitDetails value)? errorVisitDetails,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VisitDetailsState);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'VisitDetailsState()';
+}
+
+
 }
 
 /// @nodoc
-abstract class $VisitDetailsStateCopyWith<$Res> {
-  factory $VisitDetailsStateCopyWith(
-          VisitDetailsState value, $Res Function(VisitDetailsState) then) =
-      _$VisitDetailsStateCopyWithImpl<$Res, VisitDetailsState>;
+class $VisitDetailsStateCopyWith<$Res>  {
+$VisitDetailsStateCopyWith(VisitDetailsState _, $Res Function(VisitDetailsState) __);
 }
 
-/// @nodoc
-class _$VisitDetailsStateCopyWithImpl<$Res, $Val extends VisitDetailsState>
-    implements $VisitDetailsStateCopyWith<$Res> {
-  _$VisitDetailsStateCopyWithImpl(this._value, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+/// Adds pattern-matching-related methods to [VisitDetailsState].
+extension VisitDetailsStatePatterns on VisitDetailsState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _LoadingVisitDetails value)?  loadingVisitDetails,TResult Function( _LoadedVisitDetails value)?  loadedVisitDetails,TResult Function( _ErrorVisitDetails value)?  errorVisitDetails,required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _Initial() when initial != null:
+return initial(_that);case _LoadingVisitDetails() when loadingVisitDetails != null:
+return loadingVisitDetails(_that);case _LoadedVisitDetails() when loadedVisitDetails != null:
+return loadedVisitDetails(_that);case _ErrorVisitDetails() when errorVisitDetails != null:
+return errorVisitDetails(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _LoadingVisitDetails value)  loadingVisitDetails,required TResult Function( _LoadedVisitDetails value)  loadedVisitDetails,required TResult Function( _ErrorVisitDetails value)  errorVisitDetails,}){
+final _that = this;
+switch (_that) {
+case _Initial():
+return initial(_that);case _LoadingVisitDetails():
+return loadingVisitDetails(_that);case _LoadedVisitDetails():
+return loadedVisitDetails(_that);case _ErrorVisitDetails():
+return errorVisitDetails(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _LoadingVisitDetails value)?  loadingVisitDetails,TResult? Function( _LoadedVisitDetails value)?  loadedVisitDetails,TResult? Function( _ErrorVisitDetails value)?  errorVisitDetails,}){
+final _that = this;
+switch (_that) {
+case _Initial() when initial != null:
+return initial(_that);case _LoadingVisitDetails() when loadingVisitDetails != null:
+return loadingVisitDetails(_that);case _LoadedVisitDetails() when loadedVisitDetails != null:
+return loadedVisitDetails(_that);case _ErrorVisitDetails() when errorVisitDetails != null:
+return errorVisitDetails(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loadingVisitDetails,TResult Function( VisitDetailsModel data)?  loadedVisitDetails,TResult Function( String message)?  errorVisitDetails,required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _Initial() when initial != null:
+return initial();case _LoadingVisitDetails() when loadingVisitDetails != null:
+return loadingVisitDetails();case _LoadedVisitDetails() when loadedVisitDetails != null:
+return loadedVisitDetails(_that.data);case _ErrorVisitDetails() when errorVisitDetails != null:
+return errorVisitDetails(_that.message);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loadingVisitDetails,required TResult Function( VisitDetailsModel data)  loadedVisitDetails,required TResult Function( String message)  errorVisitDetails,}) {final _that = this;
+switch (_that) {
+case _Initial():
+return initial();case _LoadingVisitDetails():
+return loadingVisitDetails();case _LoadedVisitDetails():
+return loadedVisitDetails(_that.data);case _ErrorVisitDetails():
+return errorVisitDetails(_that.message);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loadingVisitDetails,TResult? Function( VisitDetailsModel data)?  loadedVisitDetails,TResult? Function( String message)?  errorVisitDetails,}) {final _that = this;
+switch (_that) {
+case _Initial() when initial != null:
+return initial();case _LoadingVisitDetails() when loadingVisitDetails != null:
+return loadingVisitDetails();case _LoadedVisitDetails() when loadedVisitDetails != null:
+return loadedVisitDetails(_that.data);case _ErrorVisitDetails() when errorVisitDetails != null:
+return errorVisitDetails(_that.message);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-abstract class _$$InitialImplCopyWith<$Res> {
-  factory _$$InitialImplCopyWith(
-          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
-      __$$InitialImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$InitialImplCopyWithImpl<$Res>
-    extends _$VisitDetailsStateCopyWithImpl<$Res, _$InitialImpl>
-    implements _$$InitialImplCopyWith<$Res> {
-  __$$InitialImplCopyWithImpl(
-      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$InitialImpl implements _Initial {
-  const _$InitialImpl();
-
-  @override
-  String toString() {
-    return 'VisitDetailsState.initial()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitialImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loadingVisitDetails,
-    required TResult Function(VisitDetailsModel data) loadedVisitDetails,
-    required TResult Function(String message) errorVisitDetails,
-  }) {
-    return initial();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loadingVisitDetails,
-    TResult? Function(VisitDetailsModel data)? loadedVisitDetails,
-    TResult? Function(String message)? errorVisitDetails,
-  }) {
-    return initial?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loadingVisitDetails,
-    TResult Function(VisitDetailsModel data)? loadedVisitDetails,
-    TResult Function(String message)? errorVisitDetails,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_LoadingVisitDetails value) loadingVisitDetails,
-    required TResult Function(_LoadedVisitDetails value) loadedVisitDetails,
-    required TResult Function(_ErrorVisitDetails value) errorVisitDetails,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_LoadingVisitDetails value)? loadingVisitDetails,
-    TResult? Function(_LoadedVisitDetails value)? loadedVisitDetails,
-    TResult? Function(_ErrorVisitDetails value)? errorVisitDetails,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadingVisitDetails value)? loadingVisitDetails,
-    TResult Function(_LoadedVisitDetails value)? loadedVisitDetails,
-    TResult Function(_ErrorVisitDetails value)? errorVisitDetails,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Initial implements VisitDetailsState {
-  const factory _Initial() = _$InitialImpl;
-}
-
-/// @nodoc
-abstract class _$$LoadingVisitDetailsImplCopyWith<$Res> {
-  factory _$$LoadingVisitDetailsImplCopyWith(_$LoadingVisitDetailsImpl value,
-          $Res Function(_$LoadingVisitDetailsImpl) then) =
-      __$$LoadingVisitDetailsImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$LoadingVisitDetailsImplCopyWithImpl<$Res>
-    extends _$VisitDetailsStateCopyWithImpl<$Res, _$LoadingVisitDetailsImpl>
-    implements _$$LoadingVisitDetailsImplCopyWith<$Res> {
-  __$$LoadingVisitDetailsImplCopyWithImpl(_$LoadingVisitDetailsImpl _value,
-      $Res Function(_$LoadingVisitDetailsImpl) _then)
-      : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$LoadingVisitDetailsImpl implements _LoadingVisitDetails {
-  const _$LoadingVisitDetailsImpl();
 
-  @override
-  String toString() {
-    return 'VisitDetailsState.loadingVisitDetails()';
-  }
+class _Initial implements VisitDetailsState {
+  const _Initial();
+  
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoadingVisitDetailsImpl);
-  }
 
-  @override
-  int get hashCode => runtimeType.hashCode;
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loadingVisitDetails,
-    required TResult Function(VisitDetailsModel data) loadedVisitDetails,
-    required TResult Function(String message) errorVisitDetails,
-  }) {
-    return loadingVisitDetails();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loadingVisitDetails,
-    TResult? Function(VisitDetailsModel data)? loadedVisitDetails,
-    TResult? Function(String message)? errorVisitDetails,
-  }) {
-    return loadingVisitDetails?.call();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loadingVisitDetails,
-    TResult Function(VisitDetailsModel data)? loadedVisitDetails,
-    TResult Function(String message)? errorVisitDetails,
-    required TResult orElse(),
-  }) {
-    if (loadingVisitDetails != null) {
-      return loadingVisitDetails();
-    }
-    return orElse();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_LoadingVisitDetails value) loadingVisitDetails,
-    required TResult Function(_LoadedVisitDetails value) loadedVisitDetails,
-    required TResult Function(_ErrorVisitDetails value) errorVisitDetails,
-  }) {
-    return loadingVisitDetails(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_LoadingVisitDetails value)? loadingVisitDetails,
-    TResult? Function(_LoadedVisitDetails value)? loadedVisitDetails,
-    TResult? Function(_ErrorVisitDetails value)? errorVisitDetails,
-  }) {
-    return loadingVisitDetails?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadingVisitDetails value)? loadingVisitDetails,
-    TResult Function(_LoadedVisitDetails value)? loadedVisitDetails,
-    TResult Function(_ErrorVisitDetails value)? errorVisitDetails,
-    required TResult orElse(),
-  }) {
-    if (loadingVisitDetails != null) {
-      return loadingVisitDetails(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
 }
 
-abstract class _LoadingVisitDetails implements VisitDetailsState {
-  const factory _LoadingVisitDetails() = _$LoadingVisitDetailsImpl;
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'VisitDetailsState.initial()';
 }
 
-/// @nodoc
-abstract class _$$LoadedVisitDetailsImplCopyWith<$Res> {
-  factory _$$LoadedVisitDetailsImplCopyWith(_$LoadedVisitDetailsImpl value,
-          $Res Function(_$LoadedVisitDetailsImpl) then) =
-      __$$LoadedVisitDetailsImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({VisitDetailsModel data});
 
-  $VisitDetailsModelCopyWith<$Res> get data;
 }
 
-/// @nodoc
-class __$$LoadedVisitDetailsImplCopyWithImpl<$Res>
-    extends _$VisitDetailsStateCopyWithImpl<$Res, _$LoadedVisitDetailsImpl>
-    implements _$$LoadedVisitDetailsImplCopyWith<$Res> {
-  __$$LoadedVisitDetailsImplCopyWithImpl(_$LoadedVisitDetailsImpl _value,
-      $Res Function(_$LoadedVisitDetailsImpl) _then)
-      : super(_value, _then);
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? data = null,
-  }) {
-    return _then(_$LoadedVisitDetailsImpl(
-      null == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as VisitDetailsModel,
-    ));
-  }
 
-  @override
-  @pragma('vm:prefer-inline')
-  $VisitDetailsModelCopyWith<$Res> get data {
-    return $VisitDetailsModelCopyWith<$Res>(_value.data, (value) {
-      return _then(_value.copyWith(data: value));
-    });
-  }
-}
 
 /// @nodoc
 
-class _$LoadedVisitDetailsImpl implements _LoadedVisitDetails {
-  const _$LoadedVisitDetailsImpl(this.data);
 
-  @override
-  final VisitDetailsModel data;
+class _LoadingVisitDetails implements VisitDetailsState {
+  const _LoadingVisitDetails();
+  
 
-  @override
-  String toString() {
-    return 'VisitDetailsState.loadedVisitDetails(data: $data)';
-  }
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoadedVisitDetailsImpl &&
-            (identical(other.data, data) || other.data == data));
-  }
 
-  @override
-  int get hashCode => Object.hash(runtimeType, data);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LoadedVisitDetailsImplCopyWith<_$LoadedVisitDetailsImpl> get copyWith =>
-      __$$LoadedVisitDetailsImplCopyWithImpl<_$LoadedVisitDetailsImpl>(
-          this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loadingVisitDetails,
-    required TResult Function(VisitDetailsModel data) loadedVisitDetails,
-    required TResult Function(String message) errorVisitDetails,
-  }) {
-    return loadedVisitDetails(data);
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loadingVisitDetails,
-    TResult? Function(VisitDetailsModel data)? loadedVisitDetails,
-    TResult? Function(String message)? errorVisitDetails,
-  }) {
-    return loadedVisitDetails?.call(data);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loadingVisitDetails,
-    TResult Function(VisitDetailsModel data)? loadedVisitDetails,
-    TResult Function(String message)? errorVisitDetails,
-    required TResult orElse(),
-  }) {
-    if (loadedVisitDetails != null) {
-      return loadedVisitDetails(data);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_LoadingVisitDetails value) loadingVisitDetails,
-    required TResult Function(_LoadedVisitDetails value) loadedVisitDetails,
-    required TResult Function(_ErrorVisitDetails value) errorVisitDetails,
-  }) {
-    return loadedVisitDetails(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_LoadingVisitDetails value)? loadingVisitDetails,
-    TResult? Function(_LoadedVisitDetails value)? loadedVisitDetails,
-    TResult? Function(_ErrorVisitDetails value)? errorVisitDetails,
-  }) {
-    return loadedVisitDetails?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadingVisitDetails value)? loadingVisitDetails,
-    TResult Function(_LoadedVisitDetails value)? loadedVisitDetails,
-    TResult Function(_ErrorVisitDetails value)? errorVisitDetails,
-    required TResult orElse(),
-  }) {
-    if (loadedVisitDetails != null) {
-      return loadedVisitDetails(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoadingVisitDetails);
 }
 
-abstract class _LoadedVisitDetails implements VisitDetailsState {
-  const factory _LoadedVisitDetails(final VisitDetailsModel data) =
-      _$LoadedVisitDetailsImpl;
 
-  VisitDetailsModel get data;
-  @JsonKey(ignore: true)
-  _$$LoadedVisitDetailsImplCopyWith<_$LoadedVisitDetailsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'VisitDetailsState.loadingVisitDetails()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _LoadedVisitDetails implements VisitDetailsState {
+  const _LoadedVisitDetails(this.data);
+  
+
+ final  VisitDetailsModel data;
+
+/// Create a copy of VisitDetailsState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$LoadedVisitDetailsCopyWith<_LoadedVisitDetails> get copyWith => __$LoadedVisitDetailsCopyWithImpl<_LoadedVisitDetails>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoadedVisitDetails&&(identical(other.data, data) || other.data == data));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,data);
+
+@override
+String toString() {
+  return 'VisitDetailsState.loadedVisitDetails(data: $data)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$ErrorVisitDetailsImplCopyWith<$Res> {
-  factory _$$ErrorVisitDetailsImplCopyWith(_$ErrorVisitDetailsImpl value,
-          $Res Function(_$ErrorVisitDetailsImpl) then) =
-      __$$ErrorVisitDetailsImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String message});
+abstract mixin class _$LoadedVisitDetailsCopyWith<$Res> implements $VisitDetailsStateCopyWith<$Res> {
+  factory _$LoadedVisitDetailsCopyWith(_LoadedVisitDetails value, $Res Function(_LoadedVisitDetails) _then) = __$LoadedVisitDetailsCopyWithImpl;
+@useResult
+$Res call({
+ VisitDetailsModel data
+});
+
+
+$VisitDetailsModelCopyWith<$Res> get data;
+
+}
+/// @nodoc
+class __$LoadedVisitDetailsCopyWithImpl<$Res>
+    implements _$LoadedVisitDetailsCopyWith<$Res> {
+  __$LoadedVisitDetailsCopyWithImpl(this._self, this._then);
+
+  final _LoadedVisitDetails _self;
+  final $Res Function(_LoadedVisitDetails) _then;
+
+/// Create a copy of VisitDetailsState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? data = null,}) {
+  return _then(_LoadedVisitDetails(
+null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as VisitDetailsModel,
+  ));
 }
 
-/// @nodoc
-class __$$ErrorVisitDetailsImplCopyWithImpl<$Res>
-    extends _$VisitDetailsStateCopyWithImpl<$Res, _$ErrorVisitDetailsImpl>
-    implements _$$ErrorVisitDetailsImplCopyWith<$Res> {
-  __$$ErrorVisitDetailsImplCopyWithImpl(_$ErrorVisitDetailsImpl _value,
-      $Res Function(_$ErrorVisitDetailsImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? message = null,
-  }) {
-    return _then(_$ErrorVisitDetailsImpl(
-      null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
+/// Create a copy of VisitDetailsState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$VisitDetailsModelCopyWith<$Res> get data {
+  
+  return $VisitDetailsModelCopyWith<$Res>(_self.data, (value) {
+    return _then(_self.copyWith(data: value));
+  });
+}
 }
 
 /// @nodoc
 
-class _$ErrorVisitDetailsImpl implements _ErrorVisitDetails {
-  const _$ErrorVisitDetailsImpl(this.message);
 
-  @override
-  final String message;
+class _ErrorVisitDetails implements VisitDetailsState {
+  const _ErrorVisitDetails(this.message);
+  
 
-  @override
-  String toString() {
-    return 'VisitDetailsState.errorVisitDetails(message: $message)';
-  }
+ final  String message;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ErrorVisitDetailsImpl &&
-            (identical(other.message, message) || other.message == message));
-  }
+/// Create a copy of VisitDetailsState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ErrorVisitDetailsCopyWith<_ErrorVisitDetails> get copyWith => __$ErrorVisitDetailsCopyWithImpl<_ErrorVisitDetails>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(runtimeType, message);
 
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ErrorVisitDetailsImplCopyWith<_$ErrorVisitDetailsImpl> get copyWith =>
-      __$$ErrorVisitDetailsImplCopyWithImpl<_$ErrorVisitDetailsImpl>(
-          this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loadingVisitDetails,
-    required TResult Function(VisitDetailsModel data) loadedVisitDetails,
-    required TResult Function(String message) errorVisitDetails,
-  }) {
-    return errorVisitDetails(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loadingVisitDetails,
-    TResult? Function(VisitDetailsModel data)? loadedVisitDetails,
-    TResult? Function(String message)? errorVisitDetails,
-  }) {
-    return errorVisitDetails?.call(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loadingVisitDetails,
-    TResult Function(VisitDetailsModel data)? loadedVisitDetails,
-    TResult Function(String message)? errorVisitDetails,
-    required TResult orElse(),
-  }) {
-    if (errorVisitDetails != null) {
-      return errorVisitDetails(message);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_LoadingVisitDetails value) loadingVisitDetails,
-    required TResult Function(_LoadedVisitDetails value) loadedVisitDetails,
-    required TResult Function(_ErrorVisitDetails value) errorVisitDetails,
-  }) {
-    return errorVisitDetails(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_LoadingVisitDetails value)? loadingVisitDetails,
-    TResult? Function(_LoadedVisitDetails value)? loadedVisitDetails,
-    TResult? Function(_ErrorVisitDetails value)? errorVisitDetails,
-  }) {
-    return errorVisitDetails?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadingVisitDetails value)? loadingVisitDetails,
-    TResult Function(_LoadedVisitDetails value)? loadedVisitDetails,
-    TResult Function(_ErrorVisitDetails value)? errorVisitDetails,
-    required TResult orElse(),
-  }) {
-    if (errorVisitDetails != null) {
-      return errorVisitDetails(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ErrorVisitDetails&&(identical(other.message, message) || other.message == message));
 }
 
-abstract class _ErrorVisitDetails implements VisitDetailsState {
-  const factory _ErrorVisitDetails(final String message) =
-      _$ErrorVisitDetailsImpl;
 
-  String get message;
-  @JsonKey(ignore: true)
-  _$$ErrorVisitDetailsImplCopyWith<_$ErrorVisitDetailsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+int get hashCode => Object.hash(runtimeType,message);
+
+@override
+String toString() {
+  return 'VisitDetailsState.errorVisitDetails(message: $message)';
 }
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ErrorVisitDetailsCopyWith<$Res> implements $VisitDetailsStateCopyWith<$Res> {
+  factory _$ErrorVisitDetailsCopyWith(_ErrorVisitDetails value, $Res Function(_ErrorVisitDetails) _then) = __$ErrorVisitDetailsCopyWithImpl;
+@useResult
+$Res call({
+ String message
+});
+
+
+
+
+}
+/// @nodoc
+class __$ErrorVisitDetailsCopyWithImpl<$Res>
+    implements _$ErrorVisitDetailsCopyWith<$Res> {
+  __$ErrorVisitDetailsCopyWithImpl(this._self, this._then);
+
+  final _ErrorVisitDetails _self;
+  final $Res Function(_ErrorVisitDetails) _then;
+
+/// Create a copy of VisitDetailsState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+  return _then(_ErrorVisitDetails(
+null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+// dart format on

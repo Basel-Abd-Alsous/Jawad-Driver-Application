@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../core/context/global.dart';
@@ -24,7 +24,7 @@ part 'profile_cubit.freezed.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   final ProfileUsecase profileUsecase;
-  ProfileCubit({required this.profileUsecase}) : super(ProfileState.initial()) {
+  ProfileCubit({required this.profileUsecase}) : super(const ProfileState.initial()) {
     handelUserData();
   }
   final key = GlobalKey<FormState>();
@@ -44,7 +44,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     Driver? profile = sl<Box<Driver>>().get(BoxKey.user);
     name.text = profile?.firstName ?? '';
     email.text = profile?.email ?? '';
-    emit(_Initial());
+    emit(const _Initial());
   }
 
   Future<void> updateProfile() async {
@@ -57,16 +57,15 @@ class ProfileCubit extends Cubit<ProfileState> {
         (failure) {
           SmartDialog.dismiss();
           SmartDialog.show(
-            builder:
-                (context) => WidgetDilog(
-                  title: AppLocalizations.of(context)!.successfully,
-                  message: AppLocalizations.of(context)!.update_profile_error,
-                  cancelText: AppLocalizations.of(context)!.back,
-                  onCancel: () {
-                    GlobalContext.context.pop();
-                    SmartDialog.dismiss();
-                  },
-                ),
+            builder: (context) => WidgetDilog(
+              title: AppLocalizations.of(context)!.successfully,
+              message: AppLocalizations.of(context)!.update_profile_error,
+              cancelText: AppLocalizations.of(context)!.back,
+              onCancel: () {
+                GlobalContext.context.pop();
+                SmartDialog.dismiss();
+              },
+            ),
           );
           log('Server Error In Profile Section : ${failure.message}');
         },
@@ -79,16 +78,15 @@ class ProfileCubit extends Cubit<ProfileState> {
             await box.put(BoxKey.user, updatedProfile);
           }
           SmartDialog.show(
-            builder:
-                (context) => WidgetDilog(
-                  title: AppLocalizations.of(context)!.successfully,
-                  message: AppLocalizations.of(context)!.update_profile_success,
-                  cancelText: AppLocalizations.of(context)!.back,
-                  onCancel: () {
-                    GlobalContext.context.pop();
-                    SmartDialog.dismiss();
-                  },
-                ),
+            builder: (context) => WidgetDilog(
+              title: AppLocalizations.of(context)!.successfully,
+              message: AppLocalizations.of(context)!.update_profile_success,
+              cancelText: AppLocalizations.of(context)!.back,
+              onCancel: () {
+                GlobalContext.context.pop();
+                SmartDialog.dismiss();
+              },
+            ),
           );
         },
       );

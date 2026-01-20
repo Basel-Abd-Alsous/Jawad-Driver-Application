@@ -16,7 +16,7 @@ class TransactionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(color: AppColor.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: AppColor.grey.withOpacity(0.5))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,19 +28,19 @@ class TransactionItem extends StatelessWidget {
             spacing: loading == true ? 5 : 0,
             children: [
               loading == true
-                  ? WidgetLoading(width: 30)
+                  ? const WidgetLoading(width: 30)
                   : Row(
                     spacing: 5,
                     children: [SvgPicture.asset(Assets.svgSar, width: 20, height: 20), Text(data?.balance ?? "", style: AppTextStyle.style22B)],
                   ),
-              loading == true ? WidgetLoading(width: 60) : Text(data?.date.toString().substring(0, 10) ?? '', style: AppTextStyle.style12),
+              loading == true ? const WidgetLoading(width: 60) : Text(data?.date.toString().substring(0, 10) ?? '', style: AppTextStyle.style12),
             ],
           ),
           loading == true
-              ? WidgetLoading(width: 60)
+              ? const WidgetLoading(width: 60)
               : Text(data?.status?.label ?? "", style: AppTextStyle.style14B.copyWith(color: HexColor.fromHex(data?.status?.color ?? ''))),
           loading == true
-              ? Column(
+              ? const Column(
                 spacing: 5,
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 
 import '../../../../core/constant/api_link.dart';
 import '../../../../core/services/hive/box_key.dart';
@@ -114,11 +114,9 @@ class RegisterReposotoryImpl implements RegisterReposotory {
         authorization: token,
       );
       if (uploadDocumentResponse.response.statusCode == 200) {
-        return Right(unit);
+        return const Right(unit);
       } else {
-        return Left(
-          ServerFailure.fromResponse(uploadDocumentResponse.response.statusCode, message: uploadDocumentResponse.response.data['message'].toString()),
-        );
+        return Left(ServerFailure.fromResponse(uploadDocumentResponse.response.statusCode, message: uploadDocumentResponse.response.data['message'].toString()));
       }
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
@@ -171,7 +169,7 @@ class RegisterReposotoryImpl implements RegisterReposotory {
       String? token = 'Bearer ${await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token)}';
       final savedLang = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language, defaultValue: 'ar') as String;
       await client.postRequest(endpoint: ApiLinks.carInfo, language: savedLang, body: carInfoModel.toJson(), authorization: token);
-      return Right(unit);
+      return const Right(unit);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {
@@ -185,7 +183,7 @@ class RegisterReposotoryImpl implements RegisterReposotory {
       String? token = 'Bearer ${await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token)}';
       final savedLang = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language, defaultValue: 'ar') as String;
       await client.postRequest(endpoint: ApiLinks.bankInfo, language: savedLang, body: bankInfoModel.toJson(), authorization: token);
-      return Right(unit);
+      return const Right(unit);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {

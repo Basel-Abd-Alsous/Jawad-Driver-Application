@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 
 import '../../../../core/constant/api_link.dart';
 import '../../../../core/errors/dio_exception.dart';
@@ -43,16 +43,11 @@ class ChatRepoistoryImpl implements ChatRepoistory {
       final ApiClient client = ApiClient(DioHelper().dio);
       final savedLang = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language, defaultValue: 'ar') as String;
       String? token = 'Bearer ${await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token)}';
-      final responseWorkStatus = await client.postRequest(
-        endpoint: ApiLinks.sendMessage,
-        authorization: token,
-        language: savedLang,
-        body: {"chat_channel_id": id, "message": message},
-      );
+      final responseWorkStatus = await client.postRequest(endpoint: ApiLinks.sendMessage, authorization: token, language: savedLang, body: {"chat_channel_id": id, "message": message});
       if (responseWorkStatus.response.data['code'] != 200) {
         return Left(ServerFailure.fromResponse(responseWorkStatus.response.data['code'], message: responseWorkStatus.response.data['message']));
       }
-      return Right(unit);
+      return const Right(unit);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {

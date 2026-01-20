@@ -28,7 +28,7 @@ class ContainerTransactions extends StatelessWidget {
             child: BlocBuilder<WalletCubit, WalletState>(
               builder: (context, state) {
                 return state.maybeWhen(
-                  loadingTransactionWallet: () => LoadingTransactions(),
+                  loadingTransactionWallet: () => const LoadingTransactions(),
                   loadedTransactionWallet: (data, hasMore) {
                     final isEmpty = data.payload?.transactions?.isEmpty ?? true;
                     if (isEmpty) {

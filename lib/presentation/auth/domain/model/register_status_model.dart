@@ -4,7 +4,7 @@ part 'register_status_model.freezed.dart';
 part 'register_status_model.g.dart';
 
 @freezed
-class RegisterStatusModel with _$RegisterStatusModel {
+abstract class RegisterStatusModel with _$RegisterStatusModel {
   const factory RegisterStatusModel({
     @JsonKey(name: 'status') String? status,
     @JsonKey(name: 'code') int? code,
@@ -17,7 +17,7 @@ class RegisterStatusModel with _$RegisterStatusModel {
 }
 
 @freezed
-class Payload with _$Payload {
+abstract class Payload with _$Payload {
   const factory Payload({
     @JsonKey(name: 'current_step') String? currentStep,
     @JsonKey(name: 'documents_status') DocumentsStatus? documentsStatus,
@@ -31,7 +31,7 @@ class Payload with _$Payload {
 }
 
 @freezed
-class DocumentsStatus with _$DocumentsStatus {
+abstract class DocumentsStatus with _$DocumentsStatus {
   const factory DocumentsStatus({
     @JsonKey(name: 'total_required') int? totalRequired,
     @JsonKey(name: 'uploaded') int? uploaded,
@@ -44,7 +44,7 @@ class DocumentsStatus with _$DocumentsStatus {
 }
 
 @freezed
-class MissingDocument with _$MissingDocument {
+abstract class MissingDocument with _$MissingDocument {
   const factory MissingDocument({@JsonKey(name: 'id') int? id, @JsonKey(name: 'name') String? name}) = _MissingDocument;
 
   factory MissingDocument.fromJson(Map<String, dynamic> json) => _$MissingDocumentFromJson(json);
