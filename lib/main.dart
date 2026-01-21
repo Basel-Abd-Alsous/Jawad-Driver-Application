@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'core/services/hive/hive.service.dart';
 import 'l10n/l10n.dart';
 
 import 'package:logger/logger.dart';
@@ -16,6 +15,7 @@ import 'core/router/routes.dart';
 import 'injection_container.dart';
 import 'core/services/app.service.dart';
 import 'core/observer/block_observer.dart';
+import 'core/services/hive/hive.service.dart';
 import 'core/cubits/theme_cubit/theme.cubit.dart';
 import 'core/cubits/token_cubit/token_cubit.dart';
 import 'core/cubits/internet_cubit/internet_cubit.dart';
@@ -26,6 +26,7 @@ import 'core/cubits/notifications_cubit/notifications_cubit.dart';
 import 'presentation/auth/controller/register/register_cubit.dart';
 
 var logger = Logger(printer: PrettyPrinter(methodCount: 2, errorMethodCount: 8, lineLength: 120, colors: true, printEmojis: true));
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _initBackgroundService();

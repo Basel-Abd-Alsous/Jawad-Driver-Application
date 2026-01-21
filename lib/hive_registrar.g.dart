@@ -3,7 +3,7 @@
 // Check in to version control
 
 import 'package:hive_ce/hive_ce.dart';
-import 'presentation/layout/domain/model/user_model.dart';
+import 'package:jawad_rider_captain/presentation/layout/domain/model/user_model.dart';
 
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {

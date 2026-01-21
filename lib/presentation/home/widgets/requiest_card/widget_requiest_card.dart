@@ -41,16 +41,21 @@ class WidgetCardRequiest extends StatelessWidget {
           5.gap,
           WidgetTextForCardRequiest(title: local.departure, value: travilRequist.pickupLocation ?? ''),
           5.gap,
+          WidgetTextForCardRequiest(title: local.distance, value: '${double.tryParse('${travilRequist.distance ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'} Km'),
+          5.gap,
+
           Row(
             spacing: 10,
             children: [
               Expanded(
-                child: WidgetTextForCardRequiest(
-                  title: local.distance,
-                  value: '${double.tryParse('${travilRequist.distance ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'} Km',
-                ),
+                child: WidgetTextForCardRequiest(title: local.amount, value: '${double.tryParse('${travilRequist.amount ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}', isAmount: true),
               ),
-              Expanded(child: WidgetTextForCardRequiest(title: local.amount, value: '${travilRequist.amount}', isAmount: true)),
+              Expanded(
+                child: WidgetTextForCardRequiest(title: local.driver_profit, isAmount: true, value: '${double.tryParse('${travilRequist.driverProfit ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}'),
+              ),
+              Expanded(
+                child: WidgetTextForCardRequiest(title: local.commission, value: '${double.tryParse('${travilRequist.comission ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}', isAmount: true),
+              ),
             ],
           ),
           15.gap,
@@ -70,11 +75,7 @@ class WidgetCardRequiest extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 2,
-                      child: AppButton.text(
-                        text: _titleButtomTow(status, local),
-                        color: AppColor.red,
-                        onPressed: () => _switchFunctionByStatusButtonTow(context, status),
-                      ),
+                      child: AppButton.text(text: _titleButtomTow(status, local), color: AppColor.red, onPressed: () => _switchFunctionByStatusButtonTow(context, status)),
                     ),
                   ],
                 ),
@@ -84,11 +85,7 @@ class WidgetCardRequiest extends StatelessWidget {
                     children: [
                       Expanded(
                         flex: 3,
-                        child: AppButton.text(
-                          text: local.arrived_destination_button,
-                          color: Colors.green,
-                          onPressed: () => context.read<HomeCubit>().arrivalTravel(travilRequist.id ?? 0),
-                        ),
+                        child: AppButton.text(text: local.arrived_destination_button, color: Colors.green, onPressed: () => context.read<HomeCubit>().arrivalTravel(travilRequist.id ?? 0)),
                       ),
                     ],
                   ),
@@ -146,11 +143,7 @@ class WidgetCardRequiest extends StatelessWidget {
                   if (status == TravelStatus.arrived)
                     Expanded(
                       flex: 2,
-                      child: AppButton.text(
-                        text: _titleButtomTow(status, local),
-                        color: AppColor.red,
-                        onPressed: () => _switchFunctionByStatusButtonTow(context, status),
-                      ),
+                      child: AppButton.text(text: _titleButtomTow(status, local), color: AppColor.red, onPressed: () => _switchFunctionByStatusButtonTow(context, status)),
                     ),
                 ],
               ),
@@ -194,13 +187,7 @@ class WidgetCardRequiest extends StatelessWidget {
       case TravelStatus.started:
         return context.read<HomeCubit>().endTravel();
       case TravelStatus.completed:
-        return _payAmmount(
-          context,
-          remainingAmountPrice,
-          () => context.read<HomeCubit>().payRemaningTravel(remainingAmountPrice),
-          context.read<HomeCubit>().key,
-          context.read<HomeCubit>().ammount,
-        );
+        return _payAmmount(context, remainingAmountPrice, () => context.read<HomeCubit>().payRemaningTravel(remainingAmountPrice), context.read<HomeCubit>().key, context.read<HomeCubit>().ammount);
       default:
         return '';
     }
@@ -261,7 +248,13 @@ class WidgetCardRequiest extends StatelessWidget {
                   },
                 ),
                 20.gap,
-                Row(children: [Expanded(child: AppButton.text(text: local.charge, onPressed: ontap))]),
+                Row(
+                  children: [
+                    Expanded(
+                      child: AppButton.text(text: local.charge, onPressed: ontap),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
