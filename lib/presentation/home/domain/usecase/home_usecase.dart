@@ -10,7 +10,7 @@ import '../repoistory/profile_repoistory.dart';
 class HomeUsecase {
   final HomeRepoistory homeRepoistory;
   final ProfileRepoistory profileRepoistory;
-  HomeUsecase({ required this.profileRepoistory, required this.homeRepoistory});
+  HomeUsecase({required this.profileRepoistory, required this.homeRepoistory});
 
   Future<Either<Failure, Result<String>>> broadcasting(String userId, String socitId) async => await homeRepoistory.broadcasting(userId, socitId);
   Future<Either<Failure, Result<List<TravelRequest>>>> travelRequist() async => await homeRepoistory.travelRequist();
@@ -18,8 +18,8 @@ class HomeUsecase {
   Future<Either<Failure, Unit>> approveTravelRequist(int id) async => await homeRepoistory.approveTravel(id);
   Future<Either<Failure, Unit>> rejectTravelRequist(int id) async => await homeRepoistory.rejectTravel(id);
   Future<Either<Failure, Unit>> cancelTravelRequist(int id) async => await homeRepoistory.cancelTravel(id);
-  Future<Either<Failure, Result<String>>> endTravelRequist(int id, String arrived, List<dynamic> points) async =>
-      await homeRepoistory.endTravel(id, arrived, points);
+  Future<Either<Failure, Result<String>>> endTravelRequist(int id, String arrived, String arrivedCity, String puckupCity, List<dynamic> points) async =>
+      await homeRepoistory.endTravel(id, arrived, arrivedCity, puckupCity, points);
   Future<Either<Failure, Unit>> payTravelRequist(int id, String amount) async => await homeRepoistory.payTravel(id, amount);
   Future<Either<Failure, Unit>> arrivalTravelRequist(int id, String lat, String long) async => await homeRepoistory.arrivalTravel(id, lat, long);
   Future<Either<Failure, Unit>> startTravelRequist(int id) async => await homeRepoistory.startTravel(id);

@@ -22,7 +22,7 @@ abstract class HomeRepoistory {
   Future<Either<Failure, Unit>> cancelTravel(int id);
   Future<Either<Failure, Unit>> arrivalTravel(int id, String lat, String long);
   Future<Either<Failure, Unit>> startTravel(int id);
-  Future<Either<Failure, Result<String>>> endTravel(int id, String arrived, List<dynamic> points);
+  Future<Either<Failure, Result<String>>> endTravel(int id, String arrived, String arrivedCity, String puckupCity, List<dynamic> points);
   Future<Either<Failure, Unit>> payTravel(int id, String amount);
   Future<Either<Failure, Result<TravelRequest>>> currentTravel();
 }
@@ -187,12 +187,17 @@ class HomeReoistoryImpl implements HomeRepoistory {
   }
 
   @override
-  Future<Either<Failure, Result<String>>> endTravel(int id, String arrived, List<dynamic> points) async {
+  Future<Either<Failure, Result<String>>> endTravel(int id, String arrived, String arrivedCity, String puckupCity, List<dynamic> points) async {
     try {
       final ApiClient client = ApiClient(DioHelper().dio);
       String? token = 'Bearer ${await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token)}';
       final savedLang = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language, defaultValue: 'ar') as String;
-      final responseWorkStatus = await client.postRequest(endpoint: ApiLinks.endTravel + id.toString(), language: savedLang, authorization: token, body: {'arrive_location': arrived, 'track': points});
+      final responseWorkStatus = await client.postRequest(
+        endpoint: ApiLinks.endTravel + id.toString(),
+        language: savedLang,
+        authorization: token,
+        body: {'arrive_location': arrived, "pickup_city_name": puckupCity, "arrive_city_name": arrivedCity, 'track': points},
+      );
       if (responseWorkStatus.response.data['code'] != 200) {
         return Left(ServerFailure.fromResponse(responseWorkStatus.response.statusCode, message: responseWorkStatus.response.data['message']));
       }

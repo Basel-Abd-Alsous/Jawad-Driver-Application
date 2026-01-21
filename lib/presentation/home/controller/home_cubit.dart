@@ -100,6 +100,12 @@ class HomeCubit extends Cubit<HomeState> {
       emit(const HomeState.loadingMap());
       LocationHelper().getCurrentLocation().then((locationData) async {
         initialPosition.value = LatLng(locationData?.latitude ?? 0.0, locationData?.longitude ?? 0.0);
+        final arrivedLocation = await _getAddressFromLatLng(locationData?.latitude ?? 0, locationData?.longitude ?? 0);
+        final puckupityLocation = await _getCityLatLng(locationData?.latitude ?? 0, locationData?.longitude ?? 0);
+        final arrivedCityLocation = await _getCityLatLng(locationData?.latitude ?? 0, locationData?.longitude ?? 0);
+        log(arrivedLocation.toString());
+        log(puckupityLocation.toString());
+        log(arrivedCityLocation.toString());
         circles.addAll([
           Circle(circleId: const CircleId('user_circle'), center: initialPosition.value, radius: 200, fillColor: Colors.black87.withOpacity(0.3), strokeColor: Colors.black87, strokeWidth: 2),
         ]);
@@ -548,34 +554,19 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-  double _calculateTotalDistance(List<Map<dynamic, dynamic>> points) {
-    double totalDistance = 0.0;
-
-    for (int i = 1; i < points.length; i++) {
-      double lat1 = points[i - 1]['latitude'];
-      double lng1 = points[i - 1]['longitude'];
-      double lat2 = points[i]['latitude'];
-      double lng2 = points[i]['longitude'];
-
-      double segment = Geolocator.distanceBetween(lat1, lng1, lat2, lng2);
-      totalDistance += segment;
-    }
-
-    return totalDistance;
-  }
-
   Future<void> endTravel() async {
     try {
-      SmartDialog.showLoading(msg: AppLocalizations.of(GlobalContext.context)!.loading);
+      // SmartDialog.showLoading(msg: AppLocalizations.of(GlobalContext.context)!.loading);
       List<Map<String, dynamic>> rawPoints = _getAllTripLocations(currentTravel.value?.id ?? 0);
       Position pos = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
       final arrivedLocation = await _getAddressFromLatLng(pos.latitude, pos.longitude);
-
+      final puckupityLocation = await _getCityLatLng(rawPoints.first['latitude'], rawPoints.first['longitude']);
+      final arrivedCityLocation = await _getCityLatLng(pos.latitude, pos.longitude);
       rawPoints.add({"latitude": pos.latitude, "longitude": pos.longitude, "updatedWhen": DateTime.now().toIso8601String()});
-      double? totalDistance = _calculateTotalDistance(rawPoints);
-      log(totalDistance.toString());
-
-      final result = await homeUsecase.endTravelRequist(currentTravel.value?.id ?? 0, arrivedLocation, rawPoints);
+      log(arrivedLocation.toString());
+      log(puckupityLocation.toString());
+      log(arrivedCityLocation.toString());
+      final result = await homeUsecase.endTravelRequist(currentTravel.value?.id ?? 0, arrivedLocation, arrivedCityLocation, puckupityLocation, rawPoints);
       result.fold(
         (l) {
           SmartDialog.dismiss();
@@ -626,6 +617,18 @@ class HomeCubit extends Cubit<HomeState> {
     } catch (e) {
       logger.e("Reverse Geocoding Error: $e");
       return "$lat,$lng"; // fallback to coordinates
+    }
+  }
+
+  Future<String> _getCityLatLng(double lat, double lng) async {
+    try {
+      final placemarks = await geocoding.placemarkFromCoordinates(lat, lng);
+      if (placemarks.isEmpty) return '$lat,$lng';
+      final place = placemarks.first;
+      return place.locality ?? place.administrativeArea ?? place.country ?? '$lat,$lng';
+    } catch (e) {
+      logger.e('Reverse Geocoding Error: $e');
+      return '$lat,$lng';
     }
   }
 
