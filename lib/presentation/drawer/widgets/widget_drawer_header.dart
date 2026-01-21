@@ -48,14 +48,14 @@ class WidgetDrawerHeader extends StatelessWidget {
                   children: [
                     Text(
                       driver?.firstName ?? '',
-                      style: AppTextStyle.style16B.copyWith(color: Colors.black),
+                      style: AppTextStyle.style14B.copyWith(color: Colors.black),
                       overflow: TextOverflow.ellipsis,
                     ),
-                    Text(driver?.phone ?? '', style: AppTextStyle.style16B.copyWith(color: AppColor.secondColor)),
+                    Text(driver?.phone ?? '', style: AppTextStyle.style14B.copyWith(color: AppColor.secondColor)),
                     Row(
                       children: [
                         const Icon(Icons.star, color: Colors.amber, size: 25),
-                        Text('${driver?.rating ?? 0.0}', style: AppTextStyle.style16B.copyWith(color: AppColor.black)),
+                        Text('${driver?.rating ?? 0.0}', style: AppTextStyle.style14B.copyWith(color: AppColor.black)),
                       ],
                     ),
                   ],
