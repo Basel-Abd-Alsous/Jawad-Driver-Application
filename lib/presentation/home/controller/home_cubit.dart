@@ -183,13 +183,18 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   /// 🛑 إيقاف خدمة الخلفية
-  Future<void> stopBackgroundService() async {
+  /// 🛑 إيقاف خدمة الخلفية (الصحيح)
+  Future<void> stopBackgroundServiceFully() async {
     try {
-      _service.invoke('stopService');
+      final isRunning = await _service.isRunning();
+      if (isRunning) {
+        _service.invoke('stopService'); // 👈 هذا فقط
+      }
+
       running.value = false;
-      logger.i('🛑 تم إيقاف خدمة الخلفية');
+      logger.i('🛑 Background service stop signal sent');
     } catch (e) {
-      logger.e('❌ فشل إيقاف خدمة الخلفية: $e');
+      logger.e('❌ Failed to stop background service: $e');
     }
   }
 
@@ -314,7 +319,7 @@ class HomeCubit extends Cubit<HomeState> {
             connect(context);
           } else {
             // ❌ إيقاف خدمة الخلفية عند إنهاء العمل
-            await stopBackgroundService();
+            await shutdownAllServices();
             _disconnect();
           }
         },
@@ -322,6 +327,18 @@ class HomeCubit extends Cubit<HomeState> {
     } catch (e) {
       logger.e('Error in Switch Work Status : $e');
     }
+  }
+
+  Future<void> shutdownAllServices() async {
+    await stopBackgroundServiceFully();
+    _disconnect();
+
+    _currentLat = null;
+    _currentLng = null;
+    _currentSpeed = null;
+    _currentAccuracy = null;
+    _inTrip = false;
+    logger.i('🧹 All services shut down successfully');
   }
 
   // ============================== Travel Functions ============================== //
@@ -556,7 +573,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> endTravel() async {
     try {
-      // SmartDialog.showLoading(msg: AppLocalizations.of(GlobalContext.context)!.loading);
+      SmartDialog.showLoading(msg: AppLocalizations.of(GlobalContext.context)!.loading);
       List<Map<String, dynamic>> rawPoints = _getAllTripLocations(currentTravel.value?.id ?? 0);
       Position pos = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
       final arrivedLocation = await _getAddressFromLatLng(pos.latitude, pos.longitude);
@@ -583,7 +600,8 @@ class HomeCubit extends Cubit<HomeState> {
         (r) async {
           // ❌ إيقاف وضع الرحلة بعد انتهاء الرحلة
           await toggleTripMode(false);
-          remainingAmount.value = r.data!;
+          currentTravel.value = r.data;
+          remainingAmount.value = r.data!.amount ?? "";
           if (remainingAmount.value != '' && remainingAmount.value != '0' && remainingAmount.value != '0.0') {
             travelStatus.value = TravelStatus.completed;
             points.clear();
@@ -747,11 +765,14 @@ class HomeCubit extends Cubit<HomeState> {
         }
       },
       onDone: () async {
-        log('❌ Connection closed');
-        if (!_isManuallyClosed) {
-          await Future.delayed(const Duration(seconds: 2));
-          log('🔁 Trying to reconnect...');
-          connect(context);
+        final user = sl<Box<Driver>>().get(BoxKey.user);
+        if (user?.workStatus == true) {
+          log('❌ Connection closed');
+          if (!_isManuallyClosed) {
+            await Future.delayed(const Duration(seconds: 2));
+            log('🔁 Trying to reconnect...');
+            connect(context);
+          }
         }
       },
       onError: (error) => log('❌ Error: $error'),
@@ -836,13 +857,5 @@ class HomeCubit extends Cubit<HomeState> {
 
   _disconnect() {
     _channel?.sink.close();
-  }
-
-  @override
-  Future<void> close() async {
-    // إيقاف خدمة الخلفية عند إغلاق الكيوبت
-    await stopBackgroundService();
-    _disconnect();
-    await super.close();
   }
 }

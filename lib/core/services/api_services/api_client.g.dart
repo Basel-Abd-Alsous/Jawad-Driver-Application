@@ -71,7 +71,7 @@ class _ApiClient implements ApiClient {
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     if (body != null) {
-      _data.addAll(body );
+      _data.addAll(body!);
     }
     final _options = _setStreamType<HttpResponse<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)

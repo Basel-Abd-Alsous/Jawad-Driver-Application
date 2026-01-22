@@ -22,7 +22,7 @@ abstract class HomeRepoistory {
   Future<Either<Failure, Unit>> cancelTravel(int id);
   Future<Either<Failure, Unit>> arrivalTravel(int id, String lat, String long);
   Future<Either<Failure, Unit>> startTravel(int id);
-  Future<Either<Failure, Result<String>>> endTravel(int id, String arrived, String arrivedCity, String puckupCity, List<dynamic> points);
+  Future<Either<Failure, Result<TravelRequest>>> endTravel(int id, String arrived, String arrivedCity, String puckupCity, List<dynamic> points);
   Future<Either<Failure, Unit>> payTravel(int id, String amount);
   Future<Either<Failure, Result<TravelRequest>>> currentTravel();
 }
@@ -187,7 +187,7 @@ class HomeReoistoryImpl implements HomeRepoistory {
   }
 
   @override
-  Future<Either<Failure, Result<String>>> endTravel(int id, String arrived, String arrivedCity, String puckupCity, List<dynamic> points) async {
+  Future<Either<Failure, Result<TravelRequest>>> endTravel(int id, String arrived, String arrivedCity, String puckupCity, List<dynamic> points) async {
     try {
       final ApiClient client = ApiClient(DioHelper().dio);
       String? token = 'Bearer ${await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token)}';
@@ -201,7 +201,13 @@ class HomeReoistoryImpl implements HomeRepoistory {
       if (responseWorkStatus.response.data['code'] != 200) {
         return Left(ServerFailure.fromResponse(responseWorkStatus.response.statusCode, message: responseWorkStatus.response.data['message']));
       }
-      return Right(Result.success(responseWorkStatus.response.data['payload']['remaining_amount']));
+      TravelRequest? travelRequistModel;
+      if (responseWorkStatus.response.data['payload'] == null) {
+        travelRequistModel = null;
+      } else {
+        travelRequistModel = TravelRequest.fromJson(responseWorkStatus.response.data['payload']);
+      }
+      return Right(Result.success(travelRequistModel));
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {
