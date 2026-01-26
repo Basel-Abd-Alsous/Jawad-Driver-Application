@@ -27,7 +27,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit({required this.profileUsecase}) : super(const ProfileState.initial()) {
     handelUserData();
   }
-  final key = GlobalKey<FormState>();
+  final keyForm = GlobalKey<FormState>();
   TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
   ValueNotifier<File> imageBuyer = ValueNotifier(File(''));
@@ -48,6 +48,8 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   Future<void> updateProfile() async {
+    if (!keyForm.currentState!.validate()) return;
+
     SmartDialog.showLoading(msg: AppLocalizations.of(GlobalContext.context)!.loading);
     try {
       final result = await profileUsecase.updateProfileData(

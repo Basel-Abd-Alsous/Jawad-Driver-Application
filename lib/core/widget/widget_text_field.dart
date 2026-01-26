@@ -10,7 +10,7 @@ class WidgetTextField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final bool obscureText;
   final Widget? prefixIcon;
-  final String? Function(dynamic)? validator;
+  final String? Function(String?)? validator;
   final Widget? suffixIcon;
   final TextEditingController? controller;
   final TextInputType? keyboardType;

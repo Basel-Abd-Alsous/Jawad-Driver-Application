@@ -63,16 +63,21 @@ class WalletContainer extends StatelessWidget {
                   children: [
                     BlocBuilder<WalletCubit, WalletState>(
                       builder: (context, state) {
-                        return AppButton.text(text: local.withdrawCash, color: AppColor.black, height: 20, borderRadius: 10, onPressed: () => _chargerWallet(context, isRequest: true));
+                        return SizedBox(
+                          width: 165,
+                          child: AppButton.text(text: local.withdrawCash, color: AppColor.black, height: 20, borderRadius: 10, onPressed: () => _chargerWallet(context, isRequest: true)),
+                        );
                       },
                     ),
-                    AppButton.icon(
-                      text: local.chargeWallet,
-                      height: 20,
-                      color: AppColor.secondColor,
-                      leadingIconAssetName: SvgPicture.asset(Assets.svgSendWallet, color: AppColor.white),
-                      borderRadius: 10,
-                      onPressed: () => _selectPaymentMethods(context),
+                    SizedBox(
+                      width: 160,
+                      child: AppButton.icon(
+                        text: local.chargeWallet,
+                        height: 20,
+                        color: AppColor.secondColor,
+                        leadingIconAssetName: SvgPicture.asset(Assets.svgSendWallet, color: AppColor.white),
+                        onPressed: () => _selectPaymentMethods(context),
+                      ),
                     ),
                   ],
                 ),
@@ -198,6 +203,7 @@ class WalletContainer extends StatelessWidget {
                         hintText: local.enterAmountHint,
                         hentTextStyle: AppTextStyle.style14.copyWith(color: AppColor.grey),
                         textStyle: AppTextStyle.style16.copyWith(color: AppColor.black),
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
                         suffixIcon: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,

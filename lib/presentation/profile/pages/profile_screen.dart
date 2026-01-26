@@ -28,7 +28,7 @@ class ProfileScreen extends StatelessWidget with FormValidationMixin {
               padding: const EdgeInsets.symmetric(horizontal: 16),
 
               child: Form(
-                key: context.read<ProfileCubit>().key,
+                key: context.read<ProfileCubit>().keyForm,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,

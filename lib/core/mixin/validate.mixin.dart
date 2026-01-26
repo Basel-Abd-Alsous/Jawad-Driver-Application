@@ -14,26 +14,31 @@ mixin FormValidationMixin {
   final _emailRegEx = RegExp(r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+');
 
   final _mobileRegEx = RegExp(r'^05[0-9]{8}$');
+
   String? validateUserName(BuildContext context, String? value) {
-    if (value == null || value.isEmpty) {
+    String text = (value ?? '').replaceAll(" ", '');
+
+    if (text == null || text.isEmpty) {
       return AppLocalizations.of(context)!.emptyUserNameHint;
     }
     return null;
   }
 
   String? validateNull(BuildContext context, String? value) {
-    if (value == null || value.isEmpty) {
+    String text = (value ?? '').replaceAll(" ", '');
+    if (text == null || text.isEmpty) {
       return AppLocalizations.of(context)!.requiredField;
     }
     return null;
   }
 
   String? validateIBAN(BuildContext context, String? value) {
-    if (value == null || value.isEmpty) {
+    String text = (value ?? '').replaceAll(" ", '');
+    if (text == null || text.isEmpty) {
       return AppLocalizations.of(context)!.ibanEmpty;
     }
 
-    final iban = value.toUpperCase().replaceAll(' ', '');
+    final iban = text.toUpperCase().replaceAll(' ', '');
 
     if (!iban.startsWith('SA')) {
       return AppLocalizations.of(context)!.ibanStartWithSA;
@@ -53,11 +58,12 @@ mixin FormValidationMixin {
   }
 
   String? validatePlat(BuildContext context, String? value) {
-    if (value == null || value.isEmpty) {
+    String text = (value ?? '').replaceAll(" ", '');
+    if (text == null || text.isEmpty) {
       return AppLocalizations.of(context)!.plateRequired;
     }
 
-    if (value.length > 4) {
+    if (text.length > 4) {
       return AppLocalizations.of(context)!.plateLength;
     }
 
@@ -65,16 +71,17 @@ mixin FormValidationMixin {
   }
 
   String? validatePlat2(BuildContext context, String? value) {
-    if (value == null || value.isEmpty) {
+    String text = (value ?? '').replaceAll(" ", '');
+    if (text == null || text.isEmpty) {
       return AppLocalizations.of(context)!.plateRequired;
     }
 
-    if (value.length != 4) {
+    if (text.length != 4) {
       return AppLocalizations.of(context)!.plateLength;
     }
 
     final plateRegex = RegExp(r'^[A-Z0-9]{4}$', caseSensitive: false);
-    if (!plateRegex.hasMatch(value)) {
+    if (!plateRegex.hasMatch(text)) {
       return AppLocalizations.of(context)!.plateInvalid;
     }
 
@@ -82,47 +89,50 @@ mixin FormValidationMixin {
   }
 
   String? validateMobile(BuildContext context, String? value) {
-    if (value == null || value.isEmpty) {
+    String text = (value ?? '').replaceAll(" ", '');
+    if (text == null || text.isEmpty) {
       return AppLocalizations.of(context)!.emptyMobileHint;
     }
-    if (!_mobileRegEx.hasMatch(value)) {
+    if (!_mobileRegEx.hasMatch(text)) {
       return AppLocalizations.of(context)!.notValidMobileHint;
     }
     return null;
   }
 
   String? validateEmail(BuildContext context, String? value) {
-    if (value == null || value.isEmpty) {
+    String text = (value ?? '').replaceAll(" ", '');
+    if (text == null || text.isEmpty) {
       return AppLocalizations.of(context)!.emptyEmailHint;
     }
-    if (!_emailRegEx.hasMatch(value)) {
+    if (!_emailRegEx.hasMatch(text)) {
       return AppLocalizations.of(context)!.notValidEmailHint;
     }
     return null;
   }
 
   String? validatePassword(BuildContext context, String? value) {
-    if (value == null || value.isEmpty) {
+    String text = (value ?? '').replaceAll(" ", '');
+    if (text == null || text.isEmpty) {
       return AppLocalizations.of(context)!.emptyPasswordHint;
     }
 
-    if (value.length < 5) {
+    if (text.length < 5) {
       return AppLocalizations.of(context)!.passwordValidateLengthHint;
     }
 
-    if (!value.contains(_upperCaseRegEx)) {
+    if (!text.contains(_upperCaseRegEx)) {
       return null;
     }
 
-    if (!value.contains(_lowerCaseRegEx)) {
+    if (!text.contains(_lowerCaseRegEx)) {
       return null;
     }
 
-    if (!value.contains(_numberRegEx)) {
+    if (!text.contains(_numberRegEx)) {
       return null;
     }
 
-    if (!_passwordRegEx.hasMatch(value)) {
+    if (!_passwordRegEx.hasMatch(text)) {
       return null;
     }
 
@@ -130,23 +140,25 @@ mixin FormValidationMixin {
   }
 
   String? validateConfirmPassword(BuildContext context, String? value, String password) {
-    if (value == null || value.isEmpty) {
+    String text = (value ?? '').replaceAll(" ", '');
+    if (text == null || text.isEmpty) {
       return AppLocalizations.of(context)!.confirmPasswordEmpty;
     }
-    if (value != password) {
+    if (text != password) {
       return AppLocalizations.of(context)!.confirmPasswordNotMatch;
     }
     return null;
   }
 
   String? validateLength(BuildContext context, {required String? value, required int minLength, required int maxLength}) {
-    if (value == null || value.isEmpty) {
+    String text = (value ?? '').replaceAll(" ", '');
+    if (text == null || text.isEmpty) {
       return AppLocalizations.of(context)!.emptyFieldHint;
     }
-    if (value.length < minLength) {
+    if (text.length < minLength) {
       return AppLocalizations.of(context)!.minValidateHint;
     }
-    if (value.length > maxLength) {
+    if (text.length > maxLength) {
       return AppLocalizations.of(context)!.maxValidateHint;
     }
     return null;

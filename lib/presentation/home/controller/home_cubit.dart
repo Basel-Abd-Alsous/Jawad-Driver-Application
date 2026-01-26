@@ -662,8 +662,10 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> payRemaningTravel(String? totalsss) async {
+    String ammountValue = (double.tryParse(ammount.text) ?? 0) > (double.tryParse(remainingAmount.value) ?? 0) ? ammount.text : remainingAmount.value;
+
     SmartDialog.showLoading(msg: AppLocalizations.of(GlobalContext.context)!.loading);
-    final result = await homeUsecase.payTravelRequist(currentTravel.value?.id ?? 0, totalsss != null && totalsss != '' ? totalsss : ammount.text);
+    final result = await homeUsecase.payTravelRequist(currentTravel.value?.id ?? 0, ammountValue);
     result.fold(
       (l) {
         SmartDialog.dismiss();

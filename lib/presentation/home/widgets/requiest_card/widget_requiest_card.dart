@@ -43,7 +43,6 @@ class WidgetCardRequiest extends StatelessWidget {
           5.gap,
           WidgetTextForCardRequiest(title: local.distance, value: '${double.tryParse('${travilRequist.distance ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'} Km'),
           5.gap,
-
           Row(
             spacing: 10,
             children: [

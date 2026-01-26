@@ -19,16 +19,28 @@ class VisitDetailsScreen extends StatelessWidget {
       create: (context) => sl<VisitDetailsCubit>()..getVisitDetails(int.tryParse(visitId ?? '0') ?? 0),
       child: Scaffold(
         appBar: WidgetAppbar.widgetAppBarWithTitle(context, AppLocalizations.of(context)!.visitDetails),
-        body: BlocBuilder<VisitDetailsCubit, VisitDetailsState>(
-          builder: (context, state) {
-            return state.maybeWhen(
-              loadingVisitDetails: () => const LoadingVisitDetails(),
-              loadedVisitDetails:
-                  (date) => ListView(padding: const EdgeInsets.all(10), physics: const NeverScrollableScrollPhysics(), children: <Widget>[ContainerMapVisitDetails(data: date), ContainerVisitDetails(date: date)]),
-              errorVisitDetails: (message) => Center(child: Text(message)),
-              orElse: () => const SizedBox(),
-            );
-          },
+        body: SafeArea(
+          top: false,
+          right: false,
+          left: false,
+          bottom: true,
+          child: BlocBuilder<VisitDetailsCubit, VisitDetailsState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                loadingVisitDetails: () => const LoadingVisitDetails(),
+                loadedVisitDetails: (date) => ListView(
+                  padding: const EdgeInsets.all(10),
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: <Widget>[
+                    ContainerMapVisitDetails(data: date),
+                    ContainerVisitDetails(date: date),
+                  ],
+                ),
+                errorVisitDetails: (message) => Center(child: Text(message)),
+                orElse: () => const SizedBox(),
+              );
+            },
+          ),
         ),
       ),
     );

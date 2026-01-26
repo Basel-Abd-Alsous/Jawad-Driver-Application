@@ -56,9 +56,7 @@ class WalletCubit extends Cubit<WalletState> {
   // Function To Charger Wallet Mobile
   Future<void> chargerWalletMobile() async {
     try {
-      if (!formKey.currentState!.validate()) {
-        return;
-      }
+      if (!formKey.currentState!.validate()) return;
       SmartDialog.showLoading(msg: AppLocalizations.of(GlobalContext.context)!.loading);
       final result = await walletUsecase.chargerWallet(ammopuntController.text, mobile.value.text, 'mobile_wallet');
       result.fold(
