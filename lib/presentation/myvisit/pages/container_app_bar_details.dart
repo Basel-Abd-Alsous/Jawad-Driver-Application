@@ -25,7 +25,7 @@ class ContainerMapVisitDetails extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          isLoading == true ? const WidgetLoading(width: 80) : Text(formatDate(data?.payload?.arrivalTime ?? ''), style: AppTextStyle.style18.copyWith(color: AppColor.grey)),
+          isLoading == true ? const WidgetLoading(width: 80) : Text(formatDate(data?.payload?.arrivalTime ?? DateTime.now().toString()), style: AppTextStyle.style18.copyWith(color: AppColor.grey)),
           5.gap,
           Row(
             spacing: 10,
