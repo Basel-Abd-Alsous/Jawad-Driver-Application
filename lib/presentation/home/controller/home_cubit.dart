@@ -65,7 +65,6 @@ class HomeCubit extends Cubit<HomeState> {
       await havePermissionMap();
       await _checkRunning();
       await initBackgroundLocationListener();
-
       final user = sl<Box<Driver>>().get(BoxKey.user);
       if (user?.workStatus == true && !running.value) {
         logger.i('🚀 بدء الخدمة تلقائياً - السائق في وضع العمل');
@@ -142,6 +141,7 @@ class HomeCubit extends Cubit<HomeState> {
       if (!isRunning) {
         logger.i('🔄 الخدمة متوقفة، جاري إعادة التشغيل...');
         await startBackgroundService();
+        sendTestLocation();
       }
     } catch (e) {
       logger.e('❌ خطأ في فحص حالة الخدمة: $e');
@@ -172,7 +172,10 @@ class HomeCubit extends Cubit<HomeState> {
           initialNotificationTitle: 'Driver Service Active',
           initialNotificationContent: 'Running in background',
         ),
-        iosConfiguration: IosConfiguration(),
+       iosConfiguration: IosConfiguration(
+      autoStart: false,
+      onForeground: backgroundEntryPoint,
+    ),
       );
       await _service.startService();
       running.value = true;

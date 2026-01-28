@@ -13,6 +13,8 @@
   "remainingamount" :"Remaining amount",
   "back": "Back",
   "visa":"Visa",
+    "riderdebtpaid":"Rider Debt Paid",
+  "chargeclientwallet":"Charge Client Wallet",
   "paymentMethod":"Payment Method",
   "termsConditions":"Terms & Conditions",
   "deleteYourAccount":"Delete Your Account",

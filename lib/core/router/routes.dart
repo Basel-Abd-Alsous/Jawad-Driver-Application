@@ -73,7 +73,9 @@ final goRouter = GoRouter(
       path: AppRoutes.verify,
       pageBuilder: (context, state) {
         final phoneNumber = state.uri.queryParameters['phoneNumber'] ?? '';
-        return _fadeTransitionPage(VerifyScreen(phoneNumber: phoneNumber), state);
+        final isRegister = state.uri.queryParameters['isRegister'] ?? '';
+        final isLogin = state.uri.queryParameters['isLogin'] ?? '';
+        return _fadeTransitionPage(VerifyScreen(phoneNumber: phoneNumber, isLogin: isLogin == 'true', isRegister: isRegister == 'true'), state);
       },
     ),
     GoRoute(

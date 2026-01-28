@@ -68,7 +68,23 @@ class ContainerVisitDetails extends StatelessWidget {
               ),
             ],
           ),
-
+          10.gap,
+          Row(
+            spacing: 10,
+            children: [
+              Expanded(
+                child: WidgetTextForCardRequiest(title: local.riderdebtpaid, value: '${double.tryParse('${date?.payload?.riderDebtPaid ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}', isAmount: true),
+              ),
+              Expanded(
+                child: WidgetTextForCardRequiest(
+                  title: local.chargeclientwallet,
+                  value: '${double.tryParse('${date?.payload?.chargeClientWallet ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}',
+                  isAmount: true,
+                ),
+              ),
+              const Expanded(child: SizedBox()),
+            ],
+          ),
           40.gap,
           if (date?.payload?.yourRate == null || date?.payload?.yourRate == "")
             Row(

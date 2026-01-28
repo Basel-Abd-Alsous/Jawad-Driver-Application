@@ -27,7 +27,7 @@ class ForgetRepositoryImpl implements ForgetRepository {
       final ApiClient client = ApiClient(DioHelper().dio);
       final savedLang = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language, defaultValue: 'ar') as String;
 
-      await client.postRequest(endpoint: ApiLinks.sendOtp, language: savedLang, body: sendOTPModel.toJson());
+      await client.postRequest(endpoint: ApiLinks.authResend, language: savedLang, body: sendOTPModel.toJson());
       return const Right(unit);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));

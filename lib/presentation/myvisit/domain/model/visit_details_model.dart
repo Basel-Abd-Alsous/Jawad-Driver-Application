@@ -49,6 +49,8 @@ abstract class Payload with _$Payload {
     @JsonKey(name: "status") Status? status,
     @JsonKey(name: "paid_amount") String? paidAmount,
     @JsonKey(name: "remaining_amount") String? remainingAmount,
+        @JsonKey(name: 'rider_debt_paid') String? riderDebtPaid,
+    @JsonKey(name: 'charge_client_wallet') String? chargeClientWallet,
   }) = _Payload;
 
   factory Payload.fromJson(Map<String, dynamic> json) => _$PayloadFromJson(json);

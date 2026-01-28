@@ -46,7 +46,7 @@ void main() async {
       initialNotificationTitle: 'Driver Service Active',
       initialNotificationContent: 'Running in background',
     ),
-    iosConfiguration: IosConfiguration(),
+    iosConfiguration: IosConfiguration(autoStart: false, onForeground: backgroundEntryPoint),
   );
 
   await sl<AppServices>().initAppServices();

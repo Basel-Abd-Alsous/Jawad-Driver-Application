@@ -10,7 +10,6 @@ class LoginUseCase {
 
   LoginUseCase({required this.loginRepository});
 
-  Future<Either<Failure, Result<Map<String , dynamic>>>> login(LoginRequiestModel loginRequiestModel) async {
-    return await loginRepository.login(loginRequiestModel);
-  }
+  Future<Either<Failure, Result<Unit>>> login(LoginRequiestModel loginRequiestModel) async => await loginRepository.login(loginRequiestModel);
+  Future<Either<Failure, Result<Map<String, dynamic>>>> verifyOtpLogin(String mobile, String otp, String type) async => await loginRepository.verifyOtpLogin(mobile, otp, type);
 }

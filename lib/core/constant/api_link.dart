@@ -25,6 +25,9 @@ class ApiLinks {
   static String vehicles = dotenv.env['VEHICLES']!;
   static String carInfo = dotenv.env['CAR_INFO']!;
   static String bankInfo = dotenv.env['BANK_INFO']!;
+  static String verifyOtpRegister = dotenv.env['VERIFY_OTP_REGISTER']!;
+  static String verifyOtpLogin = dotenv.env['VERIFY_OTP_LOGIN']!;
+  static String authResend = dotenv.env['AUTH_RESEND']!;
   //============================== Forget Password =========================================//
   static String sendOtp = dotenv.env['SEND_OTP']!;
   static String verifyOtp = dotenv.env['VERIFY_OTP']!;

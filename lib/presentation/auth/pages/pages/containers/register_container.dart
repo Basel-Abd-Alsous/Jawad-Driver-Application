@@ -57,42 +57,6 @@ class RegisteContainer extends StatelessWidget with FormValidationMixin {
                   prefixIcon: const Icon(Icons.phone),
                   validator: (value) => validateMobile(context, value),
                 ),
-                5.gap,
-                Text(local.password, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
-                ValueListenableBuilder<bool>(
-                  valueListenable: context.read<RegisterCubit>().obscureText,
-                  builder:
-                      (context, value, child) => WidgetAuthTextField(
-                        hintText: local.password_hint,
-                        controller: context.read<RegisterCubit>().password,
-                        obscureText: value,
-                        keyboardType: TextInputType.text,
-                        prefixIcon: const Icon(Icons.lock),
-                        suffixIcon: IconButton(
-                          onPressed: () => context.read<RegisterCubit>().changeObscure(),
-                          icon: Icon(value ? Icons.visibility_off : Icons.visibility),
-                        ),
-                        validator: (value) => validatePassword(context, value),
-                      ),
-                ),
-                5.gap,
-                Text(local.confirm_password, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
-                ValueListenableBuilder<bool>(
-                  valueListenable: context.read<RegisterCubit>().obscureTextConfirm,
-                  builder:
-                      (context, value, child) => WidgetAuthTextField(
-                        hintText: local.confirm_password_hint,
-                        controller: context.read<RegisterCubit>().confirmPassword,
-                        obscureText: value,
-                        keyboardType: TextInputType.text,
-                        prefixIcon: const Icon(Icons.lock),
-                        suffixIcon: IconButton(
-                          onPressed: () => context.read<RegisterCubit>().changeObscureConfirm(),
-                          icon: Icon(value ? Icons.visibility_off : Icons.visibility),
-                        ),
-                        validator: (value) => validatePassword(context, value),
-                      ),
-                ),
                 10.gap,
                 const WidgetAuthButton(isRegister: true),
                 10.gap,
@@ -104,7 +68,10 @@ class RegisteContainer extends StatelessWidget with FormValidationMixin {
                   children: [
                     Text(local.already_have_account, style: AppTextStyle.style12.copyWith(color: AppColor.white)),
                     const SizedBox(width: 5),
-                    InkWell(onTap: () => context.pop(), child: Text(local.login, style: AppTextStyle.style12B.copyWith(color: Colors.white))),
+                    InkWell(
+                      onTap: () => context.pop(),
+                      child: Text(local.login, style: AppTextStyle.style12B.copyWith(color: Colors.white)),
+                    ),
                   ],
                 ),
               ],

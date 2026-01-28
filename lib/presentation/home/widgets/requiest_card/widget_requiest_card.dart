@@ -57,6 +57,24 @@ class WidgetCardRequiest extends StatelessWidget {
               ),
             ],
           ),
+
+          10.gap,
+          Row(
+            spacing: 10,
+            children: [
+              Expanded(
+                child: WidgetTextForCardRequiest(title: local.riderdebtpaid, value: '${double.tryParse('${travilRequist.riderDebtPaid ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}', isAmount: true),
+              ),
+               Expanded(
+                child: WidgetTextForCardRequiest(
+                  title: local.chargeclientwallet,
+                  value: '${double.tryParse('${travilRequist.chargeClientWallet ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}',
+                  isAmount: true,
+                ),
+              ),
+              const Expanded(child: SizedBox()),
+            ],
+          ),
           15.gap,
           if ((status == TravelStatus.pending) || (status == TravelStatus.assigned)) ...[
             Column(

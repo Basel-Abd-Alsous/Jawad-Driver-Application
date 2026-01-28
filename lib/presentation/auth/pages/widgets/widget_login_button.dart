@@ -25,10 +25,7 @@ class WidgetAuthButton extends StatelessWidget {
           return BlocBuilder<RegisterCubit, RegisterState>(
             builder: (context, stateRegister) {
               return AppButton.text(
-                loading:
-                    isRegister == true
-                        ? stateRegister.maybeWhen(orElse: () => false, loadingSignUp: () => true)
-                        : stateLogin.maybeWhen(orElse: () => false, loadingLogin: () => true),
+                loading: isRegister == true ? stateRegister.maybeWhen(orElse: () => false, loadingSignUp: () => true) : stateLogin.maybeWhen(orElse: () => false, loadingLogin: () => true),
                 textStyle: AppTextStyle.style16B.copyWith(color: AppColor.white),
                 text: isRegister == true ? local.continues : local.login,
                 onPressed: () async {

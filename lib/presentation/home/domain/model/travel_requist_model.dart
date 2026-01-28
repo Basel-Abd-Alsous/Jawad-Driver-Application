@@ -56,6 +56,8 @@ abstract class TravelRequest with _$TravelRequest {
     @JsonKey(name: 'distance_between_them') int? distanceBetweenThem,
     @JsonKey(name: 'duration_between_them') int? durationBetweenThem,
     @JsonKey(name: 'waiting_time_fees_amount') String? waitingTimeFeesAmount,
+    @JsonKey(name: 'rider_debt_paid') String? riderDebtPaid,
+    @JsonKey(name: 'charge_client_wallet') String? chargeClientWallet,
   }) = _TravelRequest;
 
   factory TravelRequest.fromJson(Map<String, dynamic> json) => _$TravelRequestFromJson(json);

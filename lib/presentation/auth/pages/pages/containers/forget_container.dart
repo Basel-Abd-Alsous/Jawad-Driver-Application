@@ -45,7 +45,7 @@ class ForgetContainer extends StatelessWidget with FormValidationMixin {
                       child: AppButton.text(
                         loading: state.maybeWhen(orElse: () => false, loadingForget: () => true),
                         text: local.send,
-                        onPressed: () async => await context.read<ForgetCubit>().sendOtp(),
+                        onPressed: () async => await context.read<ForgetCubit>().resend(),
                       ),
                     ),
                   ],

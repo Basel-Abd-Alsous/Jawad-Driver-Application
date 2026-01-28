@@ -14,7 +14,6 @@ import '../../../../../core/utils/text_style.dart';
 import '../../../../../injection_container.dart';
 import '../../../../../core/widget/widget_dailog.dart';
 import '../../../controller/login/login_cubit.dart';
-import '../../widgets/widget_forget_password.dart';
 import '../../widgets/widget_login_button.dart';
 import '../../widgets/widget_auth_text_field.dart';
 import '../../../../../l10n/app_localizations.dart';
@@ -49,22 +48,7 @@ class LoginContainer extends StatelessWidget with FormValidationMixin {
                   prefixIcon: const Icon(Icons.phone),
                   validator: (value) => validateMobile(context, value),
                 ),
-                10.gap,
-                Text(local.password, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
-                ValueListenableBuilder<bool>(
-                  valueListenable: context.read<LoginCubit>().obscureText,
-                  builder: (context, value, child) => WidgetAuthTextField(
-                    hintText: local.password_hint,
-                    controller: context.read<LoginCubit>().password,
-                    obscureText: value,
-                    keyboardType: TextInputType.text,
-                    prefixIcon: const Icon(Icons.lock),
-                    suffixIcon: IconButton(onPressed: () => context.read<LoginCubit>().changeObscure(), icon: Icon(value == true ? Icons.visibility_off : Icons.visibility)),
-                    validator: (value) => validatePassword(context, value),
-                  ),
-                ),
-                5.gap,
-                const WidgetForgetPassword(),
+
                 20.gap,
                 const WidgetAuthButton(),
                 20.gap,
@@ -101,30 +85,8 @@ class LoginContainer extends StatelessWidget with FormValidationMixin {
     final local = AppLocalizations.of(context)!;
 
     state.maybeWhen(
-      loadedLogin: (data) async {
-        await sl<Box>(instanceName: BoxKey.appBox).put(BoxKey.token, data['token']);
-        sl<Box>(instanceName: BoxKey.appBox).put(BoxKey.userStatusRegister, data['registrationStatus']);
-        final step = RegisterStepExtension.fromString(data['registrationStatus']);
-        switch (step) {
-          case RegisterStates.register:
-            context.push(AppRoutes.register);
-            break;
-          case RegisterStates.documents:
-            context.push(AppRoutes.uploadDocument);
-            break;
-          case RegisterStates.carInfo:
-            context.push(AppRoutes.carInfo);
-            break;
-          case RegisterStates.bankInfo:
-            context.push(AppRoutes.bankInfo);
-            break;
-          case RegisterStates.completed:
-            context.go(AppRoutes.layout);
-            break;
-          case RegisterStates.unknown:
-            context.go(AppRoutes.login);
-            break;
-        }
+      loadedLogin: () async {
+        context.push('${AppRoutes.verify}?phoneNumber=${context.read<LoginCubit>().formatPhone(context.read<LoginCubit>().mobile.text)}&isLogin=true');
       },
       errorLogin: (message) => SmartDialog.show(
         builder: (_) => WidgetDilog(isError: true, title: local.warning, message: message, cancelText: local.back, onCancel: () => SmartDialog.dismiss()),

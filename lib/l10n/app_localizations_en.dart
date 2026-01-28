@@ -51,6 +51,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get visa => 'Visa';
 
   @override
+  String get riderdebtpaid => 'Rider Debt Paid';
+
+  @override
+  String get chargeclientwallet => 'Charge Client Wallet';
+
+  @override
   String get paymentMethod => 'Payment Method';
 
   @override

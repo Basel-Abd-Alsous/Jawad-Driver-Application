@@ -51,6 +51,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get visa => 'بطاقة الائتمان';
 
   @override
+  String get riderdebtpaid => 'سداد ديون الراكب';
+
+  @override
+  String get chargeclientwallet => 'شحن محفظة العميل';
+
+  @override
   String get paymentMethod => 'طريقة الدفع';
 
   @override

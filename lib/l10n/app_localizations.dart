@@ -179,6 +179,18 @@ abstract class AppLocalizations {
   /// **'Visa'**
   String get visa;
 
+  /// No description provided for @riderdebtpaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Rider Debt Paid'**
+  String get riderdebtpaid;
+
+  /// No description provided for @chargeclientwallet.
+  ///
+  /// In en, this message translates to:
+  /// **'Charge Client Wallet'**
+  String get chargeclientwallet;
+
   /// No description provided for @paymentMethod.
   ///
   /// In en, this message translates to:

@@ -2,19 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:hive_ce/hive_ce.dart';
 
 import '../../../../../core/router/router_key.dart';
 import '../../../../../core/extension/space_extension.dart';
 import '../../../../../core/mixin/validate.mixin.dart';
-import '../../../../../core/services/hive/box_key.dart';
 import '../../../../../core/utils/border_radius.dart';
 import '../../../../../core/utils/color.dart';
 import '../../../../../core/utils/text_style.dart';
 import '../../../../../core/widget/button/app_button.dart';
 import '../../../../../core/widget/loading/widget_loading.dart';
 import '../../../../../core/widget/widget_dailog.dart';
-import '../../../../../injection_container.dart';
 import '../../../controller/register/register_cubit.dart';
 import '../../../domain/model/car_model_and_color_model.dart';
 import '../../widgets/widget_auth_text_field.dart';
@@ -218,7 +215,7 @@ class CarInfoContainer extends StatelessWidget with FormValidationMixin {
                     Expanded(
                       flex: 3,
                       child: AppButton.text(
-                        loading: state.maybeWhen(orElse: () => false, loadingCarInfo: () => true),
+                        loading: state.maybeWhen(orElse: () => false, loadingVerifyOtpSignUp: () => true),
                         text: local.continues,
                         onPressed: () => context.read<RegisterCubit>().register(),
                       ),
@@ -236,19 +233,8 @@ class CarInfoContainer extends StatelessWidget with FormValidationMixin {
   void _listener(BuildContext context, RegisterState state) {
     final local = AppLocalizations.of(context)!;
     state.maybeWhen(
-      loadedSignUp: (token) async {
-        await sl<Box>(instanceName: BoxKey.appBox).put(BoxKey.token, token);
-        return SmartDialog.show(
-          builder: (_) => WidgetDilog(
-            title: local.registration_completed,
-            message: local.proceed_next_step,
-            cancelText: local.continues,
-            onCancel: () {
-              SmartDialog.dismiss();
-              context.push(AppRoutes.uploadDocument);
-            },
-          ),
-        );
+      loadedSignUp: () async {
+        context.push('${AppRoutes.verify}?phoneNumber=${context.read<RegisterCubit>().mobile.text}&isRegister=true');
       },
       errorSignUp: (message) => SmartDialog.show(
         builder: (_) => WidgetDilog(isError: true, title: local.warning, message: message, cancelText: local.back, onCancel: () => SmartDialog.dismiss()),

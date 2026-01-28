@@ -61,6 +61,8 @@ _Payload _$PayloadFromJson(Map<String, dynamic> json) => _Payload(
       : Status.fromJson(json['status'] as Map<String, dynamic>),
   paidAmount: json['paid_amount'] as String?,
   remainingAmount: json['remaining_amount'] as String?,
+  riderDebtPaid: json['rider_debt_paid'] as String?,
+  chargeClientWallet: json['charge_client_wallet'] as String?,
 );
 
 Map<String, dynamic> _$PayloadToJson(_Payload instance) => <String, dynamic>{
@@ -92,6 +94,8 @@ Map<String, dynamic> _$PayloadToJson(_Payload instance) => <String, dynamic>{
   'status': instance.status,
   'paid_amount': instance.paidAmount,
   'remaining_amount': instance.remainingAmount,
+  'rider_debt_paid': instance.riderDebtPaid,
+  'charge_client_wallet': instance.chargeClientWallet,
 };
 
 _Service _$ServiceFromJson(Map<String, dynamic> json) => _Service(

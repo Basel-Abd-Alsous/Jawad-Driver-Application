@@ -6,8 +6,12 @@ class LoginState with _$LoginState {
 
   // Login State
   const factory LoginState.loadingLogin() = _LoadingLogin;
-  const factory LoginState.loadedLogin(Map<String, dynamic> data) = _LoadedLogin;
+  const factory LoginState.loadedLogin() = _LoadedLogin;
   const factory LoginState.errorLogin(String message) = _ErrorLogin;
+
+  const factory LoginState.loadingVerifyLogin() = _LoadingVerifyLogin;
+  const factory LoginState.loadedVerifyLogin(Map<String, dynamic> data) = _LoadedVerifyLogin;
+  const factory LoginState.errorVerifyLogin(String message) = _ErrorVerifyLogin;
 
   // Register Status State
   const factory LoginState.loadingRegisterStatus() = _LoadingRegisterStatus;

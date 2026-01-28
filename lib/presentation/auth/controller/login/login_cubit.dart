@@ -40,8 +40,6 @@ class LoginCubit extends Cubit<LoginState> {
 
   final formKey = GlobalKey<FormState>();
   final TextEditingController mobile = TextEditingController();
-  final TextEditingController password = TextEditingController();
-  ValueNotifier<bool> obscureText = ValueNotifier(true);
 
   LoginCubit({required this.registerUsecase, required this.loginUseCase}) : super(const LoginState.initial());
 
@@ -51,24 +49,30 @@ class LoginCubit extends Cubit<LoginState> {
       try {
         emit(const _LoadingLogin());
         final oneSignalId = OneSignal.User.pushSubscription.id;
-        final loginData = {'phone': formatPhone(mobile.text), 'password': password.text, 'user_type': 'driver', 'fcm_token': oneSignalId};
+        final loginData = {'phone': formatPhone(mobile.text), 'user_type': 'driver', 'fcm_token': oneSignalId};
         final loginResponse = await loginUseCase.login(LoginRequiestModel.fromJson(loginData));
-        loginResponse.fold((left) => emit(_ErrorLogin(left.message)), (right) => emit(_LoadedLogin(right.data!)));
+        loginResponse.fold((left) => emit(_ErrorLogin(left.message)), (right) => emit(_LoadedLogin()));
       } catch (e) {
         logger.e('Server Error Login Section : $e');
       }
     }
   }
 
-  // formatPhone(mobile.text)
-  String formatPhone(String phone) {
-    // remove all spaces just in case
-    phone = phone.replaceAll(' ', '');
-
-    if (phone.startsWith('0')) {
-      phone = phone.substring(1); // remove first 0
+  Future<void> verifyOtpLogin(final String mobile, final String otp) async {
+    try {
+      emit(const _LoadingVerifyLogin());
+      final loginResponse = await loginUseCase.verifyOtpLogin(mobile, otp, 'driver');
+      loginResponse.fold((left) => emit(_ErrorVerifyLogin(left.message)), (right) => emit(_LoadedVerifyLogin(right.data!)));
+    } catch (e) {
+      logger.e('Server Error Login Section : $e');
     }
+  }
 
+  String formatPhone(String phone) {
+    phone = phone.replaceAll(' ', '');
+    if (phone.startsWith('0')) {
+      phone = phone.substring(1);
+    }
     return '+966$phone';
   }
 
@@ -94,15 +98,9 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-  // Change Obscure
-  void changeObscure() {
-    obscureText.value = !obscureText.value;
-  }
-
   @override
   Future<void> close() {
     mobile.dispose();
-    password.dispose();
     return super.close();
   }
 }

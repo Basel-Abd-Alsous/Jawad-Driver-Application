@@ -30,7 +30,6 @@ class VisitDetailsScreen extends StatelessWidget {
                 loadingVisitDetails: () => const LoadingVisitDetails(),
                 loadedVisitDetails: (date) => ListView(
                   padding: const EdgeInsets.all(10),
-                  physics: const NeverScrollableScrollPhysics(),
                   children: <Widget>[
                     ContainerMapVisitDetails(data: date),
                     ContainerVisitDetails(date: date),

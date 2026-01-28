@@ -6,9 +6,12 @@ class RegisterState with _$RegisterState {
 
   // Register State
   const factory RegisterState.loadingSignUp() = _LoadingSignUp;
-  const factory RegisterState.loadedSignUp(String token) = _LoadedSignUp;
+  const factory RegisterState.loadedSignUp() = _LoadedSignUp;
   const factory RegisterState.errorSignUp(String message) = _ErrorSignUp;
 
+  const factory RegisterState.loadingVerifyOtpSignUp() = _LoadingVerifyOtpSignUp;
+  const factory RegisterState.loadedVerifyOtpSignUp(String token) = _LoadedVerifyOtpSignUp;
+  const factory RegisterState.errorVerifyOtpSignUp(String message) = _ErrorVerifyOtpSignUp;
   // Document type State
   const factory RegisterState.loadingDocumentType() = _LoadingDocumentType;
   const factory RegisterState.loadedDocumentType(DocumentTypeModel documentTypeModel) = _LoadedDocumentType;

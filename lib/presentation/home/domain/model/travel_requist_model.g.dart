@@ -62,6 +62,8 @@ _TravelRequest _$TravelRequestFromJson(Map<String, dynamic> json) =>
       distanceBetweenThem: (json['distance_between_them'] as num?)?.toInt(),
       durationBetweenThem: (json['duration_between_them'] as num?)?.toInt(),
       waitingTimeFeesAmount: json['waiting_time_fees_amount'] as String?,
+      riderDebtPaid: json['rider_debt_paid'] as String?,
+      chargeClientWallet: json['charge_client_wallet'] as String?,
     );
 
 Map<String, dynamic> _$TravelRequestToJson(_TravelRequest instance) =>
@@ -94,6 +96,8 @@ Map<String, dynamic> _$TravelRequestToJson(_TravelRequest instance) =>
       'distance_between_them': instance.distanceBetweenThem,
       'duration_between_them': instance.durationBetweenThem,
       'waiting_time_fees_amount': instance.waitingTimeFeesAmount,
+      'rider_debt_paid': instance.riderDebtPaid,
+      'charge_client_wallet': instance.chargeClientWallet,
     };
 
 _Rider _$RiderFromJson(Map<String, dynamic> json) => _Rider(

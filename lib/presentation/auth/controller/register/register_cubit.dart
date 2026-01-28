@@ -35,8 +35,6 @@ class RegisterCubit extends Cubit<RegisterState> {
   TextEditingController idNumber = TextEditingController();
   TextEditingController bartheDate = TextEditingController();
   TextEditingController mobile = TextEditingController();
-  TextEditingController password = TextEditingController();
-  TextEditingController confirmPassword = TextEditingController();
   TextEditingController bankName = TextEditingController();
   TextEditingController number = TextEditingController();
   TextEditingController swift = TextEditingController();
@@ -45,8 +43,6 @@ class RegisterCubit extends Cubit<RegisterState> {
   TextEditingController code = TextEditingController();
   TextEditingController plateNo = TextEditingController();
   TextEditingController plateCode = TextEditingController();
-  ValueNotifier<bool> obscureText = ValueNotifier(true);
-  ValueNotifier<bool> obscureTextConfirm = ValueNotifier(true);
   ImageSource imageSource = ImageSource.gallery;
   List<ColorModel> types = [];
   ColorModel? selectedType;
@@ -107,8 +103,6 @@ class RegisterCubit extends Cubit<RegisterState> {
           RegisterModel.fromJson({
             "id_number": idNumber.text,
             "date_of_birth": bartheDate.text,
-            "password": password.text,
-            "password_confirmation": confirmPassword.text,
             "phone": formatPhone(mobile.text),
             "plate_number": plateNo.text,
             "plate_code": plateCode.text,
@@ -121,10 +115,20 @@ class RegisterCubit extends Cubit<RegisterState> {
             "fcm_token": oneSignalId,
           }),
         );
-        loginResponse.fold((left) => emit(_ErrorSignUp(left.message)), (right) => emit(_LoadedSignUp(right.data!)));
+        loginResponse.fold((left) => emit(_ErrorSignUp(left.message)), (right) => emit(const _LoadedSignUp()));
       } catch (e) {
         logger.e('Server Error Login Section : $e');
       }
+    }
+  }
+
+  Future<void> verifyOtpRegister(String phone, String otp) async {
+    try {
+      emit(const _LoadingVerifyOtpSignUp());
+      final loginResponse = await registerUsecase.verifyOtpRegister(formatPhone(phone), otp, 'driver');
+      loginResponse.fold((left) => emit(_ErrorVerifyOtpSignUp(left.message)), (right) => emit(_LoadedVerifyOtpSignUp(right.data ?? '')));
+    } catch (e) {
+      logger.e('Server Error Login Section : $e');
     }
   }
 
@@ -302,16 +306,6 @@ class RegisterCubit extends Cubit<RegisterState> {
         logger.e('Server Error Upload Bank Info Section : $e');
       }
     }
-  }
-
-  // Change Obscure [ New Password ]
-  void changeObscure() {
-    obscureText.value = !obscureText.value;
-  }
-
-  // Change Obscure [ Confirm Password  ]
-  void changeObscureConfirm() {
-    obscureTextConfirm.value = !obscureTextConfirm.value;
   }
 
   // Select Type

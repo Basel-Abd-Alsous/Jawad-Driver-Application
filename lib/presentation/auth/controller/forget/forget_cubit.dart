@@ -27,8 +27,8 @@ class ForgetCubit extends Cubit<ForgetState> {
   ForgetCubit({required this.forgetUsecase}) : super(const ForgetState.initial());
 
   // Forget Password => Send OTP
-  Future<void> sendOtp({String? moble}) async {
-    if (moble != null || formKey.currentState!.validate()) {
+  Future<void> resend({String? moble}) async {
+    if (moble != null) {
       try {
         emit(const _LoadingForget());
         Map<String, dynamic> sendOTPModel = {'phone': moble ?? phone.text, 'user_type': 'driver'};
@@ -59,12 +59,7 @@ class ForgetCubit extends Cubit<ForgetState> {
     if (formKeyNewPassword.currentState!.validate()) {
       try {
         emit(const _LoadingNewPassword());
-        Map<String, dynamic> newPasswordModel = {
-          'phone': moble,
-          'user_type': 'driver',
-          'password_confirmation': confirmPassword.text,
-          'password': newPass.text,
-        };
+        Map<String, dynamic> newPasswordModel = {'phone': moble, 'user_type': 'driver', 'password_confirmation': confirmPassword.text, 'password': newPass.text};
         final verifyOtpResponse = await forgetUsecase.newPassword(NewPasswordModel.fromJson(newPasswordModel));
         verifyOtpResponse.fold((left) => emit(_ErrorNewPassword(left.message)), (right) => emit(const _LoadedNewPassword()));
       } catch (e) {
