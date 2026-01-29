@@ -6,7 +6,7 @@ class RegisterState with _$RegisterState {
 
   // Register State
   const factory RegisterState.loadingSignUp() = _LoadingSignUp;
-  const factory RegisterState.loadedSignUp() = _LoadedSignUp;
+  const factory RegisterState.loadedSignUp(RegisterModel model) = _LoadedSignUp;
   const factory RegisterState.errorSignUp(String message) = _ErrorSignUp;
 
   const factory RegisterState.loadingVerifyOtpSignUp() = _LoadingVerifyOtpSignUp;

@@ -37,11 +37,16 @@ class WidgetCardRequiest extends StatelessWidget {
         children: [
           WidgetHeaderCardRequist(travilRequist: travilRequist, status: status),
           10.gap,
-          WidgetTextForCardRequiest(title: local.destination, value: travilRequist.arriveLocation ?? ''),
-          5.gap,
+
           WidgetTextForCardRequiest(title: local.departure, value: travilRequist.pickupLocation ?? ''),
           5.gap,
-          WidgetTextForCardRequiest(title: local.distance, value: '${double.tryParse('${travilRequist.distance ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'} Km'),
+          WidgetTextForCardRequiest(
+            title: local.destination,
+            value: travilRequist.arriveLocation == '.' ? local.destinationnotspecified : travilRequist.arriveLocation ?? local.destinationnotspecified,
+          ),
+          5.gap,
+          if (travilRequist.arriveLocation != '.' && travilRequist.arriveLocation != null && travilRequist.arriveLocation != '')
+            WidgetTextForCardRequiest(title: local.distance, value: '${double.tryParse('${travilRequist.distance ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'} Km'),
           5.gap,
           Row(
             spacing: 10,
@@ -65,7 +70,7 @@ class WidgetCardRequiest extends StatelessWidget {
               Expanded(
                 child: WidgetTextForCardRequiest(title: local.riderdebtpaid, value: '${double.tryParse('${travilRequist.riderDebtPaid ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}', isAmount: true),
               ),
-               Expanded(
+              Expanded(
                 child: WidgetTextForCardRequiest(
                   title: local.chargeclientwallet,
                   value: '${double.tryParse('${travilRequist.chargeClientWallet ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}',

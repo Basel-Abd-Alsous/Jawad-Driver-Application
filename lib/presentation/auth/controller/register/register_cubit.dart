@@ -79,28 +79,14 @@ class RegisterCubit extends Cubit<RegisterState> {
     }
   }
 
-  // Forget Password => Send OTP
-  // Future<void> sendOtp({String? moble}) async {
-  //   if (moble != null || formKeyStep5.currentState!.validate()) {
-  //     try {
-  //       emit(_LoadingSendOTP());
-  //       Map<String, dynamic> sendOTPModel = {'phone': formatPhone(mobile.text), 'user_type': 'driver'};
-  //       final sendOtpResponse = await forgetUsecase.sendOtp(SendOTPModel.fromJson(sendOTPModel));
-  //       sendOtpResponse.fold((left) => emit(_ErrorSendOTP(left.message)), (right) => emit(_LoadedSendOTP()));
-  //     } catch (e) {
-  //       logger.e('Server Error Send OTP Section : $e');
-  //     }
-  //   }
-  // }
-
-  // Register Function
-  Future<void> register() async {
+  Future<void> sendOtp() async {
     if (formKeyStep3.currentState!.validate()) {
       try {
-        emit(const _LoadingSignUp());
         final oneSignalId = OneSignal.User.pushSubscription.id;
-        final loginResponse = await registerUsecase.register(
-          RegisterModel.fromJson({
+        emit(const _LoadingSignUp());
+        final sendOtpResponse = await registerUsecase.registerSendOtp(mobile.text);
+        sendOtpResponse.fold((left) => emit(_ErrorSignUp(left.message)), (right) {
+          RegisterModel model = RegisterModel.fromJson({
             "id_number": idNumber.text,
             "date_of_birth": bartheDate.text,
             "phone": formatPhone(mobile.text),
@@ -113,24 +99,35 @@ class RegisterCubit extends Cubit<RegisterState> {
             "sequence_number": sequenceNumber.text,
             "plate_type": "1",
             "fcm_token": oneSignalId,
-          }),
-        );
-        loginResponse.fold((left) => emit(_ErrorSignUp(left.message)), (right) => emit(const _LoadedSignUp()));
+          });
+          emit(_LoadedSignUp(model));
+        });
       } catch (e) {
-        logger.e('Server Error Login Section : $e');
+        logger.e('Server Error Send OTP Section : $e');
       }
     }
   }
 
-  Future<void> verifyOtpRegister(String phone, String otp) async {
+  Future<void> register(String phone, String otp, RegisterModel model) async {
     try {
       emit(const _LoadingVerifyOtpSignUp());
-      final loginResponse = await registerUsecase.verifyOtpRegister(formatPhone(phone), otp, 'driver');
-      loginResponse.fold((left) => emit(_ErrorVerifyOtpSignUp(left.message)), (right) => emit(_LoadedVerifyOtpSignUp(right.data ?? '')));
+      final updatedModel = model.copyWith(otp: otp);
+      final loginResponse = await registerUsecase.register(updatedModel);
+      loginResponse.fold((left) => emit(_ErrorVerifyOtpSignUp(left.message)), (right) => verifyOtpRegister(phone, otp, right.data ?? ""));
     } catch (e) {
       logger.e('Server Error Login Section : $e');
     }
   }
+
+  Future<void> verifyOtpRegister(String phone, String otp, String token) async {
+    try {
+      final loginResponse = await registerUsecase.verifyOtpRegister(phone, otp, 'driver');
+      loginResponse.fold((left) => emit(_ErrorVerifyOtpSignUp(left.message)), (right) => emit(_ErrorVerifyOtpSignUp(token)));
+    } catch (e) {
+      logger.e('Server Error Login Section : $e');
+    }
+  }
+  // 0580991995
 
   String formatPhone(String phone) {
     phone = phone.replaceAll(' ', '');

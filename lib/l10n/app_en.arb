@@ -13,6 +13,7 @@
   "remainingamount" :"Remaining amount",
   "back": "Back",
   "visa":"Visa",
+  "destinationnotspecified":"Destination not specified",
     "riderdebtpaid":"Rider Debt Paid",
   "chargeclientwallet":"Charge Client Wallet",
   "paymentMethod":"Payment Method",

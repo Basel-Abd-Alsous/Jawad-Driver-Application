@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../presentation/auth/domain/model/requiest_models/register_requiest_model.dart';
 import '../../presentation/auth/pages/pages/bank_info_screen.dart';
 import '../../presentation/auth/pages/pages/car_info_screen.dart';
 import '../../presentation/auth/pages/pages/change_password_screen.dart';
@@ -75,7 +76,8 @@ final goRouter = GoRouter(
         final phoneNumber = state.uri.queryParameters['phoneNumber'] ?? '';
         final isRegister = state.uri.queryParameters['isRegister'] ?? '';
         final isLogin = state.uri.queryParameters['isLogin'] ?? '';
-        return _fadeTransitionPage(VerifyScreen(phoneNumber: phoneNumber, isLogin: isLogin == 'true', isRegister: isRegister == 'true'), state);
+        final registerModel = state.extra as RegisterModel?;
+        return _fadeTransitionPage(VerifyScreen(phoneNumber: phoneNumber, model: registerModel, isLogin: isLogin == 'true', isRegister: isRegister == 'true'), state);
       },
     ),
     GoRoute(

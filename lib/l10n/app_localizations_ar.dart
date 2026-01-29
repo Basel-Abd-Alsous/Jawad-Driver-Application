@@ -51,6 +51,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get visa => 'بطاقة الائتمان';
 
   @override
+  String get destinationnotspecified => 'لم يتم تحديد وجهة';
+
+  @override
   String get riderdebtpaid => 'سداد ديون الراكب';
 
   @override

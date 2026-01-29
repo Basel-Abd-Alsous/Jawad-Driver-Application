@@ -51,6 +51,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get visa => 'Visa';
 
   @override
+  String get destinationnotspecified => 'Destination not specified';
+
+  @override
   String get riderdebtpaid => 'Rider Debt Paid';
 
   @override

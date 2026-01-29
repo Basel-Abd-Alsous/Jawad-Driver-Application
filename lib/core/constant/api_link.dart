@@ -28,6 +28,7 @@ class ApiLinks {
   static String verifyOtpRegister = dotenv.env['VERIFY_OTP_REGISTER']!;
   static String verifyOtpLogin = dotenv.env['VERIFY_OTP_LOGIN']!;
   static String authResend = dotenv.env['AUTH_RESEND']!;
+  static String registerSendOtp = dotenv.env['REGISTER_SEND_OTP']!;
   //============================== Forget Password =========================================//
   static String sendOtp = dotenv.env['SEND_OTP']!;
   static String verifyOtp = dotenv.env['VERIFY_OTP']!;

@@ -179,6 +179,12 @@ abstract class AppLocalizations {
   /// **'Visa'**
   String get visa;
 
+  /// No description provided for @destinationnotspecified.
+  ///
+  /// In en, this message translates to:
+  /// **'Destination not specified'**
+  String get destinationnotspecified;
+
   /// No description provided for @riderdebtpaid.
   ///
   /// In en, this message translates to:

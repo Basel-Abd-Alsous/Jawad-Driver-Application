@@ -17,8 +17,9 @@ class RegisterUsecase {
   final RegisterReposotory registerReposotory;
   RegisterUsecase({required this.registerReposotory});
 
-  Future<Either<Failure, Result<Unit>>> register(RegisterModel registerModel) async => await registerReposotory.register(registerModel);
-  Future<Either<Failure, Result<String>>> verifyOtpRegister(String mobile, String otp, String type) async => await registerReposotory.verifyOtpRegister(mobile, otp, type);
+  Future<Either<Failure, Result<String>>> register(RegisterModel registerModel) async => await registerReposotory.register(registerModel);
+  Future<Either<Failure, Result<Unit>>> registerSendOtp(String phone) async => await registerReposotory.registerSendOtp(phone);
+  Future<Either<Failure, Result<Unit>>> verifyOtpRegister(String mobile, String otp, String type) async => await registerReposotory.verifyOtpRegister(mobile, otp, type);
   Future<Either<Failure, Result<RegisterStatusModel>>> registerStatus() async => await registerReposotory.registerStatus();
   Future<Either<Failure, Result<DocumentTypeModel>>> documentsType() async => await registerReposotory.documentsType();
   Future<Either<Failure, Result<MyDocumentModel>>> myDocument() async => await registerReposotory.myDocument();

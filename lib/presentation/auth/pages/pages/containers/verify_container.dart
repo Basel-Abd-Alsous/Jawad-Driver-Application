@@ -19,12 +19,15 @@ import '../../../controller/forget/forget_cubit.dart';
 import '../../../../../l10n/app_localizations.dart';
 import '../../../controller/login/login_cubit.dart';
 import '../../../controller/register/register_cubit.dart';
+import '../../../domain/model/requiest_models/register_requiest_model.dart';
 
 class VerifyContainer extends StatelessWidget with FormValidationMixin {
   final String phoneNumber;
   final bool? isLogin;
   final bool? isRegister;
-  VerifyContainer({super.key, required this.phoneNumber, this.isLogin = false, this.isRegister = false});
+  final RegisterModel? model;
+
+  VerifyContainer({super.key, required this.phoneNumber, this.isLogin = false, this.isRegister = false, this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +95,7 @@ class VerifyContainer extends StatelessWidget with FormValidationMixin {
                                     context.read<LoginCubit>().verifyOtpLogin(phoneNumber.replaceAll(' ', '+'), context.read<ForgetCubit>().otp.text);
                                     return;
                                   } else if (isRegister == true) {
-                                    context.read<RegisterCubit>().verifyOtpRegister(phoneNumber.replaceAll(' ', '+'), context.read<ForgetCubit>().otp.text);
+                                    context.read<RegisterCubit>().register(phoneNumber.replaceAll(' ', '+'), context.read<ForgetCubit>().otp.text, model!);
                                     return;
                                   } else {
                                     await context.read<ForgetCubit>().verifyOtp(phoneNumber.replaceAll(' ', '+'));

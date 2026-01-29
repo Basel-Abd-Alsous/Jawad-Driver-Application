@@ -31,7 +31,7 @@ class ForgetCubit extends Cubit<ForgetState> {
     if (moble != null) {
       try {
         emit(const _LoadingForget());
-        Map<String, dynamic> sendOTPModel = {'phone': moble ?? phone.text, 'user_type': 'driver'};
+        Map<String, dynamic> sendOTPModel = {'phone': moble , 'user_type': 'driver'};
         final sendOtpResponse = await forgetUsecase.sendOtp(SendOTPModel.fromJson(sendOTPModel));
         sendOtpResponse.fold((left) => emit(_ErrorForget(left.message)), (right) => emit(const _LoadedForget()));
       } catch (e) {

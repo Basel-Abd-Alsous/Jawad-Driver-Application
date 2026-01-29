@@ -5,6 +5,7 @@ import '../../../../injection_container.dart';
 import '../../controller/forget/forget_cubit.dart';
 import '../../controller/login/login_cubit.dart';
 import '../../controller/register/register_cubit.dart';
+import '../../domain/model/requiest_models/register_requiest_model.dart';
 import '../widgets/widget_auth_background.dart';
 import 'containers/verify_container.dart';
 import '../widgets/forget_hint_text.dart';
@@ -14,7 +15,8 @@ class VerifyScreen extends StatelessWidget {
   final bool? isLogin;
   final bool? isRegister;
   final String phoneNumber;
-  const VerifyScreen({super.key, required this.phoneNumber, this.isLogin = false, this.isRegister = false});
+  final RegisterModel? model;
+  const VerifyScreen({super.key, required this.phoneNumber, this.isLogin = false, this.isRegister = false, this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class VerifyScreen extends StatelessWidget {
                   BlocProvider<RegisterCubit>(create: (context) => sl<RegisterCubit>()),
                   BlocProvider<ForgetCubit>(create: (context) => sl<ForgetCubit>()),
                 ],
-                child: VerifyContainer(phoneNumber: phoneNumber, isLogin: isLogin, isRegister: isRegister),
+                child: VerifyContainer(phoneNumber: phoneNumber, isLogin: isLogin, isRegister: isRegister, model: model),
               ),
             ),
           ],

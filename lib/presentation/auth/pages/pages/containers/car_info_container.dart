@@ -217,7 +217,7 @@ class CarInfoContainer extends StatelessWidget with FormValidationMixin {
                       child: AppButton.text(
                         loading: state.maybeWhen(orElse: () => false, loadingVerifyOtpSignUp: () => true),
                         text: local.continues,
-                        onPressed: () => context.read<RegisterCubit>().register(),
+                        onPressed: () => context.read<RegisterCubit>().sendOtp(),
                       ),
                     ),
                   ],
@@ -233,8 +233,8 @@ class CarInfoContainer extends StatelessWidget with FormValidationMixin {
   void _listener(BuildContext context, RegisterState state) {
     final local = AppLocalizations.of(context)!;
     state.maybeWhen(
-      loadedSignUp: () async {
-        context.push('${AppRoutes.verify}?phoneNumber=${context.read<RegisterCubit>().mobile.text}&isRegister=true');
+      loadedSignUp: (model) async {
+        context.push('${AppRoutes.verify}?phoneNumber=${context.read<RegisterCubit>().formatPhone(context.read<RegisterCubit>().mobile.text)}&isRegister=true', extra: model);
       },
       errorSignUp: (message) => SmartDialog.show(
         builder: (_) => WidgetDilog(isError: true, title: local.warning, message: message, cancelText: local.back, onCancel: () => SmartDialog.dismiss()),
