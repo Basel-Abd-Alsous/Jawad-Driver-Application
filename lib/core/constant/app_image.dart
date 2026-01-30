@@ -186,6 +186,10 @@ class Assets {
   /// assets/svg/send_wallet.svg
   static const String svgSendWallet = "assets/svg/send_wallet.svg";
 
+  /// Assets for svgShare
+  /// assets/svg/share.svg
+  static const String svgShare = "assets/svg/share.svg";
+
   /// Assets for svgStar
   /// assets/svg/star.svg
   static const String svgStar = "assets/svg/star.svg";

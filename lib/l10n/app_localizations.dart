@@ -203,6 +203,12 @@ abstract class AppLocalizations {
   /// **'Payment Method'**
   String get paymentMethod;
 
+  /// No description provided for @sharing.
+  ///
+  /// In en, this message translates to:
+  /// **'Sharing'**
+  String get sharing;
+
   /// No description provided for @termsConditions.
   ///
   /// In en, this message translates to:

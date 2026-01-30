@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/context/global.dart';
@@ -108,6 +109,17 @@ class DrawerCubit extends Cubit<DrawerState> {
   void sendEmail(String email) async {
     final Uri url = Uri(scheme: 'mailto', path: email, query: 'subject=Support Request&body=Hello, I need help with...');
     await launchUrl(url);
+  }
+
+  void shareJawadDriverApp() {
+    const link = 'https://apps.apple.com/us/app/jawad-driver/id6748653527';
+    Share.share(
+      'حمّل تطبيق جواد للسائقين 🚗\n'
+      'وسجّل الآن وابدأ استقبال الطلبات بكل سهولة 👌\n'
+      '$link',
+      subject: 'تحميل تطبيق جواد – سائق',
+      
+    );
   }
 
   Future<void> openUrl(String url) async {

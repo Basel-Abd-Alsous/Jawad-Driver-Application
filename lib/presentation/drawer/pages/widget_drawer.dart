@@ -15,6 +15,7 @@ import '../../../core/widget/widget_dailog.dart';
 import '../../../injection_container.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../layout/controller/layout_cubit.dart';
+import '../controller/drawer_cubit.dart';
 import '../widgets/widget_drawer_header.dart';
 import '../widgets/widget_drawer_list.dart';
 
@@ -75,8 +76,21 @@ class WidgetDrawer extends StatelessWidget {
               icon: SvgPicture.asset(Assets.svgContactUs, width: 24, color: AppColor.secondColor),
               onTap: () => context.push(AppRoutes.contactUs),
             ),
+            BlocProvider(
+              create: (context) => sl<DrawerCubit>(),
+              child: BlocBuilder<DrawerCubit, DrawerState>(
+                builder: (context, state) {
+                  return WidgetDrawerList(
+                    title: local.sharing,
+                    icon: SvgPicture.asset(Assets.svgShare, width: 24, color: AppColor.secondColor),
+                    onTap: () => context.read<DrawerCubit>().shareJawadDriverApp(),
+                  );
+                },
+              ),
+            ),
+
             WidgetDrawerList(
-              title: local.privacyPolicy,
+              title: local.termsConditions,
               icon: SvgPicture.asset(Assets.svgPrivacy, width: 24, color: AppColor.secondColor),
               onTap: () => context.push('${AppRoutes.content}?isTerms=false'),
             ),
@@ -85,6 +99,7 @@ class WidgetDrawer extends StatelessWidget {
               icon: SvgPicture.asset(Assets.svgTerms, width: 24, color: AppColor.secondColor),
               onTap: () => context.push('${AppRoutes.content}?isTerms=true'),
             ),
+
             const Spacer(),
             WidgetDrawerList(
               title: local.language,

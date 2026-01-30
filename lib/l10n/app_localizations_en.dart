@@ -63,6 +63,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get paymentMethod => 'Payment Method';
 
   @override
+  String get sharing => 'Sharing';
+
+  @override
   String get termsConditions => 'Terms & Conditions';
 
   @override
