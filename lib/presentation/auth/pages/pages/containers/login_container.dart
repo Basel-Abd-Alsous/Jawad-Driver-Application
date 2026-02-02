@@ -48,7 +48,17 @@ class LoginContainer extends StatelessWidget with FormValidationMixin {
                   prefixIcon: const Icon(Icons.phone),
                   validator: (value) => validateMobile(context, value),
                 ),
-
+                 10.gap,
+                Row(
+                  mainAxisAlignment: .end,
+                  crossAxisAlignment: .end,
+                  children: [
+                    InkWell(
+                      onTap: () => context.push(AppRoutes.contactUs),
+                      child: Text(local.supportsss, style: AppTextStyle.style14B.copyWith(color: AppColor.white)),
+                    ),
+                  ],
+                ),
                 20.gap,
                 const WidgetAuthButton(),
                 20.gap,

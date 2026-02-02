@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -23,15 +25,32 @@ class ForgetCubit extends Cubit<ForgetState> {
   TextEditingController confirmPassword = TextEditingController();
   ValueNotifier<bool> obscureText = ValueNotifier(true);
   ValueNotifier<bool> obscureTextConfirm = ValueNotifier(true);
+  ForgetCubit({required this.forgetUsecase}) : super(const ForgetState.initial()) {
+    startTimer();
+  }
 
-  ForgetCubit({required this.forgetUsecase}) : super(const ForgetState.initial());
+  static const int resendSeconds = 60;
+  ValueNotifier<int> secondsLeft = ValueNotifier(resendSeconds);
+  Timer? timer;
+
+  void startTimer() {
+    secondsLeft.value = resendSeconds;
+    timer?.cancel();
+    timer = Timer.periodic(const Duration(seconds: 1), (t) {
+      if (secondsLeft.value == 0) {
+        t.cancel();
+      } else {
+        secondsLeft.value--;
+      }
+    });
+  }
 
   // Forget Password => Send OTP
   Future<void> resend({String? moble}) async {
     if (moble != null) {
       try {
         emit(const _LoadingForget());
-        Map<String, dynamic> sendOTPModel = {'phone': moble , 'user_type': 'driver'};
+        Map<String, dynamic> sendOTPModel = {'phone': moble, 'user_type': 'driver'};
         final sendOtpResponse = await forgetUsecase.sendOtp(SendOTPModel.fromJson(sendOTPModel));
         sendOtpResponse.fold((left) => emit(_ErrorForget(left.message)), (right) => emit(const _LoadedForget()));
       } catch (e) {
@@ -84,6 +103,7 @@ class ForgetCubit extends Cubit<ForgetState> {
     otp.dispose();
     newPass.dispose();
     confirmPassword.dispose();
+    timer?.cancel();
     return super.close();
   }
 }

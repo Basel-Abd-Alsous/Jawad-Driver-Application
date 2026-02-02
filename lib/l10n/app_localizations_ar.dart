@@ -63,6 +63,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get paymentMethod => 'طريقة الدفع';
 
   @override
+  String get supportsss => 'الدعم';
+
+  @override
   String get sharing => 'مشاركة';
 
   @override

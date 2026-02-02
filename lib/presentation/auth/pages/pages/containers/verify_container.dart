@@ -73,9 +73,22 @@ class VerifyContainer extends StatelessWidget with FormValidationMixin {
                           children: [
                             Text(local.you_dont_receive_otp, style: AppTextStyle.style14.copyWith(color: AppColor.white, height: 1.2)),
                             10.gap,
-                            InkWell(
-                              onTap: () => context.read<ForgetCubit>().resend(moble: phoneNumber.replaceAll(' ', '+')),
-                              child: reSendCode ? const CircularProgressIndicator() : Text(local.resend_otp, style: AppTextStyle.style14B.copyWith(color: AppColor.primaryColor, height: 1.2)),
+                            ValueListenableBuilder(
+                              valueListenable: context.read<ForgetCubit>().secondsLeft,
+                              builder: (context, secondsLeft, child) => InkWell(
+                                onTap: (secondsLeft == 0 && !reSendCode)
+                                    ? () {
+                                        context.read<ForgetCubit>().resend(moble: phoneNumber.replaceAll(' ', '+'));
+                                        context.read<ForgetCubit>().startTimer();
+                                      }
+                                    : null,
+                                child: reSendCode
+                                    ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
+                                    : Text(
+                                        secondsLeft == 0 ? local.resend_otp : '${local.resend_otp} ($secondsLeft s)',
+                                        style: AppTextStyle.style14B.copyWith(color: secondsLeft == 0 ? AppColor.primaryColor : AppColor.grey),
+                                      ),
+                              ),
                             ),
                           ],
                         ),
