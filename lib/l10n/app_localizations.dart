@@ -206,7 +206,7 @@ abstract class AppLocalizations {
   /// No description provided for @supportsss.
   ///
   /// In en, this message translates to:
-  /// **'Support'**
+  /// **'Do you need help? Contact us.'**
   String get supportsss;
 
   /// No description provided for @sharing.

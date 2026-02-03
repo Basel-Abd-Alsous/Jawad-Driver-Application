@@ -172,10 +172,7 @@ class HomeCubit extends Cubit<HomeState> {
           initialNotificationTitle: 'Driver Service Active',
           initialNotificationContent: 'Running in background',
         ),
-       iosConfiguration: IosConfiguration(
-      autoStart: false,
-      onForeground: backgroundEntryPoint,
-    ),
+        iosConfiguration: IosConfiguration(autoStart: false, onForeground: backgroundEntryPoint),
       );
       await _service.startService();
       running.value = true;
@@ -607,6 +604,7 @@ class HomeCubit extends Cubit<HomeState> {
           remainingAmount.value = r.data!.amount ?? "";
           if (remainingAmount.value != '' && remainingAmount.value != '0' && remainingAmount.value != '0.0') {
             travelStatus.value = TravelStatus.completed;
+            ammount.text = remainingAmount.value;
             points.clear();
             SmartDialog.dismiss();
           } else {
@@ -665,10 +663,8 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> payRemaningTravel(String? totalsss) async {
-    String ammountValue = (double.tryParse(ammount.text) ?? 0) > (double.tryParse(remainingAmount.value) ?? 0) ? ammount.text : remainingAmount.value;
-
     SmartDialog.showLoading(msg: AppLocalizations.of(GlobalContext.context)!.loading);
-    final result = await homeUsecase.payTravelRequist(currentTravel.value?.id ?? 0, ammountValue);
+    final result = await homeUsecase.payTravelRequist(currentTravel.value?.id ?? 0, ammount.text);
     result.fold(
       (l) {
         SmartDialog.dismiss();

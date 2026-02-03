@@ -63,7 +63,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get paymentMethod => 'Payment Method';
 
   @override
-  String get supportsss => 'Support';
+  String get supportsss => 'Do you need help? Contact us.';
 
   @override
   String get sharing => 'Sharing';
