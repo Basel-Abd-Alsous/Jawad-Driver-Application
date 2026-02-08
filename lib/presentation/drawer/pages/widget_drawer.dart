@@ -145,10 +145,10 @@ class WidgetDrawer extends StatelessWidget {
                 );
               },
             ),
-            WidgetDrawerList(
-              title: local.primetag_copyright,
-              icon: SvgPicture.asset(Assets.svgCoprRight, width: 24, color: AppColor.secondColor),
-            ),
+            // WidgetDrawerList(
+            //   title: local.primetag_copyright,
+            //   icon: SvgPicture.asset(Assets.svgCoprRight, width: 24, color: AppColor.secondColor),
+            // ),
           ],
         ),
       ),

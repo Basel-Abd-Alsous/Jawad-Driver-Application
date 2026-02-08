@@ -40,13 +40,9 @@ class CarInfoContainer extends StatelessWidget with FormValidationMixin {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(local.plate_number, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
-                WidgetAuthTextField(
-                  hintText: '${local.enter_plate_number} ( 1234 )',
-                  controller: context.read<RegisterCubit>().plateNo,
-                  maxLength: 4,
-                  validator: (value) => validateNull(context, value),
-                ),
+                Text('Sequence Number', style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
+                WidgetAuthTextField(hintText: 'Sequence Number', controller: context.read<RegisterCubit>().sequenceNumber, validator: (value) => validateNull(context, value)),
+
                 5.gap,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,8 +54,13 @@ class CarInfoContainer extends StatelessWidget with FormValidationMixin {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Sequence Number', style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
-                          WidgetAuthTextField(hintText: 'Sequence Number', controller: context.read<RegisterCubit>().sequenceNumber, validator: (value) => validateNull(context, value)),
+                          Text(local.plate_number, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
+                          WidgetAuthTextField(
+                            hintText: '${local.enter_plate_number} ( 1234 )',
+                            controller: context.read<RegisterCubit>().plateNo,
+                            maxLength: 4,
+                            validator: (value) => validateNull(context, value),
+                          ),
                         ],
                       ),
                     ),
