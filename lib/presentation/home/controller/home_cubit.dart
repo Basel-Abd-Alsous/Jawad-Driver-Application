@@ -58,6 +58,9 @@ class HomeCubit extends Cubit<HomeState> {
   final SlideToActionController circleSlideToActionController = SlideToActionController();
   final key = GlobalKey<FormState>();
   TextEditingController ammount = TextEditingController();
+  ValueNotifier<bool> followUser = ValueNotifier(true);
+  double? _lastLat;
+  double? _lastLng;
 
   HomeCubit({required this.homeUsecase, required this.workStatusUsecase}) : super(const HomeState.initial()) {
     getUserLocation();
@@ -218,7 +221,6 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> initBackgroundLocationListener() async {
-    // 🔄 الاستماع لتحديثات الموقع من الخدمة
     _service.on('updateLocation').listen((event) async {
       if (event == null) return;
 
@@ -233,11 +235,10 @@ class HomeCubit extends Cubit<HomeState> {
 
       logger.i('''
 🎯 استلام موقع من الخدمة:
-📍 الموقع: $lat, $lng
-🎯 الدقة: $acc م - السرعة: ${speed != null ? (speed * 3.6).toStringAsFixed(1) : 'N/A'} كم/س
-🚗 الوضع: ${inTrip == true ? "رحلة" : "عادي"}
+📍 $lat, $lng
+🎯 الدقة: $acc
+🚗 السرعة: ${speed != null ? (speed * 3.6).toStringAsFixed(1) : 'N/A'} كم/س
 📝 السبب: $reason
-⏰ الوقت: ${DateTime.now()}
 ''');
 
       _currentLat = lat;
@@ -245,17 +246,52 @@ class HomeCubit extends Cubit<HomeState> {
       _currentAccuracy = acc;
       _currentSpeed = speed;
       _inTrip = inTrip ?? false;
-      _currentSpeed = speed;
-      initialPosition.value = LatLng(_currentLat ?? 0.0, _currentLng ?? 0.0);
-      // إرسال الموقع إلى السيرفر
+
+      final newPosition = LatLng(lat, lng);
+      initialPosition.value = newPosition;
+
+      // =========================
+      // 📏 فلترة الحركة الصغيرة
+      // =========================
+      if (_lastLat != null && _lastLng != null) {
+        double distanceMoved = Geolocator.distanceBetween(_lastLat!, _lastLng!, lat, lng);
+
+        if (distanceMoved < 5) {
+          logger.d("🚫 تجاهل حركة أقل من 5 متر");
+          return;
+        }
+      }
+
+      _lastLat = lat;
+      _lastLng = lng;
+
+      // =========================
+      // 🎥 تحريك الكاميرا
+      // =========================
+      if (mapController != null && followUser.value) {
+        try {
+          await mapController!.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: newPosition, zoom: 15)));
+        } catch (e) {
+          logger.e("Camera error: $e");
+        }
+      }
+
+      // =========================
+      // 📡 إرسال الموقع للسيرفر
+      // =========================
       await sendLocation(lat.toString(), lng.toString());
-      // تتبع الرحلة الحالية
+
+      // =========================
+      // 🚗 تتبع الرحلة
+      // =========================
       if (currentTravel.value?.id != null) {
         await _trackingToPrivateChannel(currentTravel.value!.id!);
       }
     });
 
+    // =========================
     // 📊 مراقبة حالة الخدمة
+    // =========================
     _service.on('serviceStatus').listen((event) {
       logger.i('📊 حالة الخدمة: $event');
     });
