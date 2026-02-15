@@ -690,12 +690,10 @@ class HomeCubit extends Cubit<HomeState> {
   List<Map<String, dynamic>> _getAllTripLocations(int travelId) {
     final box = sl<Box>(instanceName: BoxKey.appBox);
     final key = 'trip.$travelId';
-
     final List<dynamic> data = box.get(key, defaultValue: []) as List<dynamic>;
-
-    log(data.toString());
-    // Ensure it is returned as List<Map<String, dynamic>>
-    return data.cast<Map<String, dynamic>>();
+    return data.map<Map<String, dynamic>>((item) {
+      return Map<String, dynamic>.from(item as Map);
+    }).toList();
   }
 
   Future<void> payRemaningTravel(String? totalsss) async {

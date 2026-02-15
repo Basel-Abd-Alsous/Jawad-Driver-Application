@@ -28,19 +28,30 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   }
 
   Future<bool> _requestLocationPermission() async {
-    var status = await Permission.locationWhenInUse.status;
+    try {
+      // 1️⃣ أولاً اطلب WhenInUse
+      var whenInUseStatus = await Permission.locationWhenInUse.status;
 
-    if (status.isGranted) {
-      return true;
-    } else if (status.isDenied) {
-      // Request permission
-      var result = await Permission.locationWhenInUse.request();
-      return result.isGranted;
-    } else if (status.isPermanentlyDenied) {
+      if (!whenInUseStatus.isGranted) {
+        whenInUseStatus = await Permission.locationWhenInUse.request();
+
+        if (!whenInUseStatus.isGranted) {
+          return false;
+        }
+      }
+
+      // 2️⃣ الآن اطلب Always
+      var alwaysStatus = await Permission.locationAlways.status;
+
+      if (!alwaysStatus.isGranted) {
+        alwaysStatus = await Permission.locationAlways.request();
+      }
+
+      return alwaysStatus.isGranted;
+    } catch (e) {
+      logger.e(e);
       return false;
     }
-
-    return false;
   }
 
   void _initializeVideo(_Started event, Emitter<SplashState> emit) async {
