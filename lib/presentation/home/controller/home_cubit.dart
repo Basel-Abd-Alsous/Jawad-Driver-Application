@@ -171,11 +171,12 @@ class HomeCubit extends Cubit<HomeState> {
           onStart: backgroundEntryPoint,
           autoStart: true,
           isForegroundMode: true,
+          foregroundServiceNotificationId: 888,
           notificationChannelId: "foreground_channel",
           initialNotificationTitle: 'Driver Service Active',
           initialNotificationContent: 'Running in background',
         ),
-        iosConfiguration: IosConfiguration(autoStart: false, onForeground: backgroundEntryPoint),
+        iosConfiguration: IosConfiguration(autoStart: true, onForeground: backgroundEntryPoint),
       );
       await _service.startService();
       running.value = true;

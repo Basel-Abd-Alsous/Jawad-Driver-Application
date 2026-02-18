@@ -91,11 +91,15 @@
             android:exported="false"/>
 
         <!-- ⚙️ Flutter Background Service Plugin -->
-        <service
+       <service
             android:name="id.flutter.flutter_background_service.BackgroundService"
-            android:exported="false"
-            android:foregroundServiceType="location|dataSync" 
+            android:exported="true"
+            android:foregroundServiceType="location|dataSync"
             tools:replace="android:exported"/>
+
+
+
+
         <!-- My Service -->
         <service
             android:name=".MyService"

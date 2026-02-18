@@ -26,6 +26,14 @@ class NotificationsController {
       "resource://drawable/app_icon",
       [
         NotificationChannel(
+          channelKey: 'foreground_channel',
+          channelName: 'foreground_channel',
+          channelDescription: 'foreground_channel',
+          defaultColor: const Color(0xFF9D50DD),
+          ledColor: Colors.white,
+          importance: NotificationImportance.High,
+        ),
+        NotificationChannel(
           channelGroupKey: NotificationChannelKey.basicChannel.groupKey,
           channelKey: NotificationChannelKey.basicChannel.key,
           channelName: NotificationChannelKey.basicChannel.name,
@@ -203,13 +211,7 @@ class NotificationsController {
   ///     NOTIFICATION CREATION METHODS
   ///  *********************************************
   ///
-  static Future<void> createNewNotification({
-    required String title,
-    required String body,
-    String? bigPicture,
-    NotificationChannelModel? channel,
-    required Map<String, String?> payload,
-  }) async {
+  static Future<void> createNewNotification({required String title, required String body, String? bigPicture, NotificationChannelModel? channel, required Map<String, String?> payload}) async {
     AwesomeNotifications().isNotificationAllowed().then((isAllowed) async {
       if (!isAllowed) {
         AwesomeNotifications().requestPermissionToSendNotifications();
@@ -247,20 +249,11 @@ class NotificationsController {
         channelKey: NotificationChannelKey.scheduleChannel.key,
         payload: payload,
       ),
-      schedule: NotificationCalendar
-      // .fromDate(
-      // date: date, allowWhileIdle: true, preciseAlarm: true));
-      (
-        year: date.year,
-        month: date.month,
-        day: date.day,
-        hour: date.hour,
-        minute: date.minute,
-        second: date.second,
-        allowWhileIdle: true,
-        preciseAlarm: true,
-        repeats: true,
-      ),
+      schedule:
+          NotificationCalendar
+          // .fromDate(
+          // date: date, allowWhileIdle: true, preciseAlarm: true));
+          (year: date.year, month: date.month, day: date.day, hour: date.hour, minute: date.minute, second: date.second, allowWhileIdle: true, preciseAlarm: true, repeats: true),
       actionButtons: [
         // NotificationActionButton(
         //   key: AppStrings.navigateToStore,

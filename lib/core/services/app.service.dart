@@ -13,8 +13,9 @@ class AppServices {
     await dotenv.load(fileName: ".env");
     Future.wait([ScreenUtil.ensureScreenSize()]);
 
-    await FcmHelper.initFcm();
+    // await FcmHelper.initFcm();
     await NotificationsController.initializeLocalNotifications();
     await NotificationsController.initializeIsolateReceivePort();
+    await NotificationsController.initializeNotificationsEventListeners();
   }
 }

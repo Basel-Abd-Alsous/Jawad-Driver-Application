@@ -16,18 +16,18 @@ class FcmHelper {
   /// this function will initialize firebase and fcm instance
   static Future<void> initFcm() async {
     try {
-      // initialize firebase
-      messaging = FirebaseMessaging.instance;
+      // // initialize firebase
+      // messaging = FirebaseMessaging.instance;
 
-      // notification settings handler
-      await _setupFcmNotificationSettings();
+      // // notification settings handler
+      // await _setupFcmNotificationSettings();
 
-      // generate token if it not already generated and store it on shared pref
-      await _generateFcmToken();
+      // // generate token if it not already generated and store it on shared pref
+      // await _generateFcmToken();
 
-      // background and foreground handlers
-      FirebaseMessaging.onMessage.listen(_fcmForegroundHandler);
-      FirebaseMessaging.onBackgroundMessage(_fcmBackgroundHandler);
+      // // background and foreground handlers
+      // FirebaseMessaging.onMessage.listen(_fcmForegroundHandler);
+      // FirebaseMessaging.onBackgroundMessage(_fcmBackgroundHandler);
     } catch (error) {
       logger.e(error);
     }

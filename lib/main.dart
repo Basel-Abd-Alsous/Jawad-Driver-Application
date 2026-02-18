@@ -37,28 +37,23 @@ void main() async {
   OneSignal.Notifications.requestPermission(true);
   initGetIt();
 
-  await FlutterBackgroundService().configure(
-    androidConfiguration: AndroidConfiguration(
-      onStart: backgroundEntryPoint,
-      autoStart: false,
-      isForegroundMode: true,
-      notificationChannelId: 'foreground_channel',
-      initialNotificationTitle: 'Driver Service Active',
-      initialNotificationContent: 'Running in background',
-    ),
-    iosConfiguration: IosConfiguration(autoStart: false, onForeground: backgroundEntryPoint),
-  );
-
   await sl<AppServices>().initAppServices();
   Bloc.observer = AppBlocObserver();
   runApp(const MyApp());
 }
 
 Future<void> _initBackgroundService() async {
-  final service = FlutterBackgroundService();
-  await service.configure(
-    androidConfiguration: AndroidConfiguration(onStart: backgroundEntryPoint, autoStart: false, isForegroundMode: true),
-    iosConfiguration: IosConfiguration(autoStart: false, onForeground: backgroundEntryPoint, onBackground: backgroundEntryPoint),
+  await FlutterBackgroundService().configure(
+    androidConfiguration: AndroidConfiguration(
+      onStart: backgroundEntryPoint,
+      autoStart: true,
+      isForegroundMode: true,
+      foregroundServiceNotificationId: 888,
+      notificationChannelId: 'foreground_channel',
+      initialNotificationTitle: 'Driver Service Active',
+      initialNotificationContent: 'Running in background',
+    ),
+    iosConfiguration: IosConfiguration(autoStart: false, onForeground: backgroundEntryPoint),
   );
 }
 
