@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 
 import '../../../core/constant/app_image.dart';
 import '../../../core/extension/space_extension.dart';
-import '../../../core/services/hive/box_key.dart';
 import '../../../core/utils/color.dart';
 import '../../../core/utils/text_style.dart';
 import '../../../core/widget/button/app_button.dart';
@@ -91,7 +89,6 @@ class WalletContainer extends StatelessWidget {
 
   void _selectPaymentMethods(BuildContext context) {
     final local = AppLocalizations.of(context)!;
-    String language = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language, defaultValue: 'ar') as String;
 
     showDialog(
       context: context,

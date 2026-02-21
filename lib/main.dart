@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -56,14 +55,22 @@ void main() {
 Future<void> _initBackgroundService() async {
   final service = FlutterBackgroundService();
   await service.configure(
-    iosConfiguration: IosConfiguration(autoStart: true, onForeground: backgroundEntryPoint),
-    androidConfiguration: AndroidConfiguration(onStart: backgroundEntryPoint, autoStart: false, isForegroundMode: false),
+    iosConfiguration: IosConfiguration(autoStart: false, onForeground: backgroundEntryPoint),
+    androidConfiguration: AndroidConfiguration(
+      onStart: backgroundEntryPoint,
+      autoStart: true,
+      isForegroundMode: false,
+      notificationChannelId: "foreground_channel",
+      foregroundServiceNotificationId: 888,
+      initialNotificationTitle: "Jawad Driver",
+      initialNotificationContent: "Foreground Service",
+      foregroundServiceTypes: [AndroidForegroundType.dataSync],
+    ),
   );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -76,7 +83,6 @@ class MyApp extends StatelessWidget {
         systemNavigationBarIconBrightness: Brightness.light,
       ),
     );
-
     return SafeArea(
       child: MultiBlocProvider(
         providers: [

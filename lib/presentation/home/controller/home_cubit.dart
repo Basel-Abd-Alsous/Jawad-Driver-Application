@@ -80,16 +80,13 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> initBackgroundService() async {
     final user = sl<Box<Driver>>().get(BoxKey.user);
+
     if (user?.workStatus == true) {
-      _service.startService();
-      bool? isRunner = await _service.isRunning();
-      running.value = true;
-      if (isRunner == false) {
-        _service.invoke("setAsForeground");
-        _service.invoke("setAsBackground");
-      }
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        await _service.startService();
+        running.value = true;
+      });
     } else {
-      _service.on('stopService');
       running.value = false;
     }
   }

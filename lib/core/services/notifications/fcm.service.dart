@@ -26,8 +26,8 @@ class FcmHelper {
       await _generateFcmToken();
 
       // background and foreground handlers
-      FirebaseMessaging.onMessage.listen(_fcmForegroundHandler);
-      FirebaseMessaging.onBackgroundMessage(_fcmBackgroundHandler);
+      // FirebaseMessaging.onMessage.listen(_fcmForegroundHandler);
+      // FirebaseMessaging.onBackgroundMessage(_fcmBackgroundHandler);
     } catch (error) {
       logger.e(error);
     }

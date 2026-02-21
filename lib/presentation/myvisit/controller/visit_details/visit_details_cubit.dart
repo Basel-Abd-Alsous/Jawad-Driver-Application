@@ -7,6 +7,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import '../../../../core/constant/api_link.dart';
@@ -268,6 +269,7 @@ class VisitDetailsCubit extends Cubit<VisitDetailsState> {
       },
       (r) async {
         SmartDialog.dismiss();
+        GlobalContext.context.pop();
         await getVisitDetails(id);
       },
     );
