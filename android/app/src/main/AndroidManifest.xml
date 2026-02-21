@@ -11,11 +11,11 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-
+    
     <!-- 🔔 Notifications -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.VIBRATE" />
-
+     
     <!-- 📷 Camera & Connectivity -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -42,8 +42,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBnC6rDUPV1uSnMl0GaH8hATztBK4YFwWk" />
-
-        
+         
         <!-- 🚀 Main Flutter Activity -->
         <activity
             android:name=".MainActivity"
@@ -77,34 +76,20 @@
             android:value="adb5232c-3da7-47cc-a498-a74fc9531137"/>
 
         <!-- 🛰️ Location Service (flutter_location) -->
-        <service
+        <!-- <service
             android:name="com.lyokone.location.FlutterLocationService"
             android:permission="android.permission.FOREGROUND_SERVICE"
             android:exported="false"
-            android:foregroundServiceType="location"/>
-
-        <!-- ⏱️ Foreground Task Plugin -->
-        <service
-            android:name="com.pravera.flutter_foreground_task.service.ForegroundService"
-            android:permission="android.permission.FOREGROUND_SERVICE"
-            android:foregroundServiceType="location"
-            android:exported="false"/>
+            android:foregroundServiceType="location"/> -->
 
         <!-- ⚙️ Flutter Background Service Plugin -->
        <service
             android:name="id.flutter.flutter_background_service.BackgroundService"
             android:exported="true"
             android:foregroundServiceType="location|dataSync"
-            tools:replace="android:exported"/>
-
-
-
-
-        <!-- My Service -->
-        <service
-            android:name=".MyService"
-            android:enabled="true"
-            android:exported="true"/>
+            tools:replace="android:exported">
+        </service>
+ 
 
     </application>
     

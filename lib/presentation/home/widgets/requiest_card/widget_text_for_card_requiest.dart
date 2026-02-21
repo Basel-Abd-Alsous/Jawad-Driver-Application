@@ -25,7 +25,7 @@ class WidgetTextForCardRequiest extends StatelessWidget {
         5.gap,
         Row(
           children: [
-            textValue(isAmount, isLoading == true ? const Row(children: [WidgetLoading(width: 100)]) : Text(value, style: AppTextStyle.style14, maxLines: 1, overflow: TextOverflow.ellipsis)),
+            textValue(isAmount, isLoading == true ? const Row(children: [WidgetLoading(width: 30)]) : Text(value, style: AppTextStyle.style14, maxLines: 1, overflow: TextOverflow.ellipsis)),
             if (isAmount == true) ...[10.gap, SvgPicture.asset(Assets.svgSar, width: 17, height: 17, color: isLoading == false ? null : AppColor.grey.withOpacity(0.4))],
           ],
         ),

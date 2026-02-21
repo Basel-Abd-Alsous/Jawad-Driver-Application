@@ -66,13 +66,7 @@ class HomeCubit extends Cubit<HomeState> {
     getUserLocation();
     Future.delayed(const Duration(seconds: 2), () async {
       await havePermissionMap();
-      await _checkRunning();
-      await initBackgroundLocationListener();
-      final user = sl<Box<Driver>>().get(BoxKey.user);
-      if (user?.workStatus == true && !running.value) {
-        logger.i('🚀 بدء الخدمة تلقائياً - السائق في وضع العمل');
-        await startBackgroundService();
-      }
+      initBackgroundService();
     });
   }
 
@@ -84,10 +78,29 @@ class HomeCubit extends Cubit<HomeState> {
   ValueNotifier<bool> running = ValueNotifier(false);
   final FlutterBackgroundService _service = FlutterBackgroundService();
 
-  Future<void> _checkRunning() async {
-    bool isRunning = await _service.isRunning();
-    running.value = isRunning;
+  Future<void> initBackgroundService() async {
+    final user = sl<Box<Driver>>().get(BoxKey.user);
+    if (user?.workStatus == true) {
+      _service.startService();
+      bool? isRunner = await _service.isRunning();
+      running.value = true;
+      if (isRunner == false) {
+        _service.invoke("setAsForeground");
+        _service.invoke("setAsBackground");
+      }
+    } else {
+      _service.on('stopService');
+      running.value = false;
+    }
   }
+
+  //  logger.i('🚀 بدء الخدمة تلقائياً - السائق في وضع العمل');
+  // await startBackgroundService();
+
+  // Future<void> _checkRunning() async {
+  //   bool isRunning = await _service.isRunning();
+  //   running.value = isRunning;
+  // }
 
   // ============================== Init Google Map Functions ============================== //
 
@@ -143,7 +156,7 @@ class HomeCubit extends Cubit<HomeState> {
 
       if (!isRunning) {
         logger.i('🔄 الخدمة متوقفة، جاري إعادة التشغيل...');
-        await startBackgroundService();
+        // await startBackgroundService();
         sendTestLocation();
       }
     } catch (e) {
@@ -164,27 +177,19 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   /// 🚀 بدء خدمة الخلفية
-  Future<void> startBackgroundService() async {
-    try {
-      await _service.configure(
-        androidConfiguration: AndroidConfiguration(
-          onStart: backgroundEntryPoint,
-          autoStart: true,
-          isForegroundMode: true,
-          foregroundServiceNotificationId: 888,
-          notificationChannelId: "foreground_channel",
-          initialNotificationTitle: 'Driver Service Active',
-          initialNotificationContent: 'Running in background',
-        ),
-        iosConfiguration: IosConfiguration(autoStart: true, onForeground: backgroundEntryPoint),
-      );
-      await _service.startService();
-      running.value = true;
-      logger.i('🎉 تم بدء خدمة الخلفية بنجاح');
-    } catch (e) {
-      logger.e('❌ فشل بدء خدمة الخلفية: $e');
-    }
-  }
+  // Future<void> startBackgroundService() async {
+  //   try {
+  //     await _service.configure(
+  //       androidConfiguration: AndroidConfiguration(onStart: backgroundEntryPoint, autoStart: true, isForegroundMode: true),
+  //       iosConfiguration: IosConfiguration(autoStart: true, onForeground: backgroundEntryPoint),
+  //     );
+  //     await _service.startService();
+  //     running.value = true;
+  //     logger.i('🎉 تم بدء خدمة الخلفية بنجاح');
+  //   } catch (e) {
+  //     logger.e('❌ فشل بدء خدمة الخلفية: $e');
+  //   }
+  // }
 
   /// 🛑 إيقاف خدمة الخلفية
   /// 🛑 إيقاف خدمة الخلفية (الصحيح)
@@ -352,7 +357,7 @@ class HomeCubit extends Cubit<HomeState> {
 
           if (user?.workStatus == true) {
             // ✅ تفعيل خدمة الخلفية عند بدء العمل
-            await startBackgroundService();
+            // await startBackgroundService();
             connect(context);
           } else {
             // ❌ إيقاف خدمة الخلفية عند إنهاء العمل
@@ -420,10 +425,19 @@ class HomeCubit extends Cubit<HomeState> {
           ),
         );
       },
-      (r) {
+      (r) async {
         currentTravel.value = r.data;
         if (currentTravel.value != null) {
-          travelStatus.value = _selectedTravelStatus(r.data?.status?.value ?? '');
+          if ((r.data?.status?.value ?? '') == TravelStatus.completed.name) {
+            travelStatus.value = TravelStatus.pending;
+            currentTravel.value = const TravelRequest();
+            GlobalContext.context.pop();
+            points.clear();
+            ammount.clear();
+            await getTravelRequist();
+          } else {
+            travelStatus.value = _selectedTravelStatus(r.data?.status?.value ?? '');
+          }
           _trackingToPrivateChannel(currentTravel.value?.id ?? 0);
         }
         if (travelStatus.value == TravelStatus.completed) {
@@ -444,6 +458,8 @@ class HomeCubit extends Cubit<HomeState> {
         return travelStatus.value = TravelStatus.arrived;
       case 'started':
         return travelStatus.value = TravelStatus.started;
+      case 'paymant':
+        return travelStatus.value = TravelStatus.completed;
       case 'completed':
         return travelStatus.value = TravelStatus.completed;
       case 'canceled':
@@ -638,9 +654,9 @@ class HomeCubit extends Cubit<HomeState> {
           // ❌ إيقاف وضع الرحلة بعد انتهاء الرحلة
           await toggleTripMode(false);
           currentTravel.value = r.data;
-          remainingAmount.value = r.data!.amount ?? "";
+          remainingAmount.value = r.data!.remainingAmount ?? "";
           if (remainingAmount.value != '' && remainingAmount.value != '0' && remainingAmount.value != '0.0') {
-            travelStatus.value = TravelStatus.completed;
+            travelStatus.value = TravelStatus.payment;
             ammount.text = remainingAmount.value;
             points.clear();
             SmartDialog.dismiss();

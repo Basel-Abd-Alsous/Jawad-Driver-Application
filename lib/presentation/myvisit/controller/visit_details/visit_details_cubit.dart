@@ -5,15 +5,22 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import '../../../../core/constant/api_link.dart';
+import '../../../../core/constant/app_image.dart';
 import '../../../../core/context/global.dart';
+import '../../../../core/extension/space_extension.dart';
 import '../../../../core/utils/color.dart';
 import '../../../../core/utils/text_style.dart';
+import '../../../../core/widget/button/app_button.dart';
+import '../../../../core/widget/widget_dailog.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../main.dart';
+import '../../../auth/pages/widgets/widget_auth_text_field.dart';
+import '../../../home/domain/usecase/home_usecase.dart';
 import '../../domain/model/travel_track_model.dart';
 import '../../domain/model/visit_details_model.dart';
 import '../../domain/usecase/visit_usecase.dart';
@@ -23,7 +30,9 @@ part 'visit_details_cubit.freezed.dart';
 
 class VisitDetailsCubit extends Cubit<VisitDetailsState> {
   final VisitUsecase visitUsecase;
-  VisitDetailsCubit({required this.visitUsecase}) : super(const VisitDetailsState.initial());
+  final HomeUsecase homeUsecase;
+
+  VisitDetailsCubit({required this.visitUsecase, required this.homeUsecase}) : super(const VisitDetailsState.initial());
 
   LatLng? start;
   LatLng? end;
@@ -238,6 +247,96 @@ class VisitDetailsCubit extends Cubit<VisitDetailsState> {
           ),
         );
       },
+    );
+  }
+
+  Future<void> payRemaningTravel(String total, int id) async {
+    SmartDialog.showLoading(msg: AppLocalizations.of(GlobalContext.context)!.loading);
+    final result = await homeUsecase.payTravelRequist(id, total);
+    result.fold(
+      (l) {
+        SmartDialog.dismiss();
+        SmartDialog.show(
+          builder: (context) => WidgetDilog(
+            isError: true,
+            title: AppLocalizations.of(GlobalContext.context)!.warning,
+            message: l.message,
+            cancelText: AppLocalizations.of(GlobalContext.context)!.back,
+            onCancel: () => SmartDialog.dismiss(),
+          ),
+        );
+      },
+      (r) async {
+        SmartDialog.dismiss();
+        await getVisitDetails(id);
+      },
+    );
+  }
+
+  void payAmmount(BuildContext context, int id, String remainingAmountPrice) {
+    final local = AppLocalizations.of(context)!;
+    TextEditingController amount = TextEditingController(text: remainingAmountPrice);
+
+    showModalBottomSheet(
+      isScrollControlled: true,
+      useSafeArea: true,
+      context: context,
+      builder: (context) => SafeArea(
+        child: Container(
+          padding: EdgeInsets.only(top: 15, left: 15, right: 15, bottom: MediaQuery.of(context).viewInsets.bottom + 10),
+          decoration: const BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+          ),
+          child: Form(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Center(child: Text(local.remainingamount, style: AppTextStyle.style16B)),
+                20.gap,
+                WidgetAuthTextField(
+                  controller: amount,
+                  hintText: local.remainingamount,
+                  hentTextStyle: AppTextStyle.style14.copyWith(color: AppColor.grey),
+                  textStyle: AppTextStyle.style16.copyWith(color: AppColor.black),
+                  suffixIcon: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [SizedBox(width: 25, height: 25, child: SvgPicture.asset(Assets.svgSar))],
+                  ),
+                  validator: (p0) {
+                    if (amount.text != null && amount.text != '') {
+                      return null;
+                    } else {
+                      if (p0?.isEmpty ?? true) {
+                        return local.requiredField;
+                      }
+                      return null;
+                    }
+                  },
+                ),
+                20.gap,
+                Row(
+                  children: [
+                    Expanded(
+                      child: AppButton.text(
+                        text: local.charge,
+                        onPressed: () async {
+                          await payRemaningTravel(amount.text, id);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

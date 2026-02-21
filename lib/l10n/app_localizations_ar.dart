@@ -48,6 +48,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get back => 'رجوع';
 
   @override
+  String get unpaidtrips => 'الرحلات الغير مدفوعة';
+
+  @override
   String get visa => 'بطاقة الائتمان';
 
   @override

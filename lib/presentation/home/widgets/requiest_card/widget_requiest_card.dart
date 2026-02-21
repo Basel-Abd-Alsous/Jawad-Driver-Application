@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sliding_action_button/sliding_action_button.dart';
 
 import '../../../../core/constant/app_image.dart';
 import '../../../../core/extension/space_extension.dart';
+import '../../../../core/router/router_key.dart';
 import '../../../../core/utils/color.dart';
 import '../../../../core/utils/text_style.dart';
 import '../../../../core/widget/button/app_button.dart';
@@ -68,6 +70,9 @@ class WidgetCardRequiest extends StatelessWidget {
             spacing: 10,
             children: [
               Expanded(
+                child: WidgetTextForCardRequiest(title: local.remainingamount, value: '${double.tryParse('${travilRequist.remainingAmount ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}', isAmount: true),
+              ),
+              Expanded(
                 child: WidgetTextForCardRequiest(title: local.riderdebtpaid, value: '${double.tryParse('${travilRequist.riderDebtPaid ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}', isAmount: true),
               ),
               Expanded(
@@ -77,7 +82,6 @@ class WidgetCardRequiest extends StatelessWidget {
                   isAmount: true,
                 ),
               ),
-              const Expanded(child: SizedBox()),
             ],
           ),
           15.gap,
@@ -155,10 +159,23 @@ class WidgetCardRequiest extends StatelessWidget {
                     flex: 2,
                     child: ValueListenableBuilder<String>(
                       valueListenable: context.read<HomeCubit>().remainingAmount,
-                      builder: (context, value, child) => AppButton.text(
-                        text: status == TravelStatus.completed ? '${local.remainingamount} $value' : _titleButtom(status, local),
-                        color: status == TravelStatus.completed ? AppColor.black : Colors.green,
-                        onPressed: () => _switchFunctionByStatus(context, status, value),
+                      builder: (context, value, child) => Row(
+                        spacing: 6,
+                        children: [
+                          Expanded(
+                            flex: 4,
+                            child: AppButton.text(
+                              text: status == TravelStatus.payment ? '${local.remainingamount} $value' : _titleButtom(status, local),
+                              color: status == TravelStatus.payment ? AppColor.black : Colors.green,
+                              onPressed: () => _switchFunctionByStatus(context, status, value),
+                            ),
+                          ),
+                          if (status == TravelStatus.payment)
+                            Expanded(
+                              flex: 2,
+                              child: AppButton.text(text: local.support, color: Colors.red, onPressed: () => context.push(AppRoutes.contactUs)),
+                            ),
+                        ],
                       ),
                     ),
                   ),
@@ -178,13 +195,13 @@ class WidgetCardRequiest extends StatelessWidget {
   String _titleButtom(TravelStatus travelStatus, AppLocalizations local) {
     switch (travelStatus) {
       case TravelStatus.pending:
-        return local.accept_request; // 'قبول الطلب'
+        return local.accept_request;
       case TravelStatus.assigned:
-        return local.go_to_client; // 'الذهاب للعميل'
+        return local.go_to_client;
       case TravelStatus.arrived:
-        return local.start_trip; // 'بدء الرحلة'
-      case TravelStatus.completed:
-        return local.remainingamount; // 'انهاء الرحلة'
+        return local.start_trip;
+      case TravelStatus.payment:
+        return local.remainingamount;
       default:
         return '';
     }
@@ -208,7 +225,7 @@ class WidgetCardRequiest extends StatelessWidget {
         return context.read<HomeCubit>().startTravel(travilRequist.id ?? 0, travilRequist.arriveLat ?? '', travilRequist.arriveLng ?? '');
       case TravelStatus.started:
         return context.read<HomeCubit>().endTravel();
-      case TravelStatus.completed:
+      case TravelStatus.payment:
         return _payAmmount(context, remainingAmountPrice, () => context.read<HomeCubit>().payRemaningTravel(remainingAmountPrice), context.read<HomeCubit>().key, context.read<HomeCubit>().ammount);
       default:
         return '';

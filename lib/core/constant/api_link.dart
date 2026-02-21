@@ -55,6 +55,7 @@ class ApiLinks {
   static String payTravel = dotenv.env['PAY_TRAVEL']!;
   static String rateTravel = dotenv.env['RATE_TRAVEL']!;
   static String completedTravels = dotenv.env['COMPLETED_TRAVEL']!;
+  static String unPaidTravels = dotenv.env['UNPAID_TRAVEL']!;
   static String canceledTravels = dotenv.env['CANCELED_TRAVEL']!;
   static String travelDetails = dotenv.env['TRAVEL_DETAIL']!;
   static String travelTrack = dotenv.env['TRAVEL_TRACK']!;

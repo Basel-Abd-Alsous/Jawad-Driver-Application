@@ -2,7 +2,10 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:io';
+import 'dart:ui';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_compass/flutter_compass.dart';
@@ -12,6 +15,7 @@ import 'package:logger/logger.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../../firebase_options.dart';
 import '../../../main.dart';
 
 /// 🎯 إعدادات ديناميكية
@@ -105,19 +109,15 @@ class _MovingAverage {
 
 /// 🎯 نقطة الدخول في الخلفية
 @pragma('vm:entry-point')
-Future<bool> backgroundEntryPoint(ServiceInstance service) async {
-  // ——— اجعل الخدمة foreground فوراً ———
-  if (service is AndroidServiceInstance) {
-    try {
-      // فوراً اجعل الخدمة foreground
-      service.invoke("serviceStarted");
-      logger.i("✅ Service set as foreground successfully");
-    } catch (e) {
-      logger.e("❌ Failed to set as foreground: $e");
-    }
-  }
-  await Future.delayed(const Duration(milliseconds: 500));
-
+Future<void> backgroundEntryPoint(ServiceInstance service) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  DartPluginRegistrant.ensureInitialized();
+  // VERY IMPORTANT: initialize Firebase again in this isolate
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  runZonedGuarded(() {}, (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+  });
   // 📊 المتغيرات الأساسية
   double? lastHeading;
   DateTime lastLocationSendTime = DateTime.now().subtract(const Duration(seconds: 60));
@@ -132,9 +132,14 @@ Future<bool> backgroundEntryPoint(ServiceInstance service) async {
   StreamSubscription<Position>? positionStreamSub;
   final List<StreamSubscription> subscriptions = [];
 
-  /// 🧹 إدارة الاشتراكات
-  void addSubscription(StreamSubscription sub) => subscriptions.add(sub);
-
+  if (service is AndroidServiceInstance) {
+    service.on('setAsForeground').listen((event) {
+      service.setAsForegroundService();
+    });
+    service.on('setAsBackground').listen((event) {
+      service.setAsBackgroundService();
+    });
+  }
   Future<void> cleanupSubscriptions() async {
     for (var sub in subscriptions) {
       try {
@@ -145,6 +150,15 @@ Future<bool> backgroundEntryPoint(ServiceInstance service) async {
     }
     subscriptions.clear();
   }
+
+  service.on('stopService').listen((event) async {
+    await cleanupSubscriptions();
+    TripStatistics.logStatistics();
+    await service.stopSelf();
+  });
+
+  /// 🧹 إدارة الاشتراكات
+  void addSubscription(StreamSubscription sub) => subscriptions.add(sub);
 
   /// 📍 إرسال ذكي للموقع - معدل
   Future<void> safePrintCurrentLocation(String reason) async {
@@ -306,18 +320,6 @@ Future<bool> backgroundEntryPoint(ServiceInstance service) async {
 
   service.on('getStatistics').listen((event) => TripStatistics.logStatistics());
 
-  service.on('setAsForeground').listen((event) {
-    if (service is AndroidServiceInstance) {
-      (service as AndroidServiceInstance).setAsForegroundService();
-    }
-  });
-
-  service.on('stopService').listen((event) async {
-    await cleanupSubscriptions();
-    TripStatistics.logStatistics();
-    await service.stopSelf();
-  });
-
   // 🚀 بدء الخدمة
   startPositionStream();
   updateSensorSubscriptions();
@@ -354,8 +356,6 @@ Future<bool> backgroundEntryPoint(ServiceInstance service) async {
       logger.i('❌ خطأ في المؤقت الدوري: $e');
     }
   });
-
-  return true;
 }
 
 /// 📌 كلاس كشف الدوران (يمين / يسار / U-turn)

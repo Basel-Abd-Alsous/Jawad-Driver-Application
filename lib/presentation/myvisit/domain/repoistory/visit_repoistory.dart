@@ -15,6 +15,7 @@ import '../model/visit_details_model.dart';
 import '../model/visit_model.dart';
 
 abstract class VisitRepoistory {
+  Future<Either<Failure, Result<VisitModel>>> getUnPaidVisit(int page);
   Future<Either<Failure, Result<VisitModel>>> getAllPreviousVisit(int page);
   Future<Either<Failure, Result<VisitModel>>> getAllCancelVisit(int page);
   Future<Either<Failure, Result<VisitDetailsModel>>> getVisitDetails(int id);
@@ -23,6 +24,23 @@ abstract class VisitRepoistory {
 }
 
 class VisitRepoistoryImpl implements VisitRepoistory {
+  @override
+  Future<Either<Failure, Result<VisitModel>>> getUnPaidVisit(int page) async {
+    try {
+      String? token = 'Bearer ${await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token)}';
+      final ApiClient client = ApiClient(DioHelper().dio);
+      final savedLang = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language, defaultValue: 'ar') as String;
+      final result = await client.getRequest(endpoint: '${ApiLinks.unPaidTravels}$page', language: savedLang, authorization: token);
+      if (result.response.data['code'] != 200) return Left(ServerFailure.fromResponse(result.response.data['code'], message: result.response.data['message']));
+      VisitModel visitModel = VisitModel.fromJson(result.response.data);
+      return Right(Result.success(visitModel));
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
   @override
   Future<Either<Failure, Result<VisitModel>>> getAllPreviousVisit(int page) async {
     try {

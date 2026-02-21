@@ -6,8 +6,8 @@ import '../../../core/utils/text_style.dart';
 import '../../../injection_container.dart';
 import '../../../l10n/app_localizations.dart';
 import '../controller/visit/visit_cubit.dart';
-import 'container_cancel_visits.dart';
-import 'container_previous_visit.dart';
+import 'containers/container_cancel_visits.dart';
+import 'containers/container_previous_visit.dart';
 
 class MyVisitScreen extends StatelessWidget {
   const MyVisitScreen({super.key});

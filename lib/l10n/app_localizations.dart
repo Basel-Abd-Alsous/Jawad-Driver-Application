@@ -173,6 +173,12 @@ abstract class AppLocalizations {
   /// **'Back'**
   String get back;
 
+  /// No description provided for @unpaidtrips.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpaid Trips'**
+  String get unpaidtrips;
+
   /// No description provided for @visa.
   ///
   /// In en, this message translates to:

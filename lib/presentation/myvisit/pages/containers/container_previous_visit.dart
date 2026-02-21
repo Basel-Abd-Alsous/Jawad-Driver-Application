@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/constant/app_image.dart';
-import '../../../core/extension/space_extension.dart';
-import '../../../core/utils/text_style.dart';
-import '../../../core/widget/empty_screen.dart';
-import '../../../core/widget/loading/loading_visits.dart';
-import '../../../injection_container.dart';
-import '../../../l10n/app_localizations.dart';
-import '../controller/visit/visit_cubit.dart';
-import '../widget/last_visit_card.dart';
+import '../../../../core/constant/app_image.dart';
+import '../../../../core/extension/space_extension.dart';
+import '../../../../core/utils/text_style.dart';
+import '../../../../core/widget/empty_screen.dart';
+import '../../../../core/widget/loading/loading_visits.dart';
+import '../../../../injection_container.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../controller/visit/visit_cubit.dart';
+import '../../widget/last_visit_card.dart';
 
 class ContainerPreviousVisit extends StatelessWidget {
   const ContainerPreviousVisit({super.key});
@@ -29,6 +29,8 @@ class ContainerPreviousVisit extends StatelessWidget {
                 return Empty(title: local.previous_trips, desc: local.previous_trips, imageName: Assets.svgNotifictaion);
               } else {
                 return Column(
+                  mainAxisAlignment: .start,
+                  crossAxisAlignment: .start,
                   children: [
                     Expanded(
                       child: ListView.separated(

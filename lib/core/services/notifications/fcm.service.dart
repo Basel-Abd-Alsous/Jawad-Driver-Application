@@ -16,18 +16,18 @@ class FcmHelper {
   /// this function will initialize firebase and fcm instance
   static Future<void> initFcm() async {
     try {
-      // // initialize firebase
-      // messaging = FirebaseMessaging.instance;
+      // initialize firebase
+      messaging = FirebaseMessaging.instance;
 
-      // // notification settings handler
-      // await _setupFcmNotificationSettings();
+      // notification settings handler
+      await _setupFcmNotificationSettings();
 
-      // // generate token if it not already generated and store it on shared pref
-      // await _generateFcmToken();
+      // generate token if it not already generated and store it on shared pref
+      await _generateFcmToken();
 
-      // // background and foreground handlers
-      // FirebaseMessaging.onMessage.listen(_fcmForegroundHandler);
-      // FirebaseMessaging.onBackgroundMessage(_fcmBackgroundHandler);
+      // background and foreground handlers
+      FirebaseMessaging.onMessage.listen(_fcmForegroundHandler);
+      FirebaseMessaging.onBackgroundMessage(_fcmBackgroundHandler);
     } catch (error) {
       logger.e(error);
     }
@@ -36,19 +36,10 @@ class FcmHelper {
   ///handle fcm notification settings (sound,badge..etc)
   static Future<void> _setupFcmNotificationSettings() async {
     //show notification with sound and badge
-    messaging.setForegroundNotificationPresentationOptions(
-      alert: true,
-      sound: true,
-      badge: true,
-    );
+    messaging.setForegroundNotificationPresentationOptions(alert: true, sound: true, badge: true);
 
     //NotificationSettings settings
-    await messaging.requestPermission(
-      alert: true,
-      badge: true,
-      sound: true,
-      provisional: true,
-    );
+    await messaging.requestPermission(alert: true, badge: true, sound: true, provisional: true);
   }
 
   /// generate and save fcm token if its not already generated (generate only for 1 time)
@@ -59,7 +50,6 @@ class FcmHelper {
         sl<AppServices>().appBox.put(BoxKey.firebaseToken, token);
         _sendFcmTokenToServer();
       } else {
-        // retry generating token
         await Future.delayed(const Duration(seconds: 5));
         _generateFcmToken();
       }
@@ -83,12 +73,7 @@ class FcmHelper {
 
   static void _handleNotification(RemoteMessage message) {
     if (message.notification != null) {
-      NotificationsController.createNewNotification(
-        title: message.notification!.title!,
-        body: message.notification!.body!,
-        bigPicture: '',
-        payload: message.data.cast<String, String>(),
-      );
+      NotificationsController.createNewNotification(title: message.notification!.title!, body: message.notification!.body!, bigPicture: '', payload: message.data.cast<String, String>());
     }
   }
 }

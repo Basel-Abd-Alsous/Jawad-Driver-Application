@@ -58,7 +58,7 @@ class OnboardingLanguages extends StatelessWidget {
                         const SizedBox(width: 10),
                         Expanded(
                           child: AppButton.icon(
-                            text: local.english,
+                            text: 'English',
                             fontColor: AppColor.black,
                             color: AppColor.white,
                             borderRadius: 10000,

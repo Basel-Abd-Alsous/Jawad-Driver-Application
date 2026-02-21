@@ -26,14 +26,6 @@ class NotificationsController {
       "resource://drawable/app_icon",
       [
         NotificationChannel(
-          channelKey: 'foreground_channel',
-          channelName: 'foreground_channel',
-          channelDescription: 'foreground_channel',
-          defaultColor: const Color(0xFF9D50DD),
-          ledColor: Colors.white,
-          importance: NotificationImportance.High,
-        ),
-        NotificationChannel(
           channelGroupKey: NotificationChannelKey.basicChannel.groupKey,
           channelKey: NotificationChannelKey.basicChannel.key,
           channelName: NotificationChannelKey.basicChannel.name,

@@ -111,7 +111,6 @@ class WalletContainer extends StatelessWidget {
                 ),
                 title: Text(local.visa, style: AppTextStyle.style14B),
                 leading: SvgPicture.asset(Assets.svgVisa, width: 35, height: 35),
-                trailing: Icon(language == 'ar' ? Icons.arrow_forward : Icons.arrow_back),
                 onTap: () {
                   Navigator.of(context).pop();
                   _chargerWallet(context);
@@ -125,8 +124,7 @@ class WalletContainer extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   side: BorderSide(color: AppColor.grey.withOpacity(0.2)),
                 ),
-                title: Text(local.mobile, style: AppTextStyle.style14B),
-                trailing: Icon(language == 'ar' ? Icons.arrow_forward : Icons.arrow_back),
+                title: Text('URPay', style: AppTextStyle.style14B),
                 leading: const Icon(Icons.phone, color: AppColor.black),
                 onTap: () {
                   Navigator.of(context).pop();

@@ -21,9 +21,7 @@ class WidgetAppbar {
       centerTitle: true,
       title: Image(image: const AssetImage(Assets.imagesJawadWhite), width: 0.15.sh),
       leading: InkWell(
-        onTap: () {
-          key.currentState?.openDrawer();
-        },
+        onTap: () => key.currentState?.openDrawer(),
         child: ValueListenableBuilder(
           valueListenable: sl<Box<Driver>>().listenable(),
           builder: (context, value, child) {

@@ -49,6 +49,8 @@ Future<void> initGetIt() async {
   //======================== Dio ===============================================
   sl.registerLazySingleton(() => sl<HiveServices>().init());
   sl.registerSingleton<AppServices>(AppServices());
+  // * ======================== Notifications  ========================================
+
   //======================== Hive Boxes ========================================
   AndroidOptions getAndroidOptions() => const AndroidOptions(encryptedSharedPreferences: true);
   sl.registerSingleton<FlutterSecureStorage>(FlutterSecureStorage(aOptions: getAndroidOptions()));
@@ -63,7 +65,7 @@ Future<void> initGetIt() async {
   sl.registerFactory(() => WalletCubit(walletUsecase: sl(), homeUsecase: sl()));
   sl.registerFactory(() => NotificationCubit(notificationsUsecase: sl()));
   sl.registerFactory(() => VisitCubit(visitUsecase: sl()));
-  sl.registerFactory(() => VisitDetailsCubit(visitUsecase: sl()));
+  sl.registerFactory(() => VisitDetailsCubit(visitUsecase: sl(), homeUsecase: sl()));
   sl.registerFactory(() => ProfileCubit(profileUsecase: sl()));
   sl.registerFactory(() => ChatCubit(chatUsecase: sl(), homeUsecase: sl()));
   sl.registerFactory(() => DrawerCubit(usecase: sl()));

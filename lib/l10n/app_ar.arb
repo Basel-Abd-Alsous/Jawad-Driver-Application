@@ -16,7 +16,8 @@
   "whatsapp": "واتساب",
   "instagram": "انستغرام",
   "twitter": "تويتر",
-  "back": "رجوع",
+   "back": "رجوع",  "unpaidtrips":"الرحلات الغير مدفوعة",
+
   "destinationnotspecified":"لم يتم تحديد وجهة",
   "sharing":"مشاركة",
   "riderdebtpaid":"سداد ديون الراكب",

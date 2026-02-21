@@ -12,6 +12,7 @@ class VisitUsecase {
   VisitUsecase({required this.visitRepository});
 
   Future<Either<Failure, Result<VisitModel>>> getAllPreviousVisit(int page) async => await visitRepository.getAllPreviousVisit(page);
+  Future<Either<Failure, Result<VisitModel>>> getUnPaidVisit(int page) async => await visitRepository.getUnPaidVisit(page);
   Future<Either<Failure, Result<VisitModel>>> getAllCancelVisit(int page) async => await visitRepository.getAllCancelVisit(page);
   Future<Either<Failure, Result<VisitDetailsModel>>> getVisitDetails(int id) async => await visitRepository.getVisitDetails(id);
   Future<Either<Failure, Result<TravelTrackModel>>> getTravelTrack(int id) async => await visitRepository.getTravelTrack(id);

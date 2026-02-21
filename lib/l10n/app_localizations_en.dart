@@ -48,6 +48,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get back => 'Back';
 
   @override
+  String get unpaidtrips => 'Unpaid Trips';
+
+  @override
   String get visa => 'Visa';
 
   @override

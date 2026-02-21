@@ -12,6 +12,7 @@ part 'visit_cubit.freezed.dart';
 
 class VisitCubit extends Cubit<VisitState> {
   final VisitUsecase visitUsecase;
+
   VisitCubit({required this.visitUsecase}) : super(const VisitState.initial());
 
   int pageIndex = 1;
@@ -19,7 +20,40 @@ class VisitCubit extends Cubit<VisitState> {
   ScrollController scrollController = ScrollController();
   ScrollController scrollControllerCanceled = ScrollController();
 
-  // Function To Get All Completed Visit
+  Future<void> getAllUnPaidVisit({bool? loadMore}) async {
+    try {
+      if (loadMore != true) {
+        emit(const _LoadingPreviousVisit());
+        final result = await visitUsecase.getUnPaidVisit(pageIndex);
+        result.fold((failure) => emit(_ErrorPreviousVisit(failure.message)), (success) {
+          _changeIndexPage();
+          emit(_LoadedPreviousVisit(data: success.data!));
+        });
+      } else {
+        final currentState = state;
+
+        if (currentState is _LoadedPreviousVisit) {
+          if ((currentState.data.payload?.pagination?.lastPage ?? 0) >= pageIndex) {
+            emit(_LoadedPreviousVisit(data: currentState.data, hasMore: true));
+            final result = await visitUsecase.getUnPaidVisit(pageIndex);
+            result.fold((failure) => emit(_ErrorPreviousVisit(failure.message)), (success) {
+              _changeIndexPage();
+              List<Travel>? currentCompletedVisits = List.from(currentState.data.payload?.travels ?? []);
+              final newCompletedVisits = success.data?.payload?.travels ?? [];
+              currentCompletedVisits.addAll(newCompletedVisits);
+              final updatedPayload = currentState.data.payload!.copyWith(travels: currentCompletedVisits);
+              final updatedData = currentState.data.copyWith(payload: updatedPayload);
+              emit(_LoadedPreviousVisit(data: updatedData));
+            });
+          }
+        }
+      }
+    } catch (e) {
+      emit(_ErrorPreviousVisit('Server Error In CompletedVisit Section : $e'));
+      log('Server Error In CompletedVisit Section : $e');
+    }
+  }
+
   Future<void> getAllCompletedVisit({bool? loadMore}) async {
     try {
       if (loadMore != true) {
@@ -69,7 +103,6 @@ class VisitCubit extends Cubit<VisitState> {
     });
   }
 
-  // Function To Get All Canceled Visit
   Future<void> getAllCanceledVisit({bool? loadMore}) async {
     try {
       if (loadMore != true) {

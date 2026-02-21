@@ -1,1 +1,1 @@
-enum TravelStatus { pending, assigned, arrived, started, completed, canceled }
+enum TravelStatus { pending, assigned, arrived, started,payment, completed, canceled }

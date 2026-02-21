@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 
 import '../../../core/constant/app_image.dart';
+import '../../../core/router/router_key.dart';
 import '../../../core/services/hive/box_key.dart';
 import '../../../core/extension/space_extension.dart';
 import '../../../core/utils/color.dart';
@@ -37,7 +39,25 @@ class ContainerTravelRequiest extends StatelessWidget {
                     valueListenable: context.read<HomeCubit>().travelStatus,
                     builder: (context, status, child) => WidgetBottomSheet(
                       children: [
-                        Text(local.new_request_received, style: AppTextStyle.style20B.copyWith(color: AppColor.black)),
+                        Row(
+                          mainAxisAlignment: .spaceBetween,
+                          crossAxisAlignment: .center,
+                          children: [
+                            Text(local.new_request_received, style: AppTextStyle.style18B.copyWith(color: AppColor.black)),
+                            InkWell(
+                              onTap: () => context.push(AppRoutes.unPaidVisit),
+                              child: Container(
+                                padding: const .symmetric(horizontal: 10, vertical: 5),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: AppColor.grey.withOpacity(0.4), width: 1),
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: AppColor.secondColor,
+                                ),
+                                child: Text(local.unpaidtrips, style: AppTextStyle.style14B.copyWith(color: AppColor.white)),
+                              ),
+                            ),
+                          ],
+                        ),
                         10.gap,
                         ValueListenableBuilder<TravelRequest?>(
                           valueListenable: context.read<HomeCubit>().currentTravel,
@@ -52,7 +72,7 @@ class ContainerTravelRequiest extends StatelessWidget {
                                       40.gap,
                                       SizedBox(height: 60, width: 60, child: SvgPicture.asset(Assets.svgVisit)),
                                       10.gap,
-                                      Text(local.no_requests, style: AppTextStyle.style16B.copyWith(color: AppColor.grey)),
+                                      Text(local.no_requests, style: AppTextStyle.style14B.copyWith(color: AppColor.grey)),
                                     ],
                                   ),
                                 );

@@ -6,8 +6,8 @@ import '../../../core/widget/widget_appbar.dart';
 import '../../../injection_container.dart';
 import '../../../l10n/app_localizations.dart';
 import '../controller/visit_details/visit_details_cubit.dart';
-import 'container_app_bar_details.dart';
-import 'container_visit_details.dart';
+import 'containers/container_app_bar_details.dart';
+import 'containers/container_visit_details.dart';
 
 class VisitDetailsScreen extends StatelessWidget {
   final String? visitId;

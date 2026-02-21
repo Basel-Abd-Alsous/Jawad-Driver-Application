@@ -4,14 +4,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../core/constant/app_image.dart';
-import '../../../core/extension/space_extension.dart';
-import '../../../core/function/show_snackbar.dart';
-import '../../../core/utils/color.dart';
-import '../../../core/utils/text_style.dart';
-import '../../../core/widget/loading/widget_loading.dart';
-import '../controller/visit_details/visit_details_cubit.dart';
-import '../domain/model/visit_details_model.dart';
+import '../../../../core/constant/app_image.dart';
+import '../../../../core/extension/space_extension.dart';
+import '../../../../core/function/show_snackbar.dart';
+import '../../../../core/utils/color.dart';
+import '../../../../core/utils/text_style.dart';
+import '../../../../core/widget/loading/widget_loading.dart';
+import '../../controller/visit_details/visit_details_cubit.dart';
+import '../../domain/model/visit_details_model.dart';
 
 class ContainerMapVisitDetails extends StatelessWidget {
   final VisitDetailsModel? data;

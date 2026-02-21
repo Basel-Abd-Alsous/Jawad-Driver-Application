@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../presentation/myvisit/pages/container_app_bar_details.dart';
-import '../../../presentation/myvisit/pages/container_visit_details.dart';
+import '../../../presentation/myvisit/pages/containers/container_app_bar_details.dart';
+import '../../../presentation/myvisit/pages/containers/container_visit_details.dart';
 
 class LoadingVisitDetails extends StatelessWidget {
   const LoadingVisitDetails({super.key});

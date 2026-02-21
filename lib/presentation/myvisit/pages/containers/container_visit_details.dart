@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/extension/space_extension.dart';
-import '../../../core/utils/color.dart';
-import '../../../core/widget/button/app_button.dart';
-import '../../../l10n/app_localizations.dart';
-import '../../home/domain/model/travel_requist_model.dart';
-import '../../home/widgets/requiest_card/widget_header_card_requiest.dart';
-import '../../home/widgets/requiest_card/widget_text_for_card_requiest.dart';
-import '../controller/visit_details/visit_details_cubit.dart';
-import '../domain/model/visit_details_model.dart';
+import '../../../../core/extension/space_extension.dart';
+import '../../../../core/utils/color.dart';
+import '../../../../core/widget/button/app_button.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../home/domain/model/travel_requist_model.dart';
+import '../../../home/widgets/requiest_card/widget_header_card_requiest.dart';
+import '../../../home/widgets/requiest_card/widget_text_for_card_requiest.dart';
+import '../../controller/visit_details/visit_details_cubit.dart';
+import '../../domain/model/visit_details_model.dart';
 
 class ContainerVisitDetails extends StatelessWidget {
   final VisitDetailsModel? date;
@@ -73,25 +73,51 @@ class ContainerVisitDetails extends StatelessWidget {
             spacing: 10,
             children: [
               Expanded(
-                child: WidgetTextForCardRequiest(title: local.riderdebtpaid, value: '${double.tryParse('${date?.payload?.riderDebtPaid ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}', isAmount: true),
+                child: WidgetTextForCardRequiest(
+                  title: local.remainingamount,
+                  value: '${double.tryParse('${date?.payload?.remainingAmount ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}',
+                  isAmount: true,
+                  isLoading: isLoading,
+                ),
+              ),
+              Expanded(
+                child: WidgetTextForCardRequiest(
+                  title: local.riderdebtpaid,
+                  isAmount: true,
+                  value: '${double.tryParse('${date?.payload?.riderDebtPaid ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}',
+                  isLoading: isLoading,
+                ),
               ),
               Expanded(
                 child: WidgetTextForCardRequiest(
                   title: local.chargeclientwallet,
                   value: '${double.tryParse('${date?.payload?.chargeClientWallet ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}',
                   isAmount: true,
+                  isLoading: isLoading,
                 ),
               ),
-              const Expanded(child: SizedBox()),
             ],
           ),
+
           40.gap,
-          if (date?.payload?.yourRate == null || date?.payload?.yourRate == "")
-            Row(
-              children: [
+
+          Row(
+            spacing: 10,
+            children: [
+              if (date?.payload?.remainingAmount != null && int.tryParse(date?.payload?.remainingAmount ?? '0') != 0)
                 Expanded(
                   child: AppButton.icon(
-                    leadingIconAssetName: const Icon(Icons.star, color: AppColor.white),
+                    text: local.charge,
+                    color: AppColor.primaryColor,
+                    onPressed: () {
+                      context.read<VisitDetailsCubit>().payAmmount(context, date?.payload?.id ?? 0, date?.payload?.remainingAmount ?? '');
+                    },
+                  ),
+                ),
+              if (date?.payload?.yourRate == null || date?.payload?.yourRate == "")
+                Expanded(
+                  child: AppButton.icon(
+                    leadingIconAssetName: const Icon(Icons.star, color: AppColor.white, size: 20),
                     text: local.addRating,
                     color: AppColor.secondColor,
                     onPressed: () {
@@ -99,8 +125,8 @@ class ContainerVisitDetails extends StatelessWidget {
                     },
                   ),
                 ),
-              ],
-            ),
+            ],
+          ),
         ],
       ),
     );

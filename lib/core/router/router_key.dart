@@ -23,6 +23,5 @@ abstract class AppRoutes {
   static const content = "/content";
   static const complaint = "/complaint";
   static const contactUs = "/contactUs";
- 
- 
+  static const unPaidVisit = "/unPaidVisit";
 }
