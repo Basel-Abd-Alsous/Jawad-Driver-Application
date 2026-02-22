@@ -90,7 +90,7 @@ class WidgetDrawer extends StatelessWidget {
             ),
 
             WidgetDrawerList(
-              title: local.termsConditions,
+              title: local.privacyPolicy,
               icon: SvgPicture.asset(Assets.svgPrivacy, width: 24, color: AppColor.secondColor),
               onTap: () => context.push('${AppRoutes.content}?isTerms=false'),
             ),

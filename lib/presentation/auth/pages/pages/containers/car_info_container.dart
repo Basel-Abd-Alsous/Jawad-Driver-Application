@@ -40,8 +40,8 @@ class CarInfoContainer extends StatelessWidget with FormValidationMixin {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Sequence Number', style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
-                WidgetAuthTextField(hintText: 'Sequence Number', controller: context.read<RegisterCubit>().sequenceNumber, validator: (value) => validateNull(context, value)),
+                Text(local.sequenceNumber, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
+                WidgetAuthTextField(hintText: local.sequenceNumber, controller: context.read<RegisterCubit>().sequenceNumber, validator: (value) => validateNull(context, value)),
 
                 5.gap,
                 Row(

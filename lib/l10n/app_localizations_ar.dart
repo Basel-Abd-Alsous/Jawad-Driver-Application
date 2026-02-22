@@ -54,6 +54,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get visa => 'بطاقة الائتمان';
 
   @override
+  String get sequenceNumber => 'رقم التسلسل';
+
+  @override
+  String get discount => 'الخصم';
+
+  @override
   String get destinationnotspecified => 'لم يتم تحديد وجهة';
 
   @override
@@ -61,6 +67,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get chargeclientwallet => 'شحن محفظة العميل';
+
+  @override
+  String get skipPayment => 'تخطي الدفع';
 
   @override
   String get paymentMethod => 'طريقة الدفع';

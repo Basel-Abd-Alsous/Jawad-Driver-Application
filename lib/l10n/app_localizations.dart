@@ -185,6 +185,18 @@ abstract class AppLocalizations {
   /// **'Visa'**
   String get visa;
 
+  /// No description provided for @sequenceNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Sequence Number'**
+  String get sequenceNumber;
+
+  /// No description provided for @discount.
+  ///
+  /// In en, this message translates to:
+  /// **'Discount'**
+  String get discount;
+
   /// No description provided for @destinationnotspecified.
   ///
   /// In en, this message translates to:
@@ -202,6 +214,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Charge Client Wallet'**
   String get chargeclientwallet;
+
+  /// No description provided for @skipPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip Payment'**
+  String get skipPayment;
 
   /// No description provided for @paymentMethod.
   ///

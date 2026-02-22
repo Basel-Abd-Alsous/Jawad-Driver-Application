@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_ce/hive_ce.dart';
 import 'package:pinput/pinput.dart';
 
+import '../../../../../core/context/global.dart';
 import '../../../../../core/router/router_key.dart';
 import '../../../../../core/extension/space_extension.dart';
 import '../../../../../core/mixin/validate.mixin.dart';
@@ -201,7 +202,7 @@ class VerifyContainer extends StatelessWidget with FormValidationMixin {
             cancelText: local.continues,
             onCancel: () {
               SmartDialog.dismiss();
-              context.replaceNamed(AppRoutes.uploadDocument);
+              GlobalContext.context.replace(AppRoutes.uploadDocument);
             },
           ),
         );

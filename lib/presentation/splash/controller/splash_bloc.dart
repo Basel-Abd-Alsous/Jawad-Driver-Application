@@ -16,60 +16,71 @@ part 'splash_bloc.freezed.dart';
 
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
   SplashBloc() : super(const _Initial()) {
-    on<_Started>((_initializeVideo));
+    on<_Started>(_initializeVideo);
   }
 
+  /// 🛰️ طلب صلاحية الموقع دائمًا
   Future<void> _havePermissionMap() async {
-    bool? havePermission = await _requestLocationPermission();
-    if (havePermission == true) {
+    await Future.delayed(const Duration(milliseconds: 500)); // لتجنب مشاكل iOS
+    bool granted = await _requestLocationPermission();
+    if (!granted) {
+      logger.i('❌ صلاحية الموقع مرفوضة، يمكن توجيه المستخدم للإعدادات');
+      openAppSettings(); // توجيه المستخدم لإعادة منح الصلاحية
     } else {
-      await _requestLocationPermission();
+      logger.i('✔️ صلاحية الموقع Always مفعّلة');
     }
   }
 
+  /// 🛰️ التحقق وطلب الصلاحيات
   Future<bool> _requestLocationPermission() async {
     try {
-      // 1️⃣ أولاً اطلب WhenInUse
+      // 1️⃣ اطلب WhenInUse أولاً
       var whenInUseStatus = await Permission.locationWhenInUse.status;
-
       if (!whenInUseStatus.isGranted) {
         whenInUseStatus = await Permission.locationWhenInUse.request();
-
         if (!whenInUseStatus.isGranted) {
+          logger.i('❌ صلاحية Location WhenInUse مرفوضة');
           return false;
         }
       }
 
-      // 2️⃣ الآن اطلب Always
+      // 2️⃣ اطلب Always
       var alwaysStatus = await Permission.locationAlways.status;
-
       if (!alwaysStatus.isGranted) {
         alwaysStatus = await Permission.locationAlways.request();
       }
 
-      return alwaysStatus.isGranted;
+      return await Permission.locationAlways.isGranted;
     } catch (e) {
-      logger.e(e);
+      logger.e('خطأ أثناء طلب صلاحية الموقع: $e');
       return false;
     }
   }
 
+  /// 🎬 تهيئة الفيديو في Splash
   void _initializeVideo(_Started event, Emitter<SplashState> emit) async {
+    VideoPlayerController? controller;
     try {
       emit(const _Loading());
-      final controller = VideoPlayerController.asset(Assets.videoLogo);
+
+      controller = VideoPlayerController.asset(Assets.videoLogo);
       await controller.initialize();
       controller.play();
       emit(_Player(controller));
+
+      // طلب صلاحية الموقع
       await _havePermissionMap();
-      await Future.delayed(const Duration(seconds: 3), () async {
-        emit(_Finish(await route));
-      });
-    } catch (e) {
+
+      // الانتقال للصفحة التالية بعد 3 ثواني
+      await Future.delayed(const Duration(seconds: 3));
+      emit(_Finish(await route));
+    } catch (e, st) {
+      logger.e('خطأ أثناء Splash: $e \n$st');
       emit(_Finish(await route));
     }
   }
 
+  /// 🔀 تحديد الصفحة التالية بناءً على حالة المستخدم
   Future<String> get route async {
     try {
       final bool isFirstTime = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.isFirstTime, defaultValue: true);

@@ -14,10 +14,12 @@
   "enterIdNumber": "رقم الهوية",
   "paymentMethod":"طريقة الدفع",  "birth": "تاريخ ميلادك",
   "whatsapp": "واتساب",
+  "sequenceNumber":"رقم التسلسل",
   "instagram": "انستغرام",
   "twitter": "تويتر",
    "back": "رجوع",  "unpaidtrips":"الرحلات الغير مدفوعة",
-
+  "discount":"الخصم",
+  "skipPayment":"تخطي الدفع",
   "destinationnotspecified":"لم يتم تحديد وجهة",
   "sharing":"مشاركة",
   "riderdebtpaid":"سداد ديون الراكب",

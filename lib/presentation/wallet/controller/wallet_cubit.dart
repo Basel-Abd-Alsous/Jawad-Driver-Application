@@ -302,9 +302,26 @@ class WalletCubit extends Cubit<WalletState> {
               getAllTransaction();
             } else {
               SmartDialog.show(
-                builder: (context) => WidgetDilog(title: 'Warning', message: 'Something went wrong while charging the wallet', cancelText: 'Back', onCancel: () => SmartDialog.dismiss()),
+                builder: (context) =>
+                    WidgetDilog(isError: true, title: 'Warning', message: 'Something went wrong while charging the wallet', cancelText: 'Back', onCancel: () => SmartDialog.dismiss()),
               );
             }
+            break;
+          case PusherWalletEvent.paymentfailed:
+            if (SmartDialog.config.isExist) return;
+            final decodedOuter = jsonDecode(message);
+            final Map<String, dynamic> decodedInner = jsonDecode(decodedOuter['data']);
+
+            SmartDialog.show(
+              builder: (context) => WidgetDilog(
+                isError: true,
+                title: decodedInner['data']['payload']['title'] ?? 'Warning',
+                message: decodedInner['data']['payload']['message'] ?? 'Something went wrong while charging the wallet',
+                cancelText: 'Back',
+                onCancel: () => SmartDialog.dismiss(),
+              ),
+            );
+
             break;
           case PusherWalletEvent.unknown:
             log('⚠️ Unhandled event: $eventString');

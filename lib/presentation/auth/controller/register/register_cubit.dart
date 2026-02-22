@@ -122,7 +122,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   Future<void> verifyOtpRegister(String phone, String otp, String token) async {
     try {
       final loginResponse = await registerUsecase.verifyOtpRegister(phone, otp, 'driver');
-      loginResponse.fold((left) => emit(_ErrorVerifyOtpSignUp(left.message)), (right) => emit(_ErrorVerifyOtpSignUp(token)));
+      loginResponse.fold((left) => emit(_ErrorVerifyOtpSignUp(left.message)), (right) => emit(_LoadedVerifyOtpSignUp(token)));
     } catch (e) {
       logger.e('Server Error Login Section : $e');
     }

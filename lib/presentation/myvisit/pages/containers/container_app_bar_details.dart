@@ -65,11 +65,11 @@ class ContainerMapVisitDetails extends StatelessWidget {
                                 valueListenable: context.read<VisitDetailsCubit>().polylines,
                                 builder: (context, value, child) => GoogleMap(
                                   onMapCreated: context.read<VisitDetailsCubit>().onMapCreated,
-                                  initialCameraPosition: CameraPosition(target: context.read<VisitDetailsCubit>().start!, zoom: 11),
+                                  initialCameraPosition: CameraPosition(target: context.read<VisitDetailsCubit>().start ?? const LatLng(31.9454, 35.9284), zoom: 11),
                                   polylines: value,
                                   markers: {
-                                    Marker(markerId: const MarkerId('start'), position: context.read<VisitDetailsCubit>().start!),
-                                    Marker(markerId: const MarkerId('end'), position: context.read<VisitDetailsCubit>().end!),
+                                    Marker(markerId: const MarkerId('start'), position: context.read<VisitDetailsCubit>().start ?? const LatLng(31.9454, 35.9284)),
+                                    Marker(markerId: const MarkerId('end'), position: context.read<VisitDetailsCubit>().end ?? const LatLng(31.9454, 35.9284)),
                                   },
                                   myLocationEnabled: false,
                                   myLocationButtonEnabled: false,

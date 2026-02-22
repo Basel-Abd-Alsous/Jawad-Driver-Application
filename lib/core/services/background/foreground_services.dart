@@ -324,20 +324,6 @@ Future<void> backgroundEntryPoint(ServiceInstance service) async {
         'is_stop_location': false,
       });
 
-      // ✅ تحديث الإشعار في الخلفية (اختياري)
-      await AwesomeNotifications().createNotification(
-        content: NotificationContent(
-          id: 888, // نفس المعرف لتحديث الإشعار
-          channelKey: 'foreground_channel',
-          title: 'Jawad Driver',
-          body: '📍 $reason\nسرعة: ${speedKmh.toStringAsFixed(1)} كم/س',
-          notificationLayout: NotificationLayout.Default,
-          icon: 'resource://drawable/app_icon',
-          largeIcon: 'resource://drawable/app_icon',
-          autoDismissible: false,
-        ),
-      );
-
       lastLocationSendTime = DateTime.now();
       TripStatistics.recordUpdate(reason);
       logger.i("📍 [${DynamicConfig.isInTrip ? 'TRIP' : 'NORMAL'}] → $reason - سرعة: ${speedKmh.toStringAsFixed(1)} كم/س - دقة: ${pos.accuracy.toStringAsFixed(1)} م");

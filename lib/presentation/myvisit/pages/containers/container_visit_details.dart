@@ -66,6 +66,14 @@ class ContainerVisitDetails extends StatelessWidget {
                   isLoading: isLoading,
                 ),
               ),
+              Expanded(
+                child: WidgetTextForCardRequiest(
+                  title: local.discount,
+                  value: '${double.tryParse('${date?.payload?.discount ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}',
+                  isAmount: true,
+                  isLoading: isLoading,
+                ),
+              ),
             ],
           ),
           10.gap,

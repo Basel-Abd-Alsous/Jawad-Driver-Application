@@ -159,22 +159,37 @@ class WidgetCardRequiest extends StatelessWidget {
                     flex: 2,
                     child: ValueListenableBuilder<String>(
                       valueListenable: context.read<HomeCubit>().remainingAmount,
-                      builder: (context, value, child) => Row(
-                        spacing: 6,
+                      builder: (context, value, child) => Column(
                         children: [
-                          Expanded(
-                            flex: 4,
-                            child: AppButton.text(
-                              text: status == TravelStatus.payment ? '${local.remainingamount} $value' : _titleButtom(status, local),
-                              color: status == TravelStatus.payment ? AppColor.black : Colors.green,
-                              onPressed: () => _switchFunctionByStatus(context, status, value),
-                            ),
+                          Row(
+                            spacing: 6,
+                            children: [
+                              Expanded(
+                                flex: 4,
+                                child: AppButton.text(
+                                  text: status == TravelStatus.payment ? '${local.remainingamount} $value' : _titleButtom(status, local),
+                                  color: status == TravelStatus.payment ? AppColor.black : Colors.green,
+                                  onPressed: () => _switchFunctionByStatus(context, status, value),
+                                ),
+                              ),
+                              if (status == TravelStatus.payment)
+                                Expanded(
+                                  flex: 2,
+                                  child: AppButton.text(text: local.support, color: Colors.red, onPressed: () => context.push(AppRoutes.contactUs)),
+                                ),
+                            ],
                           ),
-                          if (status == TravelStatus.payment)
-                            Expanded(
-                              flex: 2,
-                              child: AppButton.text(text: local.support, color: Colors.red, onPressed: () => context.push(AppRoutes.contactUs)),
+
+                          if (status == TravelStatus.payment) ...[
+                            10.gap,
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: AppButton.text(text: local.skipPayment, color: AppColor.secondColor, onPressed: () => context.read<HomeCubit>().skipPayment()),
+                                ),
+                              ],
                             ),
+                          ],
                         ],
                       ),
                     ),

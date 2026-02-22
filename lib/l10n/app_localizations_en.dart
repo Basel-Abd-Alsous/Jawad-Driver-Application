@@ -54,6 +54,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get visa => 'Visa';
 
   @override
+  String get sequenceNumber => 'Sequence Number';
+
+  @override
+  String get discount => 'Discount';
+
+  @override
   String get destinationnotspecified => 'Destination not specified';
 
   @override
@@ -61,6 +67,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chargeclientwallet => 'Charge Client Wallet';
+
+  @override
+  String get skipPayment => 'Skip Payment';
 
   @override
   String get paymentMethod => 'Payment Method';

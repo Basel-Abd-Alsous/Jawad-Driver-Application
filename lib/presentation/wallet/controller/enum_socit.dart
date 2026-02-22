@@ -1,4 +1,4 @@
-enum PusherWalletEvent { connectionEstablished, subscriptionSucceeded, wallet, unknown }
+enum PusherWalletEvent { connectionEstablished, subscriptionSucceeded, wallet, paymentfailed, unknown }
 
 class PusherWalletEventImpl {
   static PusherWalletEvent fromString(String event) {
@@ -9,6 +9,8 @@ class PusherWalletEventImpl {
         return PusherWalletEvent.subscriptionSucceeded;
       case 'wallet':
         return PusherWalletEvent.wallet;
+      case 'payment.failed':
+        return PusherWalletEvent.paymentfailed;
       default:
         return PusherWalletEvent.unknown;
     }

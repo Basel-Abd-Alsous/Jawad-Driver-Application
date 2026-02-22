@@ -657,14 +657,16 @@ class HomeCubit extends Cubit<HomeState> {
             ammount.text = remainingAmount.value;
             points.clear();
             SmartDialog.dismiss();
+            SmartDialog.dismiss();
           } else {
             travelStatus.value = TravelStatus.pending;
             currentTravel.value = null;
             points.clear();
             ammount.clear();
+            SmartDialog.dismiss();
+            SmartDialog.dismiss();
             await getTravelRequist();
             GlobalContext.context.pop();
-            SmartDialog.dismiss();
           }
         },
       );
@@ -675,6 +677,14 @@ class HomeCubit extends Cubit<HomeState> {
         builder: (context) => WidgetDilog(isError: true, title: 'Warning', message: 'Something went wrong : $e', onCancel: () => SmartDialog.dismiss(), cancelText: 'Back'),
       );
     }
+  }
+
+  Future<void> skipPayment() async {
+    travelStatus.value = TravelStatus.pending;
+    currentTravel.value = const TravelRequest();
+    await Future.wait([getTravelRequist(), currentTravelRequist()]);
+    points.clear();
+    ammount.clear();
   }
 
   Future<String> _getAddressFromLatLng(double lat, double lng) async {
@@ -727,6 +737,7 @@ class HomeCubit extends Cubit<HomeState> {
         );
       },
       (r) async {
+        SmartDialog.dismiss();
         travelStatus.value = TravelStatus.pending;
         currentTravel.value = const TravelRequest();
         GlobalContext.context.pop();

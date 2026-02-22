@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_ce/hive_ce.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 
 import '../../../../../core/services/hive/box_key.dart';
 import '../../../../../core/router/router_key.dart';
@@ -68,11 +69,15 @@ class LoginContainer extends StatelessWidget with FormValidationMixin {
                   children: [
                     Text(local.dont_have_account, style: AppTextStyle.style12.copyWith(color: AppColor.onSecondColor)),
                     const SizedBox(width: 5),
-                    registerStatus
-                        ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: AppColor.white))
-                        : InkWell(
+                    if (registerStatus)
+                      const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: AppColor.white))
+                    else
+                      ValueListenableBuilder(
+                        valueListenable: sl<Box>(instanceName: BoxKey.appBox).listenable(),
+                        builder: (context, value, child) {
+                          final token = value.get(BoxKey.token);
+                          return InkWell(
                             onTap: () async {
-                              final String? token = await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token);
                               if (token != null) {
                                 context.read<LoginCubit>().registerStatus();
                               } else {
@@ -80,7 +85,9 @@ class LoginContainer extends StatelessWidget with FormValidationMixin {
                               }
                             },
                             child: Text(local.create_new_account, style: AppTextStyle.style12B.copyWith(color: Colors.white)),
-                          ),
+                          );
+                        },
+                      ),
                   ],
                 ),
               ],
