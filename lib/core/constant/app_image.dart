@@ -54,9 +54,9 @@ class Assets {
   /// assets/images/jawad_white.png
   static const String imagesJawadWhite = "assets/images/jawad_white.png";
 
-  /// Assets for imagesLoginImage
-  /// assets/images/login_image.png
-  static const String imagesLoginImage = "assets/images/login_image.png";
+  /// Assets for imagesLoginImage 
+  /// assets/images/login_image .png
+  static const String imagesLoginImage  = "assets/images/login_image .png";
 
   /// Assets for imagesLogo
   /// assets/images/logo.png

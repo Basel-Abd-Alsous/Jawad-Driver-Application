@@ -63,11 +63,7 @@ class HomeCubit extends Cubit<HomeState> {
   double? _lastLng;
 
   HomeCubit({required this.homeUsecase, required this.workStatusUsecase}) : super(const HomeState.initial()) {
-    getUserLocation();
-    Future.delayed(const Duration(seconds: 2), () async {
-      await havePermissionMap();
-      initBackgroundService();
-    });
+    getWorkStatus();
   }
 
   double? _currentLat;
@@ -77,27 +73,94 @@ class HomeCubit extends Cubit<HomeState> {
   bool _inTrip = false;
   ValueNotifier<bool> running = ValueNotifier(false);
   final FlutterBackgroundService _service = FlutterBackgroundService();
+  final userDate = sl<Box<Driver>>().get(BoxKey.user);
+  // ============================== Work Status Functions ============================== //
 
-  Future<void> initBackgroundService() async {
-    final user = sl<Box<Driver>>().get(BoxKey.user);
-
-    if (user?.workStatus == true) {
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        await _service.startService();
-        running.value = true;
-      });
+  Future<void> getWorkStatus() async {
+    if (userDate?.workStatus == true) {
+      await Future.wait([connect(), getUserLocation(), startBackgroundService()]);
     } else {
-      running.value = false;
+      await shutdownAllServices();
     }
   }
 
-  //  logger.i('🚀 بدء الخدمة تلقائياً - السائق في وضع العمل');
-  // await startBackgroundService();
+  Future<void> switchWorkStatus(BuildContext context) async {
+    try {
+      SmartDialog.showLoading(msg: AppLocalizations.of(GlobalContext.context)!.loading);
+      final result = await workStatusUsecase();
+      result.fold(
+        (failure) {
+          SmartDialog.dismiss();
+          SmartDialog.show(
+            builder: (context) => WidgetDilog(
+              isError: true,
+              title: AppLocalizations.of(GlobalContext.context)!.warning,
+              message: failure.message,
+              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
+              onCancel: () => SmartDialog.dismiss(),
+            ),
+          );
+          emit(HomeState.errorWorkStatus(failure.message));
+        },
+        (data) async {
+          SmartDialog.dismiss();
+          sl<Box<Driver>>().put(BoxKey.user, data.data!.payload!.driver!);
+          final user = sl<Box<Driver>>().get(BoxKey.user);
 
-  // Future<void> _checkRunning() async {
-  //   bool isRunning = await _service.isRunning();
-  //   running.value = isRunning;
-  // }
+          if (user?.workStatus == true) {
+            // ✅ تفعيل خدمة الخلفية عند بدء العمل
+            // await startBackgroundService();
+            connect();
+          } else {
+            // ❌ إيقاف خدمة الخلفية عند إنهاء العمل
+            await shutdownAllServices();
+            _disconnect();
+          }
+        },
+      );
+    } catch (e) {
+      logger.e('Error in Switch Work Status : $e');
+    }
+  }
+
+  Future<void> shutdownAllServices() async {
+    await Future.wait([stopBackgroundServiceFully(), _disconnect()]);
+    _currentLat = null;
+    _currentLng = null;
+    _currentSpeed = null;
+    _currentAccuracy = null;
+    _inTrip = false;
+    logger.i('''
+🛠️ حالة الخدمة:
+✅ الخدمة تعمل: ${running.value}
+📡 الـ WebSocket: ${_channel != null ? "متصل" : "غير متصل"}
+🚗 وضع الرحلة: ${DynamicConfig.isInTrip ? "مفعل" : "غير مفعل"}
+👤 حالة العمل: ${userDate?.workStatus == true ? "يعمل" : "متوقف"}
+''');
+  }
+
+  // ============================== Permission Functions ============================== //
+
+  Future<void> havePermissionMap() async {
+    bool? havePermission = await _requestLocationPermission();
+    if (havePermission == false) await _requestLocationPermission();
+  }
+
+  Future<bool> _requestLocationPermission() async {
+    var status = await Permission.location.request();
+    if (status.isGranted) {
+      print("✅ Location permission granted");
+      return true;
+    } else if (status.isDenied) {
+      print("❌ Location permission denied");
+      return false;
+    } else if (status.isPermanentlyDenied) {
+      print("⚠️ Location permission permanently denied, open settings");
+      await openAppSettings();
+      return false;
+    }
+    return false;
+  }
 
   // ============================== Init Google Map Functions ============================== //
 
@@ -115,9 +178,7 @@ class HomeCubit extends Cubit<HomeState> {
         final arrivedLocation = await _getAddressFromLatLng(locationData?.latitude ?? 0, locationData?.longitude ?? 0);
         final puckupityLocation = await _getCityLatLng(locationData?.latitude ?? 0, locationData?.longitude ?? 0);
         final arrivedCityLocation = await _getCityLatLng(locationData?.latitude ?? 0, locationData?.longitude ?? 0);
-        log(arrivedLocation.toString());
-        log(puckupityLocation.toString());
-        log(arrivedCityLocation.toString());
+        logger.i('arrivedLocation : ${arrivedLocation.toString()}/n puckupityLocation : ${puckupityLocation.toString()}/n arrivedCityLocation : ${arrivedCityLocation.toString()} ');
         circles.addAll([
           Circle(circleId: const CircleId('user_circle'), center: initialPosition.value, radius: 200, fillColor: Colors.black87.withOpacity(0.3), strokeColor: Colors.black87, strokeWidth: 2),
         ]);
@@ -139,8 +200,27 @@ class HomeCubit extends Cubit<HomeState> {
 
   // ============================== Background Service Functions ============================== //
 
-  /// 🔍 فحص حالة الخدمة
-  Future<void> checkServiceStatus() async {
+  Future<void> startBackgroundService() async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _service.configure(
+        iosConfiguration: IosConfiguration(autoStart: false, onForeground: backgroundEntryPoint),
+        androidConfiguration: AndroidConfiguration(
+          onStart: backgroundEntryPoint,
+          autoStart: false,
+          isForegroundMode: false,
+          notificationChannelId: "foreground_channel",
+          foregroundServiceNotificationId: 888,
+          initialNotificationTitle: "Jawad Driver",
+          initialNotificationContent: "Foreground Service",
+          foregroundServiceTypes: [AndroidForegroundType.location, AndroidForegroundType.dataSync],
+        ),
+      );
+      running.value = await _service.startService();
+      await Future.wait([_checkServiceStatus(), _playBackgroundLocationListener()]);
+    });
+  }
+
+  Future<void> _checkServiceStatus() async {
     try {
       bool isRunning = await _service.isRunning();
       logger.i('''
@@ -150,22 +230,15 @@ class HomeCubit extends Cubit<HomeState> {
 🚗 وضع الرحلة: ${DynamicConfig.isInTrip ? "مفعل" : "غير مفعل"}
 👤 حالة العمل: ${sl<Box<Driver>>().get(BoxKey.user)?.workStatus == true ? "يعمل" : "متوقف"}
 ''');
-
-      if (!isRunning) {
-        logger.i('🔄 الخدمة متوقفة، جاري إعادة التشغيل...');
-        // await startBackgroundService();
-        sendTestLocation();
-      }
+      _sendTestLocation();
     } catch (e) {
       logger.e('❌ خطأ في فحص حالة الخدمة: $e');
     }
   }
 
-  /// 📍 إرسال موقع تجريبي يدوي
-  Future<void> sendTestLocation() async {
+  Future<void> _sendTestLocation() async {
     try {
       Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
-
       await sendLocation(position.latitude.toString(), position.longitude.toString());
       logger.i('🧪 إرسال موقع تجريبي: ${position.latitude}, ${position.longitude}');
     } catch (e) {
@@ -173,38 +246,6 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  /// 🚀 بدء خدمة الخلفية
-  // Future<void> startBackgroundService() async {
-  //   try {
-  //     await _service.configure(
-  //       androidConfiguration: AndroidConfiguration(onStart: backgroundEntryPoint, autoStart: true, isForegroundMode: true),
-  //       iosConfiguration: IosConfiguration(autoStart: true, onForeground: backgroundEntryPoint),
-  //     );
-  //     await _service.startService();
-  //     running.value = true;
-  //     logger.i('🎉 تم بدء خدمة الخلفية بنجاح');
-  //   } catch (e) {
-  //     logger.e('❌ فشل بدء خدمة الخلفية: $e');
-  //   }
-  // }
-
-  /// 🛑 إيقاف خدمة الخلفية
-  /// 🛑 إيقاف خدمة الخلفية (الصحيح)
-  Future<void> stopBackgroundServiceFully() async {
-    try {
-      final isRunning = await _service.isRunning();
-      if (isRunning) {
-        _service.invoke('stopService'); // 👈 هذا فقط
-      }
-
-      running.value = false;
-      logger.i('🛑 Background service stop signal sent');
-    } catch (e) {
-      logger.e('❌ Failed to stop background service: $e');
-    }
-  }
-
-  /// 🔄 تبديل وضع الرحلة
   Future<void> toggleTripMode(bool inTrip) async {
     try {
       _service.invoke('setTripMode', {'inTrip': inTrip});
@@ -214,16 +255,7 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  /// 📊 الحصول على إحصائيات الخدمة
-  Future<void> getServiceStatistics() async {
-    try {
-      _service.invoke('getStatistics');
-    } catch (e) {
-      logger.e('❌ فشل الحصول على الإحصائيات: $e');
-    }
-  }
-
-  Future<void> initBackgroundLocationListener() async {
+  Future<void> _playBackgroundLocationListener() async {
     _service.on('updateLocation').listen((event) async {
       if (event == null) return;
 
@@ -232,17 +264,10 @@ class HomeCubit extends Cubit<HomeState> {
       final acc = (event['accuracy'] as num?)?.toDouble();
       final speed = (event['speed'] as num?)?.toDouble();
       final inTrip = event['in_trip'] as bool?;
-      final reason = event['reason'] as String?;
 
       if (lat == null || lng == null) return;
 
-      logger.i('''
-🎯 استلام موقع من الخدمة:
-📍 $lat, $lng
-🎯 الدقة: $acc
-🚗 السرعة: ${speed != null ? (speed * 3.6).toStringAsFixed(1) : 'N/A'} كم/س
-📝 السبب: $reason
-''');
+      _getServiceStatistics();
 
       _currentLat = lat;
       _currentLng = lng;
@@ -300,84 +325,21 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-  // ============================== Permission Functions ============================== //
-
-  Future<void> havePermissionMap() async {
-    bool? havePermission = await requestLocationPermission();
-    if (havePermission == true) {
-    } else {
-      await requestLocationPermission();
-    }
-  }
-
-  Future<bool> requestLocationPermission() async {
-    var status = await Permission.location.request();
-
-    if (status.isGranted) {
-      print("✅ Location permission granted");
-      return true;
-    } else if (status.isDenied) {
-      print("❌ Location permission denied");
-      return false;
-    } else if (status.isPermanentlyDenied) {
-      print("⚠️ Location permission permanently denied, open settings");
-      await openAppSettings();
-      return false;
-    }
-    return false;
-  }
-
-  // ============================== Work Status Functions ============================== //
-
-  Future<void> switchWorkStatus(BuildContext context) async {
+  Future<void> _getServiceStatistics() async {
     try {
-      SmartDialog.showLoading(msg: AppLocalizations.of(GlobalContext.context)!.loading);
-      final result = await workStatusUsecase();
-      result.fold(
-        (failure) {
-          SmartDialog.dismiss();
-          SmartDialog.show(
-            builder: (context) => WidgetDilog(
-              isError: true,
-              title: AppLocalizations.of(GlobalContext.context)!.warning,
-              message: failure.message,
-              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-              onCancel: () => SmartDialog.dismiss(),
-            ),
-          );
-          emit(HomeState.errorWorkStatus(failure.message));
-        },
-        (data) async {
-          SmartDialog.dismiss();
-          sl<Box<Driver>>().put(BoxKey.user, data.data!.payload!.driver!);
-          final user = sl<Box<Driver>>().get(BoxKey.user);
-
-          if (user?.workStatus == true) {
-            // ✅ تفعيل خدمة الخلفية عند بدء العمل
-            // await startBackgroundService();
-            connect(context);
-          } else {
-            // ❌ إيقاف خدمة الخلفية عند إنهاء العمل
-            await shutdownAllServices();
-            _disconnect();
-          }
-        },
-      );
+      _service.invoke('getStatistics');
     } catch (e) {
-      logger.e('Error in Switch Work Status : $e');
+      logger.e('❌ فشل الحصول على الإحصائيات: $e');
     }
   }
 
-  Future<void> shutdownAllServices() async {
-    await stopBackgroundServiceFully();
-    _disconnect();
-
-    _currentLat = null;
-    _currentLng = null;
-    _currentSpeed = null;
-    _currentAccuracy = null;
-    _inTrip = false;
-    logger.i('🧹 All services shut down successfully');
+  Future<void> stopBackgroundServiceFully() async {
+    try {
+      _service.invoke('stopService'); // 👈 هذا فقط
+      running.value = false;
+    } catch (e) {
+      logger.e('❌ Failed to stop background service: $e');
+    }
   }
 
   // ============================== Travel Functions ============================== //
@@ -761,7 +723,7 @@ class HomeCubit extends Cubit<HomeState> {
     result.fold((failure) => emit(HomeState.errorProfile(failure.message)), (result) {
       sl<Box<Driver>>().put(BoxKey.user, result.data!.payload!.driver!);
       if (result.data!.payload?.driver?.workStatus == true) {
-        connect(context);
+        connect();
       } else {
         _disconnect();
       }
@@ -770,7 +732,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   // ============================== Socit IO Function =========================================//
 
-  Future<void> connect(BuildContext context) async {
+  Future<void> connect() async {
     await _service.startService();
 
     _channel = WebSocketChannel.connect(Uri.parse(ApiLinks.socitUrl));
@@ -831,7 +793,7 @@ class HomeCubit extends Cubit<HomeState> {
           if (!_isManuallyClosed) {
             await Future.delayed(const Duration(seconds: 2));
             log('🔁 Trying to reconnect...');
-            connect(context);
+            connect();
           }
         }
       },
@@ -915,7 +877,5 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-  _disconnect() {
-    _channel?.sink.close();
-  }
+  Future<void> _disconnect() async => await _channel?.sink.close();
 }

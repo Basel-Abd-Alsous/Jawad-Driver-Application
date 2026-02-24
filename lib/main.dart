@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +9,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:logger/logger.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
-import 'core/services/background/foreground_services.dart';
-import 'firebase_options.dart';
 import 'l10n/l10n.dart';
+import 'firebase_options.dart';
 import 'core/utils/color.dart';
 import 'core/router/routes.dart';
 import 'injection_container.dart';
@@ -34,10 +33,15 @@ void main() {
     () async {
       WidgetsFlutterBinding.ensureInitialized();
       await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-      await HiveServices().init(); // MUST be before initGetIt()
+
+      bool isAllowed = await AwesomeNotifications().isNotificationAllowed();
+      if (!isAllowed) {
+        await AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+
+      await HiveServices().init();
       await initGetIt();
       await ScreenUtil.ensureScreenSize();
-      await _initBackgroundService();
       const String onesignalId = "adb5232c-3da7-47cc-a498-a74fc9531137";
       OneSignal.initialize(onesignalId);
       OneSignal.Notifications.requestPermission(true);
@@ -48,23 +52,6 @@ void main() {
     (error, stack) {
       FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     },
-  );
-}
-
-Future<void> _initBackgroundService() async {
-  final service = FlutterBackgroundService();
-  await service.configure(
-    iosConfiguration: IosConfiguration(autoStart: false, onForeground: backgroundEntryPoint),
-    androidConfiguration: AndroidConfiguration(
-      onStart: backgroundEntryPoint,
-      autoStart: true,
-      isForegroundMode: false,
-      notificationChannelId: "foreground_channel",
-      foregroundServiceNotificationId: 888,
-      initialNotificationTitle: "Jawad Driver",
-      initialNotificationContent: "Foreground Service",
-      foregroundServiceTypes: [AndroidForegroundType.dataSync],
-    ),
   );
 }
 

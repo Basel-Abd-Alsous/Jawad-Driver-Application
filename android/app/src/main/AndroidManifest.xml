@@ -21,7 +21,7 @@
     <!-- ⚙️ Foreground Service Permissions -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
-  
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
  
   
 
@@ -70,13 +70,6 @@
             android:name="onesignal_app_id"
             android:value="adb5232c-3da7-47cc-a498-a74fc9531137" />
 
-        <!-- 🛰️ Location Service (flutter_location) -->
-        <service
-            android:name="com.lyokone.location.FlutterLocationService"
-            android:permission="android.permission.FOREGROUND_SERVICE"
-            android:exported="false"
-            android:foregroundServiceType="location" />
-
  
         <!-- Flutter Background Service -->
         <service
@@ -84,7 +77,7 @@
             android:enabled="true"
             android:exported="true"
             android:stopWithTask="false"
-            android:foregroundServiceType="dataSync" />
+            android:foregroundServiceType="location|dataSync" />
 
       
     

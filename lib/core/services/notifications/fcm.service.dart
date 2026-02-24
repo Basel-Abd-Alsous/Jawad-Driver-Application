@@ -67,9 +67,9 @@ class FcmHelper {
     _handleNotification(message);
   }
 
-  static Future<void> _fcmForegroundHandler(RemoteMessage message) async {
-    _handleNotification(message);
-  }
+  // static Future<void> _fcmForegroundHandler(RemoteMessage message) async {
+  //   _handleNotification(message);
+  // }
 
   static void _handleNotification(RemoteMessage message) {
     if (message.notification != null) {

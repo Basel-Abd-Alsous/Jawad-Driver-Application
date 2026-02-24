@@ -20,8 +20,8 @@ class WidgetAuthBackground extends StatelessWidget {
           SizedBox(
             height: 0.77.sh,
             child: ColorFiltered(
-              colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.1), BlendMode.srcATop),
-              child: Image.asset(Assets.imagesLoginImage, height: 1.sh, fit: BoxFit.fill),
+              colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.7), BlendMode.srcATop),
+              child: Image.asset(Assets.imagesLoginImage, height: 1.sh, fit: BoxFit.cover),
             ),
           ),
           SizedBox(height: 0.23.sh),

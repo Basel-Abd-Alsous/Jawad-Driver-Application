@@ -26,6 +26,19 @@ class NotificationsController {
       "resource://drawable/app_icon",
       [
         NotificationChannel(
+          channelKey: 'foreground_channel', // نفس القناة المستخدمة في إعدادات الخدمة
+          channelName: 'خدمة الخلفية',
+          channelDescription: 'قناة إشعارات خدمة الخلفية',
+          defaultColor: const Color(0xFF9D50DD),
+          importance: NotificationImportance.High, // استخدام High لضمان الظهور
+          ledColor: Colors.white,
+          playSound: false,
+          enableVibration: false,
+          enableLights: true,
+          defaultRingtoneType: DefaultRingtoneType.Notification,
+          locked: true, // منع إزالة الإشعار (لأنه مرتبط بالخدمة)
+        ),
+        NotificationChannel(
           channelGroupKey: NotificationChannelKey.basicChannel.groupKey,
           channelKey: NotificationChannelKey.basicChannel.key,
           channelName: NotificationChannelKey.basicChannel.name,
