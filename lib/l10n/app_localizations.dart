@@ -179,6 +179,12 @@ abstract class AppLocalizations {
   /// **'Unpaid Trips'**
   String get unpaidtrips;
 
+  /// No description provided for @idNumberLength.
+  ///
+  /// In en, this message translates to:
+  /// **'You must be enter 10 numbers'**
+  String get idNumberLength;
+
   /// No description provided for @visa.
   ///
   /// In en, this message translates to:
@@ -190,6 +196,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sequence Number'**
   String get sequenceNumber;
+
+  /// No description provided for @always_location_permission_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Always Location Permission Required'**
+  String get always_location_permission_title;
+
+  /// No description provided for @always_location_permission_message.
+  ///
+  /// In en, this message translates to:
+  /// **'To track your routes and trips accurately, this app needs access to your location at all times. Please enable \"Always Allow\" in settings.'**
+  String get always_location_permission_message;
+
+  /// No description provided for @open_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Settings'**
+  String get open_settings;
 
   /// No description provided for @discount.
   ///

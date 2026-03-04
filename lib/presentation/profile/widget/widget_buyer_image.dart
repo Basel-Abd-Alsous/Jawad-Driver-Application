@@ -43,7 +43,12 @@ class WidgetDriverImage extends StatelessWidget {
                           if (buyerInfo?.profileImage == null || (buyerInfo?.profileImage!.isEmpty ?? true)) {
                             return Image.asset(Assets.imagesProfile, fit: BoxFit.fill);
                           } else {
-                            return WidgetCachNetworkImage(radius: 1000, image: buyerInfo?.profileImage ?? '');
+                            return WidgetCachNetworkImage(
+                              radius: 1000,
+                              image: buyerInfo?.profileImage?.contains('logo') ?? true
+                                  ? 'https://images.squarespace-cdn.com/content/v1/5936fbebcd0f68f67d5916ff/a711669d-0d96-4748-9bdb-5a86d5e5ecdd/person-placeholder-300x300.jpeg'
+                                  : buyerInfo?.profileImage ?? '',
+                            );
                           }
                         },
                       ),

@@ -51,10 +51,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get unpaidtrips => 'Unpaid Trips';
 
   @override
+  String get idNumberLength => 'You must be enter 10 numbers';
+
+  @override
   String get visa => 'Visa';
 
   @override
   String get sequenceNumber => 'Sequence Number';
+
+  @override
+  String get always_location_permission_title => 'Always Location Permission Required';
+
+  @override
+  String get always_location_permission_message => 'To track your routes and trips accurately, this app needs access to your location at all times. Please enable \"Always Allow\" in settings.';
+
+  @override
+  String get open_settings => 'Open Settings';
 
   @override
   String get discount => 'Discount';

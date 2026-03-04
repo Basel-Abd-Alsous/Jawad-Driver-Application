@@ -51,10 +51,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get unpaidtrips => 'الرحلات الغير مدفوعة';
 
   @override
+  String get idNumberLength => 'يجب إدخال 10 أرقام';
+
+  @override
   String get visa => 'بطاقة الائتمان';
 
   @override
   String get sequenceNumber => 'رقم التسلسل';
+
+  @override
+  String get always_location_permission_title => 'مطلوب إذن الموقع دائمًا';
+
+  @override
+  String get always_location_permission_message => 'لتتبع مساراتك ورحلاتك بدقة، يحتاج هذا التطبيق للوصول إلى موقعك دائمًا. يرجى تفعيل خيار \"السماح دائمًا\" من الإعدادات.';
+
+  @override
+  String get open_settings => 'فتح الإعدادات';
 
   @override
   String get discount => 'الخصم';

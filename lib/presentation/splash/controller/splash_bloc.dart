@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -9,6 +10,8 @@ import '../../../../core/services/hive/box_key.dart';
 import '../../../../core/router/router_key.dart';
 import '../../../../injection_container.dart';
 import '../../../../main.dart';
+import '../../../core/widget/widget_dailog.dart';
+import '../../../l10n/app_localizations.dart';
 
 part 'splash_event.dart';
 part 'splash_state.dart';
@@ -25,7 +28,6 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     bool granted = await _requestLocationPermission();
     if (!granted) {
       logger.i('❌ صلاحية الموقع مرفوضة، يمكن توجيه المستخدم للإعدادات');
-      openAppSettings(); // توجيه المستخدم لإعادة منح الصلاحية
     } else {
       logger.i('✔️ صلاحية الموقع Always مفعّلة');
     }
@@ -44,10 +46,28 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
         }
       }
 
-      // 2️⃣ اطلب Always
+      // 2️⃣ Request Always Location Permission
       var alwaysStatus = await Permission.locationAlways.status;
       if (!alwaysStatus.isGranted) {
-        alwaysStatus = await Permission.locationAlways.request();
+        SmartDialog.show(
+          clickMaskDismiss: false,
+          backType: SmartBackType.block,
+          builder: (context) => WidgetDilog(
+            title: AppLocalizations.of(context)!.always_location_permission_title,
+            isError: true,
+            message: AppLocalizations.of(context)!.always_location_permission_message,
+            cancelText: AppLocalizations.of(context)!.open_settings,
+            onCancel: () async {
+              alwaysStatus = await Permission.locationAlways.request();
+              if (alwaysStatus.isGranted) {
+                SmartDialog.dismiss();
+                logger.i('✔️ صلاحية الموقع Always مفعّلة بعد الطلب من الإعدادات');
+              } else {
+                logger.i('❌ صلاحية الموقع Always لا تزال مرفوضة بعد الطلب من الإعدادات');
+              }
+            },
+          ),
+        );
       }
 
       return await Permission.locationAlways.isGranted;

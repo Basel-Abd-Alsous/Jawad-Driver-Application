@@ -32,6 +32,17 @@ mixin FormValidationMixin {
     return null;
   }
 
+  String? validateIdNumber(BuildContext context, String? value) {
+    String text = (value ?? '').replaceAll(" ", '');
+    if (text == null || text.isEmpty) {
+      return AppLocalizations.of(context)!.requiredField;
+    }
+    if (text.length != 10) {
+      return AppLocalizations.of(context)!.idNumberLength;
+    }
+    return null;
+  }
+
   String? validateIBAN(BuildContext context, String? value) {
     String text = (value ?? '').replaceAll(" ", '');
     if (text == null || text.isEmpty) {
