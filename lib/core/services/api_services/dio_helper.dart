@@ -22,7 +22,14 @@ class DioHelper {
         connectTimeout: const Duration(seconds: 30),
         receiveTimeout: const Duration(seconds: 30),
         sendTimeout: const Duration(seconds: 30),
-        headers: {'Content-Type': 'application/json', 'Accept-Language': 'ar', 'Accept': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'ar',
+          'Accept': 'application/json',
+          'app-type': 'driver',
+          'platform': Platform.isIOS ? 'ios' : 'android',
+          'app-version': '1.0.9+1',
+        },
       ),
     );
 
@@ -32,18 +39,7 @@ class DioHelper {
       return client;
     };
 
-    _dio.interceptors.add(
-      PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseHeader: true,
-        responseBody: true,
-        error: true,
-        request: true,
-        compact: true,
-        enabled: true,
-      ),
-    );
+    _dio.interceptors.add(PrettyDioLogger(requestHeader: true, requestBody: true, responseHeader: true, responseBody: true, error: true, request: true, compact: true, enabled: true));
   }
 
   Dio get dio => _dio;
