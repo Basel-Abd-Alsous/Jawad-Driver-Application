@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../presentation/auth/domain/model/requiest_models/register_requiest_model.dart';
-import '../../presentation/auth/pages/pages/bank_info_screen.dart';
 import '../../presentation/auth/pages/pages/car_info_screen.dart';
 import '../../presentation/auth/pages/pages/change_password_screen.dart';
-import '../../presentation/auth/pages/pages/document_screen.dart';
 import '../../presentation/auth/pages/pages/forget_password_screen.dart';
 import '../../presentation/auth/pages/pages/register_screen.dart';
 import '../../presentation/auth/pages/pages/verify_screen.dart';
 import '../../presentation/chat/pages/chat_screen.dart';
+import '../../presentation/drawer/pages/bank_info_scereen.dart';
 import '../../presentation/drawer/pages/contact_us_screen.dart';
 import '../../presentation/drawer/pages/content_screen.dart';
 import '../../presentation/drawer/pages/feedback_screen.dart';
@@ -44,13 +43,12 @@ final GoRouter goRouter = GoRouter(
     _pageRoute(path: AppRoutes.login, pageName: 'Login Page', screen: const LoginScreen()),
 
     _pageRoute(path: AppRoutes.register, pageName: 'Register Page', screen: const RegisterScreen()),
+    _pageRoute(path: AppRoutes.bankInfo2, pageName: 'Bank Info Page', screen: EditBankInfoScereen()),
 
-    _pageRoute(path: AppRoutes.uploadDocument, pageName: 'Document Page', screen: const DocumentScreen()),
-
+    // _pageRoute(path: AppRoutes.uploadDocument, pageName: 'Document Page', screen: const DocumentScreen()),
     _pageRoute(path: AppRoutes.carInfo, pageName: 'Car Info Page', screen: const CarInfoScreen()),
 
-    _pageRoute(path: AppRoutes.bankInfo, pageName: 'Bank Info Page', screen: const BankInfoScreen()),
-
+    // _pageRoute(path: AppRoutes.bankInfo, pageName: 'Bank Info Page', screen: const BankInfoScreen()),
     _pageRoute(path: AppRoutes.forget, pageName: 'Forget Password Page', screen: ForgetPasswordScreen()),
 
     /// Notifications

@@ -68,7 +68,7 @@ Future<void> initGetIt() async {
   sl.registerFactory(() => VisitDetailsCubit(visitUsecase: sl(), homeUsecase: sl()));
   sl.registerFactory(() => ProfileCubit(profileUsecase: sl()));
   sl.registerFactory(() => ChatCubit(chatUsecase: sl(), homeUsecase: sl()));
-  sl.registerFactory(() => DrawerCubit(usecase: sl()));
+  sl.registerFactory(() => DrawerCubit(usecase: sl(), registerUsecase: sl()));
   //======================== UseCase ========================================
   sl.registerLazySingleton(() => BoardingUsecase(sl()));
   sl.registerLazySingleton(() => LoginUseCase(loginRepository: sl()));

@@ -159,28 +159,29 @@ class VerifyContainer extends StatelessWidget with FormValidationMixin {
     state.maybeWhen(
       loadedVerifyLogin: (data) async {
         await sl<Box>(instanceName: BoxKey.appBox).put(BoxKey.token, data['token']);
-        sl<Box>(instanceName: BoxKey.appBox).put(BoxKey.userStatusRegister, data['registrationStatus']);
-        final step = RegisterStepExtension.fromString(data['registrationStatus']);
-        switch (step) {
-          case RegisterStates.register:
-            context.replaceNamed(AppRoutes.register);
-            break;
-          case RegisterStates.documents:
-            context.replaceNamed(AppRoutes.uploadDocument);
-            break;
-          case RegisterStates.carInfo:
-            context.replaceNamed(AppRoutes.carInfo);
-            break;
-          case RegisterStates.bankInfo:
-            context.replaceNamed(AppRoutes.bankInfo);
-            break;
-          case RegisterStates.completed:
-            context.go(AppRoutes.layout);
-            break;
-          case RegisterStates.unknown:
-            context.go(AppRoutes.login);
-            break;
-        }
+        context.go(AppRoutes.layout);
+        // sl<Box>(instanceName: BoxKey.appBox).put(BoxKey.userStatusRegister, data['registrationStatus']);
+        // final step = RegisterStepExtension.fromString(data['registrationStatus']);
+        // switch (step) {
+        //   case RegisterStates.register:
+        //     context.replaceNamed(AppRoutes.register);
+        //     break;
+        //   case RegisterStates.documents:
+        //     context.replaceNamed(AppRoutes.uploadDocument);
+        //     break;
+        //   case RegisterStates.carInfo:
+        //     context.replaceNamed(AppRoutes.carInfo);
+        //     break;
+        //   case RegisterStates.bankInfo:
+        //     context.replaceNamed(AppRoutes.bankInfo);
+        //     break;
+        //   case RegisterStates.completed:
+        //     context.go(AppRoutes.layout);
+        //     break;
+        //   case RegisterStates.unknown:
+        //     context.go(AppRoutes.login);
+        //     break;
+        // }
       },
       errorVerifyLogin: (message) => SmartDialog.show(
         builder: (_) => WidgetDilog(isError: true, title: local.warning, message: message, cancelText: local.back, onCancel: () => SmartDialog.dismiss()),
@@ -202,7 +203,8 @@ class VerifyContainer extends StatelessWidget with FormValidationMixin {
             cancelText: local.continues,
             onCancel: () {
               SmartDialog.dismiss();
-              GlobalContext.context.replace(AppRoutes.uploadDocument);
+              sl<Box>(instanceName: BoxKey.appBox).put(BoxKey.userStatusRegister, 'completed');
+              GlobalContext.context.replace(AppRoutes.layout);
             },
           ),
         );

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
- 
+
 import '../../../core/extension/space_extension.dart';
 import '../../../core/widget/loading/loading_documents.dart';
 import '../../../core/utils/color.dart';
@@ -22,77 +22,112 @@ class MyDocumentScreen extends StatelessWidget {
     final local = AppLocalizations.of(context)!;
 
     return BlocProvider(
-      create: (context) => sl<RegisterCubit>()..myDocuments(isLogin: true),
+      create: (_) => sl<RegisterCubit>()..myDocuments(),
       child: BlocBuilder<RegisterCubit, RegisterState>(
         builder: (context, state) {
           return state.maybeWhen(
             loadingMyDocument: () => const LoadingDocuments(),
-            loadedMyDocument: (documents) => Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(local.my_documents, style: AppTextStyle.style14B.copyWith(color: Colors.black)),
-                  10.gap,
-                  ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: documents.payload!.length,
-                    separatorBuilder: (context, index) => 10.gap,
-                    itemBuilder: (context, index) {
-                      MyDocument document = documents.payload![index];
-                      return WidgetAuthTextField(
-                        controller: TextEditingController(text: document.documentType ?? ''),
-                        hintText: '${local.select_document} ${document.filePath}',
-                        textStyle: AppTextStyle.style14,
-                        suffixIcon: Icon(
-                          document.statusEdit?.toLowerCase() == 'pending'
-                              ? Icons.timelapse_sharp
-                              : document.statusEdit?.toLowerCase() == 'approved'
-                                  ? Icons.check_box
-                                  : Icons.cloud_upload_rounded,
-                          color: document.statusEdit?.toLowerCase() == 'pending'
-                              ? AppColor.grey
-                              : document.statusEdit?.toLowerCase() == 'approved'
-                                  ? AppColor.green
-                                  : AppColor.red,
-                          size: 30,
+            loadedMyDocument: (documents) {
+              final cubit = context.read<RegisterCubit>();
+
+              return Padding(
+                padding: const EdgeInsets.all(10),
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: cubit.formKeyStep2,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(local.my_documents, style: AppTextStyle.style14B.copyWith(color: Colors.black)),
+
+                        20.gap,
+
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: documents.payload?.documentTypes?.length ?? 0,
+                          itemBuilder: (context, index) {
+                            final documentType = documents.payload?.documentTypes?[index];
+                            final myDoc = documents.payload?.myDocuments?.firstWhere((e) => e.documentTypeId == documentType?.id, orElse: () => const MyDocument());
+                            final path = myDoc?.filePath;
+                            final status = myDoc?.statusEdit?.toLowerCase();
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: WidgetAuthTextField(
+                                controller: TextEditingController(text: documentType?.name ?? ''),
+                                hintText: '${local.selec} ${documentType?.name ?? ''}',
+                                textStyle: AppTextStyle.style14,
+                                hentTextStyle: AppTextStyle.style14.copyWith(color: Colors.grey),
+                                readOnly: true,
+                                suffixIcon: path != null
+                                    ? Icon(
+                                        status?.toLowerCase() == 'pending'
+                                            ? Icons.timelapse_sharp
+                                            : status?.toLowerCase() == 'approved'
+                                            ? Icons.check_box
+                                            : Icons.cloud_upload_rounded,
+                                        color: status?.toLowerCase() == 'pending'
+                                            ? AppColor.grey
+                                            : status?.toLowerCase() == 'approved'
+                                            ? AppColor.green
+                                            : AppColor.red,
+                                        size: 30,
+                                      )
+                                    : const Icon(Icons.cloud_upload_rounded, color: AppColor.black, size: 30),
+                                prefixIcon: path != null ? _buildPreview(path) : const Icon(Icons.perm_contact_calendar_sharp, color: AppColor.black, size: 30),
+                                validator: documentType?.isRequired == true
+                                    ? (value) {
+                                        if (path == null || path.isEmpty) {
+                                          return local.requiredField;
+                                        }
+                                        return null;
+                                      }
+                                    : null,
+
+                                onTap: path != null
+                                    ? null
+                                    : () {
+                                        context.read<RegisterCubit>().uploadDocument(document: documentType);
+                                      },
+                              ),
+                            );
+                          },
                         ),
-                        prefixIcon: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              width: 40,
-                              height: 40,
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                              child: document.filePath?.contains('http') == false
-                                  ? Image.file(File(document.filePath ?? ''), fit: BoxFit.cover)
-                                  : WidgetCachNetworkImage(image: document.filePath ?? '', boxFit: BoxFit.cover),
-                            ),
-                          ],
-                        ),
-                        readOnly: true,
-                        onTap: () => document.statusEdit?.toLowerCase() == 'pending' || document.statusEdit?.toLowerCase() == 'approved'
-                            ? null
-                            : context.read<RegisterCubit>().uploadDocument(myDocument: document),
-                      );
-                    },
+
+                        20.gap,
+                      ],
+                    ),
                   ),
-                ],
-              ),
-            ),
+                ),
+              );
+            },
+
             errorMyDocument: (error) => Center(
               child: Text(error, style: AppTextStyle.style14B.copyWith(color: Colors.red)),
             ),
+
             orElse: () => const SizedBox(),
           );
         },
       ),
+    );
+  }
+
+  /// -----------------------------
+  /// Image Preview Widget
+  /// -----------------------------
+  Widget _buildPreview(String path) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 40,
+          height: 40,
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+          child: path.contains('http') ? WidgetCachNetworkImage(image: path) : Image.file(File(path), fit: BoxFit.cover),
+        ),
+      ],
     );
   }
 }

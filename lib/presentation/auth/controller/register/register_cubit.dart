@@ -10,7 +10,6 @@ import '../../../../core/function/pick_image.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../main.dart';
 import '../../domain/model/car_model_and_color_model.dart';
-import '../../domain/model/document_type_model.dart';
 import '../../domain/model/my_document_model.dart';
 import '../../domain/model/requiest_models/bank_info_model.dart';
 import '../../domain/model/requiest_models/car_info_model.dart';
@@ -127,7 +126,6 @@ class RegisterCubit extends Cubit<RegisterState> {
       logger.e('Server Error Login Section : $e');
     }
   }
-  // 0580991995
 
   String formatPhone(String phone) {
     phone = phone.replaceAll(' ', '');
@@ -135,90 +133,73 @@ class RegisterCubit extends Cubit<RegisterState> {
     return '+966$phone';
   }
 
-  // Get All Documents Type Function
-  Future<void> getAllDocumentsType(MyDocumentModel? myDocumentModel) async {
-    try {
-      emit(const _LoadingDocumentType());
-      final getAllDocumentsTypeResponse = await registerUsecase.documentsType();
-      getAllDocumentsTypeResponse.fold((left) => emit(_ErrorDocumentType(left.message)), (right) {
-        if (myDocumentModel != null) {
-          List<Datum> updatedList = right.data!.data!.map((type) {
-            for (MyDocument document in myDocumentModel.payload!) {
-              if (document.documentTypeId == type.id) {
-                return type.copyWith(path: document.filePath);
-              }
-            }
-            return type;
-          }).toList();
-          final updatedData = right.data!.copyWith(data: updatedList);
-          emit(_LoadedDocumentType(updatedData));
-        } else {
-          emit(_LoadedDocumentType(right.data!));
-        }
-      });
-    } catch (e) {
-      logger.e('Server Error Get All Documents Type Section : $e');
-    }
-  }
-
   // Upload Document Function
-  Future<void> uploadDocument({Datum? document, MyDocument? myDocument}) async {
+  Future<void> uploadDocument({DocumentTypes? document, MyDocument? myDocument}) async {
     try {
-      if (myDocument != null) {
-        SmartDialog.showLoading(msg: AppLocalizations.of(GlobalContext.context)!.loading);
-      } else {
-        SmartDialog.showLoading(msg: '${AppLocalizations.of(GlobalContext.context)!.loading} ${document?.name}...');
+      SmartDialog.showLoading(msg: myDocument != null ? AppLocalizations.of(GlobalContext.context)!.loading : '${AppLocalizations.of(GlobalContext.context)!.loading} ${document?.name ?? ''}...');
+
+      final file = await imagePicker(imageSource);
+
+      if (file == null) {
+        SmartDialog.dismiss();
+        return;
       }
-      var file = await imagePicker(imageSource);
-      if (file != null) {
-        final Object? updatedDocument;
-        if (myDocument != null) {
-          updatedDocument = myDocument.copyWith(filePath: file.path);
-        } else {
-          updatedDocument = document?.copyWith(path: file.path);
-        }
-        Map<String, dynamic> documentData = {'document_type_id': myDocument != null ? (updatedDocument as MyDocument).documentTypeId : (updatedDocument as Datum).id, 'document': file};
-        final uploadDocumentResponse = await registerUsecase.uploadDocument(UploadDocumentModel.fromJson(documentData));
-        uploadDocumentResponse.fold(
-          (left) {
-            SmartDialog.dismiss();
-          },
-          (right) {
-            final currentState = state;
-            if (currentState is _LoadedDocumentType) {
-              final List<Datum> updatedDocuments = (currentState.documentTypeModel.data ?? [])
-                  .map((doc) {
-                    if (doc.id == (updatedDocument as Datum).id) {
-                      return updatedDocument;
-                    }
-                    return doc;
-                  })
-                  .toList()
-                  .cast<Datum>();
-              emit(_LoadedDocumentType(DocumentTypeModel(data: updatedDocuments)));
-            } else if (currentState is _LoadedMyDocument) {
-              final List<MyDocument> updatedDocuments = (currentState.mMyDocumentModel.payload ?? [])
-                  .map((doc) {
-                    if (doc.documentType == (updatedDocument as MyDocument).documentType) {
-                      final updatedDocuments = updatedDocument.copyWith(statusEdit: 'pending');
-                      return updatedDocuments;
-                    }
-                    return doc;
-                  })
-                  .toList()
-                  .cast<MyDocument>();
-              emit(_LoadedMyDocument(MyDocumentModel(payload: updatedDocuments)));
+
+      final documentTypeId = myDocument?.documentTypeId ?? document?.id;
+
+      final documentData = {'document_type_id': documentTypeId, 'document': file};
+
+      final response = await registerUsecase.uploadDocument(UploadDocumentModel.fromJson(documentData));
+
+      response.fold(
+        (left) {
+          SmartDialog.dismiss();
+        },
+        (right) {
+          final currentState = state;
+
+          if (currentState is _LoadedMyDocument) {
+            final payload = currentState.mMyDocumentModel.payload;
+
+            /// -----------------------------
+            /// Update documentTypes path
+            /// -----------------------------
+            final updatedTypes = (payload?.documentTypes ?? []).map((doc) {
+              if (doc.id == documentTypeId) {
+                return doc.copyWith(path: file.path);
+              }
+              return doc;
+            }).toList();
+
+            /// -----------------------------
+            /// Update myDocuments
+            /// -----------------------------
+            final existingDocs = List<MyDocument>.from(payload?.myDocuments ?? []);
+
+            final index = existingDocs.indexWhere((e) => e.documentTypeId == documentTypeId);
+
+            if (index != -1) {
+              /// update existing
+              existingDocs[index] = existingDocs[index].copyWith(filePath: file.path, statusEdit: 'pending');
+            } else {
+              /// add new
+              existingDocs.add(MyDocument(documentTypeId: documentTypeId, filePath: file.path, statusEdit: 'pending'));
             }
 
-            SmartDialog.dismiss();
-          },
-        );
-      } else {
-        SmartDialog.dismiss();
-      }
+            emit(
+              _LoadedMyDocument(
+                currentState.mMyDocumentModel.copyWith(
+                  payload: payload?.copyWith(documentTypes: updatedTypes, myDocuments: existingDocs),
+                ),
+              ),
+            );
+          }
+
+          SmartDialog.dismiss();
+        },
+      );
     } catch (e) {
       SmartDialog.dismiss();
-
       logger.e('Server Error Upload Document Section : $e');
     }
   }
@@ -229,15 +210,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       emit(const _LoadingMyDocument());
       final myDocumentsResponse = await registerUsecase.myDocument();
       myDocumentsResponse.fold((left) => emit(_ErrorMyDocument(left.message)), (right) async {
-        if (right.data?.payload != null) {
-          emit(_LoadedMyDocument(right.data!));
-          if (isLogin == true) {
-          } else {
-            await getAllDocumentsType(right.data!);
-          }
-        } else {
-          getAllDocumentsType(null);
-        }
+        emit(_LoadedMyDocument(right.data!));
       });
     } catch (e) {
       logger.e('Server Error My Documents Section : $e');

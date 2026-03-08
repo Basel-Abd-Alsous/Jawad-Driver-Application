@@ -9,12 +9,18 @@ class HiveServices {
   Future<void> init() async {
     await Hive.initFlutter();
     _registerAdapters();
-    await Future.wait([_initAppBox(), _initializeBoxModel<Driver>(boxName: BoxKey.user)]);
+    await Future.wait([_initAppBox(), _initializeBoxModel<Driver>(boxName: BoxKey.user), _initializeBoxModel<BankInfo>(boxName: BoxKey.bank), _initializeBoxModel<CarInfo>(boxName: BoxKey.car)]);
   }
 
   void _registerAdapters() {
     if (!Hive.isAdapterRegistered(0)) {
       Hive.registerAdapter<Driver>(DriverAdapter());
+    }
+    if (!Hive.isAdapterRegistered(1)) {
+      Hive.registerAdapter<BankInfo>(BankInfoAdapter());
+    }
+    if (!Hive.isAdapterRegistered(2)) {
+      Hive.registerAdapter<CarInfo>(CarInfoAdapter());
     }
   }
 

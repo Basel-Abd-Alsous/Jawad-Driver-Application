@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../../core/utils/color.dart';
 import '../../../../core/utils/text_style.dart';
@@ -16,6 +17,7 @@ class WidgetAuthTextField extends StatelessWidget {
   final VoidCallback? onTap;
   final Widget? suffixIcon;
   final int? maxLength;
+  final List<TextInputFormatter>? inputFormatters;
   const WidgetAuthTextField({
     super.key,
     required this.controller,
@@ -30,6 +32,7 @@ class WidgetAuthTextField extends StatelessWidget {
     this.textStyle,
     this.maxLength,
     this.hentTextStyle,
+    this.inputFormatters,
   });
 
   @override
@@ -41,6 +44,7 @@ class WidgetAuthTextField extends StatelessWidget {
       readOnly: readOnly ?? false,
       onTap: onTap,
       maxLength: maxLength,
+      inputFormatters: inputFormatters,
       obscureText: obscureText ?? false,
       style: textStyle ?? AppTextStyle.style14.copyWith(color: AppColor.white),
       decoration: InputDecoration(

@@ -20,7 +20,7 @@ class VistUnpaidScreen extends StatelessWidget {
     final local = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: WidgetAppbar.widgetAppBarWithTitle(context, "UnPaid Visit"),
+      appBar: WidgetAppbar.widgetAppBarWithTitle(context, local.unpaidtrips),
 
       body: BlocProvider(
         create: (context) => sl<VisitCubit>()..getAllUnPaidVisit(),

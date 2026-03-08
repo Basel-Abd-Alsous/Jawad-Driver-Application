@@ -7,6 +7,8 @@ class BoxKey {
   static const String token = "token";
   static const String userStatusRegister = "userStatusRegister";
   static const String user = "user";
+  static const String bank = "bank";
+  static const String car = "car";
 
   static const String firebaseToken = "firebaseToken";
   static const String store = "store";

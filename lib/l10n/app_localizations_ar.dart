@@ -84,6 +84,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get skipPayment => 'تخطي الدفع';
 
   @override
+  String get bank_info => 'معلومات البنك';
+
+  @override
   String get paymentMethod => 'طريقة الدفع';
 
   @override
@@ -192,7 +195,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get plate_code => 'حروف اللوحة';
 
   @override
-  String get enter_plate_code => 'أدخل حروف اللوحة';
+  String get enter_plate_code => 'أدخل حروف اللوحة (ABC)';
 
   @override
   String get type => 'النوع';
@@ -579,6 +582,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get ibanLength => 'رقم الآيبان السعودي يجب أن يتكون من 24 خانة';
 
   @override
+  String get carStatus => 'حالة المركبة';
+
+  @override
   String get ibanInvalidFormat => 'تنسيق رقم الآيبان غير صحيح';
 
   @override
@@ -613,6 +619,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get confirmPasswordNotMatch => 'كلمة المرور غير متطابقة';
+
+  @override
+  String get year => 'السنة';
 
   @override
   String get emptyFieldHint => 'هذه الخانة مطلوبة';

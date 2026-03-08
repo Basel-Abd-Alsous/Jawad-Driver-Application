@@ -245,6 +245,12 @@ abstract class AppLocalizations {
   /// **'Skip Payment'**
   String get skipPayment;
 
+  /// No description provided for @bank_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank informations'**
+  String get bank_info;
+
   /// No description provided for @paymentMethod.
   ///
   /// In en, this message translates to:
@@ -464,7 +470,7 @@ abstract class AppLocalizations {
   /// No description provided for @enter_plate_code.
   ///
   /// In en, this message translates to:
-  /// **'Enter Plate Code'**
+  /// **'Enter Plate Code (ABC)'**
   String get enter_plate_code;
 
   /// No description provided for @type.
@@ -1235,6 +1241,12 @@ abstract class AppLocalizations {
   /// **'Saudi IBAN must be 24 characters long'**
   String get ibanLength;
 
+  /// No description provided for @carStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Car Status'**
+  String get carStatus;
+
   /// No description provided for @ibanInvalidFormat.
   ///
   /// In en, this message translates to:
@@ -1306,6 +1318,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Passwords do not match'**
   String get confirmPasswordNotMatch;
+
+  /// No description provided for @year.
+  ///
+  /// In en, this message translates to:
+  /// **'Year'**
+  String get year;
 
   /// No description provided for @emptyFieldHint.
   ///

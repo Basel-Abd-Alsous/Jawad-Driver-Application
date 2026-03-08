@@ -200,7 +200,7 @@ return selectColor(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loadingSignUp,TResult Function( RegisterModel model)?  loadedSignUp,TResult Function( String message)?  errorSignUp,TResult Function()?  loadingVerifyOtpSignUp,TResult Function( String token)?  loadedVerifyOtpSignUp,TResult Function( String message)?  errorVerifyOtpSignUp,TResult Function()?  loadingDocumentType,TResult Function( DocumentTypeModel documentTypeModel)?  loadedDocumentType,TResult Function( String message)?  errorDocumentType,TResult Function()?  loadingFile,TResult Function()?  loadedFile,TResult Function( String message)?  errorFile,TResult Function()?  loadingMyDocument,TResult Function( MyDocumentModel mMyDocumentModel)?  loadedMyDocument,TResult Function( String message)?  errorMyDocument,TResult Function()?  loadingCarModelAndColorInfo,TResult Function( CarModelAndColorModel carModelAndColorModel)?  loadedCarModelAndColorInfo,TResult Function( String message)?  errorCarModelAndColorInfo,TResult Function()?  loadingCarInfo,TResult Function()?  loadedCarInfo,TResult Function( String message)?  errorCarInfo,TResult Function()?  loadingBankInfo,TResult Function()?  loadedBankInfo,TResult Function( String message)?  errorBankInfo,TResult Function()?  selectType,TResult Function()?  selectModel,TResult Function()?  selectColor,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loadingSignUp,TResult Function( RegisterModel model)?  loadedSignUp,TResult Function( String message)?  errorSignUp,TResult Function()?  loadingVerifyOtpSignUp,TResult Function( String token)?  loadedVerifyOtpSignUp,TResult Function( String message)?  errorVerifyOtpSignUp,TResult Function()?  loadingDocumentType,TResult Function( MyDocumentModel documentTypeModel)?  loadedDocumentType,TResult Function( String message)?  errorDocumentType,TResult Function()?  loadingFile,TResult Function()?  loadedFile,TResult Function( String message)?  errorFile,TResult Function()?  loadingMyDocument,TResult Function( MyDocumentModel mMyDocumentModel)?  loadedMyDocument,TResult Function( String message)?  errorMyDocument,TResult Function()?  loadingCarModelAndColorInfo,TResult Function( CarModelAndColorModel carModelAndColorModel)?  loadedCarModelAndColorInfo,TResult Function( String message)?  errorCarModelAndColorInfo,TResult Function()?  loadingCarInfo,TResult Function()?  loadedCarInfo,TResult Function( String message)?  errorCarInfo,TResult Function()?  loadingBankInfo,TResult Function()?  loadedBankInfo,TResult Function( String message)?  errorBankInfo,TResult Function()?  selectType,TResult Function()?  selectModel,TResult Function()?  selectColor,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _LoadingSignUp() when loadingSignUp != null:
@@ -248,7 +248,7 @@ return selectColor();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loadingSignUp,required TResult Function( RegisterModel model)  loadedSignUp,required TResult Function( String message)  errorSignUp,required TResult Function()  loadingVerifyOtpSignUp,required TResult Function( String token)  loadedVerifyOtpSignUp,required TResult Function( String message)  errorVerifyOtpSignUp,required TResult Function()  loadingDocumentType,required TResult Function( DocumentTypeModel documentTypeModel)  loadedDocumentType,required TResult Function( String message)  errorDocumentType,required TResult Function()  loadingFile,required TResult Function()  loadedFile,required TResult Function( String message)  errorFile,required TResult Function()  loadingMyDocument,required TResult Function( MyDocumentModel mMyDocumentModel)  loadedMyDocument,required TResult Function( String message)  errorMyDocument,required TResult Function()  loadingCarModelAndColorInfo,required TResult Function( CarModelAndColorModel carModelAndColorModel)  loadedCarModelAndColorInfo,required TResult Function( String message)  errorCarModelAndColorInfo,required TResult Function()  loadingCarInfo,required TResult Function()  loadedCarInfo,required TResult Function( String message)  errorCarInfo,required TResult Function()  loadingBankInfo,required TResult Function()  loadedBankInfo,required TResult Function( String message)  errorBankInfo,required TResult Function()  selectType,required TResult Function()  selectModel,required TResult Function()  selectColor,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loadingSignUp,required TResult Function( RegisterModel model)  loadedSignUp,required TResult Function( String message)  errorSignUp,required TResult Function()  loadingVerifyOtpSignUp,required TResult Function( String token)  loadedVerifyOtpSignUp,required TResult Function( String message)  errorVerifyOtpSignUp,required TResult Function()  loadingDocumentType,required TResult Function( MyDocumentModel documentTypeModel)  loadedDocumentType,required TResult Function( String message)  errorDocumentType,required TResult Function()  loadingFile,required TResult Function()  loadedFile,required TResult Function( String message)  errorFile,required TResult Function()  loadingMyDocument,required TResult Function( MyDocumentModel mMyDocumentModel)  loadedMyDocument,required TResult Function( String message)  errorMyDocument,required TResult Function()  loadingCarModelAndColorInfo,required TResult Function( CarModelAndColorModel carModelAndColorModel)  loadedCarModelAndColorInfo,required TResult Function( String message)  errorCarModelAndColorInfo,required TResult Function()  loadingCarInfo,required TResult Function()  loadedCarInfo,required TResult Function( String message)  errorCarInfo,required TResult Function()  loadingBankInfo,required TResult Function()  loadedBankInfo,required TResult Function( String message)  errorBankInfo,required TResult Function()  selectType,required TResult Function()  selectModel,required TResult Function()  selectColor,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _LoadingSignUp():
@@ -295,7 +295,7 @@ return selectColor();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loadingSignUp,TResult? Function( RegisterModel model)?  loadedSignUp,TResult? Function( String message)?  errorSignUp,TResult? Function()?  loadingVerifyOtpSignUp,TResult? Function( String token)?  loadedVerifyOtpSignUp,TResult? Function( String message)?  errorVerifyOtpSignUp,TResult? Function()?  loadingDocumentType,TResult? Function( DocumentTypeModel documentTypeModel)?  loadedDocumentType,TResult? Function( String message)?  errorDocumentType,TResult? Function()?  loadingFile,TResult? Function()?  loadedFile,TResult? Function( String message)?  errorFile,TResult? Function()?  loadingMyDocument,TResult? Function( MyDocumentModel mMyDocumentModel)?  loadedMyDocument,TResult? Function( String message)?  errorMyDocument,TResult? Function()?  loadingCarModelAndColorInfo,TResult? Function( CarModelAndColorModel carModelAndColorModel)?  loadedCarModelAndColorInfo,TResult? Function( String message)?  errorCarModelAndColorInfo,TResult? Function()?  loadingCarInfo,TResult? Function()?  loadedCarInfo,TResult? Function( String message)?  errorCarInfo,TResult? Function()?  loadingBankInfo,TResult? Function()?  loadedBankInfo,TResult? Function( String message)?  errorBankInfo,TResult? Function()?  selectType,TResult? Function()?  selectModel,TResult? Function()?  selectColor,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loadingSignUp,TResult? Function( RegisterModel model)?  loadedSignUp,TResult? Function( String message)?  errorSignUp,TResult? Function()?  loadingVerifyOtpSignUp,TResult? Function( String token)?  loadedVerifyOtpSignUp,TResult? Function( String message)?  errorVerifyOtpSignUp,TResult? Function()?  loadingDocumentType,TResult? Function( MyDocumentModel documentTypeModel)?  loadedDocumentType,TResult? Function( String message)?  errorDocumentType,TResult? Function()?  loadingFile,TResult? Function()?  loadedFile,TResult? Function( String message)?  errorFile,TResult? Function()?  loadingMyDocument,TResult? Function( MyDocumentModel mMyDocumentModel)?  loadedMyDocument,TResult? Function( String message)?  errorMyDocument,TResult? Function()?  loadingCarModelAndColorInfo,TResult? Function( CarModelAndColorModel carModelAndColorModel)?  loadedCarModelAndColorInfo,TResult? Function( String message)?  errorCarModelAndColorInfo,TResult? Function()?  loadingCarInfo,TResult? Function()?  loadedCarInfo,TResult? Function( String message)?  errorCarInfo,TResult? Function()?  loadingBankInfo,TResult? Function()?  loadedBankInfo,TResult? Function( String message)?  errorBankInfo,TResult? Function()?  selectType,TResult? Function()?  selectModel,TResult? Function()?  selectColor,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _LoadingSignUp() when loadingSignUp != null:
@@ -732,7 +732,7 @@ class _LoadedDocumentType implements RegisterState {
   const _LoadedDocumentType(this.documentTypeModel);
   
 
- final  DocumentTypeModel documentTypeModel;
+ final  MyDocumentModel documentTypeModel;
 
 /// Create a copy of RegisterState
 /// with the given fields replaced by the non-null parameter values.
@@ -764,11 +764,11 @@ abstract mixin class _$LoadedDocumentTypeCopyWith<$Res> implements $RegisterStat
   factory _$LoadedDocumentTypeCopyWith(_LoadedDocumentType value, $Res Function(_LoadedDocumentType) _then) = __$LoadedDocumentTypeCopyWithImpl;
 @useResult
 $Res call({
- DocumentTypeModel documentTypeModel
+ MyDocumentModel documentTypeModel
 });
 
 
-$DocumentTypeModelCopyWith<$Res> get documentTypeModel;
+$MyDocumentModelCopyWith<$Res> get documentTypeModel;
 
 }
 /// @nodoc
@@ -784,7 +784,7 @@ class __$LoadedDocumentTypeCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? documentTypeModel = null,}) {
   return _then(_LoadedDocumentType(
 null == documentTypeModel ? _self.documentTypeModel : documentTypeModel // ignore: cast_nullable_to_non_nullable
-as DocumentTypeModel,
+as MyDocumentModel,
   ));
 }
 
@@ -792,9 +792,9 @@ as DocumentTypeModel,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$DocumentTypeModelCopyWith<$Res> get documentTypeModel {
+$MyDocumentModelCopyWith<$Res> get documentTypeModel {
   
-  return $DocumentTypeModelCopyWith<$Res>(_self.documentTypeModel, (value) {
+  return $MyDocumentModelCopyWith<$Res>(_self.documentTypeModel, (value) {
     return _then(_self.copyWith(documentTypeModel: value));
   });
 }

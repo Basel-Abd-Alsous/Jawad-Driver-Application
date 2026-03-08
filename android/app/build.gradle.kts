@@ -36,7 +36,7 @@ android {
         applicationId = "com.primetag.jawad_driver"
         minSdk = flutter.minSdkVersion
         targetSdk = 36
-        versionCode = 15
+        versionCode = 16
         versionName = flutter.versionName
     }
 

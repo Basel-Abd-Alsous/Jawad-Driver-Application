@@ -7,12 +7,16 @@ import 'package:jawad_rider_captain/presentation/layout/domain/model/user_model.
 
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
+    registerAdapter(BankInfoAdapter());
+    registerAdapter(CarInfoAdapter());
     registerAdapter(DriverAdapter());
   }
 }
 
 extension IsolatedHiveRegistrar on IsolatedHiveInterface {
   void registerAdapters() {
+    registerAdapter(BankInfoAdapter());
+    registerAdapter(CarInfoAdapter());
     registerAdapter(DriverAdapter());
   }
 }

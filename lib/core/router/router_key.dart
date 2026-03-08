@@ -24,4 +24,5 @@ abstract class AppRoutes {
   static const complaint = "/complaint";
   static const contactUs = "/contactUs";
   static const unPaidVisit = "/unPaidVisit";
+  static const bankInfo2 = "/bankInfo2";
 }

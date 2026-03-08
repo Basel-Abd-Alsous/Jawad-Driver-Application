@@ -43,6 +43,14 @@ class WidgetDrawer extends StatelessWidget {
               },
             ),
             WidgetDrawerList(
+              title: local.bank_info,
+              icon: SvgPicture.asset(Assets.svgBank, width: 24, color: AppColor.secondColor),
+              onTap: () {
+                context.pop();
+                context.push(AppRoutes.bankInfo2);
+              },
+            ),
+            WidgetDrawerList(
               title: local.previous_trips,
               icon: SvgPicture.asset(Assets.svgVisitMenu, width: 24, color: AppColor.secondColor),
               onTap: () {

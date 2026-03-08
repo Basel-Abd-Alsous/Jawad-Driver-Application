@@ -14,7 +14,7 @@ class RegisterState with _$RegisterState {
   const factory RegisterState.errorVerifyOtpSignUp(String message) = _ErrorVerifyOtpSignUp;
   // Document type State
   const factory RegisterState.loadingDocumentType() = _LoadingDocumentType;
-  const factory RegisterState.loadedDocumentType(DocumentTypeModel documentTypeModel) = _LoadedDocumentType;
+  const factory RegisterState.loadedDocumentType(MyDocumentModel documentTypeModel) = _LoadedDocumentType;
   const factory RegisterState.errorDocumentType(String message) = _ErrorDocumentType;
 
   // File Upload State

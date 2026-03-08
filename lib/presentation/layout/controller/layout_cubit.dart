@@ -19,7 +19,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   LayoutCubit() : super(const LayoutState.initial());
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  List<Widget> screens = [const HomeScreen(), const MyVisitScreen(), const WalletScreen(), const MyDocumentScreen()];
+  List<Widget> screens = [const HomeScreen(), const MyVisitScreen(), const WalletScreen(), MyDocumentScreen()];
   ValueNotifier<int> currentIndex = ValueNotifier(0);
 
   // Change Index Page

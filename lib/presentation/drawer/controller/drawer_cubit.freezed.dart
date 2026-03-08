@@ -55,11 +55,14 @@ extension DrawerStatePatterns on DrawerState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _LoadingBankInfo value)?  loadingBankInfo,TResult Function( _LoadedBankInfo value)?  loadedBankInfo,TResult Function( _ErrorBankInfo value)?  errorBankInfo,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial(_that);case _:
+return initial(_that);case _LoadingBankInfo() when loadingBankInfo != null:
+return loadingBankInfo(_that);case _LoadedBankInfo() when loadedBankInfo != null:
+return loadedBankInfo(_that);case _ErrorBankInfo() when errorBankInfo != null:
+return errorBankInfo(_that);case _:
   return orElse();
 
 }
@@ -77,11 +80,14 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _LoadingBankInfo value)  loadingBankInfo,required TResult Function( _LoadedBankInfo value)  loadedBankInfo,required TResult Function( _ErrorBankInfo value)  errorBankInfo,}){
 final _that = this;
 switch (_that) {
 case _Initial():
-return initial(_that);case _:
+return initial(_that);case _LoadingBankInfo():
+return loadingBankInfo(_that);case _LoadedBankInfo():
+return loadedBankInfo(_that);case _ErrorBankInfo():
+return errorBankInfo(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -98,11 +104,14 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _LoadingBankInfo value)?  loadingBankInfo,TResult? Function( _LoadedBankInfo value)?  loadedBankInfo,TResult? Function( _ErrorBankInfo value)?  errorBankInfo,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial(_that);case _:
+return initial(_that);case _LoadingBankInfo() when loadingBankInfo != null:
+return loadingBankInfo(_that);case _LoadedBankInfo() when loadedBankInfo != null:
+return loadedBankInfo(_that);case _ErrorBankInfo() when errorBankInfo != null:
+return errorBankInfo(_that);case _:
   return null;
 
 }
@@ -119,10 +128,13 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loadingBankInfo,TResult Function()?  loadedBankInfo,TResult Function( String message)?  errorBankInfo,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial();case _:
+return initial();case _LoadingBankInfo() when loadingBankInfo != null:
+return loadingBankInfo();case _LoadedBankInfo() when loadedBankInfo != null:
+return loadedBankInfo();case _ErrorBankInfo() when errorBankInfo != null:
+return errorBankInfo(_that.message);case _:
   return orElse();
 
 }
@@ -140,10 +152,13 @@ return initial();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loadingBankInfo,required TResult Function()  loadedBankInfo,required TResult Function( String message)  errorBankInfo,}) {final _that = this;
 switch (_that) {
 case _Initial():
-return initial();case _:
+return initial();case _LoadingBankInfo():
+return loadingBankInfo();case _LoadedBankInfo():
+return loadedBankInfo();case _ErrorBankInfo():
+return errorBankInfo(_that.message);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -160,10 +175,13 @@ return initial();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loadingBankInfo,TResult? Function()?  loadedBankInfo,TResult? Function( String message)?  errorBankInfo,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial();case _:
+return initial();case _LoadingBankInfo() when loadingBankInfo != null:
+return loadingBankInfo();case _LoadedBankInfo() when loadedBankInfo != null:
+return loadedBankInfo();case _ErrorBankInfo() when errorBankInfo != null:
+return errorBankInfo(_that.message);case _:
   return null;
 
 }
@@ -202,5 +220,135 @@ String toString() {
 
 
 
+
+/// @nodoc
+
+
+class _LoadingBankInfo implements DrawerState {
+  const _LoadingBankInfo();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoadingBankInfo);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'DrawerState.loadingBankInfo()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _LoadedBankInfo implements DrawerState {
+  const _LoadedBankInfo();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoadedBankInfo);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'DrawerState.loadedBankInfo()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _ErrorBankInfo implements DrawerState {
+  const _ErrorBankInfo(this.message);
+  
+
+ final  String message;
+
+/// Create a copy of DrawerState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ErrorBankInfoCopyWith<_ErrorBankInfo> get copyWith => __$ErrorBankInfoCopyWithImpl<_ErrorBankInfo>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ErrorBankInfo&&(identical(other.message, message) || other.message == message));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,message);
+
+@override
+String toString() {
+  return 'DrawerState.errorBankInfo(message: $message)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ErrorBankInfoCopyWith<$Res> implements $DrawerStateCopyWith<$Res> {
+  factory _$ErrorBankInfoCopyWith(_ErrorBankInfo value, $Res Function(_ErrorBankInfo) _then) = __$ErrorBankInfoCopyWithImpl;
+@useResult
+$Res call({
+ String message
+});
+
+
+
+
+}
+/// @nodoc
+class __$ErrorBankInfoCopyWithImpl<$Res>
+    implements _$ErrorBankInfoCopyWith<$Res> {
+  __$ErrorBankInfoCopyWithImpl(this._self, this._then);
+
+  final _ErrorBankInfo _self;
+  final $Res Function(_ErrorBankInfo) _then;
+
+/// Create a copy of DrawerState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+  return _then(_ErrorBankInfo(
+null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
 
 // dart format on

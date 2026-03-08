@@ -8,6 +8,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/context/global.dart';
 import '../../../core/utils/color.dart';
+import '../../../main.dart';
+import '../../auth/domain/model/requiest_models/bank_info_model.dart';
+import '../../auth/domain/usecases/register_usecase.dart';
 import '../domain/model/contact_model.dart';
 import '../domain/model/feedback_model.dart';
 import '../domain/model/params/feedback_param.dart';
@@ -18,7 +21,9 @@ part 'drawer_cubit.freezed.dart';
 
 class DrawerCubit extends Cubit<DrawerState> {
   final DrawerUsecase usecase;
-  DrawerCubit({required this.usecase}) : super(const DrawerState.initial());
+  final RegisterUsecase registerUsecase;
+
+  DrawerCubit({required this.usecase, required this.registerUsecase}) : super(const DrawerState.initial());
 
   ValueNotifier<String> content = ValueNotifier('');
   ValueNotifier<ContactModel?> contactUs = ValueNotifier(null);
@@ -26,11 +31,18 @@ class DrawerCubit extends Cubit<DrawerState> {
 
   /// Form key
   final formKey = GlobalKey<FormState>();
+  final formKeyBankInfo = GlobalKey<FormState>();
 
   /// Controllers
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController messageController = TextEditingController();
+  TextEditingController bankName = TextEditingController();
+  TextEditingController number = TextEditingController();
+  TextEditingController swift = TextEditingController();
+  TextEditingController stcpay = TextEditingController();
+  TextEditingController iban = TextEditingController();
+  TextEditingController code = TextEditingController();
 
   /// Dropdown
   List<Map<String, dynamic>> feedbackCategories = [];
@@ -99,6 +111,29 @@ class DrawerCubit extends Cubit<DrawerState> {
     });
   }
 
+  Future<void> uploadBankInfo() async {
+    if (formKeyBankInfo.currentState!.validate()) {
+      try {
+        emit(const _LoadingBankInfo());
+        final bankInfoData = {
+          'bank_name': bankName.text.isEmpty ? 'empty bank' : bankName.text,
+          'number': '000000000000000',
+          'iban': iban.text.isEmpty ? 'empty bank' : iban.text,
+          'stc_phone': stcpay.text,
+          'type': stcpay.text.isEmpty ? 'bank' : 'stc',
+          'swift_code': swift.text,
+          'code': code.text,
+        };
+        final uploadBankInfoResponse = await registerUsecase.bankInfo(BankInfoModel.fromJson(bankInfoData));
+        uploadBankInfoResponse.fold((left) => emit(_ErrorBankInfo(left.message)), (right) {
+          emit(const _LoadedBankInfo());
+        });
+      } catch (e) {
+        logger.e('Server Error Upload Bank Info Section : $e');
+      }
+    }
+  }
+
   // Launch phone call
   void callPhone(String phoneNumber) async {
     final Uri url = Uri(scheme: 'tel', path: phoneNumber);
@@ -118,7 +153,6 @@ class DrawerCubit extends Cubit<DrawerState> {
       'وسجّل الآن وابدأ استقبال الطلبات بكل سهولة 👌\n'
       '$link',
       subject: 'تحميل تطبيق جواد – سائق',
-      
     );
   }
 

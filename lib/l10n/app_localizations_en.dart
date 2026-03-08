@@ -84,6 +84,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get skipPayment => 'Skip Payment';
 
   @override
+  String get bank_info => 'Bank informations';
+
+  @override
   String get paymentMethod => 'Payment Method';
 
   @override
@@ -192,7 +195,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get plate_code => 'Plate Code';
 
   @override
-  String get enter_plate_code => 'Enter Plate Code';
+  String get enter_plate_code => 'Enter Plate Code (ABC)';
 
   @override
   String get type => 'Type';
@@ -579,6 +582,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ibanLength => 'Saudi IBAN must be 24 characters long';
 
   @override
+  String get carStatus => 'Car Status';
+
+  @override
   String get ibanInvalidFormat => 'Invalid IBAN format';
 
   @override
@@ -613,6 +619,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get confirmPasswordNotMatch => 'Passwords do not match';
+
+  @override
+  String get year => 'Year';
 
   @override
   String get emptyFieldHint => 'This field is required';

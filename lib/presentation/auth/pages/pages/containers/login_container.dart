@@ -75,15 +75,8 @@ class LoginContainer extends StatelessWidget with FormValidationMixin {
                       ValueListenableBuilder(
                         valueListenable: sl<Box>(instanceName: BoxKey.appBox).listenable(),
                         builder: (context, value, child) {
-                          final token = value.get(BoxKey.token);
                           return InkWell(
-                            onTap: () async {
-                              if (token != null) {
-                                context.read<LoginCubit>().registerStatus();
-                              } else {
-                                context.push(AppRoutes.register);
-                              }
-                            },
+                            onTap: () async => context.push(AppRoutes.register),
                             child: Text(local.create_new_account, style: AppTextStyle.style12B.copyWith(color: Colors.white)),
                           );
                         },

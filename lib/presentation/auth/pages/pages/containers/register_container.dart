@@ -31,7 +31,40 @@ class RegisteContainer extends StatelessWidget with FormValidationMixin {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(local.enterIdNumber, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
+                InkWell(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => Dialog(
+                        backgroundColor: Colors.transparent, // إذا بدك خلفية شفافة
+                        insetPadding: const EdgeInsets.all(20),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Container(
+                            color: Colors.white,
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              spacing: 5,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(local.plate_number, style: AppTextStyle.style16B),
+                                SizedBox(width: 250, height: 250, child: Image.asset('assets/images/1.jpeg', fit: BoxFit.contain)),
+                                TextButton(onPressed: () => Navigator.pop(context), child: Text(local.back)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  child: Row(
+                    spacing: 10,
+                    children: [
+                      const Icon(Icons.info_outline, size: 16, color: AppColor.white),
+                      Text(local.enterIdNumber, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
+                    ],
+                  ),
+                ),
                 WidgetAuthTextField(
                   hintText: local.enterIdNumber,
                   controller: context.read<RegisterCubit>().idNumber,

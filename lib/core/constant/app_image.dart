@@ -26,6 +26,18 @@ class Assets {
   /// assets/fonts/Poppins/Poppins-Regular.ttf
   static const String fontsPoppinsPoppinsRegular = "assets/fonts/Poppins/Poppins-Regular.ttf";
 
+  /// Assets for images1
+  /// assets/images/1.jpeg
+  static const String images1 = "assets/images/1.jpeg";
+
+  /// Assets for images2
+  /// assets/images/2.jpeg
+  static const String images2 = "assets/images/2.jpeg";
+
+  /// Assets for images3
+  /// assets/images/3.jpeg
+  static const String images3 = "assets/images/3.jpeg";
+
   /// Assets for imagesCar
   /// assets/images/car.png
   static const String imagesCar = "assets/images/car.png";
@@ -105,6 +117,10 @@ class Assets {
   /// Assets for sound
   /// assets/sound.wav
   static const String sound = "assets/sound.wav";
+
+  /// Assets for svgBank
+  /// assets/svg/bank.svg
+  static const String svgBank = "assets/svg/bank.svg";
 
   /// Assets for svgCar
   /// assets/svg/car.svg
