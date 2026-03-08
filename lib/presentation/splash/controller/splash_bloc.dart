@@ -104,8 +104,8 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   Future<String> get route async {
     try {
       final bool isFirstTime = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.isFirstTime, defaultValue: true);
-      final String? userStatusRegister = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.userStatusRegister, defaultValue: '');
-      final String route = userStatusRegister == 'completed'
+      final String? token = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token, defaultValue: null);
+      final String route = token != null
           ? AppRoutes.layout
           : isFirstTime
           ? AppRoutes.language

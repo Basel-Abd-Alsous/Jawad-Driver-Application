@@ -51,7 +51,7 @@ class LoginCubit extends Cubit<LoginState> {
         final oneSignalId = OneSignal.User.pushSubscription.id;
         final loginData = {'phone': formatPhone(mobile.text), 'user_type': 'driver', 'fcm_token': oneSignalId};
         final loginResponse = await loginUseCase.login(LoginRequiestModel.fromJson(loginData));
-        loginResponse.fold((left) => emit(_ErrorLogin(left.message)), (right) => emit(_LoadedLogin()));
+        loginResponse.fold((left) => emit(_ErrorLogin(left.message)), (right) => emit(const _LoadedLogin()));
       } catch (e) {
         logger.e('Server Error Login Section : $e');
       }
