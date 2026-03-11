@@ -42,29 +42,31 @@ class CarInfoContainer extends StatelessWidget with FormValidationMixin {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 InkWell(
-                  onTap: () { showDialog(
-                                context: context,
-                                builder: (_) => Dialog(
-                                  backgroundColor: Colors.transparent, // إذا بدك خلفية شفافة
-                                  insetPadding: const EdgeInsets.all(20),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(12),
-                                    child: Container(
-                                      color: Colors.white,
-                                      padding: const EdgeInsets.all(10),
-                                      child: Column(
-                                        spacing: 5,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(local.plate_number, style: AppTextStyle.style16B),
-                                          SizedBox(width: 250, height: 250, child: Image.asset('assets/images/3.jpeg', fit: BoxFit.contain)),
-                                          TextButton(onPressed: () => Navigator.pop(context), child: Text(local.back)),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );},
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => Dialog(
+                        backgroundColor: Colors.transparent, // إذا بدك خلفية شفافة
+                        insetPadding: const EdgeInsets.all(20),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Container(
+                            color: Colors.white,
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              spacing: 5,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(local.plate_number, style: AppTextStyle.style16B),
+                                SizedBox(width: 250, height: 250, child: Image.asset('assets/images/3.jpeg', fit: BoxFit.contain)),
+                                TextButton(onPressed: () => Navigator.pop(context), child: Text(local.back)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                   child: Row(
                     spacing: 10,
                     children: [
@@ -73,7 +75,12 @@ class CarInfoContainer extends StatelessWidget with FormValidationMixin {
                     ],
                   ),
                 ),
-                WidgetAuthTextField(hintText: local.sequenceNumber, controller: context.read<RegisterCubit>().sequenceNumber, validator: (value) => validateNull(context, value)),
+                WidgetAuthTextField(
+                  hintText: local.sequenceNumber,
+                  keyboardType: TextInputType.number,
+                  controller: context.read<RegisterCubit>().sequenceNumber,
+                  validator: (value) => validateNull(context, value),
+                ),
                 5.gap,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -125,6 +132,7 @@ class CarInfoContainer extends StatelessWidget with FormValidationMixin {
                             controller: context.read<RegisterCubit>().plateNo,
                             inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r'[\u0600-\u06FF]'))],
                             maxLength: 4,
+                            keyboardType: TextInputType.number,
                             validator: (value) => validateNull(context, value),
                           ),
                         ],

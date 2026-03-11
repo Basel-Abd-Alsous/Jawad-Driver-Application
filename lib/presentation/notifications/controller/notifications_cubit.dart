@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../core/function/pick_image.dart';
 import '../domain/model/notifications_model.dart';
 import '../domain/uscase/notifications_usecase.dart';
 
@@ -23,10 +24,16 @@ class NotificationCubit extends Cubit<NotificationState> {
       if (loadMore != true) {
         emit(const _LoadingNotifications());
         final result = await notificationsUsecase(pageIndex);
-        result.fold((failure) => emit(_ErrorNotifications(failure.message)), (success) {
-          _changeIndexPage();
-          emit(_LoadedNotifications(data: success.data!));
-        });
+        result.fold(
+          (failure) {
+            erorrDialog(failure.message);
+            emit(_ErrorNotifications(failure.message));
+          },
+          (success) {
+            _changeIndexPage();
+            emit(_LoadedNotifications(data: success.data!));
+          },
+        );
       } else {
         final currentState = state;
 
@@ -34,15 +41,21 @@ class NotificationCubit extends Cubit<NotificationState> {
           if ((currentState.data.payload?.pagination?.lastPage ?? 0) >= pageIndex) {
             emit(_LoadedNotifications(data: currentState.data, hasMore: true));
             final result = await notificationsUsecase(pageIndex);
-            result.fold((failure) => emit(_ErrorNotifications(failure.message)), (success) {
-              _changeIndexPage();
-              List<NotificationData>? currentNotifications = List.from(currentState.data.payload?.notifications ?? []);
-              final newNotifications = success.data?.payload?.notifications ?? [];
-              currentNotifications.addAll(newNotifications);
-              final updatedPayload = currentState.data.payload!.copyWith(notifications: currentNotifications);
-              final updatedData = currentState.data.copyWith(payload: updatedPayload);
-              emit(_LoadedNotifications(data: updatedData));
-            });
+            result.fold(
+              (failure) {
+                erorrDialog(failure.message);
+                emit(_ErrorNotifications(failure.message));
+              },
+              (success) {
+                _changeIndexPage();
+                List<NotificationData>? currentNotifications = List.from(currentState.data.payload?.notifications ?? []);
+                final newNotifications = success.data?.payload?.notifications ?? [];
+                currentNotifications.addAll(newNotifications);
+                final updatedPayload = currentState.data.payload!.copyWith(notifications: currentNotifications);
+                final updatedData = currentState.data.copyWith(payload: updatedPayload);
+                emit(_LoadedNotifications(data: updatedData));
+              },
+            );
           }
         }
       }

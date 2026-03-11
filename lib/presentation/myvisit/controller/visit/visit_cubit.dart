@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../core/function/pick_image.dart';
 import '../../domain/model/visit_model.dart';
 import '../../domain/usecase/visit_usecase.dart';
 
@@ -25,10 +26,16 @@ class VisitCubit extends Cubit<VisitState> {
       if (loadMore != true) {
         emit(const _LoadingPreviousVisit());
         final result = await visitUsecase.getUnPaidVisit(pageIndex);
-        result.fold((failure) => emit(_ErrorPreviousVisit(failure.message)), (success) {
-          _changeIndexPage();
-          emit(_LoadedPreviousVisit(data: success.data!));
-        });
+        result.fold(
+          (failure) {
+            erorrDialog(failure.message);
+            emit(_ErrorPreviousVisit(failure.message));
+          },
+          (success) {
+            _changeIndexPage();
+            emit(_LoadedPreviousVisit(data: success.data!));
+          },
+        );
       } else {
         final currentState = state;
 
@@ -36,15 +43,21 @@ class VisitCubit extends Cubit<VisitState> {
           if ((currentState.data.payload?.pagination?.lastPage ?? 0) >= pageIndex) {
             emit(_LoadedPreviousVisit(data: currentState.data, hasMore: true));
             final result = await visitUsecase.getUnPaidVisit(pageIndex);
-            result.fold((failure) => emit(_ErrorPreviousVisit(failure.message)), (success) {
-              _changeIndexPage();
-              List<Travel>? currentCompletedVisits = List.from(currentState.data.payload?.travels ?? []);
-              final newCompletedVisits = success.data?.payload?.travels ?? [];
-              currentCompletedVisits.addAll(newCompletedVisits);
-              final updatedPayload = currentState.data.payload!.copyWith(travels: currentCompletedVisits);
-              final updatedData = currentState.data.copyWith(payload: updatedPayload);
-              emit(_LoadedPreviousVisit(data: updatedData));
-            });
+            result.fold(
+              (failure) {
+                erorrDialog(failure.message);
+                emit(_ErrorPreviousVisit(failure.message));
+              },
+              (success) {
+                _changeIndexPage();
+                List<Travel>? currentCompletedVisits = List.from(currentState.data.payload?.travels ?? []);
+                final newCompletedVisits = success.data?.payload?.travels ?? [];
+                currentCompletedVisits.addAll(newCompletedVisits);
+                final updatedPayload = currentState.data.payload!.copyWith(travels: currentCompletedVisits);
+                final updatedData = currentState.data.copyWith(payload: updatedPayload);
+                emit(_LoadedPreviousVisit(data: updatedData));
+              },
+            );
           }
         }
       }
@@ -59,10 +72,16 @@ class VisitCubit extends Cubit<VisitState> {
       if (loadMore != true) {
         emit(const _LoadingPreviousVisit());
         final result = await visitUsecase.getAllPreviousVisit(pageIndex);
-        result.fold((failure) => emit(_ErrorPreviousVisit(failure.message)), (success) {
-          _changeIndexPage();
-          emit(_LoadedPreviousVisit(data: success.data!));
-        });
+        result.fold(
+          (failure) {
+            erorrDialog(failure.message);
+            emit(_ErrorPreviousVisit(failure.message));
+          },
+          (success) {
+            _changeIndexPage();
+            emit(_LoadedPreviousVisit(data: success.data!));
+          },
+        );
       } else {
         final currentState = state;
 
@@ -70,15 +89,21 @@ class VisitCubit extends Cubit<VisitState> {
           if ((currentState.data.payload?.pagination?.lastPage ?? 0) >= pageIndex) {
             emit(_LoadedPreviousVisit(data: currentState.data, hasMore: true));
             final result = await visitUsecase.getAllPreviousVisit(pageIndex);
-            result.fold((failure) => emit(_ErrorPreviousVisit(failure.message)), (success) {
-              _changeIndexPage();
-              List<Travel>? currentCompletedVisits = List.from(currentState.data.payload?.travels ?? []);
-              final newCompletedVisits = success.data?.payload?.travels ?? [];
-              currentCompletedVisits.addAll(newCompletedVisits);
-              final updatedPayload = currentState.data.payload!.copyWith(travels: currentCompletedVisits);
-              final updatedData = currentState.data.copyWith(payload: updatedPayload);
-              emit(_LoadedPreviousVisit(data: updatedData));
-            });
+            result.fold(
+              (failure) {
+                erorrDialog(failure.message);
+                emit(_ErrorPreviousVisit(failure.message));
+              },
+              (success) {
+                _changeIndexPage();
+                List<Travel>? currentCompletedVisits = List.from(currentState.data.payload?.travels ?? []);
+                final newCompletedVisits = success.data?.payload?.travels ?? [];
+                currentCompletedVisits.addAll(newCompletedVisits);
+                final updatedPayload = currentState.data.payload!.copyWith(travels: currentCompletedVisits);
+                final updatedData = currentState.data.copyWith(payload: updatedPayload);
+                emit(_LoadedPreviousVisit(data: updatedData));
+              },
+            );
           }
         }
       }
@@ -108,10 +133,16 @@ class VisitCubit extends Cubit<VisitState> {
       if (loadMore != true) {
         emit(const _LoadingCancelVisits());
         final result = await visitUsecase.getAllCancelVisit(pageIndex);
-        result.fold((failure) => emit(_ErrorCancelVisits(failure.message)), (success) {
-          _changeIndexPageCanceled();
-          emit(_LoadedCancelVisits(data: success.data!));
-        });
+        result.fold(
+          (failure) {
+            erorrDialog(failure.message);
+            emit(_ErrorCancelVisits(failure.message));
+          },
+          (success) {
+            _changeIndexPageCanceled();
+            emit(_LoadedCancelVisits(data: success.data!));
+          },
+        );
       } else {
         final currentState = state;
 
@@ -119,15 +150,21 @@ class VisitCubit extends Cubit<VisitState> {
           if ((currentState.data.payload?.pagination?.lastPage ?? 0) >= pageIndex) {
             emit(_LoadedCancelVisits(data: currentState.data, hasMore: true));
             final result = await visitUsecase.getAllCancelVisit(pageIndex);
-            result.fold((failure) => emit(_ErrorCancelVisits(failure.message)), (success) {
-              _changeIndexPageCanceled();
-              List<Travel>? currentCanceledVisits = List.from(currentState.data.payload?.travels ?? []);
-              final newCanceledVisits = success.data?.payload?.travels ?? [];
-              currentCanceledVisits.addAll(newCanceledVisits);
-              final updatedPayload = currentState.data.payload!.copyWith(travels: currentCanceledVisits);
-              final updatedData = currentState.data.copyWith(payload: updatedPayload);
-              emit(_LoadedCancelVisits(data: updatedData));
-            });
+            result.fold(
+              (failure) {
+                erorrDialog(failure.message);
+                emit(_ErrorCancelVisits(failure.message));
+              },
+              (success) {
+                _changeIndexPageCanceled();
+                List<Travel>? currentCanceledVisits = List.from(currentState.data.payload?.travels ?? []);
+                final newCanceledVisits = success.data?.payload?.travels ?? [];
+                currentCanceledVisits.addAll(newCanceledVisits);
+                final updatedPayload = currentState.data.payload!.copyWith(travels: currentCanceledVisits);
+                final updatedData = currentState.data.copyWith(payload: updatedPayload);
+                emit(_LoadedCancelVisits(data: updatedData));
+              },
+            );
           }
         }
       }

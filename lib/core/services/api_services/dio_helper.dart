@@ -28,7 +28,7 @@ class DioHelper {
           'Accept': 'application/json',
           'app-type': 'driver',
           'platform': Platform.isIOS ? 'ios' : 'android',
-          'app-version': '1.0.9+1',
+          'app-version': '1.0.11',
         },
       ),
     );

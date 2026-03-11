@@ -7,6 +7,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/context/global.dart';
+import '../../../core/function/pick_image.dart';
 import '../../../core/utils/color.dart';
 import '../../../main.dart';
 import '../../auth/domain/model/requiest_models/bank_info_model.dart';
@@ -54,6 +55,7 @@ class DrawerCubit extends Cubit<DrawerState> {
     result.fold(
       (left) {
         SmartDialog.dismiss();
+        erorrDialog(left.message);
       },
       (right) {
         content.value = right.data!;
@@ -68,6 +70,7 @@ class DrawerCubit extends Cubit<DrawerState> {
     result.fold(
       (left) {
         SmartDialog.dismiss();
+        erorrDialog(left.message);
       },
       (right) {
         print(right.data);
@@ -81,21 +84,33 @@ class DrawerCubit extends Cubit<DrawerState> {
   Future<void> getContact() async {
     SmartDialog.showLoading();
     final result = await usecase.getContactUs();
-    result.fold((left) => SmartDialog.dismiss(), (right) {
-      print(right.data);
-      contactUs.value = right.data!;
-      SmartDialog.dismiss();
-    });
+    result.fold(
+      (left) {
+        SmartDialog.dismiss();
+        erorrDialog(left.message);
+      },
+      (right) {
+        print(right.data);
+        contactUs.value = right.data!;
+        SmartDialog.dismiss();
+      },
+    );
   }
 
   Future<void> getFeedbackCategory() async {
     SmartDialog.showLoading();
     final result = await usecase.getFeedbackList();
-    result.fold((left) => SmartDialog.dismiss(), (right) {
-      print(right.data);
-      feedbackCategory.value = right.data!;
-      SmartDialog.dismiss();
-    });
+    result.fold(
+      (left) {
+        SmartDialog.dismiss();
+        erorrDialog(left.message);
+      },
+      (right) {
+        print(right.data);
+        feedbackCategory.value = right.data!;
+        SmartDialog.dismiss();
+      },
+    );
   }
 
   Future<void> sendFeedback() async {
@@ -103,12 +118,18 @@ class DrawerCubit extends Cubit<DrawerState> {
     SmartDialog.showLoading();
     FeedbackParam feedbackParam = FeedbackParam(appType: "driver", feedbackType: selectedFeedbackType ?? "", email: emailController.text, phone: phoneController.text, message: messageController.text);
     final result = await usecase.sendFeedback(feedbackParam);
-    result.fold((left) => SmartDialog.dismiss(), (right) {
-      print(right.data);
-      SmartDialog.dismiss();
-      SmartDialog.showToast('Succes Send Your Feedback', maskColor: AppColor.green);
-      GlobalContext.context.pop();
-    });
+    result.fold(
+      (left) {
+        SmartDialog.dismiss();
+        erorrDialog(left.message);
+      },
+      (right) {
+        print(right.data);
+        SmartDialog.dismiss();
+        SmartDialog.showToast('Succes Send Your Feedback', maskColor: AppColor.green);
+        GlobalContext.context.pop();
+      },
+    );
   }
 
   Future<void> uploadBankInfo() async {
@@ -116,18 +137,24 @@ class DrawerCubit extends Cubit<DrawerState> {
       try {
         emit(const _LoadingBankInfo());
         final bankInfoData = {
-          'bank_name': bankName.text.isEmpty ? 'empty bank' : bankName.text,
+          'bank_name': convertArabicNumbersToEnglish(bankName.text.isEmpty ? 'empty bank' : bankName.text),
           'number': '000000000000000',
-          'iban': iban.text.isEmpty ? 'empty bank' : iban.text,
-          'stc_phone': stcpay.text,
+          'iban': convertArabicNumbersToEnglish(iban.text.isEmpty ? 'empty bank' : iban.text),
+          'stc_phone': convertArabicNumbersToEnglish(stcpay.text.isEmpty ? 'empty stc' : stcpay.text),
           'type': stcpay.text.isEmpty ? 'bank' : 'stc',
-          'swift_code': swift.text,
-          'code': code.text,
+          'swift_code': convertArabicNumbersToEnglish(swift.text.isEmpty ? 'empty swift' : swift.text),
+          'code': convertArabicNumbersToEnglish(code.text),
         };
         final uploadBankInfoResponse = await registerUsecase.bankInfo(BankInfoModel.fromJson(bankInfoData));
-        uploadBankInfoResponse.fold((left) => emit(_ErrorBankInfo(left.message)), (right) {
-          emit(const _LoadedBankInfo());
-        });
+        uploadBankInfoResponse.fold(
+          (left) {
+            erorrDialog(left.message);
+            emit(_ErrorBankInfo(left.message));
+          },
+          (right) {
+            emit(const _LoadedBankInfo());
+          },
+        );
       } catch (e) {
         logger.e('Server Error Upload Bank Info Section : $e');
       }

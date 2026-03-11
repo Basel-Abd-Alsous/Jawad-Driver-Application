@@ -22,6 +22,7 @@ import 'package:audioplayers/audioplayers.dart';
 import ' route_utils.dart';
 import '../../../core/constant/api_link.dart';
 import '../../../core/context/global.dart';
+import '../../../core/function/pick_image.dart';
 import '../../../core/function/show_snackbar.dart';
 import '../../../core/services/api_services/api_client.dart';
 import '../../../core/services/api_services/dio_helper.dart';
@@ -91,15 +92,7 @@ class HomeCubit extends Cubit<HomeState> {
       result.fold(
         (failure) {
           SmartDialog.dismiss();
-          SmartDialog.show(
-            builder: (context) => WidgetDilog(
-              isError: true,
-              title: AppLocalizations.of(GlobalContext.context)!.warning,
-              message: failure.message,
-              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-              onCancel: () => SmartDialog.dismiss(),
-            ),
-          );
+          erorrDialog(failure.message);
           emit(HomeState.errorWorkStatus(failure.message));
         },
         (data) async {
@@ -364,9 +357,15 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> getTravelRequist() async {
     emit(const HomeState.loadingTravelRequest());
     final result = await homeUsecase.travelRequist();
-    result.fold((failure) => emit(HomeState.errorTravelRequest(failure.message)), (result) {
-      emit(HomeState.loadedTravelRequest(result.data!));
-    });
+    result.fold(
+      (failure) {
+        erorrDialog(failure.message);
+        emit(HomeState.errorTravelRequest(failure.message));
+      },
+      (result) {
+        emit(HomeState.loadedTravelRequest(result.data!));
+      },
+    );
   }
 
   Future<void> currentTravelRequist() async {
@@ -374,15 +373,7 @@ class HomeCubit extends Cubit<HomeState> {
     result.fold(
       (l) {
         SmartDialog.dismiss();
-        SmartDialog.show(
-          builder: (context) => WidgetDilog(
-            isError: true,
-            title: AppLocalizations.of(GlobalContext.context)!.warning,
-            message: l.message,
-            cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-            onCancel: () => SmartDialog.dismiss(),
-          ),
-        );
+        erorrDialog(l.message);
       },
       (r) async {
         currentTravel.value = r.data;
@@ -440,15 +431,7 @@ class HomeCubit extends Cubit<HomeState> {
           newList.removeWhere((element) => element.id == id);
           emit(HomeState.loadedTravelRequest(newList));
         }
-        SmartDialog.show(
-          builder: (context) => WidgetDilog(
-            isError: true,
-            title: AppLocalizations.of(GlobalContext.context)!.warning,
-            message: l.message,
-            cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-            onCancel: () => SmartDialog.dismiss(),
-          ),
-        );
+        erorrDialog(l.message);
       },
       (r) async {
         travelStatus.value = TravelStatus.assigned;
@@ -469,15 +452,7 @@ class HomeCubit extends Cubit<HomeState> {
           newList.removeWhere((element) => element.id == id);
           emit(HomeState.loadedTravelRequest(newList));
         }
-        SmartDialog.show(
-          builder: (context) => WidgetDilog(
-            isError: true,
-            title: AppLocalizations.of(GlobalContext.context)!.warning,
-            message: l.message,
-            cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-            onCancel: () => SmartDialog.dismiss(),
-          ),
-        );
+        erorrDialog(l.message);
       },
       (r) {
         final curentState = state;
@@ -497,15 +472,7 @@ class HomeCubit extends Cubit<HomeState> {
     result.fold(
       (l) {
         SmartDialog.dismiss();
-        SmartDialog.show(
-          builder: (context) => WidgetDilog(
-            isError: true,
-            title: AppLocalizations.of(GlobalContext.context)!.warning,
-            message: l.message,
-            cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-            onCancel: () => SmartDialog.dismiss(),
-          ),
-        );
+        erorrDialog(l.message);
       },
       (r) async {
         travelStatus.value = TravelStatus.pending;
@@ -530,15 +497,7 @@ class HomeCubit extends Cubit<HomeState> {
       result.fold(
         (l) {
           SmartDialog.dismiss();
-          SmartDialog.show(
-            builder: (context) => WidgetDilog(
-              isError: true,
-              title: AppLocalizations.of(GlobalContext.context)!.warning,
-              message: l.message,
-              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-              onCancel: () => SmartDialog.dismiss(),
-            ),
-          );
+          erorrDialog(l.message);
         },
         (r) async {
           travelStatus.value = TravelStatus.arrived;
@@ -560,15 +519,7 @@ class HomeCubit extends Cubit<HomeState> {
     result.fold(
       (l) {
         SmartDialog.dismiss();
-        SmartDialog.show(
-          builder: (context) => WidgetDilog(
-            isError: true,
-            title: AppLocalizations.of(GlobalContext.context)!.warning,
-            message: l.message,
-            cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-            onCancel: () => SmartDialog.dismiss(),
-          ),
-        );
+        erorrDialog(l.message);
       },
       (r) async {
         travelStatus.value = TravelStatus.started;
@@ -599,15 +550,7 @@ class HomeCubit extends Cubit<HomeState> {
       result.fold(
         (l) {
           SmartDialog.dismiss();
-          SmartDialog.show(
-            builder: (context) => WidgetDilog(
-              isError: true,
-              title: AppLocalizations.of(GlobalContext.context)!.warning,
-              message: l.message,
-              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-              onCancel: () => SmartDialog.dismiss(),
-            ),
-          );
+          erorrDialog(l.message);
         },
         (r) async {
           // ❌ إيقاف وضع الرحلة بعد انتهاء الرحلة
@@ -688,15 +631,7 @@ class HomeCubit extends Cubit<HomeState> {
     result.fold(
       (l) {
         SmartDialog.dismiss();
-        SmartDialog.show(
-          builder: (context) => WidgetDilog(
-            isError: true,
-            title: AppLocalizations.of(GlobalContext.context)!.warning,
-            message: l.message,
-            cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-            onCancel: () => SmartDialog.dismiss(),
-          ),
-        );
+        erorrDialog(l.message);
       },
       (r) async {
         SmartDialog.dismiss();
@@ -720,14 +655,20 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> getUserProfile(BuildContext context) async {
     final result = await homeUsecase.getProfile();
-    result.fold((failure) => emit(HomeState.errorProfile(failure.message)), (result) {
-      sl<Box<Driver>>().put(BoxKey.user, result.data!.payload!.driver!);
-      if (result.data!.payload?.driver?.workStatus == true) {
-        connect();
-      } else {
-        _disconnect();
-      }
-    });
+    result.fold(
+      (failure) {
+        erorrDialog(failure.message);
+        emit(HomeState.errorProfile(failure.message));
+      },
+      (result) {
+        sl<Box<Driver>>().put(BoxKey.user, result.data!.payload!.driver!);
+        if (result.data!.payload?.driver?.workStatus == true) {
+          connect();
+        } else {
+          _disconnect();
+        }
+      },
+    );
   }
 
   // ============================== Socit IO Function =========================================//

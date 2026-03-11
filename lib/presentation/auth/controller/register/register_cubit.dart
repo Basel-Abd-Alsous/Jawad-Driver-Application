@@ -86,16 +86,16 @@ class RegisterCubit extends Cubit<RegisterState> {
         final sendOtpResponse = await registerUsecase.registerSendOtp(mobile.text);
         sendOtpResponse.fold((left) => emit(_ErrorSignUp(left.message)), (right) {
           RegisterModel model = RegisterModel.fromJson({
-            "id_number": idNumber.text,
+            "id_number": convertArabicNumbersToEnglish(idNumber.text),
             "date_of_birth": bartheDate.text,
             "phone": formatPhone(mobile.text),
-            "plate_number": plateNo.text,
+            "plate_number": convertArabicNumbersToEnglish(plateNo.text),
             "plate_code": plateCode.text,
             "vehicle_colors_id": selectedColor?.id.toString(),
             "vehicle_type_id": selectedType?.id.toString(),
             "vehicle_models_id": selectedModel?.id.toString(),
             "year": selectedYear.value == '' ? '${DateTime.now().year}' : selectedYear.value.toString(),
-            "sequence_number": sequenceNumber.text,
+            "sequence_number": convertArabicNumbersToEnglish(sequenceNumber.text),
             "plate_type": "1",
             "fcm_token": oneSignalId,
           });
@@ -120,7 +120,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   Future<void> verifyOtpRegister(String phone, String otp, String token) async {
     try {
-      final loginResponse = await registerUsecase.verifyOtpRegister(phone, otp, 'driver');
+      final loginResponse = await registerUsecase.verifyOtpRegister(convertArabicNumbersToEnglish(phone.replaceAll(' ', '')), convertArabicNumbersToEnglish(otp), 'driver');
       loginResponse.fold((left) => emit(_ErrorVerifyOtpSignUp(left.message)), (right) => emit(_LoadedVerifyOtpSignUp(token)));
     } catch (e) {
       logger.e('Server Error Login Section : $e');
@@ -128,8 +128,10 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   String formatPhone(String phone) {
-    phone = phone.replaceAll(' ', '');
-    if (phone.startsWith('0')) phone = phone.substring(1);
+    phone = convertArabicNumbersToEnglish(phone.replaceAll(' ', ''));
+    if (phone.startsWith('0')) {
+      phone = phone.substring(1);
+    }
     return '+966$phone';
   }
 
@@ -209,9 +211,15 @@ class RegisterCubit extends Cubit<RegisterState> {
     try {
       emit(const _LoadingMyDocument());
       final myDocumentsResponse = await registerUsecase.myDocument();
-      myDocumentsResponse.fold((left) => emit(_ErrorMyDocument(left.message)), (right) async {
-        emit(_LoadedMyDocument(right.data!));
-      });
+      myDocumentsResponse.fold(
+        (left) {
+          erorrDialog(left.message);
+          emit(_ErrorMyDocument(left.message));
+        },
+        (right) async {
+          emit(_LoadedMyDocument(right.data!));
+        },
+      );
     } catch (e) {
       logger.e('Server Error My Documents Section : $e');
     }
@@ -222,12 +230,18 @@ class RegisterCubit extends Cubit<RegisterState> {
     try {
       emit(const _LoadingCarModelAndColorInfo());
       final carModelAndColorResponse = await registerUsecase.carModelAndColor();
-      carModelAndColorResponse.fold((left) => emit(_ErrorCarModelAndColorInfo(left.message)), (right) {
-        types = right.data!.payload!.types!.toList();
-        colors = right.data!.payload!.colors!.toList();
-        yearsList.value = List.generate(11, (index) => (currentYear - index).toString());
-        emit(_LoadedCarModelAndColorInfo(right.data!));
-      });
+      carModelAndColorResponse.fold(
+        (left) {
+          erorrDialog(left.message);
+          emit(_ErrorCarModelAndColorInfo(left.message));
+        },
+        (right) {
+          types = right.data!.payload!.types!.toList();
+          colors = right.data!.payload!.colors!.toList();
+          yearsList.value = List.generate(11, (index) => (currentYear - index).toString());
+          emit(_LoadedCarModelAndColorInfo(right.data!));
+        },
+      );
     } catch (e) {
       logger.e('Server Error Get Car Model And Color Section : $e');
     }
@@ -260,13 +274,13 @@ class RegisterCubit extends Cubit<RegisterState> {
       try {
         emit(const _LoadingBankInfo());
         final bankInfoData = {
-          'bank_name': bankName.text.isEmpty ? 'empty bank' : bankName.text,
+          'bank_name': convertArabicNumbersToEnglish(bankName.text.isEmpty ? 'empty bank' : bankName.text),
           'number': '000000000000000',
-          'iban': iban.text.isEmpty ? 'empty bank' : iban.text,
-          'stc_phone': stcpay.text,
+          'iban': convertArabicNumbersToEnglish(iban.text.isEmpty ? 'empty bank' : iban.text),
+          'stc_phone': convertArabicNumbersToEnglish(stcpay.text.isEmpty ? 'empty stc' : stcpay.text),
           'type': stcpay.text.isEmpty ? 'bank' : 'stc',
-          'swift_code': swift.text,
-          'code': code.text,
+          'swift_code': convertArabicNumbersToEnglish(swift.text.isEmpty ? 'empty swift' : swift.text),
+          'code': convertArabicNumbersToEnglish(code.text),
         };
         final uploadBankInfoResponse = await registerUsecase.bankInfo(BankInfoModel.fromJson(bankInfoData));
         uploadBankInfoResponse.fold((left) => emit(_ErrorBankInfo(left.message)), (right) {

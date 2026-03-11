@@ -105,14 +105,23 @@ class VerifyContainer extends StatelessWidget with FormValidationMixin {
                                     : stateForget.maybeWhen(orElse: () => false, loadingVerifyForget: () => true),
                                 text: local.verify,
                                 onPressed: () async {
+                                  if (!context.read<ForgetCubit>().formKeyOtp.currentState!.validate()) {
+                                    return;
+                                  }
                                   if (isLogin == true) {
-                                    context.read<LoginCubit>().verifyOtpLogin(phoneNumber.replaceAll(' ', '+'), context.read<ForgetCubit>().otp.text);
+                                    stateLogin.maybeWhen(
+                                      loadingVerifyLogin: () => null,
+                                      orElse: () async => context.read<LoginCubit>().verifyOtpLogin(phoneNumber.replaceAll(' ', '+'), context.read<ForgetCubit>().otp.text),
+                                    );
                                     return;
                                   } else if (isRegister == true) {
-                                    context.read<RegisterCubit>().register(phoneNumber.replaceAll(' ', '+'), context.read<ForgetCubit>().otp.text, model!);
+                                    stateRegister.maybeWhen(
+                                      orElse: () => context.read<RegisterCubit>().register(phoneNumber.replaceAll(' ', '+'), context.read<ForgetCubit>().otp.text, model!),
+                                      loadingVerifyOtpSignUp: () => null,
+                                    );
                                     return;
                                   } else {
-                                    await context.read<ForgetCubit>().verifyOtp(phoneNumber.replaceAll(' ', '+'));
+                                    stateForget.maybeWhen(orElse: () async => await context.read<ForgetCubit>().verifyOtp(phoneNumber.replaceAll(' ', '+')), loadingVerifyForget: () => null);
                                   }
                                 },
                               ),

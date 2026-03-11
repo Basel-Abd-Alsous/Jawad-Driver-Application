@@ -18,13 +18,5 @@ class BankInfoModel {
       iban = json['iban'] as String?,
       number = json['number'] as String?;
 
-  Map<String, dynamic> toJson() => {
-    'bank_name': bankName,
-    'code': code,
-    'stc_phone': mobile,
-    'type': type,
-    'swift_code': swiftCode,
-    'iban': iban,
-    'number': number,
-  };
+  Map<String, dynamic> toJson() => {'bank_name': bankName, 'code': code, 'stc_phone': mobile, 'type': type, 'swift_code': swiftCode, 'iban': iban, 'number': number};
 }

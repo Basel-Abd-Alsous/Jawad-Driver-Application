@@ -30,11 +30,16 @@ class WidgetAuthButton extends StatelessWidget {
                 text: isRegister == true ? local.continues : local.login,
                 onPressed: () async {
                   if (isRegister == false) {
-                    await context.read<LoginCubit>().login();
+                    stateLogin.maybeWhen(orElse: () async => await context.read<LoginCubit>().login(), loadingLogin: () => null);
                   } else {
-                    if (context.read<RegisterCubit>().formKeyStep1.currentState!.validate()) {
-                      context.push(AppRoutes.carInfo);
-                    }
+                    stateRegister.maybeWhen(
+                      orElse: () {
+                        if (context.read<RegisterCubit>().formKeyStep1.currentState!.validate()) {
+                          context.push(AppRoutes.carInfo);
+                        }
+                      },
+                      loadingSignUp: () => null,
+                    );
                   }
                 },
               );

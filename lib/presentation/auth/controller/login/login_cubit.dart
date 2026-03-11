@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
+import '../../../../core/function/pick_image.dart';
 import '../../../../main.dart';
 import '../../domain/model/document_status_model.dart';
 import '../../domain/model/register_status_model.dart';
@@ -61,7 +62,7 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> verifyOtpLogin(final String mobile, final String otp) async {
     try {
       emit(const _LoadingVerifyLogin());
-      final loginResponse = await loginUseCase.verifyOtpLogin(mobile, otp, 'driver');
+      final loginResponse = await loginUseCase.verifyOtpLogin(convertArabicNumbersToEnglish(mobile.replaceAll(' ', '')), convertArabicNumbersToEnglish(otp), 'driver');
       loginResponse.fold((left) => emit(_ErrorVerifyLogin(left.message)), (right) => emit(_LoadedVerifyLogin(right.data!)));
     } catch (e) {
       logger.e('Server Error Login Section : $e');
@@ -69,7 +70,7 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   String formatPhone(String phone) {
-    phone = phone.replaceAll(' ', '');
+    phone = convertArabicNumbersToEnglish(phone.replaceAll(' ', ''));
     if (phone.startsWith('0')) {
       phone = phone.substring(1);
     }

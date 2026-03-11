@@ -13,6 +13,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../../../core/constant/api_link.dart';
 import '../../../core/context/global.dart';
+import '../../../core/function/pick_image.dart';
 import '../../../core/services/hive/box_key.dart';
 import '../../../core/widget/widget_dailog.dart';
 import '../../../injection_container.dart';
@@ -62,15 +63,7 @@ class WalletCubit extends Cubit<WalletState> {
       result.fold(
         (failure) {
           SmartDialog.dismiss();
-          SmartDialog.show(
-            builder: (context) => WidgetDilog(
-              isError: true,
-              title: AppLocalizations.of(GlobalContext.context)!.warning,
-              message: failure.message,
-              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-              onCancel: () => SmartDialog.dismiss(),
-            ),
-          );
+          erorrDialog(failure.message);
         },
         (success) async {
           GlobalContext.context.pop();
@@ -106,15 +99,7 @@ class WalletCubit extends Cubit<WalletState> {
       result.fold(
         (failure) {
           SmartDialog.dismiss();
-          SmartDialog.show(
-            builder: (context) => WidgetDilog(
-              isError: true,
-              title: AppLocalizations.of(GlobalContext.context)!.warning,
-              message: failure.message,
-              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-              onCancel: () => SmartDialog.dismiss(),
-            ),
-          );
+          erorrDialog(failure.message);
         },
         (success) async {
           SmartDialog.dismiss();
@@ -144,15 +129,7 @@ class WalletCubit extends Cubit<WalletState> {
       result.fold(
         (failure) {
           SmartDialog.dismiss();
-          SmartDialog.show(
-            builder: (context) => WidgetDilog(
-              isError: true,
-              title: AppLocalizations.of(GlobalContext.context)!.warning,
-              message: failure.message,
-              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-              onCancel: () => SmartDialog.dismiss(),
-            ),
-          );
+          erorrDialog(failure.message);
         },
         (success) async {
           GlobalContext.context.pop();
@@ -180,25 +157,37 @@ class WalletCubit extends Cubit<WalletState> {
       if (loadMore != true) {
         emit(const _LoadingTransactionWallet());
         final result = await walletUsecase.transactionsWallet(pageIndex);
-        result.fold((failure) => emit(_ErrorTransactionWallet(failure.message)), (success) {
-          _changeIndexPage();
-          emit(_LoadedTransactionWallet(data: success.data!));
-        });
+        result.fold(
+          (failure) {
+            erorrDialog(failure.message);
+            emit(_ErrorTransactionWallet(failure.message));
+          },
+          (success) {
+            _changeIndexPage();
+            emit(_LoadedTransactionWallet(data: success.data!));
+          },
+        );
       } else {
         final currentState = state;
         if (currentState is _LoadedTransactionWallet) {
           if ((currentState.data.payload?.pagination?.lastPage ?? 0) >= pageIndex) {
             emit(_LoadedTransactionWallet(data: currentState.data, hasMore: true));
             final result = await walletUsecase.transactionsWallet(pageIndex);
-            result.fold((failure) => emit(_ErrorTransactionWallet(failure.message)), (success) {
-              _changeIndexPage();
-              List<Transaction>? currentTransactions = List.from(currentState.data.payload?.transactions ?? []);
-              final newTransactions = success.data?.payload?.transactions ?? [];
-              currentTransactions.addAll(newTransactions);
-              final updatedPayload = currentState.data.payload!.copyWith(transactions: currentTransactions);
-              final updatedData = currentState.data.copyWith(payload: updatedPayload);
-              emit(_LoadedTransactionWallet(data: updatedData));
-            });
+            result.fold(
+              (failure) {
+                erorrDialog(failure.message);
+                emit(_ErrorTransactionWallet(failure.message));
+              },
+              (success) {
+                _changeIndexPage();
+                List<Transaction>? currentTransactions = List.from(currentState.data.payload?.transactions ?? []);
+                final newTransactions = success.data?.payload?.transactions ?? [];
+                currentTransactions.addAll(newTransactions);
+                final updatedPayload = currentState.data.payload!.copyWith(transactions: currentTransactions);
+                final updatedData = currentState.data.copyWith(payload: updatedPayload);
+                emit(_LoadedTransactionWallet(data: updatedData));
+              },
+            );
           }
         }
       }
@@ -231,15 +220,7 @@ class WalletCubit extends Cubit<WalletState> {
       result.fold(
         (failure) {
           SmartDialog.dismiss();
-          SmartDialog.show(
-            builder: (context) => WidgetDilog(
-              isError: true,
-              title: AppLocalizations.of(GlobalContext.context)!.warning,
-              message: failure.message,
-              cancelText: AppLocalizations.of(GlobalContext.context)!.back,
-              onCancel: () => SmartDialog.dismiss(),
-            ),
-          );
+          erorrDialog(failure.message);
         },
         (success) async {
           SmartDialog.dismiss();

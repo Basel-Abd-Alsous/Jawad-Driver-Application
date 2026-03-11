@@ -12,6 +12,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../../../core/constant/api_link.dart';
 import '../../../core/context/global.dart';
+import '../../../core/function/pick_image.dart';
 import '../../../core/services/hive/box_key.dart';
 import '../../../injection_container.dart';
 import '../../../l10n/app_localizations.dart';
@@ -45,6 +46,7 @@ class ChatCubit extends Cubit<ChatState> {
       result.fold(
         (failure) {
           SmartDialog.dismiss();
+          erorrDialog(failure.message);
           logger.e('Error Wgen Get All Messages :- ${failure.message.toString()}');
         },
         (success) {
@@ -65,6 +67,7 @@ class ChatCubit extends Cubit<ChatState> {
       result.fold(
         (failure) {
           SmartDialog.dismiss();
+          erorrDialog(failure.message);
           logger.e('Error Wgen Send Message  :- ${failure.message.toString()}');
         },
         (success) {

@@ -49,7 +49,6 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   Future<void> updateProfile() async {
     if (!keyForm.currentState!.validate()) return;
-
     SmartDialog.showLoading(msg: AppLocalizations.of(GlobalContext.context)!.loading);
     try {
       final result = await profileUsecase.updateProfileData(

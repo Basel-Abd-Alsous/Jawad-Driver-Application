@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_ce/hive_ce.dart';
 
 import '../../../core/context/global.dart';
+import '../../../core/function/pick_image.dart';
 import '../../../core/router/router_key.dart';
 import '../../../core/services/hive/box_key.dart';
 import '../../../injection_container.dart';
@@ -35,12 +36,18 @@ class IntroductionsBloc extends Bloc<IntroductionsEvent, IntroductionsState> {
   Future<void> getBoarding() async {
     SmartDialog.showLoading();
     final result = await usecase.getBoardings();
-    result.fold((left) => SmartDialog.dismiss(), (right) {
-      print(right.data);
-      introductionList.value = right.data!.boarding;
-      introductionList.value.isEmpty ? GlobalContext.context.go(AppRoutes.login) : null;
-      SmartDialog.dismiss();
-    });
+    result.fold(
+      (left) {
+        SmartDialog.dismiss();
+        erorrDialog(left.message);
+      },
+      (right) {
+        print(right.data);
+        introductionList.value = right.data!.boarding;
+        introductionList.value.isEmpty ? GlobalContext.context.go(AppRoutes.login) : null;
+        SmartDialog.dismiss();
+      },
+    );
   }
 
   void _setupPageListener() {

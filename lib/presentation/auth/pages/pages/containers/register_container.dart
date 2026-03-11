@@ -85,9 +85,10 @@ class RegisteContainer extends StatelessWidget with FormValidationMixin {
                 5.gap,
                 Text(local.mobile, style: AppTextStyle.style14B.copyWith(color: AppColor.white, height: 1.2)),
                 WidgetAuthTextField(
-                  hintText: local.mobile_hint,
+                  hintText: "05xxxxxxxx",
                   controller: context.read<RegisterCubit>().mobile,
                   keyboardType: TextInputType.phone,
+                  maxLength: 10,
                   prefixIcon: const Icon(Icons.phone),
                   validator: (value) => validateMobile(context, value),
                 ),

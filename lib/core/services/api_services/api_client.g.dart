@@ -208,8 +208,10 @@ class _ApiClient implements ApiClient {
   @override
   Future<HttpResponse<dynamic>> uploadFile2({
     required String endpoint,
-    required File profileImage,
-    required Map<String, dynamic> body,
+    required MultipartFile profileImage,
+    String? firstName,
+    String? lastName,
+    String? email,
     String? authorization,
     String? language,
   }) async {
@@ -221,8 +223,17 @@ class _ApiClient implements ApiClient {
       r'Accept-Language': language,
     };
     _headers.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
-    _data.addAll(body);
+    final _data = FormData();
+    _data.files.add(MapEntry('profile_image', profileImage));
+    if (firstName != null) {
+      _data.fields.add(MapEntry('first_name', firstName));
+    }
+    if (lastName != null) {
+      _data.fields.add(MapEntry('last_name', lastName));
+    }
+    if (email != null) {
+      _data.fields.add(MapEntry('email', email));
+    }
     final _options = _setStreamType<HttpResponse<dynamic>>(
       Options(
             method: 'POST',
