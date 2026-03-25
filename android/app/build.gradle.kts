@@ -36,7 +36,7 @@ android {
         applicationId = "com.primetag.jawad_driver"
         minSdk = flutter.minSdkVersion
         targetSdk = 36
-        versionCode = 17
+        versionCode = 19
         versionName = flutter.versionName
     }
 
@@ -66,6 +66,8 @@ flutter {
 
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+    implementation("com.android.billingclient:billing:6.0.1")
+    implementation("com.android.installreferrer:installreferrer:2.2")
     implementation(platform("com.google.firebase:firebase-bom:34.9.0"))
     implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-analytics")

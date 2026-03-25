@@ -1,0 +1,3 @@
+-keep class com.tiktok.** { *; }
+-keep class com.android.billingclient.** { *; }
+-keep class com.android.installreferrer.** { *; }

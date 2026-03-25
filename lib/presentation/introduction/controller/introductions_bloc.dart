@@ -42,7 +42,6 @@ class IntroductionsBloc extends Bloc<IntroductionsEvent, IntroductionsState> {
         erorrDialog(left.message);
       },
       (right) {
-        print(right.data);
         introductionList.value = right.data!.boarding;
         introductionList.value.isEmpty ? GlobalContext.context.go(AppRoutes.login) : null;
         SmartDialog.dismiss();

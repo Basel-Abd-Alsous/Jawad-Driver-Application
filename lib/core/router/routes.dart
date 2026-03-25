@@ -151,8 +151,7 @@ Page<dynamic> fadeTransitionPage(String pageName, Widget child, GoRouterState st
     key: state.pageKey,
     child: child,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      AnalyticsService().setCurrentScreen(pageName);
-
+      AnalyticsService.instance.setCurrentScreen(pageName);
       return FadeTransition(opacity: animation, child: child);
     },
   );

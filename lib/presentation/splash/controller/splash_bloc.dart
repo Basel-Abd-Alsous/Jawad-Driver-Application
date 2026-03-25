@@ -10,6 +10,7 @@ import '../../../../core/services/hive/box_key.dart';
 import '../../../../core/router/router_key.dart';
 import '../../../../injection_container.dart';
 import '../../../../main.dart';
+import '../../../core/services/analytics_service.dart';
 import '../../../core/widget/widget_dailog.dart';
 import '../../../l10n/app_localizations.dart';
 
@@ -105,11 +106,18 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     try {
       final bool isFirstTime = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.isFirstTime, defaultValue: true);
       final String? token = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token, defaultValue: null);
-      final String route = token != null
-          ? AppRoutes.layout
-          : isFirstTime
-          ? AppRoutes.language
-          : AppRoutes.login;
+      String route;
+
+      if (token != null) {
+        route = AppRoutes.layout;
+        await AnalyticsService.instance.trackAppOpen();
+      } else if (isFirstTime) {
+        route = AppRoutes.language;
+        await AnalyticsService.instance.trackInstall();
+      } else {
+        route = AppRoutes.login;
+        await AnalyticsService.instance.trackAppOpen();
+      }
       return route;
     } catch (e) {
       logger.e(e.toString());

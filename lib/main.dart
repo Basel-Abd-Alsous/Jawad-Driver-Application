@@ -12,6 +12,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:logger/logger.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
+import 'core/services/analytics_service.dart';
 import 'l10n/l10n.dart';
 import 'firebase_options.dart';
 import 'core/utils/color.dart';
@@ -29,16 +30,16 @@ import 'presentation/auth/controller/register/register_cubit.dart';
 
 var logger = Logger(printer: PrettyPrinter(methodCount: 2, errorMethodCount: 8, lineLength: 120, colors: true, printEmojis: true));
 void main() {
+  
   runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
       await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
+      await AnalyticsService.instance.init(AppType.driver);
       bool isAllowed = await AwesomeNotifications().isNotificationAllowed();
       if (!isAllowed) {
         await AwesomeNotifications().requestPermissionToSendNotifications();
       }
-
       await HiveServices().init();
       await initGetIt();
       await ScreenUtil.ensureScreenSize();

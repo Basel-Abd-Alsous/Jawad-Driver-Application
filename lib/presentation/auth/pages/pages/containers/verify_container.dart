@@ -9,6 +9,7 @@ import '../../../../../core/context/global.dart';
 import '../../../../../core/router/router_key.dart';
 import '../../../../../core/extension/space_extension.dart';
 import '../../../../../core/mixin/validate.mixin.dart';
+import '../../../../../core/services/analytics_service.dart';
 import '../../../../../core/services/hive/box_key.dart';
 import '../../../../../core/utils/border_radius.dart';
 import '../../../../../core/utils/color.dart';
@@ -168,29 +169,8 @@ class VerifyContainer extends StatelessWidget with FormValidationMixin {
     state.maybeWhen(
       loadedVerifyLogin: (data) async {
         await sl<Box>(instanceName: BoxKey.appBox).put(BoxKey.token, data['token']);
+        await AnalyticsService.instance.trackLogin(method: 'login');
         context.go(AppRoutes.layout);
-        // sl<Box>(instanceName: BoxKey.appBox).put(BoxKey.userStatusRegister, data['registrationStatus']);
-        // final step = RegisterStepExtension.fromString(data['registrationStatus']);
-        // switch (step) {
-        //   case RegisterStates.register:
-        //     context.replaceNamed(AppRoutes.register);
-        //     break;
-        //   case RegisterStates.documents:
-        //     context.replaceNamed(AppRoutes.uploadDocument);
-        //     break;
-        //   case RegisterStates.carInfo:
-        //     context.replaceNamed(AppRoutes.carInfo);
-        //     break;
-        //   case RegisterStates.bankInfo:
-        //     context.replaceNamed(AppRoutes.bankInfo);
-        //     break;
-        //   case RegisterStates.completed:
-        //     context.go(AppRoutes.layout);
-        //     break;
-        //   case RegisterStates.unknown:
-        //     context.go(AppRoutes.login);
-        //     break;
-        // }
       },
       errorVerifyLogin: (message) => SmartDialog.show(
         builder: (_) => WidgetDilog(isError: true, title: local.warning, message: message, cancelText: local.back, onCancel: () => SmartDialog.dismiss()),
@@ -210,9 +190,11 @@ class VerifyContainer extends StatelessWidget with FormValidationMixin {
             title: local.registration_completed,
             message: local.proceed_next_step,
             cancelText: local.continues,
-            onCancel: () {
+            onCancel: () async {
               SmartDialog.dismiss();
               sl<Box>(instanceName: BoxKey.appBox).put(BoxKey.userStatusRegister, 'completed');
+              await AnalyticsService.instance.trackSignUp(method: 'sign_up');
+              await AnalyticsService.instance.trackCompleteRegistration();
               GlobalContext.context.replace(AppRoutes.layout);
             },
           ),
