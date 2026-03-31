@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:tiktok_events_sdk/tiktok_events_sdk.dart';
+import 'package:facebook_app_events/facebook_app_events.dart';
 
 import '../../main.dart';
 
@@ -17,7 +18,7 @@ class _TikTokCredentials {
 }
 
 // ─────────────────────────────────────────────────────────
-// Event names (Better to use TikTok Standard Events)
+// Event names (Unified)
 // ─────────────────────────────────────────────────────────
 class AnalyticsEvents {
   static const String install = 'InstallApp';
@@ -33,6 +34,17 @@ class AnalyticsEvents {
 }
 
 // ─────────────────────────────────────────────────────────
+// Facebook Standard Events Mapping
+// ─────────────────────────────────────────────────────────
+class FacebookEvents {
+  static const String completeRegistration = "fb_mobile_complete_registration";
+  static const String login = "fb_mobile_login";
+  static const String purchase = "fb_mobile_purchase";
+  static const String initiateCheckout = "fb_mobile_initiated_checkout";
+  static const String search = "fb_mobile_search";
+}
+
+// ─────────────────────────────────────────────────────────
 // Analytics Service
 // ─────────────────────────────────────────────────────────
 class AnalyticsService {
@@ -43,6 +55,7 @@ class AnalyticsService {
   bool _initialized = false;
 
   FirebaseAnalytics get _firebase => FirebaseAnalytics.instance;
+  final FacebookAppEvents _facebook = FacebookAppEvents();
 
   // ─── INIT ───────────────────────────────────────────────
   Future<void> init(AppType appType) async {
@@ -52,6 +65,7 @@ class AnalyticsService {
 
     await _initFirebase();
     await _initTikTok();
+    await _initFacebook();
 
     _initialized = true;
 
@@ -64,7 +78,6 @@ class AnalyticsService {
   Future<void> _initFirebase() async {
     try {
       await _firebase.setAnalyticsCollectionEnabled(true);
-
       await _firebase.setUserProperty(name: 'app_type', value: _appType.name);
 
       debugPrint('[Firebase] Ready');
@@ -74,11 +87,12 @@ class AnalyticsService {
   }
 
   // ───────────────────────────────────────────────────────
-  // TikTok Init (NEW SDK)
+  // TikTok Init
   // ───────────────────────────────────────────────────────
   Future<void> _initTikTok() async {
     try {
       const iosOptions = TikTokIosOptions(disableTracking: false, disableAutomaticTracking: true, disableSKAdNetworkSupport: true);
+
       const androidOptions = TikTokAndroidOptions(disableAutoStart: true, enableAutoIapTrack: true, disableAdvertiserIDCollection: false);
 
       await TikTokEventsSdk.initSdk(
@@ -99,6 +113,18 @@ class AnalyticsService {
   }
 
   // ───────────────────────────────────────────────────────
+  // Facebook Init
+  // ───────────────────────────────────────────────────────
+  Future<void> _initFacebook() async {
+    try {
+      await _facebook.setAdvertiserTracking(enabled: true);
+      debugPrint('[Facebook] Ready');
+    } catch (e) {
+      debugPrint('[Facebook] Error: $e');
+    }
+  }
+
+  // ───────────────────────────────────────────────────────
   // Core Tracker
   // ───────────────────────────────────────────────────────
   Future<void> _track(String eventName, {Map<String, dynamic>? parameters}) async {
@@ -109,7 +135,7 @@ class AnalyticsService {
 
     final params = parameters ?? {};
 
-    await Future.wait([_trackFirebase(eventName, params), _trackTikTok(eventName, params)]);
+    await Future.wait([_trackFirebase(eventName, params), _trackTikTok(eventName, params), _trackFacebook(eventName, params)]);
   }
 
   // ───────────────────────────────────────────────────────
@@ -154,6 +180,48 @@ class AnalyticsService {
       debugPrint('[TikTok] Track error: $e');
     }
   }
+
+  // ───────────────────────────────────────────────────────
+  // Facebook Tracking
+  // ───────────────────────────────────────────────────────
+  Future<void> _trackFacebook(String eventName, Map<String, dynamic> params) async {
+    try {
+      final safeParams = <String, dynamic>{};
+
+      params.forEach((k, v) {
+        if (v != null) {
+          safeParams[k] = v;
+        }
+      });
+
+      await _facebook.logEvent(name: _mapFacebookEvent(eventName), parameters: safeParams.isEmpty ? null : safeParams);
+
+      debugPrint('[Facebook] Event sent: $eventName');
+    } catch (e) {
+      debugPrint('[Facebook] Track error: $e');
+    }
+  }
+
+  // ───────────────────────────────────────────────────────
+  // Facebook Mapping
+  // ───────────────────────────────────────────────────────
+  String _mapFacebookEvent(String event) {
+    switch (event) {
+      case AnalyticsEvents.signUp:
+        return FacebookEvents.completeRegistration;
+      case AnalyticsEvents.login:
+        return FacebookEvents.login;
+      case AnalyticsEvents.rideCompleted:
+        return FacebookEvents.purchase;
+      case AnalyticsEvents.requestRide:
+        return FacebookEvents.initiateCheckout;
+      case AnalyticsEvents.searchRide:
+        return FacebookEvents.search;
+      default:
+        return event;
+    }
+  }
+
   // ═══════════════════════════════════════════════════════
   // PUBLIC EVENTS
   // ═══════════════════════════════════════════════════════
@@ -179,7 +247,8 @@ class AnalyticsService {
   }
 
   Future<void> setCurrentScreen(String screenName) async {
-    await FirebaseAnalytics.instance.logEvent(name: screenName, parameters: {'screen_class': screenName});
+    await _firebase.logEvent(name: screenName, parameters: {'screen_class': screenName});
+
     debugPrint("Screen viewed: $screenName");
   }
 }

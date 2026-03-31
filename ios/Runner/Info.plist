@@ -73,5 +73,23 @@
 	</array>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
+
+	<key>CFBundleURLTypes</key>
+	<array>
+	<dict>
+	<key>CFBundleURLSchemes</key>
+	<array>
+		<string>fb1261405282203509</string>
+	</array>
+	</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>1261405282203509</string>
+	<key>FacebookClientToken</key>
+	<string>44f178da1ef5c2fd46f3e65529c05fc9</string>
+	<key>FacebookDisplayName</key>
+	<string>Jawad Driver</string>
+
+
 </dict>
 </plist>

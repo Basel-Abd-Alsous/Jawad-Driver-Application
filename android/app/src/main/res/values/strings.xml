@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="facebook_app_id">1261405282203509</string>
+  <string name="facebook_client_token">44f178da1ef5c2fd46f3e65529c05fc9</string>
+  <string name="fb_login_protocol_scheme">fb1261405282203509</string>
+  <string name="app_name">Jawad Driver</string>
+</resources>
