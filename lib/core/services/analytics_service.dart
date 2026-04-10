@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:tiktok_events_sdk/tiktok_events_sdk.dart';
 import 'package:facebook_app_events/facebook_app_events.dart';
+import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 
 import '../../main.dart';
 
@@ -17,6 +20,12 @@ class _TikTokCredentials {
   static const String iosTTId = 'TTHepvoIdH92V3EABh0IQLnF7Cg99DpH';
 }
 
+// ─── AppsFlyer credentials ────────────────────────────────
+class _AppsFlyerCredentials {
+  static const String devKey = 'kkXYoCRH7Aw8KDPBjj5YyE';
+  static const String iosAppId = '6748653527';
+}
+
 // ─────────────────────────────────────────────────────────
 // Event names (Unified)
 // ─────────────────────────────────────────────────────────
@@ -25,9 +34,7 @@ class AnalyticsEvents {
   static const String appOpen = 'LaunchApp';
   static const String signUp = 'CompleteRegistration';
   static const String login = 'Login';
-
   static const String completeRegistration = 'CompleteRegistration';
-
   static const String searchRide = 'Search';
   static const String requestRide = 'InitiateCheckout';
   static const String rideCompleted = 'Purchase';
@@ -45,6 +52,19 @@ class FacebookEvents {
 }
 
 // ─────────────────────────────────────────────────────────
+// AppsFlyer Standard Events Mapping
+// ─────────────────────────────────────────────────────────
+class AppsFlyerEvents {
+  static const String completeRegistration = 'af_complete_registration';
+  static const String login = 'af_login';
+  static const String purchase = 'af_purchase';
+  static const String initiateCheckout = 'af_initiated_checkout';
+  static const String search = 'af_search';
+  static const String install = 'af_install';
+  static const String appOpen = 'af_app_opened';
+}
+
+// ─────────────────────────────────────────────────────────
 // Analytics Service
 // ─────────────────────────────────────────────────────────
 class AnalyticsService {
@@ -56,6 +76,7 @@ class AnalyticsService {
 
   FirebaseAnalytics get _firebase => FirebaseAnalytics.instance;
   final FacebookAppEvents _facebook = FacebookAppEvents();
+  AppsflyerSdk? _appsFlyer;
 
   // ─── INIT ───────────────────────────────────────────────
   Future<void> init(AppType appType) async {
@@ -66,6 +87,7 @@ class AnalyticsService {
     await _initFirebase();
     await _initTikTok();
     await _initFacebook();
+    await _initAppsFlyer();
 
     _initialized = true;
 
@@ -79,7 +101,6 @@ class AnalyticsService {
     try {
       await _firebase.setAnalyticsCollectionEnabled(true);
       await _firebase.setUserProperty(name: 'app_type', value: _appType.name);
-
       debugPrint('[Firebase] Ready');
     } catch (e) {
       debugPrint('[Firebase] Error: $e');
@@ -125,6 +146,40 @@ class AnalyticsService {
   }
 
   // ───────────────────────────────────────────────────────
+  // AppsFlyer Init
+  // ───────────────────────────────────────────────────────
+  Future<void> _initAppsFlyer() async {
+    try {
+      final options = AppsFlyerOptions(
+        afDevKey: _AppsFlyerCredentials.devKey,
+        appId: Platform.isIOS ? _AppsFlyerCredentials.iosAppId : '',
+        showDebug: kDebugMode,
+        timeToWaitForATTUserAuthorization: 50,
+      );
+      _appsFlyer = AppsflyerSdk(options);
+
+      // Set global custom data
+      _appsFlyer!.setAdditionalData({'app_type': _appType.name});
+
+      // Listen for install conversion data
+      _appsFlyer!.onInstallConversionData((data) {
+        debugPrint('[AppsFlyer] Conversion data: $data');
+      });
+
+      // Listen for deep link data
+      _appsFlyer!.onDeepLinking((result) {
+        debugPrint('[AppsFlyer] Deep link: ${result.deepLink}');
+      });
+
+      await _appsFlyer!.initSdk(registerConversionDataCallback: true, registerOnAppOpenAttributionCallback: true, registerOnDeepLinkingCallback: true);
+
+      debugPrint('[AppsFlyer] Ready');
+    } catch (e) {
+      debugPrint('[AppsFlyer] Error: $e');
+    }
+  }
+
+  // ───────────────────────────────────────────────────────
   // Core Tracker
   // ───────────────────────────────────────────────────────
   Future<void> _track(String eventName, {Map<String, dynamic>? parameters}) async {
@@ -135,7 +190,7 @@ class AnalyticsService {
 
     final params = parameters ?? {};
 
-    await Future.wait([_trackFirebase(eventName, params), _trackTikTok(eventName, params), _trackFacebook(eventName, params)]);
+    await Future.wait([_trackFirebase(eventName, params), _trackTikTok(eventName, params), _trackFacebook(eventName, params), _trackAppsFlyer(eventName, params)]);
   }
 
   // ───────────────────────────────────────────────────────
@@ -174,7 +229,6 @@ class AnalyticsService {
       );
 
       await TikTokEventsSdk.logEvent(event: event);
-
       debugPrint('[TikTok] Event sent: $eventName');
     } catch (e) {
       debugPrint('[TikTok] Track error: $e');
@@ -187,11 +241,8 @@ class AnalyticsService {
   Future<void> _trackFacebook(String eventName, Map<String, dynamic> params) async {
     try {
       final safeParams = <String, dynamic>{};
-
       params.forEach((k, v) {
-        if (v != null) {
-          safeParams[k] = v;
-        }
+        if (v != null) safeParams[k] = v;
       });
 
       await _facebook.logEvent(name: _mapFacebookEvent(eventName), parameters: safeParams.isEmpty ? null : safeParams);
@@ -203,7 +254,24 @@ class AnalyticsService {
   }
 
   // ───────────────────────────────────────────────────────
-  // Facebook Mapping
+  // AppsFlyer Tracking
+  // ───────────────────────────────────────────────────────
+  Future<void> _trackAppsFlyer(String eventName, Map<String, dynamic> params) async {
+    if (_appsFlyer == null) return;
+
+    try {
+      final safeParams = <String, dynamic>{...params, 'app_type': _appType.name};
+
+      await _appsFlyer!.logEvent(_mapAppsFlyerEvent(eventName), safeParams.isEmpty ? null : safeParams);
+
+      debugPrint('[AppsFlyer] Event sent: $eventName');
+    } catch (e) {
+      debugPrint('[AppsFlyer] Track error: $e');
+    }
+  }
+
+  // ───────────────────────────────────────────────────────
+  // Facebook Event Mapping
   // ───────────────────────────────────────────────────────
   String _mapFacebookEvent(String event) {
     switch (event) {
@@ -217,6 +285,31 @@ class AnalyticsService {
         return FacebookEvents.initiateCheckout;
       case AnalyticsEvents.searchRide:
         return FacebookEvents.search;
+      default:
+        return event;
+    }
+  }
+
+  // ───────────────────────────────────────────────────────
+  // AppsFlyer Event Mapping
+  // ───────────────────────────────────────────────────────
+  String _mapAppsFlyerEvent(String event) {
+    switch (event) {
+      case AnalyticsEvents.signUp:
+      case AnalyticsEvents.completeRegistration:
+        return AppsFlyerEvents.completeRegistration;
+      case AnalyticsEvents.login:
+        return AppsFlyerEvents.login;
+      case AnalyticsEvents.rideCompleted:
+        return AppsFlyerEvents.purchase;
+      case AnalyticsEvents.requestRide:
+        return AppsFlyerEvents.initiateCheckout;
+      case AnalyticsEvents.searchRide:
+        return AppsFlyerEvents.search;
+      case AnalyticsEvents.install:
+        return AppsFlyerEvents.install;
+      case AnalyticsEvents.appOpen:
+        return AppsFlyerEvents.appOpen;
       default:
         return event;
     }
@@ -250,5 +343,15 @@ class AnalyticsService {
     await _firebase.logEvent(name: screenName, parameters: {'screen_class': screenName});
 
     debugPrint("Screen viewed: $screenName");
+  }
+
+  // ───────────────────────────────────────────────────────
+  // AppsFlyer User Identity (optional but recommended)
+  // ───────────────────────────────────────────────────────
+
+  /// Call after login/signup to associate events with the user
+  void setAppsFlyerUserId(String userId) {
+    _appsFlyer?.setCustomerUserId(userId);
+    debugPrint('[AppsFlyer] Customer user ID set: $userId');
   }
 }

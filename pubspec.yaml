@@ -2,7 +2,7 @@ name: jawad_rider_captain
 description: "A new Flutter project."
 publish_to: "none"
 
-version: 1.0.14+1
+version: 1.0.15+1
 environment:
   sdk: ">=3.10.0 <4.0.0"
 
@@ -80,6 +80,8 @@ dependencies:
   android_intent_plus: ^6.0.0
   tiktok_events_sdk: ^1.1.3
   facebook_app_events: ^0.26.0
+  appsflyer_sdk: ^6.17.9
+
 
 dev_dependencies:
   flutter_test:
