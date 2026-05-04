@@ -109,7 +109,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
       String route;
 
       if (token != null) {
-        route = AppRoutes.layout;
+        route = AppRoutes.home;
         await AnalyticsService.instance.trackAppOpen();
       } else if (isFirstTime) {
         route = AppRoutes.language;

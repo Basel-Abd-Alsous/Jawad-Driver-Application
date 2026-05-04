@@ -170,7 +170,7 @@ class VerifyContainer extends StatelessWidget with FormValidationMixin {
       loadedVerifyLogin: (data) async {
         await sl<Box>(instanceName: BoxKey.appBox).put(BoxKey.token, data['token']);
         await AnalyticsService.instance.trackLogin(method: 'login');
-        context.go(AppRoutes.layout);
+        context.go(AppRoutes.home);
       },
       errorVerifyLogin: (message) => SmartDialog.show(
         builder: (_) => WidgetDilog(isError: true, title: local.warning, message: message, cancelText: local.back, onCancel: () => SmartDialog.dismiss()),
@@ -195,7 +195,7 @@ class VerifyContainer extends StatelessWidget with FormValidationMixin {
               sl<Box>(instanceName: BoxKey.appBox).put(BoxKey.userStatusRegister, 'completed');
               await AnalyticsService.instance.trackSignUp(method: 'sign_up');
               await AnalyticsService.instance.trackCompleteRegistration();
-              GlobalContext.context.replace(AppRoutes.layout);
+              GlobalContext.context.replace(AppRoutes.home);
             },
           ),
         );

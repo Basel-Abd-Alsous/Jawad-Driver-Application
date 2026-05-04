@@ -42,10 +42,7 @@ class WidgetCardRequiest extends StatelessWidget {
 
           WidgetTextForCardRequiest(title: local.departure, value: travilRequist.pickupLocation ?? ''),
           5.gap,
-          WidgetTextForCardRequiest(
-            title: local.destination,
-            value: travilRequist.arriveLocation == '.' ? local.destinationnotspecified : travilRequist.arriveLocation ?? local.destinationnotspecified,
-          ),
+          WidgetTextForCardRequiest(title: local.destination, value: travilRequist.arriveLocation == '.' ? local.destinationnotspecified : travilRequist.arriveLocation ?? local.destinationnotspecified),
           5.gap,
           if (travilRequist.arriveLocation != '.' && travilRequist.arriveLocation != null && travilRequist.arriveLocation != '')
             WidgetTextForCardRequiest(title: local.distance, value: '${double.tryParse('${travilRequist.distance ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'} Km'),
@@ -76,11 +73,7 @@ class WidgetCardRequiest extends StatelessWidget {
                 child: WidgetTextForCardRequiest(title: local.riderdebtpaid, value: '${double.tryParse('${travilRequist.riderDebtPaid ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}', isAmount: true),
               ),
               Expanded(
-                child: WidgetTextForCardRequiest(
-                  title: local.chargeclientwallet,
-                  value: '${double.tryParse('${travilRequist.chargeClientWallet ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}',
-                  isAmount: true,
-                ),
+                child: WidgetTextForCardRequiest(title: local.chargeclientwallet, value: '${double.tryParse('${travilRequist.chargeClientWallet ?? 0.0}')?.toStringAsFixed(3) ?? '0.0'}', isAmount: true),
               ),
             ],
           ),
@@ -251,7 +244,7 @@ class WidgetCardRequiest extends StatelessWidget {
     if (travelStatus == TravelStatus.pending) {
       return context.read<HomeCubit>().rejectTravel(travilRequist.id ?? 0);
     } else {
-      return context.read<HomeCubit>().cancelTravel(travilRequist.id ?? 0);
+      return context.read<HomeCubit>().showCancelReason(context);
     }
   }
 

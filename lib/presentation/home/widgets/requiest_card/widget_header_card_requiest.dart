@@ -27,10 +27,13 @@ class WidgetHeaderCardRequist extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: 50,
-          height: 50,
+          width: 40,
+          height: 40,
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(1000), border: Border.all(color: AppColor.secondColor, width: 1)),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(1000),
+            border: Border.all(color: AppColor.secondColor, width: 1),
+          ),
           child: isLoading == true ? const WidgetLoading(width: 40, height: 40) : WidgetCachNetworkImage(radius: 1000, image: travilRequist.rider?.profileImage ?? ''),
         ),
         10.gap,
@@ -56,13 +59,13 @@ class WidgetHeaderCardRequist extends StatelessWidget {
             children: [
               isLoading == true
                   ? const WidgetLoading(width: 30)
-                  : Text(
-                    double.tryParse('${isDetails == true ? travilRequist.yourRate : travilRequist.rider?.rating ?? 0.0}')?.toStringAsFixed(1) ?? '0.0',
-                    style: AppTextStyle.style12B.copyWith(color: AppColor.black),
-                  ),
+                  : Text(double.tryParse('${isDetails == true ? travilRequist.yourRate : travilRequist.rider?.rating ?? 0.0}')?.toStringAsFixed(1) ?? '0.0', style: AppTextStyle.style12B.copyWith(color: AppColor.black)),
               SvgPicture.asset(Assets.svgStar, width: 25, color: isLoading == true ? AppColor.grey.withOpacity(0.4) : null),
               if (status != TravelStatus.pending && status != null)
-                InkWell(onTap: () => context.push('${AppRoutes.chat}?id=${travilRequist.chatChannelId}'), child: const Icon(Icons.chat, color: AppColor.black)),
+                InkWell(
+                  onTap: () => context.push('${AppRoutes.chat}?id=${travilRequist.chatChannelId}'),
+                  child: const Icon(Icons.chat, color: AppColor.black),
+                ),
             ],
           ),
         ),

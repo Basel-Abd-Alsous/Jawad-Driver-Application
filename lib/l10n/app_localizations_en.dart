@@ -72,6 +72,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get discount => 'Discount';
 
   @override
+  String get taxAmount => 'Tax Amount';
+
+  @override
+  String get startDate => 'Start Date';
+
+  @override
+  String get endDate => 'End Date';
+
+  @override
+  String get drawalHistory => 'Drawal History';
+
+  @override
   String get destinationnotspecified => 'Destination not specified';
 
   @override

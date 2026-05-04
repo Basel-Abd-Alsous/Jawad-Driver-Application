@@ -10,6 +10,7 @@ import '../../../../core/services/api_services/api_client.dart';
 import '../../../../core/services/api_services/dio_helper.dart';
 import '../../../../core/services/api_services/result_model.dart';
 import '../../../../injection_container.dart';
+import '../model/drawal_model.dart';
 import '../model/transactions_model.dart';
 
 abstract class WalletRepoistory {
@@ -17,6 +18,7 @@ abstract class WalletRepoistory {
   Future<Either<Failure, Result<Unit>>> paymentCallback(String id, String otp);
   Future<Either<Failure, Unit>> cashRequest(String amount);
   Future<Either<Failure, Result<TransactionsModel>>> transactionsWallet(int page);
+  Future<Either<Failure, Result<List<DrawalItem>>>> withDrawalRequest();
 }
 
 class WalletRepoistoryImpl implements WalletRepoistory {
@@ -90,6 +92,27 @@ class WalletRepoistoryImpl implements WalletRepoistory {
         return Left(ServerFailure.fromResponse(loginResponse.response.data['code'], message: loginResponse.response.data['message']));
       }
       return const Right(unit);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Result<List<DrawalItem>>>> withDrawalRequest() async {
+    try {
+      String? token = 'Bearer ${await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token)}';
+      final ApiClient client = ApiClient(DioHelper().dio);
+      final savedLang = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language, defaultValue: 'ar') as String;
+      final loginResponse = await client.getRequest(endpoint: ApiLinks.withdrawalRequest, authorization: token, language: savedLang);
+      if (loginResponse.response.data['code'] != 200) {
+        return Left(ServerFailure.fromResponse(loginResponse.response.data['code'], message: loginResponse.response.data['message']));
+      }
+      List<DrawalItem> drawalItems = (loginResponse.response.data['payload'] as List)
+          .map((e) => DrawalItem.fromJson(e))
+          .toList();
+      return Right(Result.success(drawalItems));
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {

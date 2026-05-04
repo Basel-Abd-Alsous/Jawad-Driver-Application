@@ -15,6 +15,9 @@ abstract class AppRoutes {
   static const changePassword = "/changePassword";
   static const layout = "/layout";
   static const home = "/home";
+  static const wallet = "/wallet";
+  static const visit = "/visit";
+  static const myDocuments = "/myDocuments";
   static const notification = "/notification";
   static const visitDetails = "/visitDetails";
   static const chat = "/chat";
@@ -25,4 +28,5 @@ abstract class AppRoutes {
   static const contactUs = "/contactUs";
   static const unPaidVisit = "/unPaidVisit";
   static const bankInfo2 = "/bankInfo2";
+  static const drawalHistory = "/drawalHistory";
 }

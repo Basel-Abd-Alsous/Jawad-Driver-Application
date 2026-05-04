@@ -7,11 +7,11 @@ import '../../../core/context/global.dart';
 import '../../../core/router/router_key.dart';
 import '../../../injection_container.dart';
 import '../../drawer/pages/widget_drawer.dart';
-import '../../../core/widget/widget_appbar.dart';
 import '../controller/layout_cubit.dart';
 
 class LayoutScreen extends StatefulWidget {
-  const LayoutScreen({super.key});
+  final Widget child;
+  const LayoutScreen({super.key, required this.child});
 
   @override
   State<LayoutScreen> createState() => _LayoutScreenState();
@@ -22,36 +22,34 @@ class _LayoutScreenState extends State<LayoutScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        GlobalContext.context.go(AppRoutes.layout);
+        GlobalContext.context.go(AppRoutes.home);
         return false;
       },
       child: BlocProvider(
-        create: (context) => sl<LayoutCubit>() ,
+        create: (context) => sl<LayoutCubit>(),
         child: BlocBuilder<LayoutCubit, LayoutState>(
           builder: (context, state) {
             return ValueListenableBuilder<int>(
               valueListenable: context.read<LayoutCubit>().currentIndex,
-              builder:
-                  (context, value, child) => Scaffold(
-                    key: context.read<LayoutCubit>().scaffoldKey,
-                    appBar: value == 0 ? null : WidgetAppbar.widgetAppBar(context, context.read<LayoutCubit>().scaffoldKey),
-                    drawer: const WidgetDrawer(),
-                    body: SafeArea(child: context.read<LayoutCubit>().screens[value]),
-                    bottomNavigationBar: SafeArea(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SalomonBottomBar(
-                            currentIndex: value,
-                            curve: Curves.linear,
-                            duration: const Duration(milliseconds: 400),
-                            onTap: (value) => context.read<LayoutCubit>().changeScreen(value),
-                            items: context.read<LayoutCubit>().getItems(context),
-                          ),
-                        ],
+              builder: (context, value, child) => Scaffold(
+                key: context.read<LayoutCubit>().scaffoldKey,
+                drawer: const WidgetDrawer(),
+                body: SafeArea(child: widget.child),
+                bottomNavigationBar: SafeArea(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SalomonBottomBar(
+                        currentIndex: value,
+                        curve: Curves.linear,
+                        duration: const Duration(milliseconds: 400),
+                        onTap: (value) => context.read<LayoutCubit>().changeScreen(value),
+                        items: context.read<LayoutCubit>().getItems(context),
                       ),
-                    ),
+                    ],
                   ),
+                ),
+              ),
             );
           },
         ),

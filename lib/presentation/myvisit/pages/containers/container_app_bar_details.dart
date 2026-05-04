@@ -47,7 +47,7 @@ class ContainerMapVisitDetails extends StatelessWidget {
                     await launch(url);
                   },
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.3,
+              height: MediaQuery.of(context).size.height * 0.25,
               clipBehavior: Clip.antiAliasWithSaveLayer,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),

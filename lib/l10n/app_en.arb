@@ -20,6 +20,14 @@
   "always_location_permission_message": "To track your routes and trips accurately, this app needs access to your location at all times. Please enable \"Always Allow\" in settings.",
   "open_settings": "Open Settings",
   "discount":"Discount",
+  
+  "taxAmount":"Tax Amount",
+  "startDate":"Start Date",
+  "endDate":"End Date",
+  "drawalHistory":"Drawal History",
+
+
+
   "destinationnotspecified":"Destination not specified",
     "riderdebtpaid":"Rider Debt Paid",
   "chargeclientwallet":"Charge Client Wallet",

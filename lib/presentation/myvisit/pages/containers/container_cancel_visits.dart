@@ -36,7 +36,7 @@ class ContainerCancelVisits extends StatelessWidget {
                         padding: const EdgeInsets.all(9.0),
                         itemCount: data.payload!.travels!.length,
                         separatorBuilder: (context, index) => 10.gap,
-                        itemBuilder: (context, index) => LastVisitCard(travel: data.payload!.travels![index]),
+                        itemBuilder: (context, index) => LastVisitCard(isReject: true, travel: data.payload!.travels![index]),
                       ),
                     ),
                     if (hasMore == true)

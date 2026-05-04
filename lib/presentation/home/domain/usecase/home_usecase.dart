@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import '../../../../core/errors/failure.dart';
 import '../../../../core/services/api_services/result_model.dart';
 import '../../../layout/domain/model/user_model.dart';
+import '../model/cancellation_model.dart';
 import '../model/travel_requist_model.dart';
 import '../repoistory/home_repoistory.dart';
 import '../repoistory/profile_repoistory.dart';
@@ -17,11 +18,12 @@ class HomeUsecase {
   Future<Either<Failure, Result<TravelRequest>>> currentTravelRequist() async => await homeRepoistory.currentTravel();
   Future<Either<Failure, Unit>> approveTravelRequist(int id) async => await homeRepoistory.approveTravel(id);
   Future<Either<Failure, Unit>> rejectTravelRequist(int id) async => await homeRepoistory.rejectTravel(id);
-  Future<Either<Failure, Unit>> cancelTravelRequist(int id) async => await homeRepoistory.cancelTravel(id);
+  Future<Either<Failure, Unit>> cancelTravelRequist(int id , int reasonId) async => await homeRepoistory.cancelTravel(id, reasonId);
   Future<Either<Failure, Result<TravelRequest>>> endTravelRequist(int id, String arrived, String arrivedCity, String puckupCity, List<dynamic> points) async =>
       await homeRepoistory.endTravel(id, arrived, arrivedCity, puckupCity, points);
   Future<Either<Failure, Unit>> payTravelRequist(int id, String amount) async => await homeRepoistory.payTravel(id, amount);
   Future<Either<Failure, Unit>> arrivalTravelRequist(int id, String lat, String long) async => await homeRepoistory.arrivalTravel(id, lat, long);
   Future<Either<Failure, Unit>> startTravelRequist(int id) async => await homeRepoistory.startTravel(id);
   Future<Either<Failure, Result<UserModel>>> getProfile() async => await profileRepoistory.getUserProfile();
+  Future<Either<Failure, Result<List<CancellationItem>>>> cancellationReasons() async => await homeRepoistory.cancellationReasons();
 }

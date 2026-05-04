@@ -64,8 +64,10 @@ class ApiLinks {
   static String paymentCallback = dotenv.env['PAYMENT_CALLBACK']!;
   static String transactionWallet = dotenv.env['TRANSACTION_WALLET']!;
   static String cashRequest = dotenv.env['CASH_REQUIEST']!;
+  static String withdrawalRequest = dotenv.env['WITHDRAWAL_REQUEST']!;
   //============================== Chat =========================================//
   static String chat = dotenv.env['GET_CHAT']!;
   static String sendMessage = dotenv.env['SEND_CHAT']!;
   static String boarding = dotenv.env['BORDING']!;
+  static String cancellationReasons = dotenv.env['CANCELLATION_REASONS']!;
 }

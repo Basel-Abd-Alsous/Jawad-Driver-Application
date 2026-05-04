@@ -11,7 +11,8 @@ import 'containers/container_visit_details.dart';
 
 class VisitDetailsScreen extends StatelessWidget {
   final String? visitId;
-  const VisitDetailsScreen({super.key, this.visitId});
+  final bool? isReject;
+  const VisitDetailsScreen({super.key, this.visitId, this.isReject = false});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class VisitDetailsScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   children: <Widget>[
                     ContainerMapVisitDetails(data: date),
-                    ContainerVisitDetails(date: date),
+                    ContainerVisitDetails(date: date, isReject: isReject),
                   ],
                 ),
                 errorVisitDetails: (message) => Center(child: Text(message)),

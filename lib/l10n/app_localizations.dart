@@ -221,6 +221,30 @@ abstract class AppLocalizations {
   /// **'Discount'**
   String get discount;
 
+  /// No description provided for @taxAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Tax Amount'**
+  String get taxAmount;
+
+  /// No description provided for @startDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date'**
+  String get startDate;
+
+  /// No description provided for @endDate.
+  ///
+  /// In en, this message translates to:
+  /// **'End Date'**
+  String get endDate;
+
+  /// No description provided for @drawalHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Drawal History'**
+  String get drawalHistory;
+
   /// No description provided for @destinationnotspecified.
   ///
   /// In en, this message translates to:

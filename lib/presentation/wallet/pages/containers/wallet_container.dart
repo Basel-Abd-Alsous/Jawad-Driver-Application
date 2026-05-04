@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../core/constant/app_image.dart';
-import '../../../core/extension/space_extension.dart';
-import '../../../core/utils/color.dart';
-import '../../../core/utils/text_style.dart';
-import '../../../core/widget/button/app_button.dart';
-import '../../../core/widget/loading/widget_loading.dart';
-import '../../../injection_container.dart';
-import '../../auth/pages/widgets/widget_auth_text_field.dart';
-import '../controller/wallet_cubit.dart';
-import '../../../l10n/app_localizations.dart';
+import '../../../../core/constant/app_image.dart';
+import '../../../../core/extension/space_extension.dart';
+import '../../../../core/utils/color.dart';
+import '../../../../core/utils/text_style.dart';
+import '../../../../core/widget/button/app_button.dart';
+import '../../../../core/widget/loading/widget_loading.dart';
+import '../../../../injection_container.dart';
+import '../../../auth/pages/widgets/widget_auth_text_field.dart';
+import '../../controller/wallet_cubit.dart';
+import '../../../../l10n/app_localizations.dart';
 
 class WalletContainer extends StatelessWidget {
   const WalletContainer({super.key});

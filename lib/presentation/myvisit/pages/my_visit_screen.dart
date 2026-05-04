@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/utils/color.dart';
 import '../../../core/utils/text_style.dart';
+import '../../../core/widget/widget_appbar.dart';
 import '../../../injection_container.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../layout/controller/layout_cubit.dart';
 import '../controller/visit/visit_cubit.dart';
 import 'containers/container_cancel_visits.dart';
 import 'containers/container_previous_visit.dart';
@@ -16,26 +18,32 @@ class MyVisitScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context)!;
 
-    return BlocProvider(
-      create: (context) => sl<VisitCubit>(),
-      child: DefaultTabController(
-        length: 2,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TabBar(
-              labelColor: Colors.black,
-              unselectedLabelColor: Colors.grey,
-              indicatorColor: Colors.black,
-              labelStyle: AppTextStyle.style14B.copyWith(color: AppColor.grey),
-              unselectedLabelStyle: AppTextStyle.style12,
-              indicatorSize: TabBarIndicatorSize.tab,
-              indicatorWeight: 2,
-              tabs: [Tab(text: local.previous_trips), Tab(text: local.canceledTrips)],
-            ),
-            const Expanded(child: TabBarView(children: [ContainerPreviousVisit(), ContainerCancelVisits()])),
-          ],
+    return Scaffold(
+      appBar: WidgetAppbar.widgetAppBar(context, context.read<LayoutCubit>().scaffoldKey),
+      body: BlocProvider(
+        create: (context) => sl<VisitCubit>(),
+        child: DefaultTabController(
+          length: 2,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TabBar(
+                labelColor: Colors.black,
+                unselectedLabelColor: Colors.grey,
+                indicatorColor: Colors.black,
+                labelStyle: AppTextStyle.style14B.copyWith(color: AppColor.grey),
+                unselectedLabelStyle: AppTextStyle.style12,
+                indicatorSize: TabBarIndicatorSize.tab,
+                indicatorWeight: 2,
+                tabs: [
+                  Tab(text: local.previous_trips),
+                  Tab(text: local.canceledTrips),
+                ],
+              ),
+              const Expanded(child: TabBarView(children: [ContainerPreviousVisit(), ContainerCancelVisits()])),
+            ],
+          ),
         ),
       ),
     );

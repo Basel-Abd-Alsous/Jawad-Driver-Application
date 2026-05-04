@@ -119,7 +119,7 @@ class LoginContainer extends StatelessWidget with FormValidationMixin {
             context.push(AppRoutes.bankInfo);
             break;
           case RegisterStates.completed:
-            context.go(AppRoutes.layout);
+            context.go(AppRoutes.home);
             break;
           case RegisterStates.unknown:
             context.go(AppRoutes.login);

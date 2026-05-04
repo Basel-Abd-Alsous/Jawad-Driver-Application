@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
- 
-import '../../../core/constant/app_image.dart';
-import '../../../core/extension/space_extension.dart';
-import '../../../core/utils/text_style.dart';
-import '../../../core/widget/empty_screen.dart';
-import '../../../core/widget/loading/loading_transactions.dart';
-import '../../../l10n/app_localizations.dart';
-import '../controller/wallet_cubit.dart';
-import '../widget/transaction_card.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../core/constant/app_image.dart';
+import '../../../../core/extension/space_extension.dart';
+import '../../../../core/router/router_key.dart';
+import '../../../../core/utils/color.dart';
+import '../../../../core/utils/text_style.dart';
+import '../../../../core/widget/empty_screen.dart';
+import '../../../../core/widget/loading/loading_transactions.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../controller/wallet_cubit.dart';
+import '../../widget/transaction_card.dart';
 
 class ContainerTransactions extends StatelessWidget {
   const ContainerTransactions({super.key});
@@ -23,7 +26,21 @@ class ContainerTransactions extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 10,
         children: [
-          Text(local.transactionsHistory, style: AppTextStyle.style14B.copyWith(color: Colors.black)),
+          Row(
+            mainAxisAlignment: .spaceBetween,
+            crossAxisAlignment: .center,
+            children: [
+              Text(local.transactionsHistory, style: AppTextStyle.style14B.copyWith(color: Colors.black)),
+              InkWell(
+                onTap: () => context.push(AppRoutes.drawalHistory),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(color: AppColor.secondColor, borderRadius: BorderRadius.circular(5)),
+                  child: Text(local.drawalHistory, style: AppTextStyle.style12.copyWith(color: Colors.white)),
+                ),
+              ),
+            ],
+          ),
           Expanded(
             child: BlocBuilder<WalletCubit, WalletState>(
               builder: (context, state) {

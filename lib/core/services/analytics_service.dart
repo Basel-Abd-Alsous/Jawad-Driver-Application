@@ -150,12 +150,7 @@ class AnalyticsService {
   // ───────────────────────────────────────────────────────
   Future<void> _initAppsFlyer() async {
     try {
-      final options = AppsFlyerOptions(
-        afDevKey: _AppsFlyerCredentials.devKey,
-        appId: Platform.isIOS ? _AppsFlyerCredentials.iosAppId : '',
-        showDebug: kDebugMode,
-        timeToWaitForATTUserAuthorization: 50,
-      );
+      final options = AppsFlyerOptions(afDevKey: _AppsFlyerCredentials.devKey, appId: Platform.isIOS ? _AppsFlyerCredentials.iosAppId : '', showDebug: kDebugMode, timeToWaitForATTUserAuthorization: 50);
       _appsFlyer = AppsflyerSdk(options);
 
       // Set global custom data
@@ -296,7 +291,6 @@ class AnalyticsService {
   String _mapAppsFlyerEvent(String event) {
     switch (event) {
       case AnalyticsEvents.signUp:
-      case AnalyticsEvents.completeRegistration:
         return AppsFlyerEvents.completeRegistration;
       case AnalyticsEvents.login:
         return AppsFlyerEvents.login;

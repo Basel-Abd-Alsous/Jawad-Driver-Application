@@ -35,6 +35,7 @@ import '../../../l10n/app_localizations.dart';
 import '../../../main.dart';
 import '../../layout/domain/model/user_model.dart';
 import '../../layout/domain/usecase/work_status_usecase.dart';
+import '../domain/model/cancellation_model.dart';
 import '../domain/model/travel_requist_model.dart';
 import '../domain/status_travel_enum.dart';
 import '../domain/usecase/home_usecase.dart';
@@ -62,9 +63,10 @@ class HomeCubit extends Cubit<HomeState> {
   ValueNotifier<bool> followUser = ValueNotifier(true);
   double? _lastLat;
   double? _lastLng;
+  ValueNotifier<List<CancellationItem>> cancellationList = ValueNotifier([]);
 
   HomeCubit({required this.homeUsecase, required this.workStatusUsecase}) : super(const HomeState.initial()) {
-    getWorkStatus();
+    Future.wait([cancellationReasons(), getWorkStatus()]);
   }
 
   double? _currentLat;
@@ -172,9 +174,7 @@ class HomeCubit extends Cubit<HomeState> {
         final puckupityLocation = await _getCityLatLng(locationData?.latitude ?? 0, locationData?.longitude ?? 0);
         final arrivedCityLocation = await _getCityLatLng(locationData?.latitude ?? 0, locationData?.longitude ?? 0);
         logger.i('arrivedLocation : ${arrivedLocation.toString()}/n puckupityLocation : ${puckupityLocation.toString()}/n arrivedCityLocation : ${arrivedCityLocation.toString()} ');
-        circles.addAll([
-          Circle(circleId: const CircleId('user_circle'), center: initialPosition.value, radius: 200, fillColor: Colors.black87.withOpacity(0.3), strokeColor: Colors.black87, strokeWidth: 2),
-        ]);
+        circles.addAll([Circle(circleId: const CircleId('user_circle'), center: initialPosition.value, radius: 200, fillColor: Colors.black87.withOpacity(0.3), strokeColor: Colors.black87, strokeWidth: 2)]);
         mapController?.animateCamera(CameraUpdate.newLatLngZoom(initialPosition.value, 15));
       });
 
@@ -337,6 +337,12 @@ class HomeCubit extends Cubit<HomeState> {
 
   // ============================== Travel Functions ============================== //
 
+  Future<void> cancellationReasons() async {
+    final result = await homeUsecase.cancellationReasons();
+    result.fold((failure) => erorrDialog(failure.message), (result) => cancellationList.value = result.data ?? []);
+    logger.i('🚫 تم جلب أسباب الإلغاء: ${cancellationList.value.length} سبب');
+  }
+
   Future<void> sendLocation(String lat, String long) async {
     try {
       final ApiClient client = ApiClient(DioHelper().dio);
@@ -466,9 +472,9 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-  Future<void> cancelTravel(int id) async {
+  Future<void> cancelTravel(int id, int reasonId) async {
     SmartDialog.showLoading(msg: AppLocalizations.of(GlobalContext.context)!.loading);
-    final result = await homeUsecase.cancelTravelRequist(id);
+    final result = await homeUsecase.cancelTravelRequist(id, reasonId);
     result.fold(
       (l) {
         SmartDialog.dismiss();
@@ -649,6 +655,71 @@ class HomeCubit extends Cubit<HomeState> {
   void launchMap(String? latitude, String? longitude) async {
     final url = Uri.parse('https://www.google.com/maps/search/?api=1&query=${latitude == '0' ? _currentLat : latitude},${longitude == '0' ? _currentLng : longitude}');
     await launchUrl(url, mode: LaunchMode.externalApplication);
+  }
+
+  void showCancelReason(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          ),
+          child: SafeArea(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // drag handle
+                Container(
+                  width: 40,
+                  height: 5,
+                  margin: const EdgeInsets.only(bottom: 12),
+                  decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(10)),
+                ),
+                const Text("اختر سبب الإلغاء", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 12),
+                Flexible(
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    itemCount: cancellationList.value.length,
+                    separatorBuilder: (_, __) => const Divider(height: 1),
+                    itemBuilder: (context, index) {
+                      final reason = cancellationList.value[index];
+
+                      return InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        onTap: () {
+                          cancelTravel(currentTravel.value?.id ?? 0, reason.id ?? 0);
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.cancel_outlined, color: Colors.red),
+                              const SizedBox(width: 12),
+                              Expanded(child: Text(reason.name ?? '', style: const TextStyle(fontSize: 15))),
+                              const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+
+                const SizedBox(height: 10),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   // ============================== Profile Function =========================================//

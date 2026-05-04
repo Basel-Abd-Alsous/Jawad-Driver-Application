@@ -1,6 +1,5 @@
 // ignore_for_file: deprecated_member_use
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -17,17 +16,22 @@ import '../domain/model/visit_model.dart';
 
 class LastVisitCard extends StatelessWidget {
   final Travel? travel;
+  final bool? isReject;
   final bool? loading;
 
-  const LastVisitCard({super.key, this.travel, this.loading = false});
+  const LastVisitCard({super.key, this.travel, this.isReject = false, this.loading = false});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: loading == true ? null : () => context.push('${AppRoutes.visitDetails}?id=${travel?.id ?? ''}'),
+      onTap: loading == true ? null : () => context.push('${AppRoutes.visitDetails}?id=${travel?.id ?? ''}&isReject=$isReject'),
       borderRadius: BorderRadius.circular(10),
       child: Container(
-        decoration: BoxDecoration(color: AppColor.white, borderRadius: BorderRadius.circular(10), border: Border.all(color: AppColor.grey.withOpacity(0.5))),
+        decoration: BoxDecoration(
+          color: AppColor.white,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: AppColor.grey.withOpacity(0.5)),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,9 +48,7 @@ class LastVisitCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                loading == true
-                    ? const Padding(padding: EdgeInsets.all(5.0), child: WidgetLoading(width: 80))
-                    : Expanded(child: WidgetTowText(text1: (travel?.arrivalTime ?? '- - - - - - - - - -').substring(0, 10))),
+                loading == true ? const Padding(padding: EdgeInsets.all(5.0), child: WidgetLoading(width: 80)) : Expanded(child: WidgetTowText(text1: (travel?.arrivalTime ?? '- - - - - - - - - -').substring(0, 10))),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Row(
@@ -76,10 +78,7 @@ class LastVisitCard extends StatelessWidget {
                     width: 35,
                     height: 35,
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(10000)),
-                    child:
-                        loading == true
-                            ? const WidgetLoading(width: 35, height: 35)
-                            : WidgetCachNetworkImage(radius: 10000, image: travel?.rider?.profileImage ?? ''),
+                    child: loading == true ? const WidgetLoading(width: 35, height: 35) : WidgetCachNetworkImage(radius: 10000, image: travel?.rider?.profileImage ?? ''),
                   ),
                   Expanded(
                     child: Column(
@@ -87,16 +86,8 @@ class LastVisitCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       spacing: loading == true ? 7 : 0,
                       children: [
-                        loading == true
-                            ? const Row(children: [WidgetLoading(width: 100)])
-                            : Text(
-                              (travel?.rider?.name ?? '')
-                                  .toUpperCase(),
-                              style: AppTextStyle.style12B,
-                            ),
-                        loading == true
-                            ? const Row(children: [WidgetLoading(width: 60)])
-                            : Text((travel?.rider?.phone ?? '').toUpperCase(), style: AppTextStyle.style10.copyWith(color: AppColor.grey)),
+                        loading == true ? const Row(children: [WidgetLoading(width: 100)]) : Text((travel?.rider?.name ?? '').toUpperCase(), style: AppTextStyle.style12B),
+                        loading == true ? const Row(children: [WidgetLoading(width: 60)]) : Text((travel?.rider?.phone ?? '').toUpperCase(), style: AppTextStyle.style10.copyWith(color: AppColor.grey)),
                       ],
                     ),
                   ),
@@ -106,9 +97,7 @@ class LastVisitCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     spacing: 5,
                     children: [
-                      loading == true
-                          ? const Row(children: [WidgetLoading(width: 30)])
-                          : Text('${double.tryParse('${travel?.yourRate ?? 0}') ?? ''}', style: AppTextStyle.style12B.copyWith(color: AppColor.black)),
+                      loading == true ? const Row(children: [WidgetLoading(width: 30)]) : Text('${double.tryParse('${travel?.yourRate ?? 0}') ?? ''}', style: AppTextStyle.style12B.copyWith(color: AppColor.black)),
                       SvgPicture.asset(Assets.svgStar),
                     ],
                   ),

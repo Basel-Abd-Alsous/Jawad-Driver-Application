@@ -72,6 +72,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get discount => 'الخصم';
 
   @override
+  String get taxAmount => 'مبلغ الضريبة';
+
+  @override
+  String get startDate => 'تاريخ البدء';
+
+  @override
+  String get endDate => 'تاريخ الانتهاء';
+
+  @override
+  String get drawalHistory => 'سجل طلبات السحب';
+
+  @override
   String get destinationnotspecified => 'لم يتم تحديد وجهة';
 
   @override

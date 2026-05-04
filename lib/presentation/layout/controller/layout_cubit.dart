@@ -2,9 +2,12 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:go_router/go_router.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../../../core/constant/app_image.dart';
+import '../../../core/context/global.dart';
+import '../../../core/router/router_key.dart';
 import '../../../core/utils/text_style.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../home/pages/home_screen.dart';
@@ -23,7 +26,24 @@ class LayoutCubit extends Cubit<LayoutState> {
   ValueNotifier<int> currentIndex = ValueNotifier(0);
 
   // Change Index Page
-  void changeScreen(int index) => currentIndex.value = index;
+  void changeScreen(int index) {
+    switch (index) {
+      case 0:
+        GlobalContext.context.go(AppRoutes.home);
+        break;
+      case 1:
+        GlobalContext.context.go(AppRoutes.visit);
+        break;
+      case 2:
+        GlobalContext.context.go(AppRoutes.wallet);
+        break;
+      case 3:
+        GlobalContext.context.go(AppRoutes.myDocuments);
+        break;
+    }
+    currentIndex.value = index;
+  }
+
   List<SalomonBottomBarItem> getItems(BuildContext context) {
     return [
       SalomonBottomBarItem(

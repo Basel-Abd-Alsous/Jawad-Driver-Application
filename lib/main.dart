@@ -30,7 +30,6 @@ import 'presentation/auth/controller/register/register_cubit.dart';
 
 var logger = Logger(printer: PrettyPrinter(methodCount: 2, errorMethodCount: 8, lineLength: 120, colors: true, printEmojis: true));
 void main() {
-  
   runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();

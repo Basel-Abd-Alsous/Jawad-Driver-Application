@@ -56,6 +56,13 @@ _Payload _$PayloadFromJson(Map<String, dynamic> json) => _Payload(
   suggestPrice: json['suggest_price'] as String?,
   comission: json['comission'] as String?,
   amount: json['amount'] as String?,
+  taxesAmount: json['taxes_amount'] as String?,
+  startedAt: json['started_at'] == null
+      ? null
+      : DateTime.parse(json['started_at'] as String),
+  endedAt: json['ended_at'] == null
+      ? null
+      : DateTime.parse(json['ended_at'] as String),
   status: json['status'] == null
       ? null
       : Status.fromJson(json['status'] as Map<String, dynamic>),
@@ -91,6 +98,9 @@ Map<String, dynamic> _$PayloadToJson(_Payload instance) => <String, dynamic>{
   'suggest_price': instance.suggestPrice,
   'comission': instance.comission,
   'amount': instance.amount,
+  'taxes_amount': instance.taxesAmount,
+  'started_at': instance.startedAt?.toIso8601String(),
+  'ended_at': instance.endedAt?.toIso8601String(),
   'status': instance.status,
   'paid_amount': instance.paidAmount,
   'remaining_amount': instance.remainingAmount,

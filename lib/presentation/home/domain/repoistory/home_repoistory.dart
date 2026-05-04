@@ -12,6 +12,7 @@ import '../../../../core/services/api_services/api_client.dart';
 import '../../../../core/services/api_services/dio_helper.dart';
 import '../../../../core/services/api_services/result_model.dart';
 import '../../../../injection_container.dart';
+import '../model/cancellation_model.dart';
 import '../model/travel_requist_model.dart';
 
 abstract class HomeRepoistory {
@@ -19,7 +20,8 @@ abstract class HomeRepoistory {
   Future<Either<Failure, Result<List<TravelRequest>>>> travelRequist();
   Future<Either<Failure, Unit>> approveTravel(int id);
   Future<Either<Failure, Unit>> rejectTravel(int id);
-  Future<Either<Failure, Unit>> cancelTravel(int id);
+  Future<Either<Failure, Result<List<CancellationItem>>>> cancellationReasons();
+  Future<Either<Failure, Unit>> cancelTravel(int id, int reasonId);
   Future<Either<Failure, Unit>> arrivalTravel(int id, String lat, String long);
   Future<Either<Failure, Unit>> startTravel(int id);
   Future<Either<Failure, Result<TravelRequest>>> endTravel(int id, String arrived, String arrivedCity, String puckupCity, List<dynamic> points);
@@ -34,12 +36,7 @@ class HomeReoistoryImpl implements HomeRepoistory {
       final ApiClient client = ApiClient(DioHelper().dio);
       final savedLang = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language, defaultValue: 'ar') as String;
       String? token = 'Bearer ${await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token)}';
-      final responseWorkStatus = await client.postRequest(
-        endpoint: ApiLinks.broadcasting,
-        language: savedLang,
-        body: {'channel_name': 'private-driver.$userId', 'socket_id': socitId},
-        authorization: token,
-      );
+      final responseWorkStatus = await client.postRequest(endpoint: ApiLinks.broadcasting, language: savedLang, body: {'channel_name': 'private-driver.$userId', 'socket_id': socitId}, authorization: token);
       if (responseWorkStatus.response.statusCode != 200) {
         return Left(ServerFailure.fromResponse(responseWorkStatus.response.statusCode, message: responseWorkStatus.response.data['message']));
       }
@@ -133,12 +130,19 @@ class HomeReoistoryImpl implements HomeRepoistory {
   }
 
   @override
-  Future<Either<Failure, Unit>> cancelTravel(int id) async {
+  Future<Either<Failure, Unit>> cancelTravel(int id, int reasonId) async {
     try {
       final ApiClient client = ApiClient(DioHelper().dio);
       String? token = 'Bearer ${await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token)}';
       final savedLang = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language, defaultValue: 'ar') as String;
-      final responseWorkStatus = await client.postRequest(endpoint: ApiLinks.cancelTravel + id.toString(), language: savedLang, authorization: token);
+      final responseWorkStatus = await client.postRequest(
+        endpoint: ApiLinks.cancelTravel + id.toString(),
+        language: savedLang,
+        authorization: token,
+        body: {
+          'reasons_ids': [reasonId],
+        },
+      );
       if (responseWorkStatus.response.data['code'] != 200) {
         return Left(ServerFailure.fromResponse(responseWorkStatus.response.statusCode, message: responseWorkStatus.response.data['message']));
       }
@@ -226,6 +230,23 @@ class HomeReoistoryImpl implements HomeRepoistory {
         return Left(ServerFailure.fromResponse(responseWorkStatus.response.statusCode, message: responseWorkStatus.response.data['message']));
       }
       return const Right(unit);
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Result<List<CancellationItem>>>> cancellationReasons() async {
+    try {
+      final ApiClient client = ApiClient(DioHelper().dio);
+      String? token = 'Bearer ${await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token)}';
+      final savedLang = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language, defaultValue: 'ar') as String;
+      final responseWorkStatus = await client.getRequest(endpoint: ApiLinks.cancellationReasons, language: savedLang, authorization: token);
+      if (responseWorkStatus.response.data['code'] != 200) return Left(ServerFailure.fromResponse(responseWorkStatus.response.statusCode, message: responseWorkStatus.response.data['message']));
+      CancellationModel cancellationModel = CancellationModel.fromJson(responseWorkStatus.response.data);
+      return Right(Result.success(cancellationModel.payload));
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {

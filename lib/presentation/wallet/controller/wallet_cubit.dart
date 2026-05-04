@@ -8,7 +8,6 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../../../core/constant/api_link.dart';
@@ -21,10 +20,12 @@ import '../../../l10n/app_localizations.dart';
 import '../../../main.dart';
 import '../../home/domain/usecase/home_usecase.dart';
 import '../../layout/domain/model/user_model.dart';
+import '../domain/model/drawal_model.dart';
 import '../domain/model/transactions_model.dart';
 import '../domain/model/wallet_response_dto.dart';
 import '../domain/usecase/wallet_usecase.dart';
 import '../pages/wallet_otp_screen.dart';
+import '../widget/payment_bottom_sheet.dart';
 import 'enum_socit.dart';
 
 part 'wallet_state.dart';
@@ -39,9 +40,10 @@ class WalletCubit extends Cubit<WalletState> {
   bool _isManuallyClosed = false;
   final formKey = GlobalKey<FormState>();
   ValueNotifier<TextEditingController> mobile = ValueNotifier(TextEditingController());
+  ValueNotifier<bool> loadingDrawal = ValueNotifier(false);
   TextEditingController ammopuntController = TextEditingController();
   TextEditingController otp = TextEditingController();
-
+  ValueNotifier<List<DrawalItem>> drawalItems = ValueNotifier([]);
   ScrollController scrollController = ScrollController();
   int pageIndex = 1;
 
@@ -52,6 +54,27 @@ class WalletCubit extends Cubit<WalletState> {
   Future<void> handelMobile() async {
     Driver driver = sl<Box<Driver>>().get(BoxKey.user)!;
     mobile.value.text = driver.phone ?? '';
+  }
+
+  Future<void> withDrawalRequest() async {
+    try {
+      loadingDrawal.value = true;
+      final result = await walletUsecase.withDrawalRequest();
+      result.fold(
+        (failure) {
+          loadingDrawal.value = false;
+          erorrDialog(failure.message);
+        },
+        (success) {
+          loadingDrawal.value = false;
+          drawalItems.value = success.data!;
+        },
+      );
+    } catch (e) {
+      loadingDrawal.value = false;
+      erorrDialog('Server Error In Drawal Request Wallet Section : $e');
+      log('Server Error In Drawal Request Wallet Section : $e');
+    }
   }
 
   // Function To Charger Wallet Mobile
@@ -103,8 +126,13 @@ class WalletCubit extends Cubit<WalletState> {
         },
         (success) async {
           SmartDialog.dismiss();
-          final url = Uri.parse(success.data!);
-          await launchUrl(url);
+          // ✅ افتح WebView داخل Bottom Sheet
+          await showModalBottomSheet(
+            context: GlobalContext.context,
+            isScrollControlled: true, // عشان يكون full height
+            backgroundColor: Colors.transparent,
+            builder: (_) => PaymentBottomSheet(url: success.data!),
+          );
         },
       );
     } catch (e) {
@@ -283,8 +311,7 @@ class WalletCubit extends Cubit<WalletState> {
               getAllTransaction();
             } else {
               SmartDialog.show(
-                builder: (context) =>
-                    WidgetDilog(isError: true, title: 'Warning', message: 'Something went wrong while charging the wallet', cancelText: 'Back', onCancel: () => SmartDialog.dismiss()),
+                builder: (context) => WidgetDilog(isError: true, title: 'Warning', message: 'Something went wrong while charging the wallet', cancelText: 'Back', onCancel: () => SmartDialog.dismiss()),
               );
             }
             break;

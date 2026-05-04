@@ -77,12 +77,18 @@ class WidgetDrawer extends StatelessWidget {
             WidgetDrawerList(
               title: local.feedback,
               icon: SvgPicture.asset(Assets.svgContact, width: 24, color: AppColor.secondColor),
-              onTap: () => context.push(AppRoutes.complaint),
+              onTap: () {
+                context.pop();
+                context.push(AppRoutes.complaint);
+              },
             ),
             WidgetDrawerList(
               title: local.contactUs,
               icon: SvgPicture.asset(Assets.svgContactUs, width: 24, color: AppColor.secondColor),
-              onTap: () => context.push(AppRoutes.contactUs),
+              onTap: () {
+                context.pop();
+                context.push(AppRoutes.contactUs);
+              },
             ),
             BlocProvider(
               create: (context) => sl<DrawerCubit>(),
@@ -91,7 +97,10 @@ class WidgetDrawer extends StatelessWidget {
                   return WidgetDrawerList(
                     title: local.sharing,
                     icon: SvgPicture.asset(Assets.svgShare, width: 24, color: AppColor.secondColor),
-                    onTap: () => context.read<DrawerCubit>().shareJawadDriverApp(),
+                    onTap: () {
+                      context.pop();
+                      context.read<DrawerCubit>().shareJawadDriverApp();
+                    },
                   );
                 },
               ),
@@ -100,12 +109,18 @@ class WidgetDrawer extends StatelessWidget {
             WidgetDrawerList(
               title: local.privacyPolicy,
               icon: SvgPicture.asset(Assets.svgPrivacy, width: 24, color: AppColor.secondColor),
-              onTap: () => context.push('${AppRoutes.content}?isTerms=false'),
+              onTap: () {
+                context.pop();
+                context.push('${AppRoutes.content}?isTerms=false');
+              },
             ),
             WidgetDrawerList(
               title: local.termsConditions,
               icon: SvgPicture.asset(Assets.svgTerms, width: 24, color: AppColor.secondColor),
-              onTap: () => context.push('${AppRoutes.content}?isTerms=true'),
+              onTap: () {
+                context.pop();
+                context.push('${AppRoutes.content}?isTerms=true');
+              },
             ),
 
             const Spacer(),
