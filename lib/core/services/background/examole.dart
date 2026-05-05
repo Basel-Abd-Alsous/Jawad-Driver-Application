@@ -1,13 +1,22 @@
 // // ignore_for_file: unnecessary_cast
 // import 'dart:async';
 // import 'dart:math';
+// import 'dart:io';
+// import 'dart:ui';
 
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_background_service/flutter_background_service.dart';
 // import 'package:flutter_compass/flutter_compass.dart';
 // import 'package:geolocator/geolocator.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:logger/logger.dart';
 // import 'package:sensors_plus/sensors_plus.dart';
+// import 'package:path_provider/path_provider.dart';
+// import 'package:awesome_notifications/awesome_notifications.dart';
 
+// import '../../../firebase_options.dart';
 // import '../../../main.dart';
 
 // /// 🎯 إعدادات ديناميكية
@@ -15,7 +24,7 @@
 //   static bool _isInTrip = false;
 //   static bool get isInTrip => _isInTrip;
 //   static void setTripMode(bool inTrip) => _isInTrip = inTrip;
-//   static Duration get periodicDuration => _isInTrip ? Duration(seconds: 30) : Duration(seconds: 20);
+//   static Duration get periodicDuration => _isInTrip ? const Duration(seconds: 30) : const Duration(seconds: 20);
 //   static double get accuracyThreshold => _isInTrip ? 2.0 : 10.0;
 //   static int get distanceFilter => _isInTrip ? 3 : 10;
 //   static double get minMovingSpeedKmh => _isInTrip ? 3.0 : 0.0;
@@ -99,26 +108,133 @@
 //   double get avg => _vals.isEmpty ? 0.0 : _vals.reduce((a, b) => a + b) / _vals.length;
 // }
 
-// /// 🎯 نقطة الدخول في الخلفية
+// /// 📌 كلاس كشف الدوران (يمين / يسار / U-turn)
+// class TurnDetection {
+//   LatLng? lastPosition;
+//   double? lastHeading;
+//   final double turnThreshold = 30.0;
+//   final double uTurnThreshold = 140.0;
+//   final Logger logger;
+//   DateTime lastTurnTime = DateTime.fromMillisecondsSinceEpoch(0);
+//   Duration turnCooldown = const Duration(seconds: 3);
+
+//   TurnDetection({required this.logger});
+
+//   Future<void> updateTurn(LatLng newPosition, double compassHeading) async {
+//     final now = DateTime.now();
+//     if (now.difference(lastTurnTime) < turnCooldown) return;
+
+//     if (lastPosition != null && lastHeading != null) {
+//       final bearing = _calculateBearing(lastPosition!, newPosition);
+//       final diff = _angleDifference(lastHeading!, bearing);
+
+//       if (diff.abs() >= turnThreshold && diff.abs() < uTurnThreshold) {
+//         lastTurnTime = now;
+//         if (diff > 0) {
+//           logger.i('Right turn detected');
+//         } else {
+//           logger.i('Left turn detected');
+//         }
+//       } else if (diff.abs() >= uTurnThreshold) {
+//         lastTurnTime = now;
+//         logger.i('U-turn detected');
+//       }
+//     }
+
+//     lastPosition = newPosition;
+//     lastHeading = compassHeading;
+//   }
+
+//   double _calculateBearing(LatLng from, LatLng to) {
+//     final lat1 = from.latitude * pi / 180;
+//     final lon1 = from.longitude * pi / 180;
+//     final lat2 = to.latitude * pi / 180;
+//     final lon2 = to.longitude * pi / 180;
+
+//     final y = sin(lon2 - lon1) * cos(lat2);
+//     final x = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(lon2 - lon1);
+
+//     final bearing = atan2(y, x) * 180 / pi;
+//     return (bearing + 360) % 360;
+//   }
+
+//   double _angleDifference(double a, double b) {
+//     double diff = b - a;
+//     if (diff > 180) diff -= 360;
+//     if (diff < -180) diff += 360;
+//     return diff;
+//   }
+// }
+
+// /// 📁 تسجيل البيانات في ملف + Console (اختياري)
+// class FileLogger {
+//   final Logger? consoleLogger;
+//   File? _logFile;
+
+//   FileLogger({this.consoleLogger});
+
+//   /// تهيئة ملف السجل
+//   Future<void> init() async {
+//     final directory = await getApplicationDocumentsDirectory();
+//     _logFile = File('${directory.path}/turn_logs.txt');
+//     if (!await _logFile!.exists()) await _logFile!.create();
+//   }
+
+//   /// تسجيل رسالة في الملف وConsole
+//   Future<void> log(String message) async {
+//     final timestamp = DateTime.now().toIso8601String();
+//     await _logFile?.writeAsString('[$timestamp] $message\n', mode: FileMode.append);
+//     consoleLogger?.i('[$timestamp] $message');
+//   }
+// }
+
+// // ---------------------------------------------------------------------
+// // 🎯 نقطة الدخول في الخلفية (Background Entry Point)
+// // ---------------------------------------------------------------------
 // @pragma('vm:entry-point')
-// Future<bool> backgroundEntryPoint(ServiceInstance service) async {
+// Future<void> backgroundEntryPoint(ServiceInstance service) async {
+//   DartPluginRegistrant.ensureInitialized();
 //   WidgetsFlutterBinding.ensureInitialized();
+
+//   if (service is AndroidServiceInstance) {
+//     await service.setAsForegroundService();
+//     service.setForegroundNotificationInfo(title: "Jawad Driver", content: "Starting background service...");
+//   }
+
+//   // ✅ عرض إشعار Foreground باستخدام Awesome Notifications
+//   await AwesomeNotifications().createNotification(
+//     content: NotificationContent(
+//       id: 888, // يجب أن يطابق foregroundServiceNotificationId
+//       channelKey: 'foreground_channel',
+//       title: 'Jawad Driver',
+//       body: 'Tracking location in background',
+//       notificationLayout: NotificationLayout.Default,
+//       icon: 'resource://drawable/app_icon',
+//       largeIcon: 'resource://drawable/app_icon',
+//       autoDismissible: false, // يبقى الإشعار حتى يتم إلغاؤه يدوياً
+//     ),
+//   );
+
+//   // VERY IMPORTANT: initialize Firebase again in this isolate
+//   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+//   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+//   runZonedGuarded(() {}, (error, stack) {
+//     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+//   });
 
 //   // 📊 المتغيرات الأساسية
 //   double? lastHeading;
-//   DateTime lastLocationSendTime = DateTime.now().subtract(Duration(seconds: 60));
+//   DateTime lastLocationSendTime = DateTime.now().subtract(const Duration(seconds: 60));
 //   Position? lastPosition;
 //   final movingAvgLat = _MovingAverage(3);
 //   final movingAvgLng = _MovingAverage(3);
+//   LatLng? currentLatLng;
 
 //   // 📡 الاشتراكات
 //   StreamSubscription<CompassEvent>? compassSub;
 //   StreamSubscription<GyroscopeEvent>? gyroSub;
 //   StreamSubscription<Position>? positionStreamSub;
 //   final List<StreamSubscription> subscriptions = [];
-
-//   /// 🧹 إدارة الاشتراكات
-//   void addSubscription(StreamSubscription sub) => subscriptions.add(sub);
 
 //   Future<void> cleanupSubscriptions() async {
 //     for (var sub in subscriptions) {
@@ -131,11 +247,24 @@
 //     subscriptions.clear();
 //   }
 
-//   /// 📍 إرسال ذكي للموقع - معدل
+//   service.on('stopService').listen((event) async {
+//     await cleanupSubscriptions();
+//     TripStatistics.logStatistics();
+//     await service.stopSelf();
+//   });
+
+//   /// 🧹 إدارة الاشتراكات
+//   void addSubscription(StreamSubscription sub) => subscriptions.add(sub);
+
+//   /// 📍 إرسال ذكي للموقع - مع إشعار
 //   Future<void> safePrintCurrentLocation(String reason) async {
 //     try {
-//       // 🔍 التحقق من خدمة الموقع والأذونات
 //       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+//       if (service is AndroidServiceInstance) {
+//         await service.setAsForegroundService();
+//         service.setForegroundNotificationInfo(title: "Jawad Driver", content: "Starting background service...");
+//       }
+
 //       if (!serviceEnabled) {
 //         logger.i('📡 خدمة الموقع غير مفعلة على الجهاز');
 //         return;
@@ -147,23 +276,20 @@
 //         return;
 //       }
 
-//       // 📍 الحصول على الموقع
-// Position pos = await Geolocator.getCurrentPosition(
-//   locationSettings: LocationSettings(distanceFilter: 0, accuracy: LocationAccuracy.bestForNavigation),
-//   desiredAccuracy: LocationAccuracy.bestForNavigation,
-// );
+//       Position pos = await Geolocator.getCurrentPosition(
+//         locationSettings: const LocationSettings(distanceFilter: 0, accuracy: LocationAccuracy.bestForNavigation),
+//         desiredAccuracy: LocationAccuracy.bestForNavigation,
+//       );
 
 //       double speedKmh = pos.speed * 3.6;
 //       lastPosition = pos;
+//       currentLatLng = LatLng(pos.latitude, pos.longitude);
 
-//       // 🎯 التحقق من الدقة - مرنة أكثر
-
-//       if (DynamicConfig.isInTrip == false ? pos.accuracy >= 10 : pos.accuracy > 5.0) {
+//       if (DynamicConfig.isInTrip == false ? pos.accuracy >= 20 : pos.accuracy > 5.0) {
 //         logger.i('📡 دقة الموقع منخفضة: ${pos.accuracy} متر - تم التخطي');
 //         return;
 //       }
-
-//       // 📤 إرسال البيانات - دائماً في الوضع العادي
+//       // إرسال البيانات إلى الواجهة عبر invoke
 //       service.invoke('updateLocation', {
 //         'latitude': pos.latitude,
 //         'longitude': pos.longitude,
@@ -177,86 +303,105 @@
 
 //       lastLocationSendTime = DateTime.now();
 //       TripStatistics.recordUpdate(reason);
-
-//       logger.i(
-//         "📍 [${DynamicConfig.isInTrip ? 'TRIP' : 'NORMAL'}] → $reason - سرعة: ${speedKmh.toStringAsFixed(1)} كم/س - دقة: ${pos.accuracy.toStringAsFixed(1)} م",
-//       );
+//       logger.i("📍 [${DynamicConfig.isInTrip ? 'TRIP' : 'NORMAL'}] → $reason - سرعة: ${speedKmh.toStringAsFixed(1)} كم/س - دقة: ${pos.accuracy.toStringAsFixed(1)} م");
 //     } catch (e, st) {
 //       logger.i('❌ خطأ في safePrintCurrentLocation: $e , $st');
 //     }
 //   }
 
 //   /// 🔄 تحديث إعدادات أجهزة الاستشعار
+//   DateTime lastTriggerTime = DateTime.fromMillisecondsSinceEpoch(0);
+//   TurnDetection? turnDetector;
+
 //   Future<void> updateSensorSubscriptions() async {
 //     await cleanupSubscriptions();
-//     if (DynamicConfig.useSensors) {
-//       try {
-//         compassSub = FlutterCompass.events!.listen((event) {
-//           final heading = event.heading;
-//           if (heading == null) return;
 
-//           if (lastHeading != null) {
-//             double diff = (heading - lastHeading!).abs();
-//             if (diff > 180) diff = 360 - diff;
+//     if (!DynamicConfig.useSensors) return;
 
-//             if (diff >= 30 && (lastPosition?.speed ?? 0) * 3.6 > 5) {
-//               safePrintCurrentLocation('دوران >= 30° (بوصلة)');
-//             }
+//     turnDetector ??= TurnDetection(logger: logger);
+
+//     // ====== البوصلة (Compass) ======
+//     try {
+//       const headingThreshold = 5.0;
+//       const minTriggerGap = Duration(milliseconds: 700);
+
+//       compassSub = FlutterCompass.events!.listen((event) {
+//         final heading = event.heading;
+//         if (heading == null) return;
+
+//         if (lastHeading != null) {
+//           double diff = (heading - lastHeading!).abs();
+//           if (diff > 180) diff = 360 - diff;
+
+//           if (diff >= headingThreshold && DateTime.now().difference(lastTriggerTime) > minTriggerGap) {
+//             lastTriggerTime = DateTime.now();
+//             safePrintCurrentLocation('Compass rotation detected');
 //           }
-//           lastHeading = heading;
-//         });
-//         addSubscription(compassSub!);
-//         logger.i('🧭 تم تفعيل البوصلة');
-//       } catch (e) {
-//         logger.i('❌ فشل تفعيل البوصلة: $e');
-//       }
+//         }
 
-//       try {
-//         const double gyroThreshold = 1.2;
-//         gyroSub = gyroscopeEvents.listen((gyro) {
-//           final magnitude = sqrt(gyro.x * gyro.x + gyro.y * gyro.y + gyro.z * gyro.z);
-//           if (magnitude > gyroThreshold && (lastPosition?.speed ?? 0) * 3.6 > 5) {
-//             safePrintCurrentLocation('دوران قوي (جيروسكوب)');
+//         lastHeading = heading;
+//       });
+
+//       addSubscription(compassSub!);
+//       logger.i('🧭 Compass enabled');
+//     } catch (e) {
+//       logger.i('❌ Compass failed: $e');
+//     }
+
+//     // ====== الجيروسكوب (Gyroscope) ======
+//     try {
+//       const gyroThreshold = 0.7;
+//       const minTriggerGap = Duration(milliseconds: 700);
+
+//       gyroSub = gyroscopeEvents.listen((gyro) {
+//         final magnitude = sqrt(gyro.x * gyro.x + gyro.y * gyro.y + gyro.z * gyro.z);
+
+//         if (magnitude > gyroThreshold && DateTime.now().difference(lastTriggerTime) > minTriggerGap) {
+//           lastTriggerTime = DateTime.now();
+//           safePrintCurrentLocation('Gyroscope strong turn');
+
+//           if (currentLatLng != null && lastHeading != null && DynamicConfig.isInTrip) {
+//             turnDetector!.updateTurn(currentLatLng!, lastHeading!);
 //           }
-//         });
-//         addSubscription(gyroSub!);
-//         logger.i('📡 تم تفعيل الجيروسكوب');
-//       } catch (e) {
-//         logger.i('❌ فشل تفعيل الجيروسكوب: $e');
-//       }
+//         }
+//       });
+
+//       addSubscription(gyroSub!);
+//       logger.i('📡 Gyroscope enabled');
+//     } catch (e) {
+//       logger.i('❌ Gyroscope failed: $e');
 //     }
 //   }
 
 //   /// 🛰️ بدء تدفق الموقع
 //   void startPositionStream() {
 //     try {
-//       positionStreamSub = Geolocator.getPositionStream(
-//         locationSettings: LocationSettings(accuracy: LocationAccuracy.bestForNavigation, distanceFilter: 0),
-//       ).listen((Position pos) {
-//         lastPosition = pos;
-//         double speedKmh = pos.speed * 3.6;
+//       positionStreamSub =
+//           Geolocator.getPositionStream(
+//             locationSettings: LocationSettings(accuracy: LocationAccuracy.bestForNavigation, distanceFilter: DynamicConfig.isInTrip ? 1 : 5),
+//           ).listen((Position pos) async {
+//             lastPosition = pos;
+//             currentLatLng = LatLng(pos.latitude, pos.longitude);
+//             double speedKmh = pos.speed * 3.6;
 
-//         // 🔄 إذا كانت هناك حركة، إعادة تعيين حالة التوقف
-//         if (speedKmh > 3.0) {
-//           StopManager.resetStopState();
-//         }
+//             if (speedKmh > 3.0) StopManager.resetStopState();
 
-//         if (DynamicConfig.isInTrip == false ? pos.accuracy >= 10 : pos.accuracy > 5.0) return;
-//         final ts = pos.timestamp;
-//         if (ts != null && ts.isBefore(DateTime.now().subtract(Duration(seconds: 30)))) return;
+//             movingAvgLat.add(pos.latitude);
+//             movingAvgLng.add(pos.longitude);
 
-//         movingAvgLat.add(pos.latitude);
-//         movingAvgLng.add(pos.longitude);
+//             if (lastHeading != null && DynamicConfig.isInTrip) {
+//               turnDetector!.updateTurn(currentLatLng!, lastHeading!);
+//             }
 
-//         // كشف تغيير السرعة المفاجئ
-//         if (lastPosition != null && speedKmh > 10) {
-//           double lastSpeedKmh = (lastPosition!.speed * 3.6);
-//           double speedChange = (speedKmh - lastSpeedKmh).abs();
-//           if (speedChange > 15) {
-//             safePrintCurrentLocation('تغيير سرعة مفاجئ');
-//           }
-//         }
-//       });
+//             // كشف تغيير السرعة المفاجئ
+//             if (lastPosition != null && speedKmh > 10) {
+//               double lastSpeedKmh = (lastPosition!.speed * 3.6);
+//               double speedChange = (speedKmh - lastSpeedKmh).abs();
+//               if (speedChange > 15) {
+//                 safePrintCurrentLocation('تغيير سرعة مفاجئ');
+//               }
+//             }
+//           });
 //       addSubscription(positionStreamSub!);
 //     } catch (e, st) {
 //       logger.i('❌ فشل تدفق الموقع: $e , $st');
@@ -275,28 +420,17 @@
 
 //   service.on('getStatistics').listen((event) => TripStatistics.logStatistics());
 
-//   service.on('setAsForeground').listen((event) {
-//     if (service is AndroidServiceInstance) {
-//       (service as AndroidServiceInstance).setAsForegroundService();
-//     }
-//   });
-
-//   service.on('stopService').listen((event) async {
-//     await cleanupSubscriptions();
-//     TripStatistics.logStatistics();
-//     await service.stopSelf();
-//   });
-
 //   // 🚀 بدء الخدمة
 //   startPositionStream();
 //   updateSensorSubscriptions();
 //   logger.i('🎉 تم بدء خدمة الخلفية - وضع الرحلة');
 
-//   // ⏰ المؤقت الدوري الرئيسي - معدل
-//   Timer.periodic(Duration(seconds: 5), (timer) async {
+//   // ⏰ المؤقت الدوري الرئيسي (كل 5 ثوانٍ للتحقق)
+//   Timer.periodic(const Duration(seconds: 5), (timer) async {
 //     try {
 //       final now = DateTime.now();
 //       final timeSinceLastSend = now.difference(lastLocationSendTime).inSeconds;
+
 //       if (DynamicConfig.isInTrip) {
 //         if (timeSinceLastSend >= 30) {
 //           await safePrintCurrentLocation('تحديث دوري في الرحلة');
@@ -306,6 +440,7 @@
 //           await safePrintCurrentLocation('تحديث دوري عادي');
 //         }
 //       }
+
 //       if (lastPosition != null) {
 //         final speedKmh = lastPosition!.speed * 3.6;
 //         StopManager.addSpeed(speedKmh);
@@ -313,6 +448,7 @@
 //           await safePrintCurrentLocation('كشف توقف تام');
 //         }
 //       }
+
 //       if (now.minute % 5 == 0 && now.second < 10) {
 //         TripStatistics.logStatistics();
 //       }
@@ -320,7 +456,7 @@
 //       logger.i('❌ خطأ في المؤقت الدوري: $e');
 //     }
 //   });
-//   return true;
 // }
 
-// ignore_for_file: unnecessary_cast
+
+

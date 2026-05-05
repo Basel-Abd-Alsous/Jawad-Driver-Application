@@ -26,6 +26,7 @@
   "riderdebtpaid":"سداد ديون الراكب",
   "drawalHistory":"سجل طلبات السحب",
   "chargeclientwallet":"شحن محفظة العميل",
+  "successUpdateBankInfo":"تم تحديث معلومات البنك بنجاح",
     "feedback":   "ملاحظات",
       "commission": "العمولة",
       "bank_info":"معلومات البنك",

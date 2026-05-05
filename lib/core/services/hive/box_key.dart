@@ -21,4 +21,7 @@ class BoxKey {
   static const String isFirstTime = "isFirstTime";
 
   static const String ticketPrinterBox = "ticketPrinterBox";
+  static const String notificationShown  = "notification_shown";
+  
+
 }

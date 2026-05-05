@@ -84,6 +84,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get drawalHistory => 'Drawal History';
 
   @override
+  String get successUpdateBankInfo => 'Success Update Bank Info';
+
+  @override
   String get destinationnotspecified => 'Destination not specified';
 
   @override

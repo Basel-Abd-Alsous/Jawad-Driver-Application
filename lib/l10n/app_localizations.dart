@@ -245,6 +245,12 @@ abstract class AppLocalizations {
   /// **'Drawal History'**
   String get drawalHistory;
 
+  /// No description provided for @successUpdateBankInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Success Update Bank Info'**
+  String get successUpdateBankInfo;
+
   /// No description provided for @destinationnotspecified.
   ///
   /// In en, this message translates to:

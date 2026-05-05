@@ -59,7 +59,7 @@ class FeedbackScreen extends StatelessWidget with FormValidationMixin {
                     10.gap,
                     WidgetTextField(l10n.email, controller: cubit.emailController, keyboardType: TextInputType.emailAddress, validator: (v) => validateEmail(context, v)),
                     10.gap,
-                    WidgetTextField(l10n.phoneNumber, controller: cubit.phoneController, keyboardType: TextInputType.phone, validator: (v) => validateMobile(context, v)),
+                    WidgetTextField(l10n.phoneNumber, controller: cubit.phoneController, maxLength: 10, keyboardType: TextInputType.phone, validator: (v) => validateMobile(context, v)),
                     10.gap,
                     WidgetTextField(l10n.message, maxLines: 5, controller: cubit.messageController, validator: (v) => validateNull(context, v)),
                     10.gap,

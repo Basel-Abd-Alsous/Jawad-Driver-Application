@@ -3,15 +3,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/context/global.dart';
 import '../../../core/function/pick_image.dart';
+import '../../../core/services/hive/box_key.dart';
 import '../../../core/utils/color.dart';
+import '../../../core/widget/widget_dailog.dart';
+import '../../../injection_container.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../main.dart';
 import '../../auth/domain/model/requiest_models/bank_info_model.dart';
 import '../../auth/domain/usecases/register_usecase.dart';
+import '../../layout/domain/model/user_model.dart';
 import '../domain/model/contact_model.dart';
 import '../domain/model/feedback_model.dart';
 import '../domain/model/params/feedback_param.dart';
@@ -44,6 +50,11 @@ class DrawerCubit extends Cubit<DrawerState> {
   TextEditingController stcpay = TextEditingController();
   TextEditingController iban = TextEditingController();
   TextEditingController code = TextEditingController();
+
+  void handelBankData() {
+    Driver? driver = sl<Box<Driver>>().get(BoxKey.user);
+    bankName.text = driver?.bankInfo?.bankName ?? "";
+  }
 
   /// Dropdown
   List<Map<String, dynamic>> feedbackCategories = [];
@@ -151,7 +162,26 @@ class DrawerCubit extends Cubit<DrawerState> {
             erorrDialog(left.message);
             emit(_ErrorBankInfo(left.message));
           },
-          (right) {
+          (right) async {
+            final box = sl<Box<Driver>>();
+            final driver = box.get(BoxKey.user);
+
+            final updatedDriver = driver?.copyWith(bankInfo: driver.bankInfo?.copyWith(bankName: bankName.text));
+
+            if (updatedDriver != null) {
+              await box.put(BoxKey.user, updatedDriver);
+            }
+            SmartDialog.show(
+              builder: (context) => WidgetDilog(
+                title: AppLocalizations.of(context)!.successfully,
+                message: AppLocalizations.of(context)!.successUpdateBankInfo,
+                cancelText: AppLocalizations.of(context)!.back,
+                onCancel: () {
+                  GlobalContext.context.pop();
+                  SmartDialog.dismiss();
+                },
+              ),
+            );
             emit(const _LoadedBankInfo());
           },
         );

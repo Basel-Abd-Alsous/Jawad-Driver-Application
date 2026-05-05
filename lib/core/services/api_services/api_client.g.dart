@@ -71,7 +71,7 @@ class _ApiClient implements ApiClient {
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     if (body != null) {
-      _data.addAll(body!);
+      _data.addAll(body );
     }
     final _options = _setStreamType<HttpResponse<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
@@ -208,7 +208,7 @@ class _ApiClient implements ApiClient {
   @override
   Future<HttpResponse<dynamic>> uploadFile2({
     required String endpoint,
-    required MultipartFile profileImage,
+    MultipartFile? profileImage,
     String? firstName,
     String? lastName,
     String? email,
@@ -224,7 +224,9 @@ class _ApiClient implements ApiClient {
     };
     _headers.removeWhere((k, v) => v == null);
     final _data = FormData();
-    _data.files.add(MapEntry('profile_image', profileImage));
+    if (profileImage != null) {
+      _data.files.add(MapEntry('profile_image', profileImage));
+    }
     if (firstName != null) {
       _data.fields.add(MapEntry('first_name', firstName));
     }

@@ -66,7 +66,7 @@ abstract class ApiClient {
   @MultiPart()
   Future<HttpResponse<dynamic>> uploadFile2({
     @Path("endpoint") required String endpoint,
-    @Part(name: "profile_image") required MultipartFile profileImage,
+    @Part(name: "profile_image") MultipartFile? profileImage,
     @Part(name: "first_name") String? firstName,
     @Part(name: "last_name") String? lastName,
     @Part(name: "email") String? email,

@@ -51,15 +51,14 @@ class ProfileCubit extends Cubit<ProfileState> {
     if (!keyForm.currentState!.validate()) return;
     SmartDialog.showLoading(msg: AppLocalizations.of(GlobalContext.context)!.loading);
     try {
-      final result = await profileUsecase.updateProfileData(
-        profileParams: ProfileParam.fromJson({'first_name': name.text, 'last_name': name.text, 'email': email.text, 'profile_image': imageBuyer.value}),
-      );
+      final result = await profileUsecase.updateProfileData(profileParams: ProfileParam.fromJson({'first_name': name.text, 'last_name': name.text, 'email': email.text, 'profile_image': imageBuyer.value}));
       result.fold(
         (failure) {
           SmartDialog.dismiss();
           SmartDialog.show(
             builder: (context) => WidgetDilog(
-              title: AppLocalizations.of(context)!.successfully,
+              isError: true,
+              title: AppLocalizations.of(context)!.warning,
               message: AppLocalizations.of(context)!.update_profile_error,
               cancelText: AppLocalizations.of(context)!.back,
               onCancel: () {

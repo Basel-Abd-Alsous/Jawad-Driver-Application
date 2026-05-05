@@ -84,6 +84,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get drawalHistory => 'سجل طلبات السحب';
 
   @override
+  String get successUpdateBankInfo => 'تم تحديث معلومات البنك بنجاح';
+
+  @override
   String get destinationnotspecified => 'لم يتم تحديد وجهة';
 
   @override

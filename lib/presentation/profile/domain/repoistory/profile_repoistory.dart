@@ -21,13 +21,9 @@ class ProfileRepositoryImpl implements ProfileRepository {
   Future<Either<Failure, Driver>> updateProfileData(ProfileParam profileParams) async {
     try {
       final ApiClient client = ApiClient(DioHelper().dio);
-
       String? token = 'Bearer ${await sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.token)}';
-
       final savedLang = sl<Box>(instanceName: BoxKey.appBox).get(BoxKey.language, defaultValue: 'ar') as String;
-
-      final file = await MultipartFile.fromFile(profileParams.profileImage!.path, filename: profileParams.profileImage!.path.split('/').last);
-
+      final file = profileParams.profileImage?.path != "" ? await MultipartFile.fromFile(profileParams.profileImage?.path ?? '', filename: profileParams.profileImage?.path.split('/').last) : null;
       final result = await client.uploadFile2(
         endpoint: ApiLinks.updateProfile,
         authorization: token,
@@ -37,13 +33,10 @@ class ProfileRepositoryImpl implements ProfileRepository {
         lastName: profileParams.lastName,
         email: profileParams.email,
       );
-
       if (result.response.data['code'] != 200) {
         return Left(ServerFailure.fromResponse(result.response.data['code'], message: result.response.data['message']));
       }
-
       Driver driver = Driver.fromJson(result.response.data['payload']['driver']);
-
       return Right(driver);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
