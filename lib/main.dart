@@ -36,9 +36,7 @@ void main() {
       await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
       await AnalyticsService.instance.init(AppType.driver);
       bool isAllowed = await AwesomeNotifications().isNotificationAllowed();
-      if (!isAllowed) {
-        await AwesomeNotifications().requestPermissionToSendNotifications();
-      }
+      if (!isAllowed) await AwesomeNotifications().requestPermissionToSendNotifications();
       await HiveServices().init();
       await initGetIt();
       await ScreenUtil.ensureScreenSize();

@@ -1,4 +1,3 @@
-
 // ignore_for_file: unnecessary_cast
 import 'dart:async';
 import 'dart:math';
@@ -12,7 +11,6 @@ import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'package:logger/logger.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:path_provider/path_provider.dart';
@@ -20,7 +18,6 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 
 import '../../../firebase_options.dart';
 import '../../../main.dart';
-import '../hive/box_key.dart';
 
 /// 🎯 إعدادات ديناميكية
 class DynamicConfig {
@@ -194,36 +191,29 @@ class FileLogger {
 // ---------------------------------------------------------------------
 // 🎯 نقطة الدخول في الخلفية (Background Entry Point)
 // ---------------------------------------------------------------------
-
 @pragma('vm:entry-point')
 Future<void> backgroundEntryPoint(ServiceInstance service) async {
   DartPluginRegistrant.ensureInitialized();
   WidgetsFlutterBinding.ensureInitialized();
 
-  // ✅ عرض إشعار Foreground باستخدام Awesome Notifications
-  final appDocDir = await getApplicationDocumentsDirectory();
-  await Hive.initFlutter(appDocDir.path);
-  final box = await Hive.openBox(BoxKey.appBox);
-  final alreadyShown = box.get(BoxKey.notificationShown, defaultValue: false);
-  if (!alreadyShown) {
-    if (service is AndroidServiceInstance) {
-      await service.setAsForegroundService();
-      service.setForegroundNotificationInfo(title: "Jawad Driver", content: "Starting background service...");
-    }
-    await AwesomeNotifications().createNotification(
-      content: NotificationContent(
-        id: 888, // يجب أن يطابق foregroundServiceNotificationId
-        channelKey: 'foreground_channel',
-        title: 'Jawad Driver',
-        body: 'Tracking location in background',
-        notificationLayout: NotificationLayout.Default,
-        icon: 'resource://drawable/app_icon',
-        largeIcon: 'resource://drawable/app_icon',
-        autoDismissible: false, // يبقى الإشعار حتى يتم إلغاؤه يدوياً
-      ),
-    );
-    await box.put(BoxKey.notificationShown, true);
+  if (service is AndroidServiceInstance) {
+    await service.setAsForegroundService();
+    service.setForegroundNotificationInfo(title: "Jawad Driver", content: "Starting background service...");
   }
+
+  // ✅ عرض إشعار Foreground باستخدام Awesome Notifications
+  // await AwesomeNotifications().createNotification(
+  //   content: NotificationContent(
+  //     id: 888, // يجب أن يطابق foregroundServiceNotificationId
+  //     channelKey: 'foreground_channel',
+  //     title: 'Jawad Driver',
+  //     body: 'Tracking location in background',
+  //     notificationLayout: NotificationLayout.Default,
+  //     icon: 'resource://drawable/app_icon',
+  //     largeIcon: 'resource://drawable/app_icon',
+  //     autoDismissible: false, // يبقى الإشعار حتى يتم إلغاؤه يدوياً
+  //   ),
+  // );
 
   // VERY IMPORTANT: initialize Firebase again in this isolate
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -260,10 +250,6 @@ Future<void> backgroundEntryPoint(ServiceInstance service) async {
   service.on('stopService').listen((event) async {
     await cleanupSubscriptions();
     TripStatistics.logStatistics();
-    final appDocDir = await getApplicationDocumentsDirectory();
-    await Hive.initFlutter(appDocDir.path);
-    final box = await Hive.openBox(BoxKey.appBox);
-    await box.put(BoxKey.notificationShown, false);
     await service.stopSelf();
   });
 
@@ -274,18 +260,11 @@ Future<void> backgroundEntryPoint(ServiceInstance service) async {
   Future<void> safePrintCurrentLocation(String reason) async {
     try {
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      final appDocDir = await getApplicationDocumentsDirectory();
-      await Hive.initFlutter(appDocDir.path);
-      final box = await Hive.openBox(BoxKey.appBox);
-      final alreadyShown = box.get(BoxKey.notificationShown, defaultValue: false);
+      // if (service is AndroidServiceInstance) {
+      //   await service.setAsForegroundService();
+      //   service.setForegroundNotificationInfo(title: "Jawad Driver", content: "Starting background service...");
+      // }
 
-      if (!alreadyShown) {
-        if (service is AndroidServiceInstance) {
-          await service.setAsForegroundService();
-          service.setForegroundNotificationInfo(title: "Jawad Driver", content: "Starting background service...");
-        }
-        await box.put(BoxKey.notificationShown, true);
-      }
       if (!serviceEnabled) {
         logger.i('📡 خدمة الموقع غير مفعلة على الجهاز');
         return;
@@ -478,3 +457,6 @@ Future<void> backgroundEntryPoint(ServiceInstance service) async {
     }
   });
 }
+
+
+

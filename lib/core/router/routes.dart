@@ -46,7 +46,26 @@ final GoRouter goRouter = GoRouter(
     _pageRoute(path: AppRoutes.bankInfo2, pageName: 'Bank Info Page', screen: EditBankInfoScereen()),
     _pageRoute(path: AppRoutes.carInfo, pageName: 'Car Info Page', screen: const CarInfoScreen()),
     _pageRoute(path: AppRoutes.forget, pageName: 'Forget Password Page', screen: ForgetPasswordScreen()),
+    // Verify
+    GoRoute(
+      path: AppRoutes.verify,
+      pageBuilder: (context, state) {
+        final phoneNumber = state.uri.queryParameters['phoneNumber'] ?? '';
+        final isRegister = state.uri.queryParameters['isRegister'] == 'true';
+        final isLogin = state.uri.queryParameters['isLogin'] == 'true';
+        final registerModel = state.extra as RegisterModel?;
+        return fadeTransitionPage('Verify Page', VerifyScreen(phoneNumber: phoneNumber, model: registerModel, isLogin: isLogin, isRegister: isRegister), state);
+      },
+    ),
+    // Change Password
+    GoRoute(
+      path: AppRoutes.changePassword,
+      pageBuilder: (context, state) {
+        final phoneNumber = state.uri.queryParameters['phoneNumber'] ?? '';
 
+        return fadeTransitionPage('Change Password Page', ChangePasswordScreen(phoneNumber: phoneNumber), state);
+      },
+    ),
     ShellRoute(
       builder: (context, state, child) => LayoutScreen(child: child),
       routes: [
@@ -95,26 +114,7 @@ final GoRouter goRouter = GoRouter(
             return fadeTransitionPage('Visit Details Page', VisitDetailsScreen(visitId: id, isReject: isReject), state);
           },
         ),
-        // Verify
-        GoRoute(
-          path: AppRoutes.verify,
-          pageBuilder: (context, state) {
-            final phoneNumber = state.uri.queryParameters['phoneNumber'] ?? '';
-            final isRegister = state.uri.queryParameters['isRegister'] == 'true';
-            final isLogin = state.uri.queryParameters['isLogin'] == 'true';
-            final registerModel = state.extra as RegisterModel?;
-            return fadeTransitionPage('Verify Page', VerifyScreen(phoneNumber: phoneNumber, model: registerModel, isLogin: isLogin, isRegister: isRegister), state);
-          },
-        ),
-        // Change Password
-        GoRoute(
-          path: AppRoutes.changePassword,
-          pageBuilder: (context, state) {
-            final phoneNumber = state.uri.queryParameters['phoneNumber'] ?? '';
 
-            return fadeTransitionPage('Change Password Page', ChangePasswordScreen(phoneNumber: phoneNumber), state);
-          },
-        ),
         // Home
         GoRoute(path: AppRoutes.home, pageBuilder: (context, state) => fadeTransitionPage('Home Page', const HomeScreen(), state)),
         GoRoute(path: AppRoutes.visit, pageBuilder: (context, state) => fadeTransitionPage('Visit Page', const MyVisitScreen(), state)),
