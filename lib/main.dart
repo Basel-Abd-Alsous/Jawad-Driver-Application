@@ -40,7 +40,8 @@ void main() {
       await HiveServices().init();
       await initGetIt();
       await ScreenUtil.ensureScreenSize();
-      const String onesignalId = "adb5232c-3da7-47cc-a498-a74fc9531137";
+      const String onesignalId = "7ca49fbe-41e2-4cd8-aa05-29fe46ccfe18";
+      OneSignal.Debug.setLogLevel(OSLogLevel.warn);
       OneSignal.initialize(onesignalId);
       OneSignal.Notifications.requestPermission(true);
       Bloc.observer = AppBlocObserver();

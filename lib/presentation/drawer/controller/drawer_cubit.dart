@@ -54,6 +54,9 @@ class DrawerCubit extends Cubit<DrawerState> {
   void handelBankData() {
     Driver? driver = sl<Box<Driver>>().get(BoxKey.user);
     bankName.text = driver?.bankInfo?.bankName ?? "";
+    if (bankName.text.isNotEmpty) {
+      iban.text = '************************';
+    }
   }
 
   /// Dropdown
