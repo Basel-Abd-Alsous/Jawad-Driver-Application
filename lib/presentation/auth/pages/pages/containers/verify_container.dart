@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_ce/hive_ce.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../../../core/context/global.dart';
@@ -170,6 +171,8 @@ class VerifyContainer extends StatelessWidget with FormValidationMixin {
       loadedVerifyLogin: (data) async {
         await sl<Box>(instanceName: BoxKey.appBox).put(BoxKey.token, data['token']);
         await AnalyticsService.instance.trackLogin(method: 'login');
+        await OneSignal.User.addTagWithKey("logged_in", "true");
+        await OneSignal.User.addTagWithKey("last_login", DateTime.now().toIso8601String());
         context.go(AppRoutes.home);
       },
       errorVerifyLogin: (message) => SmartDialog.show(
@@ -195,6 +198,8 @@ class VerifyContainer extends StatelessWidget with FormValidationMixin {
               sl<Box>(instanceName: BoxKey.appBox).put(BoxKey.userStatusRegister, 'completed');
               await AnalyticsService.instance.trackSignUp(method: 'sign_up');
               await AnalyticsService.instance.trackCompleteRegistration();
+              await OneSignal.User.addTagWithKey("logged_in", "true");
+              await OneSignal.User.addTagWithKey("last_login", DateTime.now().toIso8601String());
               GlobalContext.context.replace(AppRoutes.home);
             },
           ),

@@ -13,6 +13,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hive_ce/hive_ce.dart';
 import 'package:location/location.dart' hide LocationAccuracy;
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sliding_action_button/sliding_action_button.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -80,6 +81,7 @@ class HomeCubit extends Cubit<HomeState> {
   // ============================== Work Status Functions ============================== //
 
   Future<void> getWorkStatus() async {
+    await OneSignal.InAppMessages.addTrigger("open_home", "true");
     if (userDate?.workStatus == true) {
       await Future.wait([connect(), getUserLocation(), startBackgroundService()]);
     } else {
