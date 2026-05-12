@@ -28,7 +28,7 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="Jawad Driver"
+        android:label="Jawad Taxi & Ride Hailing"
         tools:replace="android:label">
 
         <!-- 🌍 Google Maps API Key -->
